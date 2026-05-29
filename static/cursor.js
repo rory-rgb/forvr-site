@@ -77,13 +77,7 @@
   // Suppress native drag affordances site-wide (this is the OS cursor that
   // popped up when the user dragged on the studio ball image).
   document.addEventListener('dragstart', (e) => e.preventDefault());
-  document.addEventListener('selectstart', (e) => {
-    const ae = document.activeElement;
-    const tag = ae && (ae.tagName || '').toLowerCase();
-    // Allow text selection only inside form fields so typing still works.
-    if (tag === 'input' || tag === 'textarea' || (ae && ae.isContentEditable)) return;
-    e.preventDefault();
-  });
+  // (selectstart handler removed so visitors can highlight and copy text; image drag stays blocked via dragstart.)
 
   // Restore idle state if the tab loses focus / window blurs
   window.addEventListener('blur', () => cursor.classList.add('is-idle'));
