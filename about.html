@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Services | Video, Image, Creative Direction, Design, Web, Brand Identity | Creative Studio UK</title>
+<title>About | Founder-led creative studio | Forvr.Studios</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
@@ -15,7 +15,11 @@
     font-display: swap;
   }
   :root {
-    --bg: #fafafa; --fg: #0a0a0a; --muted: #6a6a6a; --line: #e5e5e5; --accent: #5BC2E7;
+    --bg: #fafafa;
+    --fg: #0a0a0a;
+    --muted: #6a6a6a;
+    --line: #e5e5e5;
+    --accent: #5BC2E7;
     --display: "BringBold Nineties", "Anton", "Helvetica Neue", Impact, sans-serif;
     --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
     --mono: ui-monospace, "SF Mono", Menlo, monospace;
@@ -31,8 +35,10 @@
   .dot { color: var(--accent); }
   a { color: inherit; text-decoration: none; }
 
+  /* Scroll progress bar */
   .scroll-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); width: 0%; z-index: 60; transition: width 0.05s linear; }
 
+  /* Nav */
   .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; transition: background 0.4s, border-color 0.4s; border-bottom: 1px solid transparent; }
   @media (min-width: 768px) { .nav { padding: 20px 40px; } }
   .nav.scrolled { background: rgba(250,250,250,0.85); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom-color: var(--line); }
@@ -43,6 +49,7 @@
   .nav-links a { font-size: 13px; letter-spacing: 0.04em; color: rgba(10,10,10,0.8); transition: color 0.3s; }
   .nav-links a:hover, .nav-links a.active { color: var(--accent); }
 
+  /* Studio marker bottom-left */
   .studio-mark { position: fixed; bottom: 24px; left: 24px; z-index: 40; display: flex; align-items: center; gap: 8px; pointer-events: none; }
   @media (max-width: 767px) { .studio-mark { display: none; } }
   .studio-mark .pulse { position: relative; width: 6px; height: 6px; }
@@ -56,13 +63,16 @@
   .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
   @media (min-width: 768px) { .grid { gap: 24px; } }
   .c12 { grid-column: span 12; }
-  @media (min-width: 768px) { .md-c2 { grid-column: span 2; } .md-c10 { grid-column: span 10; } .md-c8 { grid-column: 3 / span 8; } }
+  @media (min-width: 768px) { .md-c2 { grid-column: span 2; } .md-c10 { grid-column: span 10; } .md-c8 { grid-column: 3 / span 8; } .md-c6 { grid-column: span 6; } .md-c3 { grid-column: span 3; } }
 
-  .hero { padding: 0 24px; margin-bottom: 96px; }
+  /* Hero */
+  .hero { padding: 0 24px; margin-bottom: 32px; }
+  @media (min-width: 768px) { .hero { padding: 0 40px; margin-bottom: 40px; } }
   @media (min-width: 768px) { .hero { padding: 0 40px; margin-bottom: 160px; } }
-  .hero h1 { font-size: clamp(72px, 12vw, 240px); }
+  .hero h1 { font-size: clamp(72px, 13vw, 260px); }
   .hero .lede { font-size: clamp(18px, 1.5vw, 24px); line-height: 1.55; color: rgba(10,10,10,0.85); }
 
+  /* Reveal */
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
   .reveal.is-in { opacity: 1; transform: none; }
 
@@ -78,54 +88,74 @@
   .reveal-line.r-img { opacity: 0; }
   .reveal-line.r-img.is-in { opacity: 1; }
 
-  .divider { padding: 8px 24px; margin: 8px 0; }
-  @media (min-width: 768px) { .divider { padding: 16px 40px; margin: 16px 0; } }
-  .divider .rule { height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 1.2s cubic-bezier(0.22,1,0.36,1); }
-  .divider.is-in .rule { transform: scaleX(1); }
+  /* Twin CTA cards */
+  .cta-row { padding: 32px 24px 0; border-top: 1px solid var(--line); margin-bottom: 40px; }
+  @media (min-width: 768px) { .cta-row { padding: 40px 40px 0; margin-bottom: 48px; } }
+  .cta-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .cta-card { grid-column: span 12; }
+  @media (min-width: 768px) { .cta-card { grid-column: span 6; } }
+  .cta-card a { display: block; border: 1px solid var(--line); padding: 32px; transition: border-color 0.5s; height: 100%; }
+  @media (min-width: 768px) { .cta-card a { padding: 48px; } }
+  .cta-card a:hover { border-color: var(--accent); }
+  .cta-card h2 { font-size: clamp(40px, 5vw, 84px); line-height: 0.95; transition: color 0.5s; }
+  .cta-card a:hover h2 { color: var(--accent); }
+  .cta-card .arrow { display: inline-block; margin-left: 8px; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+  .cta-card a:hover .arrow { transform: translateX(8px); }
+  .cta-card .footnote { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.5); margin-top: 24px; }
 
-  /* Service block */
-  .service { padding: 96px 24px; }
-  @media (min-width: 768px) { .service { padding: 160px 40px; } }
-  .service .row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 48px 24px; align-items: center; }
-  .service .text { grid-column: span 12; }
-  .service .visual { grid-column: span 12; }
-  @media (min-width: 768px) {
-    .service:nth-of-type(odd) .text { grid-column: 1 / span 6; }
-    .service:nth-of-type(odd) .visual { grid-column: 8 / span 5; }
-    .service:nth-of-type(even) .text { grid-column: 7 / span 6; }
-    .service:nth-of-type(even) .visual { grid-column: 1 / span 5; grid-row: 1; }
+  /* Stats row */
+  .stats { padding: 0 24px; margin-bottom: 32px; }
+  @media (min-width: 768px) { .stats { padding: 0 40px; margin-bottom: 40px; } }
+  .stats-inner { display: grid; grid-template-columns: 1fr; gap: 48px; }
+  @media (min-width: 768px) { .stats-inner { grid-template-columns: repeat(3, 1fr); gap: 64px; } }
+  .stat .num { font-family: var(--display); color: var(--accent); line-height: 1; margin-bottom: 16px; font-size: clamp(64px, 6vw, 110px); font-weight: 900; letter-spacing: -0.02em; }
+  .stat p { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.75); max-width: 180px; line-height: 1.6; }
+
+  /* Form */
+  .form-section { padding: 32px 24px 0; border-top: 1px solid var(--line); margin-bottom: 40px; scroll-margin-top: 80px; }
+  @media (min-width: 768px) { .form-section { padding: 40px 40px 0; margin-bottom: 48px; } }
+  .form-header { margin-bottom: 64px; }
+  @media (min-width: 768px) { .form-header { margin-bottom: 32px; } }
+  .form-header h3 { font-size: clamp(48px, 7vw, 120px); }
+  .form-wrap { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .form-wrap form { grid-column: span 12; }
+  @media (min-width: 768px) { .form-wrap form { grid-column: 3 / span 8; } }
+  form .row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px 24px; margin-bottom: 32px; }
+  form .field { grid-column: span 12; }
+  @media (min-width: 768px) { form .field-half { grid-column: span 6; } }
+  form label > span.lbl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  form label > span.lbl .req { color: var(--accent); margin-left: 4px; }
+  form input, form textarea, form select { width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 12px 0; color: var(--fg); font-family: var(--body); font-size: 16px; transition: border-color 0.3s; appearance: none; }
+  form input:focus, form textarea:focus, form select:focus { outline: 0; border-bottom-color: var(--accent); }
+  form input::placeholder, form textarea::placeholder { color: rgba(10,10,10,0.3); }
+  form textarea { resize: none; }
+  form select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%235BC2E7' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 24px; cursor: pointer; }
+  form select option { background: #000; }
+  .submit-btn { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; font-family: var(--mono); cursor: pointer; background: transparent; }
+  .submit-btn:hover { background: var(--accent); color: var(--bg); }
+  .preview-note { display: inline-block; margin-left: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.4); }
+
+  /* Big email */
+  .big-email { padding: 32px 24px 0; border-top: 1px solid var(--line); margin-bottom: 40px; }
+  @media (min-width: 768px) { .big-email { padding: 40px 40px 0; margin-bottom: 48px; } }
+  .big-email a { display: block; }
+  .big-email h3 { font-size: clamp(48px, 10vw, 180px); line-height: 0.88; word-break: break-word; transition: color 0.6s, transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  .big-email a:hover h3 { color: var(--accent); transform: translateX(8px); }
+  /* Phone + tablet: keep the email on one clean line. Desktop unchanged. */
+  @media (max-width: 900px) {
+    .big-email h3 { font-size: clamp(20px, 8vw, 60px); white-space: nowrap; word-break: normal; }
   }
-  .service .head { display: flex; align-items: baseline; gap: 24px; margin-bottom: 24px; }
-  @media (min-width: 768px) { .service .head { gap: 32px; } }
-  .service .head .num { font-family: var(--display); color: var(--accent); line-height: 0.85; font-size: clamp(56px, 7vw, 120px); font-weight: 900; letter-spacing: -0.02em; }
-  .service h2 { font-size: clamp(40px, 5.5vw, 80px); line-height: 0.92; }
-  .service .position { color: var(--accent); font-family: var(--display); margin-top: 24px; letter-spacing: -0.01em; line-height: 1; font-size: clamp(20px, 2vw, 32px); font-weight: 900; text-transform: uppercase; }
-  .service .body { margin-top: 24px; color: rgba(10,10,10,0.85); line-height: 1.6; max-width: 480px; font-size: clamp(15px, 1.2vw, 17px); }
-  .service .includes { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
-  .service .includes li { display: flex; align-items: flex-start; gap: 12px; list-style: none; font-family: var(--mono); font-size: 12px; color: rgba(10,10,10,0.85); line-height: 1.5; }
-  .service .includes li .plus { color: var(--accent); flex-shrink: 0; }
-  .service .visual-inner { position: relative; width: 100%; aspect-ratio: 4/5; overflow: hidden; border: 1px solid var(--line); }
-  .service .visual-inner .bg { position: absolute; inset: 0; }
-  .service .visual-inner .bg.image { background: linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717); }
-  .service .visual-inner .bg.image::after { content: ""; position: absolute; inset: 0; opacity: 0.2; mix-blend-mode: overlay; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 1px, transparent 1px, transparent 4px); }
-  .service .visual-inner .bg.dark { background: linear-gradient(135deg, #0d0d0d, #161616, #0a0a0a); }
-  .service .visual-inner .bg.bright { background: linear-gradient(135deg, #2a2a2a, #1d1d1d, #101010); }
-  .service .visual-inner .bg.outline { background: rgba(0,0,0,0.3); }
-  .service .visual-inner .mark { position: absolute; bottom: 12px; left: 12px; z-index: 2; font-family: var(--display); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 900; color: #f5f5f5; }
-  .service .visual-inner .meta-top { position: absolute; top: 12px; right: 12px; z-index: 2; text-align: right; color: rgba(245,245,245,0.7); }
-  .service .visual-inner .meta-top .m-accent { color: var(--accent); }
 
-  /* CTA */
-  .cta { padding: 40px 24px 0; border-top: 1px solid var(--line); }
-  @media (min-width: 768px) { .cta { padding: 56px 40px 0; } }
-  .cta h2 { font-size: clamp(56px, 9vw, 160px); line-height: 0.9; }
-  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; font-family: var(--mono); }
-  .btn:hover { background: var(--accent); color: var(--bg); }
-  .link { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.8); border-bottom: 1px solid rgba(10,10,10,0.3); padding-bottom: 4px; transition: color 0.3s, border-color 0.3s; }
-  .link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  /* Meta strip */
+  .meta { padding: 32px 24px 0; border-top: 1px solid var(--line); }
+  @media (min-width: 768px) { .meta { padding: 40px 40px 0; } }
+  .meta-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px 24px; margin-top: 48px; }
+  .meta-grid > div { grid-column: span 6; }
+  @media (min-width: 768px) { .meta-grid > div { grid-column: span 3; } }
+  .meta a:hover { color: var(--accent); }
 
   footer { border-top: 1px solid var(--line); padding: 32px 24px; display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-top: 40px; }
-  @media (min-width: 768px) { footer { padding: 32px 40px; } }
+  @media (min-width: 768px) { footer { padding: 40px 40px; } }
 
   /* Top brand mark — replaces top nav */
   .top-brand { position: fixed; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 10px; pointer-events: auto;}
@@ -282,25 +312,25 @@
 
 </style>
 <!-- ===== SEO META (auto-managed by forvr-seo-block — don't hand-edit) ===== -->
-<meta name="description" content="Six in-house creative services from Forvr.Studios: video production, image creation, creative direction, graphic design, bespoke website design, brand identity and strategy. AI-native production, hand-finished output. Full-service creative agency UK." />
-<meta name="keywords" content="creative services UK, video production UK, AI video production agency, image creation studio UK, creative direction agency, graphic design studio UK, bespoke website design UK, brand identity studio UK, full service creative studio, end-to-end creative agency, creative agency Reading, fashion content production" />
+<meta name="description" content="Start a creative project with Forvr.Studios. A small, founder-led creative agency in Reading, UK. Reply within 48 hours. A brief, a sketch, or just a feeling. hello@forvr.org." />
+<meta name="keywords" content="contact creative agency UK, hire Forvr studio, start creative project UK, creative agency brief UK, contact creative studio Reading, creative agency contact" />
 <meta name="author" content="Forvr.Studios" />
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 <meta name="googlebot" content="index, follow" />
-<link rel="canonical" href="https://forvr.org/services" />
+<link rel="canonical" href="https://forvr.org/about" />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_GB" />
 <meta property="og:site_name" content="Forvr.Studios" />
-<meta property="og:title" content="Services — six in-house creative lanes | Forvr.Studios" />
-<meta property="og:description" content="Video, image, creative direction, graphic design, website design, brand identity. All in one studio." />
-<meta property="og:url" content="https://forvr.org/services" />
+<meta property="og:title" content="Contact Forvr.Studios — start a project" />
+<meta property="og:description" content="A brief, a sketch, or just a feeling. Reply within 48 hours." />
+<meta property="og:url" content="https://forvr.org/about" />
 <meta property="og:image" content="https://forvr.org/static/forvr-og.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Forvr.Studios — creative studio UK" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Services — six in-house creative lanes | Forvr.Studios" />
-<meta name="twitter:description" content="Video, image, creative direction, graphic design, website design, brand identity. All in one studio." />
+<meta name="twitter:title" content="Contact Forvr.Studios — start a project" />
+<meta name="twitter:description" content="A brief, a sketch, or just a feeling. Reply within 48 hours." />
 <meta name="twitter:image" content="https://forvr.org/static/forvr-og.jpg" />
 <meta name="theme-color" content="#0a0a0a" />
 <meta name="apple-mobile-web-app-title" content="Forvr.Studios" />
@@ -389,10 +419,10 @@
     },
     {
       "@type": "WebPage",
-      "@id": "https://forvr.org/services#webpage",
-      "url": "https://forvr.org/services",
-      "name": "Services — Video, Image, Creative Direction, Design, Web, Brand Identity | Creative Studio UK",
-      "description": "Six in-house creative services from Forvr.Studios: video production, image creation, creative direction, graphic design, bespoke website design, brand identity and strategy. AI-native production, hand-finished output. Full-service creative agency UK.",
+      "@id": "https://forvr.org/about#webpage",
+      "url": "https://forvr.org/about",
+      "name": "Contact | Start a project with Forvr.Studios | Creative studio UK",
+      "description": "Start a creative project with Forvr.Studios. A small, founder-led creative agency in Reading, UK. Reply within 48 hours. A brief, a sketch, or just a feeling. hello@forvr.org.",
       "isPartOf": {
         "@id": "https://forvr.org/#website"
       },
@@ -403,7 +433,7 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://forvr.org/services#breadcrumb",
+      "@id": "https://forvr.org/about#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -414,94 +444,18 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Services",
-          "item": "https://forvr.org/services"
+          "name": "Contact",
+          "item": "https://forvr.org/about"
         }
       ]
     },
     {
-      "@type": "ItemList",
-      "name": "Forvr.Studios services",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "item": {
-            "@type": "Service",
-            "name": "Video Production",
-            "description": "Fashion films, product showcases, UGC content, brand campaigns. End-to-end production from concept to post.",
-            "provider": {
-              "@id": "https://forvr.org/#organization"
-            },
-            "areaServed": "Worldwide"
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@type": "Service",
-            "name": "Image Creation",
-            "description": "Editorial, campaign and product imagery. Brand-trained generative models, hand-finished in post.",
-            "provider": {
-              "@id": "https://forvr.org/#organization"
-            },
-            "areaServed": "Worldwide"
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "item": {
-            "@type": "Service",
-            "name": "Creative Direction",
-            "description": "Concept, vision, mood, art direction across full campaigns.",
-            "provider": {
-              "@id": "https://forvr.org/#organization"
-            },
-            "areaServed": "Worldwide"
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "item": {
-            "@type": "Service",
-            "name": "Graphic Design",
-            "description": "Investor decks, annual reports, posters, social, corporate print.",
-            "provider": {
-              "@id": "https://forvr.org/#organization"
-            },
-            "areaServed": "Worldwide"
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 5,
-          "item": {
-            "@type": "Service",
-            "name": "Website Design",
-            "description": "Bespoke high-impact websites, designed and built in house.",
-            "provider": {
-              "@id": "https://forvr.org/#organization"
-            },
-            "areaServed": "Worldwide"
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 6,
-          "item": {
-            "@type": "Service",
-            "name": "Brand Identity and Strategy",
-            "description": "Logo systems, type, colour, voice, guidelines, and strategy to tie it together.",
-            "provider": {
-              "@id": "https://forvr.org/#organization"
-            },
-            "areaServed": "Worldwide"
-          }
-        }
-      ]
+      "@type": "ContactPage",
+      "name": "Contact Forvr.Studios",
+      "url": "https://forvr.org/about",
+      "mainEntity": {
+        "@id": "https://forvr.org/#organization"
+      }
     }
   ]
 }
@@ -524,493 +478,29 @@
   <p class="m"><span class="m-accent">RDG</span> / 51.4543 N / 0.9781 W</p>
 </div>
 
-<main>
-  <section class="svc-hero-split">
-    <div class="svc-hero-text-side">
-      <div class="svc-hero-text reveal-group">
-        <p class="m m-accent reveal-line">Capabilities / 01–06</p>
-        <h1 class="d svc-hero-headline reveal-line">Built in house<span class="dot">.</span></h1>
-        <p class="lede reveal-line">
-          Six lanes, one studio. End-to-end creative, branding, design, paid media, short-form content, and corporate documents. All produced in house, all built around your brand.
-        </p>
-      </div>
-    </div>
-    <div class="svc-hero-video-side">
-      <video poster="forvr%20docs/site-images/supplied/opt-services.poster.jpg" class="svc-hero-bg-video" src="forvr%20docs/site-images/supplied/opt-services.mp4" autoplay muted loop playsinline disablepictureinpicture preload="metadata"></video>
-      <span class="vid-corner-meta">CH.SVC</span>
-    </div>
-  </section>
-
-  <style>
-    /* Services full-bleed hero split — 1fr text + 2fr video */
-    .svc-hero-split {
-      position: relative;
-      height: 100vh;
-      min-height: 560px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 0;
-      align-items: stretch;
-      background: #050505;
-      overflow: hidden;
-    }
-    @media (max-width: 900px) {
-      .svc-hero-split { grid-template-columns: 1fr; grid-template-rows: 1fr 60vh; height: auto; min-height: 100vh; }
-    }
-    .svc-hero-text-side {
-      background: var(--bg);
-      display: flex; align-items: center; justify-content: flex-start;
-      padding: 40px 48px;
-      min-width: 0;
-    }
-    @media (max-width: 900px) { .svc-hero-text-side { padding: 56px 24px; } }
-    .svc-hero-text {
-      display: flex; flex-direction: column; justify-content: center;
-      gap: 20px;
-      min-width: 0; max-width: 100%;
-    }
-    .svc-hero-headline { font-size: clamp(48px, 5.6vw, 112px); line-height: 0.94; color: #0a0a0a; letter-spacing: -0.02em; }
-    .svc-hero-text .lede { font-size: clamp(15px, 1.15vw, 17px); line-height: 1.55; max-width: 38ch; color: rgba(10,10,10,0.78); }
-    .svc-hero-video-side { position: relative; overflow: hidden; background: #050505; }
-    .svc-hero-bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-    .svc-hero-video-side .vid-corner-meta {
-      position: absolute; top: 24px; left: 24px; z-index: 2;
-      font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent);
-      background: rgba(0,0,0,0.55); padding: 5px 10px;
-      border: 1px solid rgba(91,194,231,0.28);
-    }
-    .hero-left .lede { font-size: clamp(15px, 1.2vw, 18px); line-height: 1.6; color: rgba(10,10,10,0.85); max-width: 540px; }
-
-    /* Interactive service grid — 3×2 cells of capabilities. Particles drift across; cursor warms the cell behind it; click sends a pulse. */
-    .svc-grid { position: relative; background: #0a0a0a; aspect-ratio: 4/5; overflow: hidden; cursor: crosshair; border: 1px solid rgba(245,245,245,0.10); }
-    @media (min-width: 980px) { .svc-grid { aspect-ratio: 3/4; } }
-    .svc-grid canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
-    .sg-meta { position: absolute; top: 18px; left: 18px; right: 18px; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,245,245,0.85); z-index: 3; pointer-events: none; }
-    .sg-meta .m-accent { color: var(--accent); }
-    .sg-cells { position: absolute; inset: 56px 0 24px; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 1fr); gap: 0; z-index: 2; }
-    .sg-cell { position: relative; background: transparent; border: 0; border-top: 1px solid rgba(245,245,245,0.08); border-left: 1px solid rgba(245,245,245,0.08); padding: 16px; text-align: left; cursor: pointer; color: rgba(245,245,245,0.7); transition: background 0.45s, color 0.45s; overflow: hidden; }
-    .sg-cell:nth-child(2n) { border-right: 1px solid rgba(245,245,245,0.08); }
-    .sg-cell:nth-last-child(-n+2) { border-bottom: 1px solid rgba(245,245,245,0.08); }
-    .sg-cell:hover, .sg-cell.is-active { background: linear-gradient(135deg, rgba(91,194,231,0.20), rgba(91,194,231,0.05) 60%, transparent); color: rgba(91,194,231,1); }
-    .sg-cell span { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; opacity: 0.65; }
-    .sg-cell b { display: block; font-family: var(--display); font-weight: 900; font-size: clamp(14px, 1.6vw, 20px); line-height: 1.0; letter-spacing: -0.01em; text-transform: uppercase; margin-top: 8px; }
-    .sg-cell.is-active b, .sg-cell:hover b { color: rgba(91,194,231,1); }
-  </style>
-
-  <script>
-  // Interactive service grid — drifting particles behind the cells, cursor warms the underlying cell, click sends a pulse.
-  (function() {
-    const grid = document.getElementById('svcGrid');
-    const canvas = document.getElementById('svcGridCanvas');
-    const cells = Array.from(document.querySelectorAll('.sg-cell'));
-    const now = document.getElementById('sgNow');
-    if (!grid || !canvas || !cells.length) return;
-    const ctx = canvas.getContext('2d');
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    let particles = [];
-    let pulses = [];
-    let mx = -10000, my = -10000;
-    let active = -1;
-
-    function size() {
-      const rect = grid.getBoundingClientRect();
-      canvas.width = Math.floor(rect.width * dpr);
-      canvas.height = Math.floor(rect.height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      particles = [];
-      const count = Math.floor(rect.width * rect.height / 600);
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * rect.width,
-          y: Math.random() * rect.height,
-          r: 0.5 + Math.random() * 1.4,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          a: 0.15 + Math.random() * 0.45
-        });
-      }
-    }
-    size();
-    window.addEventListener('resize', size);
-
-    grid.addEventListener('mousemove', (e) => {
-      const rect = grid.getBoundingClientRect();
-      mx = e.clientX - rect.left; my = e.clientY - rect.top;
-    });
-    grid.addEventListener('mouseleave', () => { mx = -10000; my = -10000; if (now) now.textContent = 'Hover a cell'; cells.forEach(c => c.classList.remove('is-active')); active = -1; });
-
-    cells.forEach((cell, idx) => {
-      cell.addEventListener('mouseenter', () => {
-        cells.forEach(c => c.classList.remove('is-active'));
-        cell.classList.add('is-active');
-        active = idx;
-        if (now) now.textContent = cell.dataset.i + ' · ' + cell.dataset.name;
-      });
-      cell.addEventListener('click', () => {
-        const rect = grid.getBoundingClientRect();
-        const cr = cell.getBoundingClientRect();
-        pulses.push({ x: (cr.left - rect.left) + cr.width / 2, y: (cr.top - rect.top) + cr.height / 2, r: 0, max: Math.max(rect.width, rect.height) });
-      });
-    });
-
-    function frame() {
-      const rect = grid.getBoundingClientRect();
-      const W = rect.width, H = rect.height;
-      ctx.fillStyle = 'rgba(10,10,10,0.14)';
-      ctx.fillRect(0, 0, W, H);
-
-      // Particles
-      for (const p of particles) {
-        // Drift
-        p.x += p.vx; p.y += p.vy;
-        // Cursor influence
-        if (mx > -5000) {
-          const dx = mx - p.x, dy = my - p.y;
-          const d = Math.sqrt(dx*dx + dy*dy);
-          if (d < 90) {
-            const force = (1 - d / 90) * 0.6;
-            p.x += (dx / d) * force;
-            p.y += (dy / d) * force;
-          }
-        }
-        // Wrap
-        if (p.x < -4) p.x = W + 4; if (p.x > W + 4) p.x = -4;
-        if (p.y < -4) p.y = H + 4; if (p.y > H + 4) p.y = -4;
-        ctx.fillStyle = `rgba(91,194,231,${p.a})`;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
-      }
-
-      // Pulses
-      for (let i = 0; i < pulses.length; i++) {
-        const p = pulses[i];
-        p.r += 4;
-        const t = p.r / p.max;
-        const alpha = (1 - t) * 0.85;
-        if (alpha <= 0.01) { pulses.splice(i, 1); i--; continue; }
-        ctx.strokeStyle = `rgba(91,194,231,${alpha})`;
-        ctx.lineWidth = 1.6;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.stroke();
-      }
-
-      requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  })();
-  </script>
-
-  <!-- SERVICES GRID — 3×2, each tile is image + overlay number + name. Hover lifts + reveals one-line. -->
-  <section class="svc-grid-block">
-    <div class="svc-grid-head reveal-group">
-      <p class="m m-accent reveal-line">Six / 01–06</p>
-      <h2 class="d reveal-line">All in one studio<span class="dot">.</span></h2>
-    </div>
-
-    <div class="svc-grid-3x2">
-      <article class="svc-tile" data-i="0">
-        <img class="bg" src="static/services/opt-01.jpg" alt="Video Production, Forvr.Studios" />
-        <div class="overlay">
-          <span class="num">01</span>
-          <h3 class="name">Video<br/>Production<span class="dot">.</span></h3>
-          <button type="button" class="svc-toggle" aria-expanded="false" aria-label="Read more about Video Production">
-            <span class="label">Read</span>
-            <span class="plus">+</span>
-          </button>
-        </div>
-        <div class="svc-reveal" aria-hidden="true">
-          <button type="button" class="svc-close" aria-label="Close">×</button>
-          <div class="reveal-inner">
-            <span class="num">01 / Video Production</span>
-            <p class="position">Cinematic content, from concept to final cut<span class="dot">.</span></p>
-            <p class="body">Fashion films, product showcases, UGC-style content, brand campaigns. End-to-end production, from concept to post. Same ambition on a 15-second social cut as on a full campaign film.</p>
-          </div>
-        </div>
-      </article>
-      <article class="svc-tile" data-i="1">
-        <img class="bg" src="static/services/opt-02.jpg" alt="Image Creation, Forvr.Studios" />
-        <div class="overlay">
-          <span class="num">02</span>
-          <h3 class="name">Image<br/>Creation<span class="dot">.</span></h3>
-          <button type="button" class="svc-toggle" aria-expanded="false" aria-label="Read more about Image Creation">
-            <span class="label">Read</span>
-            <span class="plus">+</span>
-          </button>
-        </div>
-        <div class="svc-reveal" aria-hidden="true">
-          <button type="button" class="svc-close" aria-label="Close">×</button>
-          <div class="reveal-inner">
-            <span class="num">02 / Image Creation</span>
-            <p class="position">Imagery built for the brand it lives in<span class="dot">.</span></p>
-            <p class="body">Studio-quality product, editorial, campaign imagery. Cutting-edge brand-trained models, hand-finished in post. Made for the brand it lives in.</p>
-          </div>
-        </div>
-      </article>
-      <article class="svc-tile" data-i="2">
-        <img class="bg" src="static/services/opt-03.jpg" alt="Creative Direction, Forvr.Studios" />
-        <div class="overlay">
-          <span class="num">03</span>
-          <h3 class="name">Creative<br/>Direction<span class="dot">.</span></h3>
-          <button type="button" class="svc-toggle" aria-expanded="false" aria-label="Read more about Creative Direction">
-            <span class="label">Read</span>
-            <span class="plus">+</span>
-          </button>
-        </div>
-        <div class="svc-reveal" aria-hidden="true">
-          <button type="button" class="svc-close" aria-label="Close">×</button>
-          <div class="reveal-inner">
-            <span class="num">03 / Creative Direction</span>
-            <p class="position">Concept first, then everything after<span class="dot">.</span></p>
-            <p class="body">Concept, vision, mood, art direction. We lead the work from ideation through delivery so every output answers back to the same idea.</p>
-          </div>
-        </div>
-      </article>
-      <article class="svc-tile" data-i="3">
-        <img class="bg" src="static/services/opt-04.jpg" alt="Graphic Design, Forvr.Studios" />
-        <div class="overlay">
-          <span class="num">04</span>
-          <h3 class="name">Graphic<br/>Design<span class="dot">.</span></h3>
-          <button type="button" class="svc-toggle" aria-expanded="false" aria-label="Read more about Graphic Design">
-            <span class="label">Read</span>
-            <span class="plus">+</span>
-          </button>
-        </div>
-        <div class="svc-reveal" aria-hidden="true">
-          <button type="button" class="svc-close" aria-label="Close">×</button>
-          <div class="reveal-inner">
-            <span class="num">04 / Graphic Design</span>
-            <p class="position">Print and decks, every format, every scale<span class="dot">.</span></p>
-            <p class="body">Investor decks, annual reports, social posts, campaign posters, corporate print. Built to scale across every format the brand needs.</p>
-          </div>
-        </div>
-      </article>
-      <article class="svc-tile" data-i="4">
-        <img class="bg" src="static/services/opt-05.jpg" alt="Website Design, Forvr.Studios" />
-        <div class="overlay">
-          <span class="num">05</span>
-          <h3 class="name">Website<br/>Design<span class="dot">.</span></h3>
-          <button type="button" class="svc-toggle" aria-expanded="false" aria-label="Read more about Website Design">
-            <span class="label">Read</span>
-            <span class="plus">+</span>
-          </button>
-        </div>
-        <div class="svc-reveal" aria-hidden="true">
-          <button type="button" class="svc-close" aria-label="Close">×</button>
-          <div class="reveal-inner">
-            <span class="num">05 / Website Design</span>
-            <p class="position">Bespoke sites that move like the brand thinks<span class="dot">.</span></p>
-            <p class="body">Fresh builds and full redesigns. Bespoke sites that move like the brand thinks, with the design and the build done in house.</p>
-          </div>
-        </div>
-      </article>
-      <article class="svc-tile" data-i="5">
-        <img class="bg" src="static/services/opt-06.jpg" alt="Brand Identity and Strategy, Forvr.Studios" />
-        <div class="overlay">
-          <span class="num">06</span>
-          <h3 class="name">Brand Identity<br/>&amp; Strategy<span class="dot">.</span></h3>
-          <button type="button" class="svc-toggle" aria-expanded="false" aria-label="Read more about Brand Identity">
-            <span class="label">Read</span>
-            <span class="plus">+</span>
-          </button>
-        </div>
-        <div class="svc-reveal" aria-hidden="true">
-          <button type="button" class="svc-close" aria-label="Close">×</button>
-          <div class="reveal-inner">
-            <span class="num">06 / Brand Identity &amp; Strategy</span>
-            <p class="position">A complete brand system, not just a logo<span class="dot">.</span></p>
-            <p class="body">Logo systems, type, colour, voice, guidelines, and the strategy that ties it together. Built so the brand still works without us.</p>
-          </div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <style>
-    .svc-grid-block { padding: 40px 24px 56px; border-top: 1px solid var(--line); }
-    @media (min-width: 768px) { .svc-grid-block { padding: 48px 40px 64px; } }
-    .svc-grid-head { display: grid; gap: 14px; margin-bottom: 32px; max-width: 1440px; margin-left: auto; margin-right: auto; }
-    .svc-grid-head .m-accent { color: var(--accent); letter-spacing: 0.22em; font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
-    .svc-grid-head h2 { font-family: var(--display); font-weight: 900; font-size: clamp(48px, 7vw, 120px); line-height: 0.9; letter-spacing: -0.02em; }
-    .svc-grid-head h2 .dot { color: var(--accent); }
-
-    .svc-grid-3x2 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 86vh);
-      gap: 12px;
-      max-width: 1440px; margin: 0 auto;
-    }
-    @media (max-width: 1100px) {
-      .svc-grid-3x2 { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 60vh); }
-    }
-    @media (max-width: 640px) {
-      .svc-grid-3x2 { grid-template-columns: 1fr; grid-template-rows: repeat(6, 52vh); gap: 8px; }
-    }
-
-    .svc-tile {
-      position: relative;
-      overflow: hidden;
-      background: #0a0a0a;
-      color: #fafafa;
-      display: block;
-      transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
-    }
-    .svc-tile .bg {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.8s cubic-bezier(0.22,1,0.36,1), filter 0.55s;
-      filter: brightness(0.85) contrast(1.05);
-    }
-    .svc-tile::after {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.30) 38%, rgba(0,0,0,0.0) 70%);
-      transition: background 0.55s;
-      z-index: 1;
-    }
-
-    .svc-tile .overlay {
-      position: absolute;
-      inset: 0;
-      padding: 24px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      z-index: 2;
-      transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1);
-    }
-    .svc-tile .num {
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--accent);
-      align-self: flex-start;
-    }
-    .svc-tile .name {
-      font-family: var(--display); font-weight: 900;
-      font-size: clamp(28px, 3.4vw, 56px);
-      line-height: 0.94; letter-spacing: -0.015em;
-      text-transform: uppercase;
-      color: #fafafa;
-      text-shadow: 0 2px 18px rgba(0,0,0,0.4);
-      transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
-    }
-    .svc-tile .name .dot { color: var(--accent); }
-
-    /* Read button — bottom-right of each tile */
-    .svc-tile .svc-toggle {
-      position: absolute;
-      bottom: 24px; right: 24px;
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 9px 14px;
-      background: rgba(10,10,10,0.55);
-      border: 1px solid rgba(91,194,231,0.35);
-      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-      color: var(--accent);
-      font-family: var(--mono); font-size: 10.5px;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
-      z-index: 3;
-    }
-    .svc-tile .svc-toggle:hover {
-      background: var(--accent); color: #050505; border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-    .svc-tile .svc-toggle .plus {
-      font-family: var(--display); font-size: 14px; line-height: 1;
-      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
-    }
-
-    /* Translucent reveal panel — slides up from below, image stays visible behind */
-    .svc-tile .svc-reveal {
-      position: absolute; inset: 0;
-      background: rgba(8,8,12,0.82);
-      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
-      padding: 28px;
-      display: flex; flex-direction: column; justify-content: center;
-      z-index: 4;
-      opacity: 0;
-      transform: translateY(24px);
-      pointer-events: none;
-      transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
-      overflow-y: auto;
-    }
-    .svc-tile.is-revealed .svc-reveal {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-    .svc-tile.is-revealed .overlay { opacity: 0; pointer-events: none; }
-    .svc-tile.is-revealed .bg { transform: scale(1.06); filter: brightness(0.45) contrast(1.05); }
-
-    .svc-tile .svc-reveal .svc-close {
-      position: absolute;
-      top: 18px; right: 18px;
-      width: 36px; height: 36px;
-      background: rgba(0,0,0,0.5);
-      border: 1px solid rgba(91,194,231,0.32);
-      color: var(--accent);
-      font-family: var(--display); font-size: 22px; line-height: 1;
-      cursor: pointer;
-      display: inline-flex; align-items: center; justify-content: center;
-      transition: background 0.25s, color 0.25s, transform 0.25s;
-    }
-    .svc-tile .svc-reveal .svc-close:hover { background: var(--accent); color: #050505; transform: rotate(90deg); }
-
-    .svc-tile .svc-reveal .reveal-inner {
-      display: grid; gap: 14px;
-      max-width: 46ch;
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1) 0.1s, transform 0.55s cubic-bezier(0.22,1,0.36,1) 0.1s;
-    }
-    .svc-tile.is-revealed .svc-reveal .reveal-inner {
-      opacity: 1; transform: translateY(0);
-    }
-    .svc-tile .svc-reveal .num {
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--accent);
-    }
-    .svc-tile .svc-reveal .position {
-      font-family: var(--display); font-style: italic; font-weight: 400;
-      font-size: clamp(18px, 1.4vw, 22px);
-      line-height: 1.25; letter-spacing: -0.005em;
-      color: var(--accent);
-      margin-top: -4px;
-    }
-    .svc-tile .svc-reveal .position .dot { color: var(--accent); }
-    .svc-tile .svc-reveal .body {
-      font-family: var(--body);
-      font-size: 14.5px; line-height: 1.6;
-      color: rgba(250,250,250,0.92);
-    }
-    @media (min-width: 1100px) {
-      .svc-tile .svc-reveal .body { font-size: 15px; }
-    }
-
-    .svc-tile:hover:not(.is-revealed) .bg { transform: scale(1.04); filter: brightness(0.95) contrast(1.05); }
-
-    @media (max-width: 640px) {
-      .svc-tile .overlay { padding: 20px; }
-      .svc-tile .svc-toggle { bottom: 20px; right: 20px; }
-      .svc-tile .svc-reveal { padding: 20px; }
-      .svc-tile .svc-reveal .body { font-size: 14.5px; }
-    }
-  </style>
-
-  <!-- CTA -->
-  <section class="cta">
-    <div class="grid">
-      <p class="m m-accent c12 md-c2">Engage / Start</p>
-      <div class="c12 md-c10">
-        <h2 class="d reveal">Need one or all six<span class="dot">?</span></h2>
-        <div style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;">
-          <a class="btn" href="contact.html">Start a project →</a>
-          <a class="link" href="process.html">See the process <span class="dot">→</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
+<main><style>
+.about-hero{min-height:100svh;display:flex;align-items:center;padding:140px 40px 90px;background:#0a0a0a;}
+.about-wrap{max-width:1040px;margin:0 auto;width:100%;}
+.about-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin:0 0 30px;}
+.about-head{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(40px,7vw,104px);line-height:0.92;letter-spacing:-0.01em;margin:0 0 44px;color:#f5f5f5;}
+.about-quote{margin:0;border:0;padding:0;max-width:780px;}
+.about-quote p{font-size:clamp(17px,1.7vw,22px);line-height:1.6;color:rgba(245,245,245,0.9);margin:0 0 22px;}
+.about-quote p:last-child{margin-bottom:0;}
+.about-cta{display:inline-flex;align-items:center;gap:10px;margin-top:52px;font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#0a0a0a;background:var(--accent);padding:16px 28px;border-radius:999px;text-decoration:none;transition:transform .35s,box-shadow .35s;}
+.about-cta:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(91,194,231,0.45);}
+@media(max-width:600px){.about-hero{padding:118px 22px 70px;}.about-head{font-size:clamp(34px,11vw,58px);margin-bottom:34px;}.about-eyebrow{margin-bottom:22px;}}
+</style>
+<section class="about-hero reveal-group" id="about">
+  <div class="about-wrap">
+    <p class="reveal-line about-eyebrow">Founder</p>
+    <h1 class="reveal-line about-head">Founded and run by Rory<span class="dot">:</span></h1>
+    <blockquote class="reveal-line about-quote">
+      <p>&ldquo;Before this I spent a year inside one of the leading AI marketing agencies. I saw how good work actually gets made, and where most of it falls apart. I&#39;ve always wanted to build things that mean something and leave a mark, not just fill a feed. Forvr is me doing that on my own terms, real creative direction and the tools working together, finished to a standard I&#39;d put my name on.&rdquo;</p>
+      <p>&ldquo;It&#39;s new, and we&#39;re honest about that. That&#39;s exactly why we have even more to prove. We have a lot to prove, and we&#39;re ready for it. We&#39;re ready for the challenge.&rdquo;</p>
+    </blockquote>
+    <a href="contact.html" class="about-cta reveal-line">Book a call <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</section>
 </main>
 
 <!-- Floating navigation -->
@@ -1026,7 +516,7 @@
       <span class="title">Work</span>
       <span class="caption">Selected portfolio</span>
     </a>
-    <a class="nav-item active" href="services.html">
+    <a class="nav-item" href="services.html">
       <span class="num">02</span>
       <span class="title">Services</span>
       <span class="caption">Six lanes</span>
@@ -1046,7 +536,7 @@
       <span class="title">Contact</span>
       <span class="caption">Start a project</span>
     </a>
-    <a class="nav-item" href="about.html">
+    <a class="nav-item active" href="about.html">
       <span class="num">06</span>
       <span class="title">About</span>
       <span class="caption">Founder</span>
@@ -1070,12 +560,13 @@
 </footer>
 
 <script>
+  // Scroll progress bar
   const bar = document.getElementById('scrollBar');
   window.addEventListener('scroll', () => {
     const h = document.documentElement;
-    bar.style.width = ((h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100) + '%';
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = pct + '%';
   }, { passive: true });
-
   // Floating nav toggle
   const floatingNav = document.getElementById('floatingNav');
   const navToggle = document.getElementById('navToggle');
@@ -1123,59 +614,13 @@
       }
     });
   }, { rootMargin: '-50px 0px' });
-  document.querySelectorAll('.reveal, .reveal-line, .divider').forEach((el) => io.observe(el));
+  document.querySelectorAll('.reveal, .reveal-line').forEach((el) => io.observe(el));
 
-  // Services tiles — click-to-reveal description overlay
-  (function svcRevealToggle() {
-    const tiles = document.querySelectorAll('.svc-tile');
-    if (!tiles.length) return;
-
-    const closeAll = (except) => {
-      tiles.forEach((t) => {
-        if (t !== except) {
-          t.classList.remove('is-revealed');
-          const btn = t.querySelector('.svc-toggle');
-          if (btn) btn.setAttribute('aria-expanded', 'false');
-          const reveal = t.querySelector('.svc-reveal');
-          if (reveal) reveal.setAttribute('aria-hidden', 'true');
-        }
-      });
-    };
-
-    tiles.forEach((tile) => {
-      const toggle = tile.querySelector('.svc-toggle');
-      const close = tile.querySelector('.svc-close');
-      const reveal = tile.querySelector('.svc-reveal');
-      if (toggle) {
-        toggle.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const wasOpen = tile.classList.contains('is-revealed');
-          closeAll(wasOpen ? null : tile);
-          tile.classList.toggle('is-revealed', !wasOpen);
-          toggle.setAttribute('aria-expanded', String(!wasOpen));
-          if (reveal) reveal.setAttribute('aria-hidden', String(wasOpen));
-        });
-      }
-      if (close) {
-        close.addEventListener('click', (e) => {
-          e.stopPropagation();
-          tile.classList.remove('is-revealed');
-          if (toggle) toggle.setAttribute('aria-expanded', 'false');
-          if (reveal) reveal.setAttribute('aria-hidden', 'true');
-        });
-      }
-    });
-
-    // Click outside any tile closes the active one
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.svc-tile')) closeAll(null);
-    });
-
-    // Escape key closes the active one
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeAll(null);
-    });
-  })();
+  // Form preview behaviour — just shows alert
+  (document.getElementById('contactForm')||{addEventListener:function(){}}).addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Form is preview-only here. Live site sends emails via Resend.');
+  });
 </script>
 <script src="static/cursor.js?v=4" defer></script>
 <style id="ask-fab-styles">
@@ -1257,7 +702,7 @@
   var toggle = document.getElementById('askFabToggle');
   var rows = document.getElementById('askFabRows');
   if (!fab || !toggle || !rows) return;
-  var prompts = [{"label": "Where to start", "q": "You are a marketing director planning a first project. My brand: [paste your brand or website here]. Look at the six services and suggest the smartest lane for my brand to start in, and why. Ask me about my goals. List format, under 140 words."}, {"label": "Combine smartly", "q": "You are a brand operations lead optimising spend. Which of the six services combine to multiply value, and in what order. List format, under 140 words."}, {"label": "What a brand also needs", "q": "You are a brand director planning end to end. Read the six services. Note what a launching or scaling brand typically also needs, and where Forvr already covers it versus where a brand should plan a partner. Keep it fair. List format, under 140 words."}];
+  var prompts = [{"label": "Founder, fairly assessed", "q": "You are a brand owner weighing whether the founder behind Forvr can deliver. Read this page. Lay out the real signals of capability and the things you would still want to see, fairly, and note how Forvr addresses each. List format, under 140 words."}, {"label": "Is new a risk or an edge", "q": "You are a sharp but fair brand lead. Forvr is a new, founder-led studio that is open about being early. Weigh where being new is a genuine risk and where it is an edge for a brand like mine, and how Forvr offsets the risk. Keep it balanced. List format, under 140 words."}, {"label": "Questions for the call", "q": "Help me come up with the three sharpest questions to ask Rory on a first call to decide if Forvr is right for my brand. List format."}];
   var providers = [
     { label: "ChatGPT", url: function(q){ return "https://chatgpt.com/?q=" + encodeURIComponent(q); },
       icon: '<svg viewBox="0 0 24 24"><path d="M22 9.6a5.4 5.4 0 0 0-.5-4.4 5.5 5.5 0 0 0-6-2.6 5.5 5.5 0 0 0-9.3 1.9 5.4 5.4 0 0 0-3.6 2.6 5.5 5.5 0 0 0 .7 6.4 5.4 5.4 0 0 0 .5 4.5 5.5 5.5 0 0 0 6 2.5 5.5 5.5 0 0 0 4.1 1.9 5.5 5.5 0 0 0 5.2-3.8 5.4 5.4 0 0 0 3.6-2.6 5.5 5.5 0 0 0-.7-6.4Z"/></svg>' },
