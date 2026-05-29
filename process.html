@@ -533,7 +533,7 @@
        then the body paragraph fades in. -->
   <section class="proc-knockout-outer" aria-label="Process hero">
     <div class="proc-knockout-pin">
-      <video class="proc-knockout-video"
+      <video poster="forvr%20docs/site-images/supplied/opt-proccess.poster.jpg" class="proc-knockout-video"
              src="forvr%20docs/site-images/supplied/opt-proccess.mp4"
              autoplay muted loop playsinline disablepictureinpicture preload="metadata"
              aria-hidden="true"></video>
@@ -976,6 +976,8 @@
 
   // Step active tracker — drives VISION card content
   const steps = document.querySelectorAll('.step');
+  // Preload step images so the sticky card swap (and mobile inline images) are instant.
+  steps.forEach(function(s){ if (s.dataset.image){ var pi = new Image(); pi.src = s.dataset.image; } });
   const vph = document.getElementById('vph');
   const vVersion = document.getElementById('vVersion');
   const vRes = document.getElementById('vRes');

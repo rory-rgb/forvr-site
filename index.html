@@ -1063,7 +1063,7 @@
 
 <!-- HERO -->
 <section class="hero" id="heroBox" style="cursor:pointer;">
-  <video class="hero-video" id="heroVideo" src="static/opt-hero-a.mp4" autoplay muted loop playsinline preload="metadata"></video>
+  <video poster="static/opt-hero-a.poster.jpg" class="hero-video" id="heroVideo" src="static/opt-hero-a.mp4" autoplay muted loop playsinline preload="metadata"></video>
   <div class="hero-vignette"></div>
   <div class="hero-text">
     <h1 class="d hero-headline split-text is-in">
@@ -1095,7 +1095,7 @@
 <section id="pillars" class="pillars-scroll">
   <div class="pillars-pin">
     <div class="pillars-video-wrap">
-      <video id="pillarsVideo" src="forvr%20docs/site-images/web/video-01-scrub.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
+      <video poster="forvr%20docs/site-images/web/video-01-scrub.poster.jpg" id="pillarsVideo" src="forvr%20docs/site-images/web/video-01-scrub.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
       <div class="pillars-vignette" aria-hidden="true"></div>
       <div class="pillars-grain" aria-hidden="true"></div>
     </div>
@@ -1455,7 +1455,7 @@
   <div class="mission-pin">
     <div class="mission-split">
       <div class="mission-video-side">
-        <video class="mission-bg-video" src="forvr%20docs/site-images/web/video-02.mp4" muted loop playsinline autoplay disablepictureinpicture preload="metadata"></video>
+        <video poster="forvr%20docs/site-images/web/video-02.poster.jpg" class="mission-bg-video" src="forvr%20docs/site-images/web/video-02.mp4" muted loop playsinline autoplay disablepictureinpicture preload="metadata"></video>
         <span class="mission-corner-meta">CH.02 · MISSION</span>
       </div>
       <div class="mission-text-side">
@@ -1524,6 +1524,15 @@
     min-width: 0;
   }
   @media (max-width: 900px) { .mission-text-side { padding: 56px 24px; } }
+  /* Phone + tablet: un-pin Mission so the text and the "See the work" /
+     "Meet the studio" buttons are never clipped by the 100vh pin. */
+  @media (max-width: 900px) {
+    .mission-sticky { height: auto; }
+    .mission-pin { position: static; height: auto; overflow: visible; }
+    .mission-split { grid-template-rows: auto auto; }
+    .mission-video-side { height: 52vh; }
+    .mission-text-side { padding: 36px 24px 48px; }
+  }
   .mission-text {
     display: flex; flex-direction: column; justify-content: center;
     box-sizing: border-box;
