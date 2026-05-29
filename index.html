@@ -61,7 +61,7 @@
      Comment out this @font-face if it causes issues with file:// preview. */
   @font-face {
     font-family: "BringBold Nineties";
-    src: url("public/fonts/BringBold-Nineties.woff2") format("woff2");
+    src: url("static/fonts/BringBold-Nineties.woff2") format("woff2");
     font-weight: 400 900;
     font-display: swap;
   }
@@ -258,12 +258,12 @@
     opacity: 0;
     transition: opacity 0.45s ease;
   }
-  .svc-image-bg[data-active="1"] { background-image: url("public/services/opt-01.jpg"); opacity: 1; }
-  .svc-image-bg[data-active="2"] { background-image: url("public/services/opt-02.jpg"); opacity: 1; }
-  .svc-image-bg[data-active="3"] { background-image: url("public/services/opt-03.jpg"); opacity: 1; }
-  .svc-image-bg[data-active="4"] { background-image: url("public/services/opt-04.jpg"); opacity: 1; }
-  .svc-image-bg[data-active="5"] { background-image: url("public/services/opt-05.jpg"); opacity: 1; }
-  .svc-image-bg[data-active="6"] { background-image: url("public/services/opt-06.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="1"] { background-image: url("static/services/opt-01.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="2"] { background-image: url("static/services/opt-02.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="3"] { background-image: url("static/services/opt-03.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="4"] { background-image: url("static/services/opt-04.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="5"] { background-image: url("static/services/opt-05.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="6"] { background-image: url("static/services/opt-06.jpg"); opacity: 1; }
   .svc-image-meta {
     position: absolute; bottom: 14px; left: 16px;
     font-family: var(--mono); font-size: 10px;
@@ -415,12 +415,12 @@
   .svc-visual .svc-corner.br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
   .svc-visual .ph { position: absolute; inset: 0; transition: opacity 0.5s; opacity: 0; }
   .svc-visual .ph.active { opacity: 1; }
-  .svc-visual .ph-1 { background: url("public/services/opt-01.jpg") center / cover no-repeat, linear-gradient(135deg, #1a1a1a, #0a0a0a); }
-  .svc-visual .ph-2 { background: url("public/services/opt-02.jpg") center / cover no-repeat, linear-gradient(135deg, #222, #0d0d0d); }
-  .svc-visual .ph-3 { background: url("public/services/opt-03.jpg") center / cover no-repeat, linear-gradient(135deg, #181818, #0a0a0a); }
-  .svc-visual .ph-4 { background: url("public/services/opt-04.jpg") center / cover no-repeat, linear-gradient(135deg, #1d1d1d, #0a0a0a); }
-  .svc-visual .ph-5 { background: url("public/services/opt-05.jpg") center / cover no-repeat, linear-gradient(135deg, #202020, #0a0a0a); }
-  .svc-visual .ph-6 { background: url("public/services/opt-06.jpg") center / cover no-repeat, linear-gradient(135deg, #1c1c1c, #0a0a0a); }
+  .svc-visual .ph-1 { background: url("static/services/opt-01.jpg") center / cover no-repeat, linear-gradient(135deg, #1a1a1a, #0a0a0a); }
+  .svc-visual .ph-2 { background: url("static/services/opt-02.jpg") center / cover no-repeat, linear-gradient(135deg, #222, #0d0d0d); }
+  .svc-visual .ph-3 { background: url("static/services/opt-03.jpg") center / cover no-repeat, linear-gradient(135deg, #181818, #0a0a0a); }
+  .svc-visual .ph-4 { background: url("static/services/opt-04.jpg") center / cover no-repeat, linear-gradient(135deg, #1d1d1d, #0a0a0a); }
+  .svc-visual .ph-5 { background: url("static/services/opt-05.jpg") center / cover no-repeat, linear-gradient(135deg, #202020, #0a0a0a); }
+  .svc-visual .ph-6 { background: url("static/services/opt-06.jpg") center / cover no-repeat, linear-gradient(135deg, #1c1c1c, #0a0a0a); }
 
   /* Studio */
   .studio-grid p { line-height: 1.6; color: rgba(10,10,10,0.85); font-size: clamp(17px, 1.4vw, 21px); }
@@ -794,14 +794,14 @@
 <meta property="og:title" content="Forvr.Studios — Creative studio UK | Fast, affordable, AI-native" />
 <meta property="og:description" content="Brand-trained models. Hand-finished output. Six lanes in one studio. Founder-led, ships in weeks." />
 <meta property="og:url" content="https://forvr.org/" />
-<meta property="og:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta property="og:image" content="https://forvr.org/static/forvr-og.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Forvr.Studios — creative studio UK" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Forvr.Studios — Creative studio UK | Fast, affordable, AI-native" />
 <meta name="twitter:description" content="Brand-trained models. Hand-finished output. Six lanes in one studio. Founder-led, ships in weeks." />
-<meta name="twitter:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta name="twitter:image" content="https://forvr.org/static/forvr-og.jpg" />
 <meta name="theme-color" content="#0a0a0a" />
 <meta name="apple-mobile-web-app-title" content="Forvr.Studios" />
 <meta name="application-name" content="Forvr.Studios" />
@@ -823,11 +823,11 @@
       "url": "https://forvr.org/",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://forvr.org/public/forvr-logo.svg",
+        "url": "https://forvr.org/static/forvr-logo.svg",
         "width": 200,
         "height": 200
       },
-      "image": "https://forvr.org/public/forvr-og.jpg",
+      "image": "https://forvr.org/static/forvr-og.jpg",
       "description": "Creative studio in Reading, UK. AI-native, founder-led, six in-house lanes. Video, image, creative direction, graphic design, website design, brand identity. Fast turnaround, hand-finished output. Built for fashion, streetwear and lifestyle brands.",
       "address": {
         "@type": "PostalAddress",
@@ -972,7 +972,7 @@
 
 <!-- Top brand mark -->
 <a href="index.html" class="top-brand" aria-label="Forvr">
-  <img class="brand-logo" src="public/forvr-logo.svg" alt="Forvr" width="36" height="26" style="display:block;height:26px;width:auto;">
+  <img class="brand-logo" src="static/forvr-logo.svg" alt="Forvr" width="36" height="26" style="display:block;height:26px;width:auto;">
   <span class="brand-name">Forvr<span class="dot">.</span></span>
 </a>
 
@@ -1063,7 +1063,7 @@
 
 <!-- HERO -->
 <section class="hero" id="heroBox" style="cursor:pointer;">
-  <video class="hero-video" id="heroVideo" src="public/opt-hero-a.mp4" autoplay muted loop playsinline preload="metadata"></video>
+  <video class="hero-video" id="heroVideo" src="static/opt-hero-a.mp4" autoplay muted loop playsinline preload="metadata"></video>
   <div class="hero-vignette"></div>
   <div class="hero-text">
     <h1 class="d hero-headline split-text is-in">
@@ -1766,12 +1766,12 @@
   <!-- Phone + small-tablet only: image grid with name overlay (the desktop
        name+arrow list is hidden at this width). -->
   <div class="svc-grid-mobile">
-    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-01.jpg')"><span class="svc-cell-num">01</span><span class="svc-cell-name">Video Production</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-02.jpg')"><span class="svc-cell-num">02</span><span class="svc-cell-name">Image Creation</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-03.jpg')"><span class="svc-cell-num">03</span><span class="svc-cell-name">Creative Direction</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-04.jpg')"><span class="svc-cell-num">04</span><span class="svc-cell-name">Graphic Design</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-05.jpg')"><span class="svc-cell-num">05</span><span class="svc-cell-name">Website Design</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-06.jpg')"><span class="svc-cell-num">06</span><span class="svc-cell-name">Brand Identity &amp; Strategy</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-01.jpg')"><span class="svc-cell-num">01</span><span class="svc-cell-name">Video Production</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-02.jpg')"><span class="svc-cell-num">02</span><span class="svc-cell-name">Image Creation</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-03.jpg')"><span class="svc-cell-num">03</span><span class="svc-cell-name">Creative Direction</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-04.jpg')"><span class="svc-cell-num">04</span><span class="svc-cell-name">Graphic Design</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-05.jpg')"><span class="svc-cell-num">05</span><span class="svc-cell-name">Website Design</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-06.jpg')"><span class="svc-cell-num">06</span><span class="svc-cell-name">Brand Identity &amp; Strategy</span></a>
   </div>
 </section>
 
@@ -2397,7 +2397,7 @@ window.buildTetrisReveal({
     </div>
     <div class="faq-logo-col" aria-hidden="true">
       <div class="faq-logo-wrap" id="faqLogoWrap">
-        <img src="public/forvr-logo.svg" alt="Forvr.Studios logo" class="faq-logo" />
+        <img src="static/forvr-logo.svg" alt="Forvr.Studios logo" class="faq-logo" />
       </div>
       <p class="m faq-logo-cue">Click a question<span class="dot">.</span></p>
     </div>
@@ -2486,27 +2486,27 @@ window.buildTetrisReveal({
 <section class="marquee-strip" aria-label="Tools we use">
   <span class="marquee-eyebrow">The stack <span class="acc">●</span> tools we build with</span>
   <div class="marquee-track" id="marqueeTrack">
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/higgsfield.png);"></span><span class="b-name">Higgsfield</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/higgsfield.png);"></span><span class="b-name">Higgsfield</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/claude.png);"></span><span class="b-name">Claude</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/claude.png);"></span><span class="b-name">Claude</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/openai.svg);"></span><span class="b-name">OpenAI</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/openai.svg);"></span><span class="b-name">OpenAI</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/midjourney.svg);"></span><span class="b-name">Midjourney</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/midjourney.svg);"></span><span class="b-name">Midjourney</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/adobephotoshop.svg);"></span><span class="b-name">Adobe Photoshop</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/adobephotoshop.svg);"></span><span class="b-name">Adobe Photoshop</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/adobecreativecloud.svg);"></span><span class="b-name">Adobe Creative Cloud</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/adobecreativecloud.svg);"></span><span class="b-name">Adobe Creative Cloud</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/davinciresolve.png);"></span><span class="b-name">DaVinci Resolve</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/davinciresolve.png);"></span><span class="b-name">DaVinci Resolve</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/notion.svg);"></span><span class="b-name">Notion</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/notion.svg);"></span><span class="b-name">Notion</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/figma.svg);"></span><span class="b-name">Figma</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/figma.svg);"></span><span class="b-name">Figma</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/cosmos.png);"></span><span class="b-name">cosmos</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/cosmos.png);"></span><span class="b-name">cosmos</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/weavy.png);"></span><span class="b-name">Weavy</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/weavy.png);"></span><span class="b-name">Weavy</span></div>
     </div>
 </section>
 <script>
@@ -3462,7 +3462,7 @@ window.buildTetrisReveal({
   // Old Process sticky-image JS removed. Home teaser uses simple .reveal hooks.
 </script>
 
-<script src="public/cursor.js?v=3" defer></script>
+<script src="static/cursor.js?v=3" defer></script>
 <script id="forvr-brand-detect">
 (function(){
   const brand = document.querySelector('.top-brand');
