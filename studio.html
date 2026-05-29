@@ -977,6 +977,8 @@
     const items = wrap && wrap.querySelectorAll('.gap-scrub-item');
     const pips = wrap && wrap.querySelectorAll('.g-pip');
     if (!wrap || !pin || !video || !items.length) return;
+  var touchPlay = window.matchMedia && window.matchMedia('(hover: none)').matches;
+  if (touchPlay) { try { video.loop = true; video.muted = true; var _vp = video.play(); if (_vp && _vp.catch) _vp.catch(function(){}); } catch(e){} }
 
     let videoDuration = 0;
     let lastSeek = -1;
@@ -1003,7 +1005,7 @@
       const progress = Math.max(0, Math.min(1, (-rect.top) / total));
 
       // Map progress → video time. Only seek when delta is meaningful — saves work.
-      if (videoDuration > 0) {
+      if (!touchPlay && videoDuration > 0) {
         const target = progress * videoDuration;
         if (Math.abs(target - lastSeek) > 0.02) {
           try { video.currentTime = target; lastSeek = target; } catch (e) {}
