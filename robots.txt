@@ -1,0 +1,77 @@
+# Forvr.Studios — robots.txt
+# AI model crawlers explicitly welcome. See sitemap.xml + llms.txt for site structure.
+
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+Disallow: /app/
+Disallow: /*-experiments.html$
+Disallow: /inspo*
+Disallow: /directions-preview.html
+Disallow: /mission-directions.html
+Disallow: /preview-v2.html
+Disallow: /forvr-images-review.html
+Disallow: /forvr-videos-review.html
+Disallow: /forvr-image-strategy.html
+Disallow: /inspo-ideas-preview.html
+Disallow: /inspo-ideas-v2-preview.html
+Disallow: /inspo-mockups-index.html
+Disallow: /card-concepts*
+Disallow: /studio-card-experiments.html
+Disallow: /dot-sculpture-experiments.html
+Disallow: /project-page-experiments.html
+Disallow: /work-experiments.html
+Disallow: /project-layouts-preview.html
+Disallow: /splash-preview.html
+Disallow: /fan-variants-preview.html
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Common Crawl
+User-agent: CCBot
+Allow: /
+
+# Apple
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Bing
+User-agent: bingbot
+Allow: /
+
+Sitemap: https://forvr.org/sitemap.xml

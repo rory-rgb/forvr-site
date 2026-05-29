@@ -1,0 +1,3516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Forvr.Studios — Creative studio UK | Fast, affordable, AI-native | Reading</title>
+<style>
+  /* Floating Ask AI FAB — persistent at bottom-left, mirrors the right-side nav pattern */
+  .ask-fab { position: fixed; bottom: 24px; left: 24px; z-index: 60; }
+  @media (min-width: 768px) { .ask-fab { bottom: 28px; left: 40px; } }
+  .ask-fab-toggle {
+    position: relative; display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-radius: 999px; cursor: pointer;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase;
+    color: rgba(245,245,245,0.85); transition: all 0.35s; overflow: hidden;
+  }
+  .ask-fab-toggle::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: 999px; pointer-events: none; }
+  .ask-fab-toggle:hover, .ask-fab.open .ask-fab-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35), inset 0 0 18px rgba(91,194,231,0.08); }
+  .ask-fab-toggle .ask-fab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: ask-fab-pulse 1.6s ease-in-out infinite; }
+  @keyframes ask-fab-pulse { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
+  .ask-fab-toggle .ask-fab-arrow { font-family: var(--display); font-size: 14px; transition: transform 0.35s; }
+  .ask-fab.open .ask-fab-toggle .ask-fab-arrow { transform: rotate(180deg); }
+
+  /* Panel that pops up */
+  .ask-fab-panel {
+    position: absolute; bottom: calc(100% + 10px); left: 0;
+    width: min(420px, 92vw);
+    background: rgba(15,15,15,0.94); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    border: 1px solid rgba(91,194,231,0.22);
+    border-radius: 18px;
+    padding: 22px 22px 18px;
+    color: rgba(245,245,245,0.92);
+    opacity: 0; pointer-events: none; transform: translateY(10px) scale(0.97);
+    transition: opacity 0.42s cubic-bezier(0.22,1,0.36,1), transform 0.42s cubic-bezier(0.22,1,0.36,1);
+  }
+  .ask-fab.open .ask-fab-panel { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+  .ask-fab-panel .head { display: grid; gap: 6px; padding-bottom: 12px; border-bottom: 1px solid rgba(91,194,231,0.18); }
+  .ask-fab-panel .head .m-accent { letter-spacing: 0.18em; color: var(--accent); font-family: var(--mono); font-size: 10px; text-transform: uppercase; }
+  .ask-fab-panel .head .sub { font-family: var(--body); font-size: 12px; color: rgba(245, 245, 245, 0.74); line-height: 1.5; }
+  .ask-fab-panel .prompt-row { padding: 14px 0; border-bottom: 1px solid rgba(91,194,231,0.10); }
+  .ask-fab-panel .prompt-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .ask-fab-panel .prompt-label { font-family: var(--display); font-weight: 900; font-size: 16px; letter-spacing: -0.01em; line-height: 1; text-transform: uppercase; }
+  .ask-fab-panel .providers { display: flex; gap: 6px; margin-top: 10px; }
+  .ask-fab-panel .providers a {
+    flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 8px 10px; border: 1px solid rgba(245,245,245,0.18); border-radius: 999px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.10em; text-transform: uppercase;
+    color: rgba(245,245,245,0.85); text-decoration: none; transition: all 0.3s;
+  }
+  .ask-fab-panel .providers a:hover { border-color: var(--accent); color: var(--accent); }
+  .ask-fab-panel .providers svg { width: 12px; height: 12px; flex-shrink: 0; }
+  .ask-fab-panel .providers svg path, .ask-fab-panel .providers svg circle, .ask-fab-panel .providers svg polygon { fill: currentColor; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+<style>
+  /* Real BringBold Nineties takes priority when /fonts/BringBold-Nineties.woff2 exists.
+     Comment out this @font-face if it causes issues with file:// preview. */
+  @font-face {
+    font-family: "BringBold Nineties";
+    src: url("public/fonts/BringBold-Nineties.woff2") format("woff2");
+    font-weight: 400 900;
+    font-display: swap;
+  }
+
+  :root {
+    --bg: #fafafa;
+    --fg: #0a0a0a;
+    --muted: #6a6a6a;
+    --line: #e5e5e5;
+    --accent: #5BC2E7;
+    --display: "BringBold Nineties", "Anton", "Helvetica Neue", "Avenir Next Condensed", Impact, "Arial Black", sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--accent); color: #000; }
+  section[id] { scroll-margin-top: 80px; }
+
+  .d { font-family: var(--display); font-weight: 900; line-height: 0.88; letter-spacing: -0.02em; text-transform: uppercase; }
+  .m { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .m-accent { color: var(--accent); }
+  .dot { color: var(--accent); }
+  a { color: inherit; text-decoration: none; }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px;
+    transition: background 0.4s, border-color 0.4s;
+    border-bottom: 1px solid transparent;
+  }
+  @media (min-width: 768px) { .nav { padding: 20px 40px; } }
+  .nav.scrolled { background: rgba(250,250,250,0.85); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom-color: var(--line); }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; }
+  .nav-links { display: flex; gap: 22px; }
+  @media (min-width: 768px) { .nav-links { gap: 36px; } }
+  .nav-links a { font-size: 13px; letter-spacing: 0.04em; color: rgba(10,10,10,0.8); transition: color 0.3s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* Dark elements that overlay dark imagery — text stays light regardless of theme */
+  .hero, .hero * { color: #f5f5f5; }
+  .hero .dot, .hero .accent-dot, .hero .m-accent { color: var(--accent); }
+  .hero .hero-cta { color: rgba(245,245,245,0.85); border-bottom-color: rgba(245,245,245,0.3); }
+  .hero .hero-cta:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .hero .m { color: rgba(245,245,245,0.7); }
+
+  /* Card media containers + VISION cards — dark editorial cards on light theme */
+  .card .media, .vcard, .vcard *, .svc-visual.has-active, .svc-visual.has-active * { color: #f5f5f5; }
+  .card .media .m, .vcard .m { color: rgba(245,245,245,0.7); }
+  .card .media .m-accent, .vcard .m-accent, .svc-visual.has-active .m-accent { color: var(--accent); }
+  .card .media .dot, .vcard .dot { color: var(--accent); }
+  .vcard { background: rgba(20,20,20,0.92); border-color: rgba(255,255,255,0.08); }
+  .vcard .prompt-box { border-top-color: rgba(255,255,255,0.1); }
+  .vcard .prompt-box p { color: rgba(245,245,245,0.78); }
+  .hero { position: relative; height: 100vh; height: 100svh; width: 100%; overflow: hidden; }
+  .hero-video { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; will-change: transform; }
+  .hero-vignette {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%),
+      linear-gradient(to bottom, rgba(0,0,0,0.30), transparent, rgba(0,0,0,0.85));
+  }
+  .hero-meta-top { position: absolute; top: 96px; right: 24px; z-index: 10; text-align: right; }
+  @media (min-width: 768px) { .hero-meta-top { right: 40px; } }
+  .hero-text { position: absolute; bottom: 40px; left: 24px; right: 24px; z-index: 10; }
+  @media (min-width: 768px) { .hero-text { bottom: 56px; left: 40px; right: 40px; } }
+  .hero-headline { font-size: clamp(64px, 13vw, 220px); }
+  .hero-sub { margin-top: 24px; display: flex; align-items: end; justify-content: space-between; gap: 32px; }
+  @media (min-width: 768px) { .hero-sub { margin-top: 32px; } }
+  .hero-sub-text { max-width: 420px; line-height: 1.5; }
+  .hero-cta {
+    display: none;
+    align-items: center; gap: 8px;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(10,10,10,0.85);
+    border-bottom: 1px solid rgba(10,10,10,0.3);
+    padding-bottom: 4px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .hero-cta:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  @media (min-width: 768px) { .hero-cta { display: inline-flex; } }
+  .scroll-cue {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    z-index: 10; color: var(--accent);
+    animation: bob 2.2s ease-in-out infinite;
+  }
+  @keyframes bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+
+  /* Sections */
+  section.block { padding: 32px 20px; border-top: 1px solid var(--line); position: relative; }
+  @media (min-width: 768px) { section.block { padding: 40px 32px; } }
+  /* (.work-block styles removed — work grid is not on the home page) */
+
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px 16px; }
+  @media (min-width: 768px) { .grid { gap: 24px 24px; } }
+
+  .section-head { margin-bottom: 32px; }
+  @media (min-width: 768px) { .section-head { margin-bottom: 48px; } }
+  .section-head .m { grid-column: span 12; }
+  @media (min-width: 768px) { .section-head .m { grid-column: span 2; } }
+  .section-head h2 { grid-column: span 12; font-size: clamp(56px, 9vw, 160px); }
+  @media (min-width: 768px) { .section-head h2 { grid-column: span 10; } }
+
+  /* Work — Mosaic */
+  .grid-mosaic { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+  @media (min-width: 768px) { .grid-mosaic { gap: 24px; } }
+  .card { position: relative; }
+  .card .media { position: relative; width: 100%; overflow: hidden; }
+  .caption { margin-top: 16px; display: flex; align-items: start; justify-content: space-between; gap: 24px; }
+  @media (min-width: 768px) { .caption { margin-top: 20px; } }
+  .caption h3 { font-size: clamp(28px, 3vw, 40px); line-height: 0.92; }
+  .meta-right { text-align: right; flex-shrink: 0; }
+
+  /* Media placeholders */
+  .ph-image { background: linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717); position: absolute; inset: 0; overflow: hidden; }
+  .ph-image::after { content: ""; position: absolute; inset: 0; opacity: 0.2; mix-blend-mode: overlay; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 1px, transparent 1px, transparent 4px); }
+  .ph-dark { position: absolute; inset: 0; background: linear-gradient(135deg, #0d0d0d, #161616, #0a0a0a); }
+  .ph-bright { position: absolute; inset: 0; background: linear-gradient(135deg, #2a2a2a, #1d1d1d, #101010); }
+  .ph-outline { position: absolute; inset: 0; background: rgba(0,0,0,0.3); border: 1px solid rgba(10,10,10,0.2); }
+
+  /* Services */
+  .svc-list li { border-top: 1px solid var(--line); padding: 28px 0; cursor: default; transition: transform 0.5s; }
+  @media (min-width: 768px) { .svc-list li { padding: 36px 0; } }
+  .svc-list li:last-child { border-bottom: 1px solid var(--line); }
+  .svc-list .row { display: flex; align-items: start; gap: 24px; }
+  @media (min-width: 768px) { .svc-list .row { gap: 40px; } }
+  .svc-list .num { width: 40px; flex-shrink: 0; padding-top: 8px; }
+  .svc-list .content { flex: 1; }
+  .svc-list .content h3 {
+    font-size: clamp(28px, 5vw, 64px);
+    line-height: 0.92;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.5s;
+  }
+  .svc-list li:hover .content h3,
+  .svc-list li:hover .content h3 .wave-word,
+  .svc-list li:hover .content h3 .wave-word .dot { color: var(--accent) !important; }
+  .svc-list li:hover .content h3 { transform: translateX(8px); }
+
+  /* Mexican wave on service names — staggered word reveal as section enters view.
+     Uses CSS animation so animation-delay does NOT leak into hover color/transform
+     transitions (which previously made services 4–6 feel sluggish on hover). */
+  .svc-list .content h3 .wave-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: color 0.18s ease;
+    will-change: opacity, transform;
+  }
+  #services.is-waved .svc-list .content h3 .wave-word {
+    animation: svcWaveIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes svcWaveIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .svc-list .desc { margin-top: 12px; max-width: 460px; line-height: 1.55; color: rgba(10,10,10,0.7); font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .svc-list .arrow { padding-top: 8px; opacity: 0; color: var(--accent); transition: opacity 0.5s; }
+  .svc-list li:hover .arrow { opacity: 1; }
+
+  .svc-grid .list-wrap { grid-column: span 12; }
+  .svc-grid .visual-wrap { display: none; }
+  @media (min-width: 768px) {
+    .svc-grid .list-wrap { grid-column: span 6; }
+    .svc-grid .visual-wrap { display: block; grid-column: span 6; position: relative; }
+  }
+  /* Services right-column image — always visible, blue idle, hover swaps to service image.
+     Height matches the list height (no aspect-ratio cap), so the image bottom lines up with
+     the bottom of the last service item. */
+  .svc-grid { align-items: stretch; }
+  .svc-grid .visual-wrap { height: 100%; }
+  .svc-image-box {
+    position: sticky; top: 72px;
+    width: 100%;
+    height: 100%;
+    min-height: 480px;
+    background: #5BC2E7;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .svc-image-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+  .svc-image-bg[data-active="1"] { background-image: url("public/services/opt-01.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="2"] { background-image: url("public/services/opt-02.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="3"] { background-image: url("public/services/opt-03.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="4"] { background-image: url("public/services/opt-04.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="5"] { background-image: url("public/services/opt-05.jpg"); opacity: 1; }
+  .svc-image-bg[data-active="6"] { background-image: url("public/services/opt-06.jpg"); opacity: 1; }
+  .svc-image-meta {
+    position: absolute; bottom: 14px; left: 16px;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(10,10,10,0.7);
+    background: rgba(255,255,255,0.88);
+    padding: 4px 10px;
+    z-index: 2;
+  }
+
+  /* Old TV (now removed from DOM) — selectors kept dead-safe in case any rule still references them */
+  .svc-tv-set {
+    position: sticky; top: 72px;
+    width: 100%;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  /* Antenna — two rods in a V on top of the TV */
+  .tv-antenna {
+    position: relative;
+    width: 100%; height: 60px;
+    display: flex; justify-content: center; align-items: flex-end;
+    pointer-events: none;
+  }
+  .tv-antenna-rod {
+    position: absolute; bottom: 0;
+    width: 2.5px; height: 58px;
+    background: linear-gradient(180deg, #cfcfcf 0%, #6a6a6a 80%, #2a2a2c 100%);
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    transform-origin: 50% 100%;
+  }
+  .tv-antenna-rod.left { transform: rotate(-22deg); margin-right: 4px; }
+  .tv-antenna-rod.right { transform: rotate(22deg); margin-left: 4px; }
+  .tv-antenna-knob {
+    position: absolute; bottom: -4px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #4a4a4c 0%, #1a1a1c 70%, #050505 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+    z-index: 2;
+  }
+  /* TV body — thin bezel so the image is the hero */
+  .svc-tv {
+    position: relative;
+    aspect-ratio: 4/4.2; width: 100%;
+    padding: 22px 14px 56px;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.06), transparent 50%),
+      linear-gradient(180deg, #2a2a2c 0%, #1a1a1c 50%, #0e0e10 100%);
+    border-radius: 14px;
+    box-shadow:
+      0 30px 60px rgba(0,0,0,0.5),
+      inset 0 2px 0 rgba(255,255,255,0.07),
+      inset 0 -2px 0 rgba(0,0,0,0.5);
+  }
+  /* Brand — centred top of frame, sits in the slim top bezel */
+  .svc-tv .tv-brand {
+    position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+    font-family: var(--display); font-size: 10px;
+    color: rgba(250,250,250,0.6); letter-spacing: 0.22em; line-height: 1;
+    text-transform: uppercase;
+    z-index: 7;
+  }
+  /* Channel LCD — top right of the bezel, doesn't intrude on the image */
+  .svc-tv .tv-lcd {
+    position: absolute; top: 4px; right: 14px;
+    min-width: 32px; min-height: 14px;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    color: #5BC2E7; letter-spacing: 0.16em; text-transform: uppercase;
+    text-shadow: 0 0 8px rgba(91,194,231,0.8);
+    padding: 2px 7px;
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(91,194,231,0.28);
+    border-radius: 3px;
+    text-align: center;
+    transition: opacity 0.18s;
+    z-index: 7;
+  }
+  .svc-tv .tv-lcd:empty { opacity: 0; }
+  /* Stand — two angled sticks forming an upside-down V going down from the TV */
+  .tv-stand {
+    position: relative;
+    width: 100%; height: 80px;
+    display: flex; justify-content: center; align-items: flex-start;
+    pointer-events: none;
+  }
+  .tv-stand-leg {
+    position: absolute; top: 0;
+    width: 3px; height: 76px;
+    background: linear-gradient(180deg, #3a3a3c 0%, #1a1a1c 70%, #050505 100%);
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    transform-origin: 50% 0%;
+  }
+  .tv-stand-leg.left { transform: rotate(-20deg); margin-right: 22px; }
+  .tv-stand-leg.right { transform: rotate(20deg); margin-left: 22px; }
+  .svc-tv .tv-led {
+    position: absolute; bottom: 24px; right: 26px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: svc-led-blink 1.4s infinite;
+  }
+  .svc-tv .tv-dials { position: absolute; bottom: 18px; left: 22px; display: flex; gap: 12px; }
+  .svc-tv .tv-dial {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(180deg, #4a4a4c, #1a1a1c);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 4px rgba(0,0,0,0.6);
+    position: relative;
+  }
+  .svc-tv .tv-dial::after {
+    content: ""; position: absolute; left: 50%; top: 50%;
+    width: 2px; height: 7px; background: var(--accent);
+    transform: translate(-50%, -85%) rotate(35deg);
+    transform-origin: 50% 90%;
+  }
+  .svc-tv .tv-dial.d2::after { transform: translate(-50%, -85%) rotate(-20deg); }
+  @keyframes svc-led-blink { 50% { opacity: 0.4; } }
+
+  /* Inner CRT screen — fills the bezel so the image is the hero */
+  .svc-visual {
+    position: absolute;
+    top: 22px; left: 14px; right: 14px; bottom: 56px;
+    overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(91,194,231,0.08) 0%, rgba(0,0,0,0.85) 75%),
+      #050608;
+    border-radius: 6px;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.65), inset 0 0 0 2px #0a0a0a, inset 0 0 0 3px rgba(91,194,231,0.18);
+  }
+  /* CRT scanlines */
+  .svc-visual::after {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.15) 2px 3px);
+    pointer-events: none; z-index: 5;
+  }
+  /* CRT vignette */
+  .svc-visual::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, transparent 60%, rgba(0,0,0,0.35) 100%);
+    pointer-events: none; z-index: 4;
+  }
+  /* HUD corner brackets on the inner screen */
+  .svc-visual .svc-corner { position: absolute; width: 14px; height: 14px; border: 1px solid var(--accent); z-index: 6; opacity: 0; transition: opacity 0.4s; }
+  .svc-visual.has-active .svc-corner { opacity: 1; }
+  .svc-visual .svc-corner.tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+  .svc-visual .svc-corner.tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+  .svc-visual .svc-corner.bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+  .svc-visual .svc-corner.br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+  .svc-visual .ph { position: absolute; inset: 0; transition: opacity 0.5s; opacity: 0; }
+  .svc-visual .ph.active { opacity: 1; }
+  .svc-visual .ph-1 { background: url("public/services/opt-01.jpg") center / cover no-repeat, linear-gradient(135deg, #1a1a1a, #0a0a0a); }
+  .svc-visual .ph-2 { background: url("public/services/opt-02.jpg") center / cover no-repeat, linear-gradient(135deg, #222, #0d0d0d); }
+  .svc-visual .ph-3 { background: url("public/services/opt-03.jpg") center / cover no-repeat, linear-gradient(135deg, #181818, #0a0a0a); }
+  .svc-visual .ph-4 { background: url("public/services/opt-04.jpg") center / cover no-repeat, linear-gradient(135deg, #1d1d1d, #0a0a0a); }
+  .svc-visual .ph-5 { background: url("public/services/opt-05.jpg") center / cover no-repeat, linear-gradient(135deg, #202020, #0a0a0a); }
+  .svc-visual .ph-6 { background: url("public/services/opt-06.jpg") center / cover no-repeat, linear-gradient(135deg, #1c1c1c, #0a0a0a); }
+
+  /* Studio */
+  .studio-grid p { line-height: 1.6; color: rgba(10,10,10,0.85); font-size: clamp(17px, 1.4vw, 21px); }
+  .studio-grid p + p { margin-top: 28px; }
+  .studio-grid .copy { grid-column: span 12; }
+  .studio-grid .facts { grid-column: span 12; margin-top: 64px; }
+  @media (min-width: 768px) {
+    .studio-grid .copy { grid-column: span 7; }
+    .studio-grid .facts { grid-column: 9 / span 4; margin-top: 0; }
+  }
+  .facts li { display: flex; align-items: baseline; justify-content: space-between; border-top: 1px solid var(--line); padding: 16px 0; }
+  .facts li:last-child { border-bottom: 1px solid var(--line); }
+  .facts .v { font-family: var(--display); font-size: clamp(22px, 2.2vw, 30px); }
+  .pull { margin-top: 40px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  @media (min-width: 768px) { .pull { margin-top: 56px; } }
+  .pull blockquote { grid-column: span 12; font-size: clamp(40px, 6vw, 96px); }
+  @media (min-width: 768px) { .pull blockquote { grid-column: 3 / span 9; } }
+  .pull .attr { grid-column: span 12; margin-top: 24px; }
+  @media (min-width: 768px) { .pull .attr { grid-column: 3 / span 9; } }
+
+  /* Process */
+  .proc-grid .image-wrap { grid-column: span 12; margin-bottom: 40px; }
+  .proc-grid .steps-wrap { grid-column: span 12; }
+  @media (min-width: 768px) {
+    .proc-grid .image-wrap { grid-column: span 6; margin-bottom: 0; }
+    .proc-grid .steps-wrap { grid-column: span 6; }
+  }
+  .proc-image-sticky { position: sticky; top: 128px; }
+  .proc-image {
+    position: relative; width: 100%; aspect-ratio: 4/5; overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .proc-image .layer { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1); }
+  .proc-image .layer.active { opacity: 1; }
+  .proc-image .layer::after { content: ""; position: absolute; inset: 0; opacity: 0.2; mix-blend-mode: overlay; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 1px, transparent 1px, transparent 3px); }
+  .proc-image .layer-1 { background: linear-gradient(135deg, #0d0d0d, #161616, #0a0a0a); }
+  .proc-image .layer-2 { background: linear-gradient(135deg, #161616, #0e0e0e, #0a0a0a); }
+  .proc-image .layer-3 { background: linear-gradient(135deg, #1a1a1a, #0e0e0e, #0a0a0a); }
+  .proc-image .layer-4 { background: linear-gradient(135deg, #202020, #101010, #0a0a0a); }
+  .proc-image .badge { position: absolute; top: 16px; left: 16px; z-index: 10; }
+  .proc-image .meta { position: absolute; bottom: 16px; left: 16px; z-index: 10; }
+  .proc-image .dots { position: absolute; bottom: 16px; right: 16px; z-index: 10; display: flex; gap: 6px; }
+  .proc-image .dots span { display: block; height: 1px; width: 24px; background: rgba(10,10,10,0.2); transition: background 0.5s; }
+  .proc-image .dots span.active { background: var(--accent); }
+  .step { min-height: 60vh; display: flex; align-items: center; }
+  .step .content { max-width: 480px; }
+  .step h3 { font-size: clamp(56px, 7vw, 110px); line-height: 0.88; margin-top: 16px; }
+  .step p.desc { margin-top: 24px; color: rgba(10,10,10,0.85); line-height: 1.55; max-width: 420px; }
+
+  /* Contact */
+  .contact-email { display: block; }
+  .contact-email h3 {
+    font-size: clamp(48px, 11vw, 200px);
+    line-height: 0.88;
+    transition: opacity 0.3s, transform 0.6s cubic-bezier(0.22,1,0.36,1), color 0.6s;
+    word-break: break-word;
+  }
+  .contact-email:hover h3 { opacity: 0.9; transform: translateX(8px); color: var(--accent); }
+  /* Phone + tablet: keep the email on one clean line (the 48px clamp minimum is
+     wider than a phone, so it was wrapping mid-word). Desktop unchanged. */
+  @media (max-width: 900px) {
+    .contact-email h3 { font-size: clamp(20px, 8vw, 60px); white-space: nowrap; word-break: normal; }
+  }
+  .meta-strip { margin-top: 40px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px 24px; }
+  @media (min-width: 768px) { .meta-strip { margin-top: 112px; } }
+  .meta-strip > div { grid-column: span 6; }
+  @media (min-width: 768px) { .meta-strip > div { grid-column: span 3; } }
+  .meta-strip a:hover { color: var(--accent); }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--line); padding: 40px 24px; display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+  @media (min-width: 768px) { footer { padding: 40px 40px; } }
+  footer .brand-name { font-size: 14px; }
+
+  /* Sound toggle — removed */
+  .sound-toggle-disabled {
+    position: fixed; bottom: 24px; right: 24px; z-index: 60;
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    background: rgba(0,0,0,0.6);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer;
+  }
+  .sound-toggle:hover { color: var(--fg); }
+  .sound-toggle .dot-on { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: none; }
+  .sound-toggle .dot-off { width: 6px; height: 6px; border-radius: 50%; background: rgba(10,10,10,0.3); display: block; }
+  .sound-toggle.on .dot-on { display: block; }
+  .sound-toggle.on .dot-off { display: none; }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.is-in { opacity: 1; transform: translateY(0); }
+
+  /* Reveal-line primitive — line-by-line fade-up. Used selectively for section
+     eyebrows / headlines / paragraphs / images. Stagger via --i (set per group). */
+  .reveal-line {
+    opacity: 0.12;
+    transform: translateY(20px);
+    transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1);
+    transition-delay: calc(var(--i, 0) * 0.08s);
+    will-change: opacity, transform;
+  }
+  .reveal-line.is-in { opacity: 1; transform: translateY(0); }
+  .reveal-line.r-img { opacity: 0; }
+  .reveal-line.r-img.is-in { opacity: 1; }
+
+  /* Top brand mark — replaces top nav */
+  .top-brand { position: fixed; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 10px; pointer-events: auto;}
+  @media (min-width: 768px) { .top-brand { top: 28px; left: 40px; } }
+  .top-brand .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; color: #fff;  mix-blend-mode: difference; }
+
+  /* Floating navigation — dark HUD aesthetic */
+  .floating-nav { position: fixed; bottom: 24px; right: 24px; z-index: 60; }
+  @media (min-width: 768px) { .floating-nav { bottom: 28px; right: 40px; } }
+  .nav-toggle { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(245,245,245,0.85); transition: all 0.35s; overflow: hidden; }
+  .nav-toggle::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: 999px; pointer-events: none; }
+  .nav-toggle:hover, .floating-nav.open .nav-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35), inset 0 0 18px rgba(91,194,231,0.08); }
+  .nav-toggle .icon { display: inline-block; width: 9px; height: 9px; position: relative; z-index: 1; }
+  .nav-toggle .icon::before, .nav-toggle .icon::after { content: ""; position: absolute; background: currentColor; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+  .nav-toggle .icon::before { top: 4px; left: 0; right: 0; height: 1.5px; }
+  .nav-toggle .icon::after { top: 0; bottom: 0; left: 4px; width: 1.5px; }
+  .floating-nav.open .nav-toggle .icon::after { transform: rotate(90deg); }
+  .nav-toggle > span:first-child { position: relative; z-index: 1; }
+
+  .nav-menu { position: absolute; bottom: calc(100% + 8px); right: 0; display: flex; flex-direction: column-reverse; gap: 6px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
+  .floating-nav.open .nav-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+  /* Wave-open keyframe — cyan pulse rushes through each item as it appears */
+  @keyframes nav-wave-in {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+    45% { opacity: 1; transform: translateY(-2px) scale(1.04); background: rgba(91,194,231,0.45); border-color: var(--accent); box-shadow: 0 0 36px rgba(91,194,231,0.55), inset 0 0 18px rgba(91,194,231,0.25); }
+    100% { opacity: 1; transform: translateY(0) scale(1); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+  }
+  /* Genie close — items distort and suck into the toggle button bottom-right */
+  @keyframes nav-genie-out {
+    0% { opacity: 1; transform: translate(0, 0) scale(1, 1) skewX(0deg); border-radius: 999px; filter: blur(0px); }
+    40% { opacity: 0.85; transform: translate(20px, 14px) scale(0.55, 0.6) skewX(-6deg); border-radius: 16px; filter: blur(0.4px); }
+    80% { opacity: 0.35; transform: translate(38px, 30px) scale(0.18, 0.22) skewX(-12deg); border-radius: 50%; filter: blur(1.5px); }
+    100% { opacity: 0; transform: translate(50px, 38px) scale(0.02, 0.04) skewX(-16deg); border-radius: 50%; filter: blur(3px); }
+  }
+
+  .nav-item { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border: 1px solid rgba(91,194,231,0.20); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; transform-origin: bottom right; opacity: 0; transform: translateY(20px) scale(0.7); white-space: nowrap; overflow: hidden; transition: border-color 0.35s, box-shadow 0.35s; }
+  .nav-item::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: inherit; pointer-events: none; }
+  .nav-item:hover { border-color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.4), inset 0 0 18px rgba(91,194,231,0.10); transform: translateY(0) translateX(-4px) scale(1); transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s; }
+  .floating-nav.open .nav-item { animation: nav-wave-in 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .floating-nav.open .nav-item:nth-child(1) { animation-delay: 0.28s; }
+  .floating-nav.open .nav-item:nth-child(2) { animation-delay: 0.22s; }
+  .floating-nav.open .nav-item:nth-child(3) { animation-delay: 0.16s; }
+  .floating-nav.open .nav-item:nth-child(4) { animation-delay: 0.10s; }
+  .floating-nav.open .nav-item:nth-child(5) { animation-delay: 0.04s; }
+  .floating-nav.open .nav-item:nth-child(6) { animation-delay: 0.00s; }
+  /* Genie close: items distort + suck into toggle button (bottom-right of stack) */
+  .floating-nav.closing .nav-item { animation: nav-genie-out 0.55s cubic-bezier(0.7, 0, 0.84, 0) forwards !important; transform-origin: bottom right; opacity: 1; transform: translateY(0) scale(1); }
+  .floating-nav.closing .nav-item:nth-child(1) { animation-delay: 0.00s !important; }
+  .floating-nav.closing .nav-item:nth-child(2) { animation-delay: 0.05s !important; }
+  .floating-nav.closing .nav-item:nth-child(3) { animation-delay: 0.10s !important; }
+  .floating-nav.closing .nav-item:nth-child(4) { animation-delay: 0.15s !important; }
+  .floating-nav.closing .nav-item:nth-child(5) { animation-delay: 0.20s !important; }
+  .floating-nav.closing .nav-item:nth-child(6) { animation-delay: 0.25s !important; }
+  .floating-nav.closing .nav-menu { pointer-events: none; }
+  .nav-item .num { position: relative; z-index: 1; font-family: var(--mono); font-size: 9px; color: var(--accent); letter-spacing: 0.10em; }
+  .nav-item .title { position: relative; z-index: 1; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; line-height: 1; color: rgba(245,245,245,0.9); transition: color 0.35s; }
+  .nav-item:hover .title { color: var(--accent); }
+  .nav-item .caption { display: none; }
+  .nav-item.active { border-color: var(--accent); box-shadow: 0 0 14px rgba(91,194,231,0.30); }
+  .nav-item.active .title { color: var(--accent); }
+
+  /* === Animation pack === */
+
+  /* Split-text reveal — fade-up, NO clipping anywhere.
+     Previous overflow:hidden / clip-path approaches clipped BringBold Nineties
+     ascenders on Chrome. This version uses opacity + translateY only, so the
+     glyph is never visually masked. Same word-by-word stagger feel. */
+  .split-text { display: inline-block; }
+  .split-text .word { display: inline-block; vertical-align: baseline; }
+  .split-text .word .inner {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40%);
+    transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+  }
+  .split-text.is-in .word .inner { opacity: 1; transform: translateY(0); }
+  .split-text .word:nth-child(1) .inner { transition-delay: 0.04s; }
+  .split-text .word:nth-child(2) .inner { transition-delay: 0.10s; }
+  .split-text .word:nth-child(3) .inner { transition-delay: 0.16s; }
+  .split-text .word:nth-child(4) .inner { transition-delay: 0.22s; }
+  .split-text .word:nth-child(5) .inner { transition-delay: 0.28s; }
+  .split-text .word:nth-child(6) .inner { transition-delay: 0.34s; }
+  .split-text .word:nth-child(7) .inner { transition-delay: 0.40s; }
+  .split-text .word:nth-child(8) .inner { transition-delay: 0.46s; }
+
+  /* Magnetic CTA */
+  .magnetic { display: inline-block; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); will-change: transform; }
+
+  /* Status strip */
+  .marquee { position: relative; width: 100%; padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #fafafa; }
+  .status-row { display: flex; align-items: center; justify-content: space-between; gap: 32px; max-width: 1400px; margin: 0 auto; padding: 0 48px; }
+  .ticker-chip { display: inline-flex; align-items: center; gap: 14px; height: 56px; flex-shrink: 0; }
+  .ticker-chip .glyph { width: 44px; height: 44px; flex-shrink: 0; }
+  .ticker-chip .label { font-family: var(--display); font-weight: 900; font-size: 28px; line-height: 1; letter-spacing: -0.01em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+  .ticker-chip .num { font-variant-numeric: tabular-nums; }
+  .ticker-chip .dot { color: var(--accent); }
+  .ticker-chip.pill { padding: 0 20px; border: 1.5px solid var(--ink); border-radius: 999px; height: 52px; background: #fafafa; }
+  .ticker-chip.pill.accent { background: var(--accent); border-color: var(--ink); }
+  /* Tablet + phone: wrap and centre so the chips never bleed off-screen.
+     flex-shrink stays 0, so wrapping (not squashing) is what prevents overflow.
+     Desktop (>=1025px) keeps the original space-between row. */
+  @media (max-width: 1024px) {
+    .status-row { flex-wrap: wrap; justify-content: center; gap: 14px 18px; }
+  }
+  @media (max-width: 720px) {
+    .status-row { padding: 0 20px; gap: 12px 16px; }
+    .ticker-chip .label { font-size: 18px; }
+    .ticker-chip.pill { padding: 0 12px; height: 42px; }
+    .ticker-chip .glyph { width: 32px; height: 32px; }
+  }
+  @media (max-width: 400px) {
+    .status-row { gap: 10px 12px; }
+    .ticker-chip { gap: 8px; }
+    .ticker-chip .label { font-size: 15px; }
+    .ticker-chip.pill { padding: 0 10px; height: 36px; }
+    .ticker-chip .glyph { width: 28px; height: 28px; }
+  }
+
+  /* Eye blink — squish whole eye flat then re-open */
+  .glyph-eye .eye-stack { transform-origin: 22px 22px; transform-box: fill-box; animation: eye-blink 4.5s infinite; }
+  @keyframes eye-blink {
+    0%, 90%, 100% { transform: scaleY(1); }
+    93% { transform: scaleY(0.06); }
+    96% { transform: scaleY(1); }
+  }
+  .glyph-eye .pupil { transform-origin: 22px 22px; animation: eye-dart 6s ease-in-out infinite; }
+  @keyframes eye-dart {
+    0%, 30%, 65%, 100% { transform: translateX(0); }
+    40%, 55% { transform: translateX(-3px); }
+    75%, 88% { transform: translateX(3px); }
+  }
+
+  /* Clip-path image reveal */
+  .clip-reveal { clip-path: inset(0 50% 0 50%); transition: clip-path 1.2s cubic-bezier(0.7, 0, 0.18, 1); }
+  .clip-reveal.is-in { clip-path: inset(0); }
+
+  /* Work card mouse-drift parallax */
+  .card { transition: transform 0.55s cubic-bezier(0.22,1,0.36,1); will-change: transform; }
+
+  /* Work — Alternating diagonal conveyor */
+  .vc { position: relative; height: 700vh; }
+  .vc-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+  .vc-stage .center-mark { position: absolute; left: 50%; top: 50%; width: 1px; height: 40px; background: rgba(10,10,10,0.06); transform: translate(-50%, -50%); z-index: 1; pointer-events: none; }
+  .vc-card { position: absolute; left: 50%; top: 50%; width: min(60vw, 880px); height: 72vh; max-height: 660px; background: #000; overflow: hidden; will-change: transform, opacity; box-shadow: 0 30px 80px rgba(0,0,0,0.22); transform: translate(-50%, -50%); }
+  .vc-card .caption { position: absolute; bottom: 32px; left: 32px; right: 32px; color: #f5f5f5; display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+  .vc-card .caption h3 { font-family: var(--display); font-size: clamp(32px, 4vw, 56px); line-height: 0.92; text-transform: uppercase; }
+  .vc-card .caption .meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245,245,245,0.7); text-align: right; }
+  .vc-card .caption .meta .accent { color: var(--accent); }
+  .vc-card .index { position: absolute; top: 32px; left: 32px; font-family: var(--display); font-size: 32px; color: rgba(245,245,245,0.5); }
+  .vc-hud { position: absolute; top: 24px; right: 24px; left: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; z-index: 10; pointer-events: none; }
+  .vc-hud .label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .vc-hud .progress-track { flex: 1; max-width: 320px; height: 1px; background: rgba(10,10,10,0.12); position: relative; }
+  .vc-hud .progress-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); width: 0; transition: width 0.1s linear; }
+  .vc-hud .counter { font-family: var(--display); font-size: 22px; color: var(--fg); }
+  .vc-hud .counter .of { color: var(--muted); font-size: 0.6em; }
+  .vc-card .ph-image, .vc-card .ph-dark, .vc-card .ph-bright, .vc-card .ph-outline { position: absolute; inset: 0; }
+  .vc-card img.cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .vc-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 55%, rgba(0,0,0,0.6) 100%); pointer-events: none; }
+  .vc-card a.card-link { position: absolute; inset: 0; z-index: 2; }
+</style>
+
+<style id="forvr-deploy-overrides">
+  /* Forvr deploy overrides — sections touch, no top white space, cyan dividers. */
+
+  /* (1) Kill the top white-space below the fixed nav.
+        Many pages set `main { padding-top: 128-160px }` to clear the fixed nav.
+        We want the hero to start at the very top instead. */
+  main { padding-top: 0 !important; padding-bottom: 0 !important; }
+  body > main:first-of-type > *:first-child { margin-top: 0 !important; }
+
+  /* (2) Cyan dividers — every divider that was gray becomes accent cyan. */
+  hr, .divider .rule { background: var(--accent) !important; height: 1px !important; }
+  section, .block, .proc-teaser-block, .faq-block,
+  .outcomes-block, .tenants-block, .form-section,
+  .cta, .cta-row, .big-email, .meta, .stats, .ai-ask {
+    border-top-color: rgba(91, 194, 231, 0.32) !important;
+    border-bottom-color: rgba(91, 194, 231, 0.32) !important;
+  }
+
+  /* (3) Section paddings tight (28 desktop / 20 mobile). */
+  section.block, .proc-teaser-block, .faq-block, .outcomes-head,
+  .ai-ask, .pull-quote, .pull-quote-large, .stat-block,
+  .pivot-line, .divider-sentence, .service, .cta, .work-hero,
+  .sticky-block, .form-section, .big-email, .meta, .stats, .cta-row {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+  @media (max-width: 767px) {
+    section.block, .proc-teaser-block, .faq-block, .outcomes-head,
+    .ai-ask, .pull-quote, .pull-quote-large, .stat-block,
+    .pivot-line, .divider-sentence, .service, .cta, .work-hero,
+    .sticky-block, .form-section, .big-email, .meta, .stats, .cta-row {
+      padding-top: 40px !important;
+      padding-bottom: 40px !important;
+    }
+  }
+
+  /* (4) Section heads sit tight against next content. */
+  .section-head, .usp-header { margin-bottom: 18px !important; }
+  @media (max-width: 767px) { .section-head, .usp-header { margin-bottom: 16px !important; } }
+
+  /* (5) NO gaps between sections — every margin-bottom collapses.
+        The blue border-top on the next section IS the divider. No spacer. */
+  .hero, .sticky-block, .form-section, .big-email, .meta, .cta-row,
+  .stats, section.block, .proc-teaser-block, .faq-block,
+  .outcomes-head, .outcomes-block, .ai-ask, .pull-quote, .pull-quote-large,
+  .stat-block, .pivot-line, .divider-sentence, .service, .cta,
+  .work-hero, .h-work, .gap-scrub, .mission-sticky, .position-sticky,
+  .pillars-scroll, .contact-hero-bleed, .work-hero-split,
+  .proc-hero-split, .svc-hero-split, .hero-section, .svc-grid-block,
+  .tenants-block, .marquee-strip {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* (6) Footer */
+  footer { padding-top: 24px !important; padding-bottom: 24px !important; margin-top: 0 !important; }
+
+  /* (7) Full-bleed hero sections — keep their 100vh, but they should butt up
+        against the next section with no margin. */
+  .contact-hero-bleed, .work-hero-split, .proc-hero-split, .svc-hero-split {
+    border-bottom: 1px solid rgba(91, 194, 231, 0.32) !important;
+  }
+
+  /* Top-brand mark — adaptive color based on what sits beneath it */
+  .top-brand { transition: opacity 0.3s; }
+  .top-brand .brand-name {
+    color: var(--accent) !important;
+    opacity: 0.55 !important;
+    mix-blend-mode: normal !important;
+    transition: color 0.3s, opacity 0.3s !important;
+  }
+  .top-brand:hover .brand-name {
+    color: var(--accent) !important;
+    opacity: 1 !important;
+  }
+  .top-brand.on-dark .brand-name {
+    color: #fafafa !important;
+    opacity: 0.85 !important;
+  }
+  .top-brand.on-dark:hover .brand-name {
+    color: var(--accent) !important;
+    opacity: 1 !important;
+  }
+  .top-brand .brand-logo { transition: filter 0.3s, opacity 0.3s; opacity: 0.85; }
+  .top-brand:hover .brand-logo { opacity: 1; }
+  .top-brand.on-dark .brand-logo { filter: brightness(0) invert(1); opacity: 0.9; }
+  .top-brand.on-dark:hover .brand-logo { filter: none; opacity: 1; }
+
+</style>
+<!-- ===== SEO META (auto-managed by forvr-seo-block — don't hand-edit) ===== -->
+<meta name="description" content="Forvr.Studios is a fast, affordable creative studio in Reading, UK. Founder-led, AI-native, six lanes in house. Video production, image creation, creative direction, graphic design, website design, brand identity. Built for fashion, streetwear and lifestyle brands. New, boutique, modern creative agency that ships in weeks." />
+<meta name="keywords" content="creative studio UK, creative agency Reading, fast creative studio, affordable creative studio UK, new creative studio UK, founder-led creative studio, boutique creative agency UK, AI creative studio UK, fashion creative agency, streetwear creative studio, full service creative studio, modern creative studio UK, emerging creative agency, end-to-end creative agency, Forvr.Studios, Forvr creative" />
+<meta name="author" content="Forvr.Studios" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow" />
+<link rel="canonical" href="https://forvr.org/" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:site_name" content="Forvr.Studios" />
+<meta property="og:title" content="Forvr.Studios — Creative studio UK | Fast, affordable, AI-native" />
+<meta property="og:description" content="Brand-trained models. Hand-finished output. Six lanes in one studio. Founder-led, ships in weeks." />
+<meta property="og:url" content="https://forvr.org/" />
+<meta property="og:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Forvr.Studios — creative studio UK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Forvr.Studios — Creative studio UK | Fast, affordable, AI-native" />
+<meta name="twitter:description" content="Brand-trained models. Hand-finished output. Six lanes in one studio. Founder-led, ships in weeks." />
+<meta name="twitter:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta name="theme-color" content="#0a0a0a" />
+<meta name="apple-mobile-web-app-title" content="Forvr.Studios" />
+<meta name="application-name" content="Forvr.Studios" />
+<meta name="format-detection" content="telephone=no" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://forvr.org/#organization",
+      "name": "Forvr.Studios",
+      "alternateName": [
+        "Forvr",
+        "Forvr Studios",
+        "Forvr Creative",
+        "Forvr Agency"
+      ],
+      "url": "https://forvr.org/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://forvr.org/public/forvr-logo.svg",
+        "width": 200,
+        "height": 200
+      },
+      "image": "https://forvr.org/public/forvr-og.jpg",
+      "description": "Creative studio in Reading, UK. AI-native, founder-led, six in-house lanes. Video, image, creative direction, graphic design, website design, brand identity. Fast turnaround, hand-finished output. Built for fashion, streetwear and lifestyle brands.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Reading",
+        "addressRegion": "Berkshire",
+        "addressCountry": "GB"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.4543,
+        "longitude": -0.9781
+      },
+      "email": "hello@forvr.org",
+      "sameAs": [
+        "https://www.instagram.com/forvr.cr/"
+      ],
+      "knowsAbout": [
+        "creative studio",
+        "creative agency",
+        "AI creative production",
+        "AI video production",
+        "AI image generation",
+        "creative direction",
+        "graphic design",
+        "website design",
+        "brand identity",
+        "brand strategy",
+        "fashion campaign production",
+        "streetwear creative",
+        "lifestyle brand creative",
+        "brand-trained generative models",
+        "fast creative production",
+        "boutique creative studio",
+        "founder-led creative studio",
+        "AI-native creative agency"
+      ],
+      "foundingDate": "2026",
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "United Kingdom"
+        },
+        {
+          "@type": "Place",
+          "name": "Worldwide"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://forvr.org/#website",
+      "url": "https://forvr.org/",
+      "name": "Forvr.Studios",
+      "description": "Creative studio UK — AI-native, founder-led, fast and affordable. Brand worlds, campaigns, films and identity for fashion, streetwear and lifestyle brands.",
+      "publisher": {
+        "@id": "https://forvr.org/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://forvr.org/#webpage",
+      "url": "https://forvr.org/",
+      "name": "Forvr.Studios — Creative studio UK | Fast, affordable, AI-native | Reading",
+      "description": "Forvr.Studios is a fast, affordable creative studio in Reading, UK. Founder-led, AI-native, six lanes in house. Video production, image creation, creative direction, graphic design, website design, brand identity. Built for fashion, streetwear and lifestyle brands. New, boutique, modern creative agency that ships in weeks.",
+      "isPartOf": {
+        "@id": "https://forvr.org/#website"
+      },
+      "about": {
+        "@id": "https://forvr.org/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://forvr.org/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What can you make for my brand?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Full campaigns, editorial shoots, product films, posters, brand worlds end-to-end. If it's visual, it can be made here."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this content convert?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Built to. Every brief starts with funnel context."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are you AI or human?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both. Brand-trained AI models do the volume. Human direction does the polish."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where are you based?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Reading, UK. We work with brands worldwide."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How fast do you reply?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Within 48 hours, every time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does a project cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A fraction of traditional agency production. Specific quotes are based on scope."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How fast can you ship?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most projects ship in weeks, not months."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- ===== /SEO META ===== -->
+</head>
+<body>
+
+<!-- Top brand mark -->
+<a href="index.html" class="top-brand" aria-label="Forvr">
+  <img class="brand-logo" src="public/forvr-logo.svg" alt="Forvr" width="36" height="26" style="display:block;height:26px;width:auto;">
+  <span class="brand-name">Forvr<span class="dot">.</span></span>
+</a>
+
+<!-- Floating Ask AI FAB — persistent bottom-left, popup with prompts + providers -->
+<div class="ask-fab" id="askFab">
+  <button class="ask-fab-toggle" id="askFabToggle" aria-expanded="false" aria-controls="askFabPanel" type="button">
+    <span class="ask-fab-dot"></span>
+    <span>Ask AI</span>
+    <span class="ask-fab-arrow">↑</span>
+  </button>
+  <div class="ask-fab-panel" id="askFabPanel" role="dialog" aria-label="Ask an AI about Forvr">
+    <div class="head">
+      <span class="m-accent">Ask an AI</span>
+      <span class="sub">Open this page inside the model of your choice. Each prompt loads the AI with the URL.</span>
+    </div>
+    <div id="askFabRows"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var fab = document.getElementById('askFab');
+  var toggle = document.getElementById('askFabToggle');
+  var rows = document.getElementById('askFabRows');
+  if (!fab || !toggle || !rows) return;
+  var prompts = [{"label": "Why pick Forvr", "q": "You are an objective brand strategist. Read this page — note Forvr's positioning: brand-trained models, hand-finished output, multiple bespoke workflows, ship in weeks at a fraction of traditional agency cost. Compare Forvr to the three real alternatives a launching brand is choosing between: a traditional comms agency, a freelancer stack, and a generic AI content shop. Consider output quality, turnaround speed, cost, brand fit, and risk on each. Which is the right call for the kind of brand I'm launching, and why? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give it in list format: One bullet per alternative. Under 150 words."}, {"label": "Translate this page into a brief", "q": "You are an experienced creative producer. Read this page — note the six services on offer (Video Production, Image Creation, Creative Direction, Graphic Design, Website Design, Brand Identity & Strategy), the outcomes claim (weeks not months, fraction of agency cost, every format in one voice), and the six-move process. Draft a creative brief I could send Forvr based on what they say they do. Cover deliverables, visual direction, success metric, and the three open questions Forvr will need answered before they can quote. Ask me any more questions or anything you're unsure about so you give me a precise answer. Give it in list format: Deliverables, Visual Direction, Success Metric, Open Questions. Under 150 words."}, {"label": "Pressure-test the studio", "q": "You are a sceptical procurement lead at a brand. Read this page critically — Forvr claims brand-trained models, hand-finished output, multiple bespoke workflows per project, and turnarounds in weeks at a fraction of traditional agency cost. Identify three potential weaknesses or risks in this positioning a buyer should test before committing budget. What are the three biggest risks, and what would you want Forvr to prove on each? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give the answer in list format: One risk per line with a one-sentence proof-ask. Under 120 words."}];
+  var providers = [
+    { label: "ChatGPT", url: function(q){ return "https://chatgpt.com/?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M22 9.6a5.4 5.4 0 0 0-.5-4.4 5.5 5.5 0 0 0-6-2.6 5.5 5.5 0 0 0-9.3 1.9 5.4 5.4 0 0 0-3.6 2.6 5.5 5.5 0 0 0 .7 6.4 5.4 5.4 0 0 0 .5 4.5 5.5 5.5 0 0 0 6 2.5 5.5 5.5 0 0 0 4.1 1.9 5.5 5.5 0 0 0 5.2-3.8 5.4 5.4 0 0 0 3.6-2.6 5.5 5.5 0 0 0-.7-6.4Z"/></svg>' },
+    { label: "Claude", url: function(q){ return "https://claude.ai/new?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2 13.4 9 19 10.5 14.5 12 19 13.5 13.4 15 12 22 10.6 15 5 13.5 9.5 12 5 10.5 10.6 9 Z"/></svg>' },
+    { label: "Perplexity", url: function(q){ return "https://www.perplexity.ai/?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2v8.5l7-4.5v6.5l-7 4.5V22m0-20-7 4.5 7 4.5 7-4.5L12 2Zm-7 11.5L12 18l-7 4.5v-9Z"/></svg>' }
+  ];
+  var NL = String.fromCharCode(10);
+  var copyIcon = '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="9" rx="1"/><path d="M6 4V3a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v8"/></svg>';
+  var checkIcon = '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>';
+  rows.innerHTML = prompts.map(function(p, i){
+    var providerLinks = providers.map(function(pr){
+      var fullQ = p.q + NL + window.location.href;
+      return '<a href="' + pr.url(fullQ) + '" target="_blank" rel="noopener noreferrer">' + pr.icon + '<span>' + pr.label + '</span></a>';
+    }).join('');
+    return '<div class="prompt-row" data-i="' + i + '">'
+      + '<div class="prompt-head">'
+      + '<div class="prompt-label">' + p.label + '<span class="dot">.</span></div>'
+      + '<button type="button" class="prompt-copy" title="Copy prompt to clipboard" aria-label="Copy prompt">' + copyIcon + '</button>'
+      + '</div>'
+      + '<div class="providers">' + providerLinks + '</div>'
+      + '</div>';
+  }).join('');
+  var copyBtns = rows.querySelectorAll('.prompt-copy');
+  copyBtns.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var row = btn.closest('.prompt-row');
+      var idx = parseInt(row.getAttribute('data-i'), 10);
+      var text = prompts[idx].q + NL + window.location.href;
+      var show = function(){
+        btn.innerHTML = checkIcon;
+        btn.classList.add('is-copied');
+        setTimeout(function(){ btn.innerHTML = copyIcon; btn.classList.remove('is-copied'); }, 1400);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(show).catch(function(){
+          var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); show(); } catch (_) {}
+          document.body.removeChild(ta);
+        });
+      } else {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); show(); } catch (_) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+  function openFab(){ fab.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); }
+  function closeFab(){ fab.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+  toggle.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (fab.classList.contains('open')) closeFab(); else openFab();
+  });
+  document.addEventListener('click', function(e){
+    if (fab.classList.contains('open') && !e.target.closest('.ask-fab')) closeFab();
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeFab(); });
+})();
+</script>
+
+<!-- HERO -->
+<section class="hero" id="heroBox" style="cursor:pointer;">
+  <video class="hero-video" id="heroVideo" src="public/opt-hero-a.mp4" autoplay muted loop playsinline preload="metadata"></video>
+  <div class="hero-vignette"></div>
+  <div class="hero-text">
+    <h1 class="d hero-headline split-text is-in">
+      We build brands<br/>worth noticing<span class="dot">.</span>
+    </h1>
+    <div class="hero-sub reveal is-in">
+      <p class="hero-sub-text m">A creative studio building work for brands that need to stand out.</p>
+      <a href="work.html" class="hero-cta">See the work <span class="dot">→</span></a>
+    </div>
+  </div>
+  <div class="audio-cue m" id="audioCue" style="position:absolute;top:50%;right:24px;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;z-index:10;font-size:10px;letter-spacing:0.18em;color:rgba(245, 245, 245, 0.7);pointer-events:none;">Sound off · click to unmute</div>
+  <div class="scroll-cue m">Scroll</div>
+</section>
+<script>
+(function(){
+  const box = document.getElementById('heroBox');
+  const vid = document.getElementById('heroVideo');
+  const cue = document.getElementById('audioCue');
+  if (!box || !vid) return;
+  box.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') return;
+    vid.muted = !vid.muted;
+    if (cue) cue.textContent = vid.muted ? 'Sound off · click to unmute' : 'Sound on · click to mute';
+  });
+})();
+</script>
+
+<!-- PILLARS — scroll-scrubbed full-bleed video + 4 staged reveals -->
+<section id="pillars" class="pillars-scroll">
+  <div class="pillars-pin">
+    <div class="pillars-video-wrap">
+      <video id="pillarsVideo" src="forvr%20docs/site-images/web/video-01-scrub.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
+      <div class="pillars-vignette" aria-hidden="true"></div>
+      <div class="pillars-grain" aria-hidden="true"></div>
+    </div>
+
+    <div class="pillars-overlay">
+      <div class="pillars-head">
+        <p class="m pillars-eyebrow">● &nbsp; 01 &nbsp;/&nbsp; The studio</p>
+        <h2 class="d pillars-title">About forvr<span class="dot">.</span></h2>
+      </div>
+
+      <div class="pillars-stage">
+        <article class="pillar-item is-active" data-i="0">
+          <span class="p-num">01</span>
+          <span class="p-eyebrow">Where it started</span>
+          <h3 class="p-title">Built from inside<span class="dot">.</span></h3>
+          <p class="p-body">Founded by an AI-native producer with experience inside a leading AI content studio. Workflows built for high-quality ad and product visuals.</p>
+        </article>
+
+        <article class="pillar-item" data-i="1">
+          <span class="p-num">02</span>
+          <span class="p-eyebrow">The method</span>
+          <h3 class="p-title">The Minotaur<span class="dot">.</span></h3>
+          <p class="p-body">Brand-trained models do the volume. Human direction does the polish.</p>
+        </article>
+
+        <article class="pillar-item" data-i="2">
+          <span class="p-num">03</span>
+          <span class="p-eyebrow">The work</span>
+          <h3 class="p-title">Six lanes<span class="dot">.</span></h3>
+          <p class="p-body">All in-house.</p>
+        </article>
+
+        <article class="pillar-item" data-i="3">
+          <span class="p-num">04</span>
+          <span class="p-eyebrow">The mission</span>
+          <h3 class="p-title p-title-mission">Creative that reads made, not generated<span class="dot">.</span></h3>
+        </article>
+      </div>
+
+      <div class="pillars-progress" aria-hidden="true">
+        <span class="dot-pip" data-i="0"></span>
+        <span class="dot-pip" data-i="1"></span>
+        <span class="dot-pip" data-i="2"></span>
+        <span class="dot-pip" data-i="3"></span>
+      </div>
+
+      <div class="pillars-scroll-hint">scroll ↓</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* PILLARS — scroll-scrubbed video with 4 staged reveals */
+  .pillars-scroll {
+    position: relative;
+    /* 4 items × 100vh + 50vh tail = 450vh of scrollable space */
+    height: 450vh;
+    background: #000;
+  }
+  .pillars-pin {
+    position: sticky; top: 0;
+    width: 100%; height: 100vh;
+    overflow: hidden;
+  }
+  .pillars-video-wrap { position: absolute; inset: 0; z-index: 1; }
+  #pillarsVideo {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  .pillars-vignette {
+    position: absolute; inset: 0; z-index: 2;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.7) 100%),
+      linear-gradient(90deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.25) 100%);
+    pointer-events: none;
+  }
+  .pillars-grain {
+    position: absolute; inset: 0; z-index: 3;
+    background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,0.025) 2px 3px);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .pillars-overlay {
+    position: absolute; inset: 0; z-index: 4;
+    padding: 56px 32px 56px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    color: #fafafa;
+  }
+  @media (max-width: 760px) { .pillars-overlay { padding: 48px 20px; } }
+
+  .pillars-head { display: grid; gap: 14px; }
+  .pillars-eyebrow {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .pillars-title {
+    font-family: var(--display);
+    font-size: clamp(64px, 9vw, 168px);
+    line-height: 0.88; letter-spacing: -0.02em;
+    color: #fafafa;
+    max-width: 12ch;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.45);
+  }
+
+  /* Stage now fills the full pin so each pillar can anchor to its own corner / center */
+  .pillars-stage {
+    position: absolute;
+    inset: 56px 32px 80px;
+    pointer-events: none;
+  }
+  @media (max-width: 760px) { .pillars-stage { inset: 48px 20px 80px; } }
+
+  .pillar-item {
+    position: absolute;
+    width: min(440px, 92%);
+    display: grid; gap: 14px;
+    opacity: 0;
+    transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+    pointer-events: none;
+  }
+  .pillar-item.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Corner / centre placements — each pillar gets its own anchor + entry direction */
+  .pillar-item[data-i="0"] { /* 01 — bottom right */
+    right: 0; bottom: 0;
+    text-align: right; justify-items: end;
+    transform: translate(24px, 28px);
+  }
+  .pillar-item[data-i="0"].is-active { transform: translate(0, 0); }
+
+  .pillar-item[data-i="1"] { /* 02 — top right (sits under the headline column) */
+    right: 0; top: clamp(220px, 28vh, 320px);
+    text-align: right; justify-items: end;
+    transform: translate(24px, -28px);
+  }
+  .pillar-item[data-i="1"].is-active { transform: translate(0, 0); }
+
+  .pillar-item[data-i="2"] { /* 03 — bottom left */
+    left: 0; bottom: 0;
+    text-align: left; justify-items: start;
+    transform: translate(-24px, 28px);
+  }
+  .pillar-item[data-i="2"].is-active { transform: translate(0, 0); }
+
+  .pillar-item[data-i="3"] { /* 04 — centre */
+    left: 50%; top: 50%;
+    width: min(560px, 92%);
+    text-align: center; justify-items: center;
+    transform: translate(-50%, calc(-50% + 24px));
+  }
+  .pillar-item[data-i="3"].is-active { transform: translate(-50%, -50%); }
+
+  /* When the centre pillar is live, fade the top headline down so it doesn't fight */
+  .pillars-overlay.center-live .pillars-head { opacity: 0.18; transition: opacity 0.45s; }
+  .pillars-overlay:not(.center-live) .pillars-head { opacity: 1; transition: opacity 0.45s; }
+
+  @media (max-width: 760px) {
+    .pillar-item, .pillar-item[data-i] { width: 100%; }
+    .pillar-item[data-i="0"], .pillar-item[data-i="2"] { left: 0; right: 0; bottom: 0; text-align: left; justify-items: start; transform: translateY(28px); }
+    .pillar-item[data-i="0"].is-active, .pillar-item[data-i="2"].is-active { transform: translateY(0); }
+    .pillar-item[data-i="1"] { left: 0; right: 0; top: auto; bottom: 0; text-align: left; justify-items: start; transform: translateY(28px); }
+    .pillar-item[data-i="1"].is-active { transform: translateY(0); }
+    .pillar-item[data-i="3"] { left: 0; right: 0; top: auto; bottom: 0; transform: translateY(28px); text-align: left; justify-items: start; }
+    .pillar-item[data-i="3"].is-active { transform: translateY(0); }
+  }
+  .pillar-item .p-num {
+    font-family: var(--display);
+    font-size: 48px; line-height: 0.9;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .pillar-item .p-eyebrow {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(250,250,250,0.65);
+  }
+  .pillar-item .p-title {
+    font-family: var(--display);
+    font-size: clamp(40px, 5.4vw, 80px);
+    line-height: 0.96; letter-spacing: -0.01em;
+    color: #fafafa;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.4);
+  }
+  .pillar-item .p-title.p-title-mission {
+    font-size: clamp(28px, 3.4vw, 52px);
+    line-height: 1.06;
+    max-width: 18ch;
+  }
+  .pillar-item .p-body {
+    font-family: var(--body);
+    font-size: 15.5px; line-height: 1.65;
+    color: rgba(250,250,250,0.86);
+    max-width: 520px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.45);
+  }
+  .pillar-item .p-spec {
+    margin-top: 8px;
+    display: flex; flex-wrap: wrap; gap: 18px;
+    font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(250,250,250,0.7);
+  }
+  .pillar-item .p-spec i {
+    font-style: normal; color: var(--accent);
+    margin-right: 6px;
+  }
+
+  /* Progress dot strip — bottom-right indicator */
+  .pillars-progress {
+    align-self: end; justify-self: end;
+    display: flex; gap: 8px;
+    padding: 8px 12px;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(91,194,231,0.22);
+  }
+  .pillars-progress .dot-pip {
+    width: 20px; height: 4px;
+    background: rgba(250,250,250,0.25);
+    transition: background 0.3s, width 0.3s;
+  }
+  .pillars-progress .dot-pip.is-active {
+    background: var(--accent);
+    width: 36px;
+  }
+  .pillars-progress .dot-pip.is-past {
+    background: rgba(91,194,231,0.55);
+  }
+  /* Phone + tablet: the pillar copy is bottom-anchored, so the bottom-right
+     progress strip lands on top of the number/title. Pin it to the top-right
+     corner (clear of the left-aligned header) so it never overlaps. Desktop
+     keeps the bottom-right placement. */
+  @media (max-width: 900px) {
+    .pillars-progress {
+      position: absolute; top: 14px; right: 14px;
+      align-self: auto; justify-self: auto; z-index: 6;
+    }
+  }
+
+  .pillars-scroll-hint {
+    position: absolute; bottom: 22px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(250,250,250,0.5);
+    pointer-events: none;
+    transition: opacity 0.5s;
+  }
+  .pillars-pin.has-progressed .pillars-scroll-hint { opacity: 0; }
+
+  @media (max-width: 760px) {
+    .pillars-overlay { grid-template-rows: auto auto auto; }
+    .pillar-item .p-title { font-size: clamp(36px, 9vw, 56px); }
+    .pillar-item .p-num { font-size: 36px; }
+    .pillars-progress { justify-self: start; }
+  }
+</style>
+
+<script>
+(function pillarsScrubScroll() {
+  const wrap = document.getElementById('pillars');
+  const pin = wrap && wrap.querySelector('.pillars-pin');
+  const overlay = wrap && wrap.querySelector('.pillars-overlay');
+  const video = document.getElementById('pillarsVideo');
+  const items = wrap && wrap.querySelectorAll('.pillar-item');
+  const pips = wrap && wrap.querySelectorAll('.dot-pip');
+  if (!wrap || !pin || !video || !items.length) return;
+
+  let videoDuration = 0;
+  let lastSeek = -1;
+  let ticking = false;
+
+  video.addEventListener('loadedmetadata', () => {
+    videoDuration = video.duration || 7;
+  });
+
+  const setActive = (idx) => {
+    items.forEach((el, i) => el.classList.toggle('is-active', i === idx));
+    pips.forEach((p, i) => {
+      p.classList.toggle('is-active', i === idx);
+      p.classList.toggle('is-past', i < idx);
+    });
+    // Centre pillar (data-i 3) gets a flag on the overlay so the headline fades
+    overlay.classList.toggle('center-live', idx === 3);
+  };
+
+  const compute = () => {
+    const rect = wrap.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = rect.height - vh;
+    const progress = Math.max(0, Math.min(1, (-rect.top) / total));
+
+    // Map progress → video time. Only seek when delta is meaningful — saves work.
+    if (videoDuration > 0) {
+      const target = progress * videoDuration;
+      if (Math.abs(target - lastSeek) > 0.02) {
+        try { video.currentTime = target; lastSeek = target; } catch (e) {}
+      }
+    }
+
+    const idx = Math.min(3, Math.floor(progress * 4));
+    setActive(idx);
+
+    if (progress > 0.04) pin.classList.add('has-progressed');
+    else pin.classList.remove('has-progressed');
+
+    ticking = false;
+  };
+
+  const onScroll = () => {
+    if (!ticking) { requestAnimationFrame(compute); ticking = true; }
+  };
+
+  setActive(0);
+  compute();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+})();
+</script>
+
+<!-- STATUS STRIP -->
+<div class="marquee" aria-hidden="true">
+  <div class="status-row">
+    <span class="ticker-chip">
+      <svg class="glyph glyph-eye" viewBox="0 0 44 44" fill="none">
+        <g class="eye-stack">
+          <path d="M4 22 C12 8, 32 8, 40 22 C32 36, 12 36, 4 22 Z" stroke="#0a0a0a" stroke-width="2.5" stroke-linejoin="round" fill="#fff"/>
+          <g class="pupil">
+            <circle cx="22" cy="22" r="6" fill="#0a0a0a"/>
+            <circle cx="23.5" cy="20.5" r="1.6" fill="#fff"/>
+          </g>
+        </g>
+      </svg>
+      <span class="label">Eyes on it</span>
+    </span>
+
+    <span class="ticker-chip pill accent">
+      <span class="label num" id="tickerClock1">12:00:00 BST</span>
+    </span>
+
+    <span class="ticker-chip pill">
+      <span class="label num">FRAME <span id="tickerFrame1">000000</span></span>
+    </span>
+  </div>
+</div>
+
+<!-- MISSION / Why Forvr — sticky split: video left 2/3, text right 1/3 -->
+<section id="mission" class="mission-sticky">
+  <div class="mission-pin">
+    <div class="mission-split">
+      <div class="mission-video-side">
+        <video class="mission-bg-video" src="forvr%20docs/site-images/web/video-02.mp4" muted loop playsinline autoplay disablepictureinpicture preload="metadata"></video>
+        <span class="mission-corner-meta">CH.02 · MISSION</span>
+      </div>
+      <div class="mission-text-side">
+        <div class="mission-text reveal-group">
+          <p class="mission-ix reveal-line"><span class="bar"></span> 02</p>
+          <h2 class="d mission-h reveal-line">Why forvr<span class="dot">.</span></h2>
+          <div class="mission-paras">
+            <p class="mission-p reveal-line">Forvr ships brand-trained, hand-finished creative in a fraction of the time and cost of traditional agencies. The model trains on your brand from the first brief, then adapts every frame to fit the work.</p>
+            <p class="mission-p reveal-line">The work goes out recognisable as yours, not the model's default.</p>
+          </div>
+          <div class="mission-cta-row reveal-line">
+            <a class="mission-btn" href="work.html">See the work</a>
+            <a class="mission-btn ghost" href="studio.html">Meet the studio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Mission / Why Forvr — sticky split: video covers left 2/3, text fills right 1/3.
+     Section is 200vh tall; pin holds 100vh while it scrolls. */
+  .mission-sticky {
+    position: relative;
+    height: 200vh;
+    background: #050505;
+    border-top: 1px solid rgba(10,10,10,0.08);
+    border-bottom: 1px solid rgba(10,10,10,0.08);
+  }
+  .mission-pin {
+    position: sticky; top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  .mission-split {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) {
+    .mission-split { grid-template-columns: 1fr; grid-template-rows: 60vh 1fr; }
+  }
+  .mission-video-side {
+    position: relative;
+    overflow: hidden;
+    background: #050505;
+  }
+  .mission-bg-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .mission-video-side .mission-corner-meta {
+    position: absolute; top: 24px; left: 24px; z-index: 2;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent);
+    background: rgba(0,0,0,0.55); padding: 5px 10px;
+  }
+  .mission-text-side {
+    background: #fafafa;
+    display: flex; align-items: center; justify-content: flex-start;
+    padding: 0 32px;
+    min-width: 0;
+  }
+  @media (max-width: 900px) { .mission-text-side { padding: 56px 24px; } }
+  .mission-text {
+    display: flex; flex-direction: column; justify-content: center;
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .mission-text .mission-h { color: #0a0a0a; max-width: 100%; font-size: clamp(40px, 4.6vw, 84px); line-height: 0.94; }
+  .mission-text .mission-paras { max-width: 36ch; }
+  .mission-text .mission-p { color: rgba(10,10,10,0.72); }
+  .mission-text .mission-ix { color: var(--accent); }
+  .mission-text .mission-ix .bar { background: var(--accent); }
+
+  .mission-ix {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--accent);
+  }
+  .mission-ix .bar { flex: 0 0 36px; height: 1px; background: var(--accent); }
+
+  .mission-h {
+    font-size: clamp(56px, 8vw, 128px);
+    line-height: 0.92; letter-spacing: -0.025em;
+    margin-top: 16px;
+    color: #0a0a0a;
+  }
+
+  .mission-paras { margin-top: 20px; display: grid; gap: 12px; max-width: 460px; }
+  .mission-p {
+    font-family: var(--body);
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: rgba(10,10,10,0.72);
+  }
+  .mission-p .flag {
+    display: block; margin-bottom: 10px;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .mission-cta-row {
+    margin-top: 24px;
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .mission-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 18px;
+    border: 1px solid var(--accent); color: var(--accent);
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.18s, color 0.18s;
+  }
+  .mission-btn::after { content: " →"; }
+  .mission-btn:hover { background: var(--accent); color: #050505; }
+  .mission-btn.ghost { border-color: rgba(10,10,10,0.18); color: rgba(10,10,10,0.55); }
+  .mission-btn.ghost:hover { border-color: #0a0a0a; color: #0a0a0a; background: transparent; }
+
+  /* The video — right half, full-bleed to viewport edge */
+  .mission-screen-side {
+    position: relative; z-index: 2;
+    display: flex; align-items: stretch;
+    min-height: 78vh;
+  }
+  @media (max-width: 1000px) {
+    .mission-screen-side { min-height: 56vh; }
+  }
+  .mission-screen {
+    position: relative;
+    width: 100%;
+    background: #000;
+    overflow: hidden;
+    will-change: transform;
+    transform-origin: center;
+    backface-visibility: hidden;
+  }
+  .mission-screen video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    will-change: transform; transform: translateZ(0);
+  }
+  .mission-corner-meta {
+    position: absolute; top: 18px; left: 18px; z-index: 4;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent);
+    background: rgba(0,0,0,0.55); padding: 5px 10px;
+  }
+</style>
+
+<!-- ADJUSTMENT B — position sentence with sticky text-left, big image-right -->
+<section class="position-sticky" aria-label="Forvr position">
+  <div class="position-pin">
+    <div class="position-grid">
+      <div class="position-text reveal-group">
+        <p class="m m-accent reveal-line">Why this works</p>
+        <p class="d position-sentence-line reveal-line">
+          AI is the tool<span class="dot">.</span><br/>
+          Taste is the <span class="position-light">work</span><span class="dot">.</span>
+        </p>
+      </div>
+      <div class="position-visual reveal-line r-img">
+        <!-- Tetris-style reveal — taste.png falls in as blocks while the position section pins -->
+        <div class="position-tetris-wrap">
+          <div class="position-tetris-grid" id="positionTetrisGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Position sentence — sticky text-left + big image-right. Section is 180vh tall; pin holds 100vh. */
+  .position-sticky {
+    position: relative;
+    height: 180vh;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .position-pin {
+    position: sticky; top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  .position-grid {
+    height: 100%;
+    display: grid;
+    grid-template-columns: minmax(320px, 40%) 1fr;
+    align-items: center;
+    gap: 0;
+  }
+  @media (max-width: 900px) {
+    .position-grid { grid-template-columns: 1fr; }
+  }
+  /* Static taste.png on phone + tablet-portrait is painted into the grid by the
+     mobile branch of buildTetrisReveal; the existing max-width:900px block below
+     un-pins the section and gives .position-visual its height. */
+  .position-text {
+    padding: 0 48px 0 32px;
+    display: flex; flex-direction: column; justify-content: center; gap: 28px;
+    min-width: 0;
+  }
+  .position-text .m { letter-spacing: 0.18em; }
+  .position-sentence-line {
+    font-size: clamp(48px, 6.8vw, 120px);
+    line-height: 0.92; letter-spacing: -0.025em; color: var(--fg);
+    max-width: 14ch;
+  }
+  .position-light { color: var(--accent); }
+  .position-visual {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+  .position-img {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    will-change: transform;
+  }
+  /* Tetris reveal for the position-sentence image (taste.png) */
+  .position-tetris-wrap {
+    position: absolute; inset: 0;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .position-tetris-grid {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+  @media (max-width: 900px) {
+    .position-sticky { height: auto; }
+    .position-pin { position: static; height: auto; }
+    .position-grid { grid-template-columns: 1fr; }
+    .position-text { padding: 40px 24px 24px; }
+    .position-visual { height: 70vh; }
+  }
+</style>
+
+<!-- SERVICES -->
+<section id="services" class="block">
+  <div class="grid section-head reveal-group">
+    <p class="m m-accent reveal-line">Capabilities / 01–06</p>
+    <h2 class="d split-text reverse-on-scroll reveal-line">Built in house<span class="dot">.</span></h2>
+  </div>
+
+  <div class="grid svc-grid">
+    <ul class="svc-list list-wrap">
+      <li data-svc="1">
+        <div class="row">
+          <span class="m num">01</span>
+          <div class="content"><h3 class="d">Video Production</h3></div>
+          <span class="m arrow">→</span>
+        </div>
+      </li>
+      <li data-svc="2">
+        <div class="row">
+          <span class="m num">02</span>
+          <div class="content"><h3 class="d">Image Creation</h3></div>
+          <span class="m arrow">→</span>
+        </div>
+      </li>
+      <li data-svc="3">
+        <div class="row">
+          <span class="m num">03</span>
+          <div class="content"><h3 class="d">Creative Direction</h3></div>
+          <span class="m arrow">→</span>
+        </div>
+      </li>
+      <li data-svc="4">
+        <div class="row">
+          <span class="m num">04</span>
+          <div class="content"><h3 class="d">Graphic Design</h3></div>
+          <span class="m arrow">→</span>
+        </div>
+      </li>
+      <li data-svc="5">
+        <div class="row">
+          <span class="m num">05</span>
+          <div class="content"><h3 class="d">Website Design</h3></div>
+          <span class="m arrow">→</span>
+        </div>
+      </li>
+      <li data-svc="6">
+        <div class="row">
+          <span class="m num">06</span>
+          <div class="content"><h3 class="d">Brand Identity &amp; Strategy<span class="dot">.</span></h3></div>
+          <span class="m arrow">→</span>
+        </div>
+      </li>
+    </ul>
+    <div class="visual-wrap">
+      <div class="svc-image-box" id="svcImageBox">
+        <div class="svc-image-bg" id="svcScrollBg"></div>
+        <span class="svc-image-meta" id="svcScrollMeta">Hover any service</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phone + small-tablet only: image grid with name overlay (the desktop
+       name+arrow list is hidden at this width). -->
+  <div class="svc-grid-mobile">
+    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-01.jpg')"><span class="svc-cell-num">01</span><span class="svc-cell-name">Video Production</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-02.jpg')"><span class="svc-cell-num">02</span><span class="svc-cell-name">Image Creation</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-03.jpg')"><span class="svc-cell-num">03</span><span class="svc-cell-name">Creative Direction</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-04.jpg')"><span class="svc-cell-num">04</span><span class="svc-cell-name">Graphic Design</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-05.jpg')"><span class="svc-cell-num">05</span><span class="svc-cell-name">Website Design</span></a>
+    <a class="svc-cell" href="services.html" style="background-image: url('public/services/opt-06.jpg')"><span class="svc-cell-num">06</span><span class="svc-cell-name">Brand Identity &amp; Strategy</span></a>
+  </div>
+</section>
+
+<style>
+  /* Services image grid — phone + small tablet only. 3 columns (2 on small
+     phones). Each cell is the service image with the name overlaid on a scrim.
+     Desktop keeps the name+arrow list with the hover image. */
+  .svc-grid-mobile { display: none; }
+  @media (max-width: 900px) {
+    #services .svc-grid { display: none; }
+    .svc-grid-mobile {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 6px;
+    }
+    .svc-cell {
+      position: relative; aspect-ratio: 3 / 4; overflow: hidden;
+      background-size: cover; background-position: center;
+      border: 1px solid var(--line); text-decoration: none;
+      display: flex; align-items: flex-end;
+    }
+    .svc-cell::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.74), rgba(0,0,0,0) 58%);
+    }
+    .svc-cell-num {
+      position: absolute; top: 8px; left: 10px; z-index: 2;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--accent);
+    }
+    .svc-cell-name {
+      position: relative; z-index: 2; padding: 10px;
+      font-family: var(--display); font-weight: 900; text-transform: uppercase;
+      font-size: 14px; line-height: 1.04; letter-spacing: -0.01em; color: #fff;
+    }
+  }
+  @media (max-width: 520px) {
+    .svc-grid-mobile { grid-template-columns: repeat(2, 1fr); }
+    .svc-cell-name { font-size: 13px; }
+  }
+</style>
+
+<!-- OUTCOMES — three compact cards in a row, body-font titles, fade-up reveal -->
+<section id="outcomes" class="outcomes-block">
+  <div class="outcomes-head reveal-group">
+    <p class="m m-accent reveal-line">Outcomes / 01–03</p>
+  </div>
+
+  <div class="outcomes-row">
+    <article class="oc-card" data-i="0" style="background-image: url('forvr%20docs/site-images/web/16-aesthetic-silk.jpg');">
+      <span class="oc-num">01</span>
+      <h3 class="oc-title">Ship in weeks, not months<span class="dot">.</span></h3>
+    </article>
+    <article class="oc-card" data-i="1" style="background-image: url('forvr%20docs/site-images/web/12-aesthetic-glass-refraction.jpg');">
+      <span class="oc-num">02</span>
+      <h3 class="oc-title">A fraction of traditional production cost<span class="dot">.</span></h3>
+    </article>
+    <article class="oc-card" data-i="2" style="background-image: url('forvr%20docs/site-images/web/14-aesthetic-mercury.jpg');">
+      <span class="oc-num">03</span>
+      <h3 class="oc-title">Every format, one brand voice<span class="dot">.</span></h3>
+    </article>
+  </div>
+</section>
+
+<style>
+  .outcomes-block { border-top: 1px solid var(--line); background: var(--bg); }
+  .outcomes-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 0 20px 48px;
+  }
+  @media (min-width: 768px) {
+    .outcomes-row { gap: 16px; padding: 0 32px 40px; }
+  }
+  @media (max-width: 700px) {
+    .outcomes-row { grid-template-columns: 1fr; }
+  }
+
+  .oc-card {
+    position: relative;
+    aspect-ratio: 4/5;
+    background-color: #0a0a0a;
+    background-size: cover; background-position: center;
+    overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 22px;
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+      transform 0.55s cubic-bezier(0.22,1,0.36,1),
+      box-shadow 0.45s cubic-bezier(0.22,1,0.36,1);
+    transition-delay: calc(var(--i, 0) * 0.12s);
+    cursor: pointer;
+  }
+  .oc-card.is-in { opacity: 1; transform: translateY(0); }
+  .oc-card.is-in:hover {
+    transform: translateY(-8px) scale(1.015);
+    box-shadow: 0 22px 48px -18px rgba(0,0,0,0.55), 0 0 0 1px rgba(91,194,231,0.18);
+    transition-delay: 0s;
+    z-index: 2;
+  }
+  .oc-card::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.0) 75%);
+  }
+  .oc-num {
+    position: relative; z-index: 2;
+    color: var(--accent);
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .oc-title {
+    position: relative; z-index: 2;
+    color: #fafafa;
+    font-family: var(--body);
+    font-size: clamp(17px, 1.5vw, 24px);
+    font-weight: 600;
+    line-height: 1.22;
+    letter-spacing: -0.005em;
+    max-width: 20ch;
+  }
+</style>
+
+<script>
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  document.querySelectorAll('.oc-card').forEach((el, i) => { el.style.setProperty('--i', i); });
+  const cards = document.querySelectorAll('.oc-card');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.2 });
+  cards.forEach(c => io.observe(c));
+})();
+</script>
+
+<!-- STUDIO (home teaser — full version at /studio) -->
+<section id="studio" class="block">
+  <div class="grid section-head reveal-group">
+    <p class="m m-accent reveal-line">Studio / About</p>
+    <h2 class="d split-text reverse-on-scroll reveal-line">The studio<br/>is the work<span class="dot">.</span></h2>
+    <p class="m founder-line reveal-line">Six lanes, one studio<span class="dot">.</span> Concept to ship without leaving the building<span class="dot">.</span></p>
+  </div>
+  <style>
+    .founder-line { grid-column: span 12; margin-top: 28px; max-width: 720px; color: rgba(10,10,10,0.65); line-height: 1.6; letter-spacing: 0.06em; }
+    @media (min-width: 768px) { .founder-line { grid-column: 3 / span 8; } }
+  </style>
+
+  <div class="grid studio-grid studio-grid-sculpture">
+    <div class="copy reveal">
+      <p>One studio, built around bold ideas and the tools to make them. The same founder is involved at every step, from the pitch through to delivery.</p>
+      <p>We build for fashion, streetwear, and brands that need a visual identity people remember. AI is a tool here, not a feature. The decisions are still ours.</p>
+      <div style="padding-top: 16px;">
+        <a class="btn" href="studio.html">See the studio →</a>
+      </div>
+    </div>
+
+    <!-- Embedded dot sculpture — sits next to Studio copy, interactive surface -->
+    <div class="studio-sculpture reveal" id="dotSculpture">
+      <img class="scratch-img" id="scratchImg" src="forvr%20docs/site-images/supplied/opt-ball2.jpg" alt="Studio reveal image" draggable="false" />
+      <canvas id="dotCanvas"></canvas>
+      <button type="button" class="scratch-reset" id="scratchReset" aria-label="Reset reveal">
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 1 0 1.6-3.9"/><path d="M2.5 3v3h3"/></svg>
+        <span>Reset</span>
+      </button>
+      <div class="corner br"><p class="scratch-cta">Click <span class="plus">+</span> drag to reveal<span class="dot">.</span></p></div>
+    </div>
+  </div>
+
+  <!-- Studio status strip — matches the top strip exactly -->
+  <div class="marquee studio-strip" aria-hidden="true">
+    <div class="status-row">
+      <span class="ticker-chip">
+        <svg class="glyph glyph-eye" viewBox="0 0 44 44" fill="none">
+          <g class="eye-stack">
+            <path d="M4 22 C12 8, 32 8, 40 22 C32 36, 12 36, 4 22 Z" stroke="#0a0a0a" stroke-width="2.5" stroke-linejoin="round" fill="#fff"/>
+            <g class="pupil">
+              <circle cx="22" cy="22" r="6" fill="#0a0a0a"/>
+              <circle cx="23.5" cy="20.5" r="1.6" fill="#fff"/>
+            </g>
+          </g>
+        </svg>
+        <span class="label">Eyes on it</span>
+      </span>
+
+      <span class="ticker-chip pill accent">
+        <span class="label num" id="tickerClock2">12:00:00 BST</span>
+      </span>
+
+      <span class="ticker-chip pill">
+        <span class="label num">FRAME <span id="tickerFrame2">000000</span></span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Studio teaser: copy left + sculpture right, status strip below */
+  .studio-grid-sculpture .copy { grid-column: span 12; }
+  .studio-grid-sculpture .studio-sculpture { grid-column: span 12; margin-top: 32px; }
+  @media (min-width: 768px) {
+    .studio-grid-sculpture { align-items: stretch; }
+    .studio-grid-sculpture .copy { grid-column: span 5; align-self: center; }
+    .studio-grid-sculpture .studio-sculpture { grid-column: 7 / span 6; margin-top: 0; }
+  }
+  /* Embedded sculpture container */
+  .studio-sculpture {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    cursor: crosshair;
+  }
+  .studio-sculpture canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .studio-sculpture .scratch-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: contain; object-position: 50% 50%;
+    clip-path: circle(45% at 50% 50%);
+    -webkit-clip-path: circle(45% at 50% 50%);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    background: #fafafa;
+  }
+  .studio-sculpture .corner { position: absolute; padding: 18px 22px; pointer-events: none; z-index: 2; }
+  .studio-sculpture .corner.tl { top: 0; left: 0; }
+  .studio-sculpture .corner.br { bottom: 0; right: 0; text-align: right; }
+  .studio-sculpture .sculpture-title { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); pointer-events: none; z-index: 2; text-align: center; width: 100%; }
+  .studio-sculpture .sculpture-title .d { font-size: clamp(22px, 2.4vw, 36px); line-height: 0.95; color: var(--fg); }
+  /* Scratch CTA — sits inside the box, sized to read clearly even with image bleeding behind */
+  .studio-sculpture .scratch-cta {
+    font-family: var(--display);
+    font-size: clamp(18px, 2.1vw, 30px);
+    line-height: 1.0;
+    letter-spacing: -0.005em;
+    color: var(--fg);
+    margin: 0;
+  }
+  .studio-sculpture .scratch-cta .plus { color: var(--accent); font-weight: 600; }
+  .studio-sculpture .scratch-cta .dot { color: var(--accent); }
+  /* Reset button — top-right, only appears once a drag scratch exists */
+  .studio-sculpture .scratch-reset {
+    position: absolute;
+    top: 18px; right: 22px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    background: rgba(250,250,250,0.82);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.32s ease, transform 0.32s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .studio-sculpture .scratch-reset.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .studio-sculpture .scratch-reset:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  /* Mobile: stop the reset button and CTA caption sitting on top of the
+     circular reveal. Reset becomes a compact icon-only chip in the corner;
+     the CTA moves to a centred caption on a bottom scrim. Desktop unchanged. */
+  @media (max-width: 767px) {
+    /* Smaller reveal circle (matched to the canvas R = 0.36) so the caption sits
+       in a clear band below the circle instead of overlapping its bottom edge. */
+    .studio-sculpture .scratch-img {
+      clip-path: circle(36% at 50% 50%);
+      -webkit-clip-path: circle(36% at 50% 50%);
+    }
+    .studio-sculpture .scratch-reset { top: 10px; right: 10px; padding: 8px; gap: 0; }
+    .studio-sculpture .scratch-reset span { display: none; }
+    .studio-sculpture .corner.br {
+      left: 0; right: 0; bottom: 0; text-align: center;
+      padding: 12px 16px 14px;
+      background: linear-gradient(to top, rgba(250,250,250,0.96) 60%, rgba(250,250,250,0));
+    }
+    .studio-sculpture .scratch-cta { font-size: 13px; }
+  }
+
+  .studio-strip { margin-top: 64px; }
+  @media (min-width: 768px) { .studio-strip { margin-top: 40px; } }
+</style>
+
+<!-- PROCESS (home teaser — sticky-pinned outer so the Tetris reveal can fill while pinned) -->
+<div class="proc-teaser-outer" id="procTeaserOuter">
+<section id="process" class="block proc-teaser-block proc-teaser-pinned">
+  <div class="grid proc-teaser-row">
+    <!-- Left: copy + button -->
+    <div class="proc-teaser-left reveal">
+      <p class="m m-accent" style="margin-bottom: 32px;">How we work</p>
+      <h2 class="d" style="font-size: clamp(56px, 9vw, 160px); line-height: 0.9;">
+        No prompt<br/>and pray<span class="dot">.</span>
+      </h2>
+      <p style="margin-top: 40px; max-width: 560px; color: rgba(10,10,10,0.85); line-height: 1.6; font-size: clamp(16px, 1.3vw, 20px);">
+        Most AI work is generic prompts on generic models. We extract your visual DNA, build it into a moodboard, train models on your specific aesthetic. Custom workflows. Brand-specific output. Every project built around you, not assembled from someone else's template.
+      </p>
+      <div style="margin-top: 56px;">
+        <a class="btn" href="process.html">See the process →</a>
+      </div>
+    </div>
+
+    <!-- Right: Tetris-style block reveal — image is sliced into a grid of tiles.
+         Tiles fall from above as you scroll the section into view. Some pre-placed,
+         most stagger-fall on scroll progress. Pure CSS transforms — no per-frame canvas. -->
+    <a class="proc-teaser-right reveal" href="process.html" id="procTetrisLink" aria-label="See the process">
+      <div class="proc-tetris-wrap" id="procTetrisWrap" aria-hidden="true">
+        <div class="proc-tetris-grid" id="procTetrisGrid"></div>
+        <span class="mark proc-tetris-mark">forvr<span class="dot">.</span></span>
+      </div>
+    </a>
+  </div>
+</section>
+</div>
+
+<script>
+// Reusable Tetris-reveal builder. Builds an image-slice grid inside `grid` and
+// drives the fill from `outerEl`'s scroll position. Used on multiple pages.
+window.buildTetrisReveal = function(opts) {
+  const grid = opts.grid;
+  const outerEl = opts.outer || grid;
+  if (!grid) return;
+  const COLS = opts.cols || 14;
+  const ROWS = opts.rows || 9;
+  const IMG = opts.image;
+  const PREPLACED_PROBABILITY = opts.preplaced != null ? opts.preplaced : 0.28;
+  const PROGRESS_SCALE = opts.progressScale || 1.25;
+  // entry: 'top' (default — fall from above) | 'sides' (alternate left/right by row)
+  const ENTRY = opts.entry || 'top';
+
+  // Mobile: the falling-tile reveal needs a tall pinned scroll budget that does
+  // not survive a phone viewport (the panel aspect flips and the cascade never
+  // resolves). On phones, skip the animation entirely and paint the finished
+  // image straight into the panel. Desktop and tablet keep the tetris reveal.
+  if (window.matchMedia && (window.matchMedia('(max-width: 900px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    if (IMG) {
+      grid.style.backgroundImage = "url('" + IMG + "')";
+      grid.style.backgroundSize = 'cover';
+      grid.style.backgroundPosition = 'center';
+      grid.style.backgroundRepeat = 'no-repeat';
+    }
+    return;
+  }
+
+  const tiles = [];
+  const TILE_OVER = 1.014; // overlap to kill subpixel seams
+  const cellW = 100 / COLS;
+  const cellH = 100 / ROWS;
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const tile = document.createElement('div');
+      tile.className = 'tt-tile';
+      const overW = cellW * TILE_OVER, overH = cellH * TILE_OVER;
+      const ox = (overW - cellW) / 2, oy = (overH - cellH) / 2;
+      tile.style.left = (c * cellW - ox) + '%';
+      tile.style.top = (r * cellH - oy) + '%';
+      tile.style.width = overW + '%';
+      tile.style.height = overH + '%';
+      tile.style.backgroundImage = "url('" + IMG + "')";
+      tile.style.backgroundSize = (100 / TILE_OVER * COLS) + '% ' + (100 / TILE_OVER * ROWS) + '%';
+      tile.style.backgroundPosition = ((c / (COLS - 1)) * 100) + '% ' + ((r / (ROWS - 1)) * 100) + '%';
+
+      if (Math.random() < PREPLACED_PROBABILITY) {
+        tile.classList.add('is-landed', 'is-preplaced');
+        tile.dataset.threshold = '0';
+      } else {
+        if (ENTRY === 'sides') {
+          // Threshold: cascade left-to-right BUT with rows alternating direction —
+          // even rows fill L→R, odd rows fill R→L. Adjacent rows close from opposite sides.
+          const fillFromLeft = (r % 2) === 0;
+          const colPos = fillFromLeft ? c / COLS : (COLS - 1 - c) / COLS;
+          const base = colPos * 0.78 + (r / ROWS) * 0.08;
+          const jitter = Math.random() * 0.08;
+          tile.dataset.threshold = Math.min(0.94, base + jitter).toFixed(3);
+          // Entry offset: from outside the panel left edge (even rows) or right edge (odd rows)
+          const dist = (Math.random() * 80 + 180);
+          const dir = fillFromLeft ? -dist : dist;
+          tile.style.setProperty('--off-x', dir.toFixed(0) + 'px');
+          tile.style.setProperty('--off-y', '0px');
+          // Tiny tilt matching entry direction
+          tile.style.setProperty('--rot', (fillFromLeft ? -2 : 2) + 'deg');
+        } else {
+          // Default top-down fall
+          const base = (c / COLS) * 0.7 + (r / ROWS) * 0.12;
+          const jitter = Math.random() * 0.10;
+          tile.dataset.threshold = Math.min(0.94, base + jitter).toFixed(3);
+          const rot = (Math.random() * 8 - 4).toFixed(1);
+          tile.style.setProperty('--rot', rot + 'deg');
+          tile.style.setProperty('--off-y', (-(Math.random() * 120 + 240)).toFixed(0) + 'px');
+          tile.style.setProperty('--off-x', '0px');
+        }
+      }
+      grid.appendChild(tile);
+      tiles.push(tile);
+    }
+  }
+
+  let ticking = false;
+  function compute() {
+    ticking = false;
+    const rect = outerEl.getBoundingClientRect();
+    const vh = window.innerHeight || 1;
+    const total = rect.height - vh;
+    if (total <= 0) return;
+    let raw = (-rect.top) / total;
+    raw = Math.max(0, Math.min(1, raw));
+    const progress = Math.min(1, raw * PROGRESS_SCALE);
+    for (let i = 0; i < tiles.length; i++) {
+      const t = tiles[i];
+      const th = parseFloat(t.dataset.threshold);
+      if (progress >= th) {
+        if (!t.classList.contains('is-landed')) t.classList.add('is-landed');
+      } else {
+        if (t.classList.contains('is-landed') && !t.classList.contains('is-preplaced')) {
+          t.classList.remove('is-landed');
+        }
+      }
+    }
+  }
+  function onScroll() { if (!ticking) { requestAnimationFrame(compute); ticking = true; } }
+  compute();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+};
+
+// Process teaser — sticky-pinned outer, Tetris fills during pin.
+// entry:'sides' makes blocks come in from left + right alternating by row.
+window.buildTetrisReveal({
+  outer: document.getElementById('procTeaserOuter'),
+  grid: document.getElementById('procTetrisGrid'),
+  image: 'forvr%20docs/site-images/supplied/opt-no-prompt-and-pray.jpg',
+  cols: 14, rows: 9,
+  preplaced: 0.24,
+  progressScale: 1.05,
+  entry: 'sides',
+});
+
+// Position sentence — sticky-pinned (180vh), Tetris fills the taste.png panel
+window.buildTetrisReveal({
+  outer: document.querySelector('.position-sticky'),
+  grid: document.getElementById('positionTetrisGrid'),
+  image: 'forvr%20docs/site-images/supplied/opt-taste.jpg',
+  cols: 12, rows: 14,
+  preplaced: 0.32,
+  progressScale: 1.4,
+});
+</script>
+
+<style>
+  /* Sticky-pinned outer — outer height = inner pin + cascade scroll budget.
+     No dead space after the cascade finishes — pin releases at the same time as outer ends.
+     Outer 200vh = 100vh pin + 100vh of scroll-cascade budget. */
+  .proc-teaser-outer {
+    position: relative;
+    height: 200vh;
+  }
+  .proc-teaser-pinned {
+    position: sticky !important;
+    top: 0 !important;
+    height: 100vh !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    border-bottom: 0 !important;
+  }
+  .proc-teaser-pinned .proc-teaser-row { height: 100%; min-height: 100vh; }
+  .proc-teaser-block { padding: 0 !important; border-top: 1px solid var(--line); overflow: hidden; }
+  .proc-teaser-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    align-items: stretch;
+    min-height: 70vh;
+  }
+  /* Headline column sized to fit the headline ("No prompt and pray."), canvas takes the rest. */
+  @media (min-width: 900px) {
+    .proc-teaser-row { grid-template-columns: minmax(360px, max-content) 1fr; }
+  }
+  .proc-teaser-left {
+    padding: 32px 20px;
+    display: flex; flex-direction: column; justify-content: center;
+    min-width: 0;
+  }
+  @media (min-width: 768px) { .proc-teaser-left { padding: 48px 32px; } }
+  .proc-teaser-right {
+    display: block;
+    position: relative;
+    min-height: 70vh;
+    background: #050505;
+    overflow: hidden;
+  }
+  @media (max-width: 899px) { .proc-teaser-right { min-height: 50vh; } }
+  /* Phone + tablet-portrait: un-pin the 200vh teaser so the panel shows the
+     static image (painted by the mobile branch of buildTetrisReveal) without a
+     long dead scroll. Matches the buildTetrisReveal 900px cutoff. Desktop and
+     tablet-landscape keep the pinned tetris reveal. */
+  @media (max-width: 900px) {
+    .proc-teaser-outer { height: auto; }
+    .proc-teaser-pinned { position: static !important; height: auto !important; }
+    .proc-teaser-pinned .proc-teaser-row { min-height: 0; }
+  }
+
+  /* Tetris reveal wrapper — image broken into a grid of tiles that fall in
+     as you scroll. Pure CSS transforms, no canvas redraws. */
+  .proc-tetris-wrap {
+    position: absolute; inset: 0;
+    background: #050505;
+    overflow: hidden;
+  }
+  .proc-tetris-grid {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+  .tt-tile {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-color: #050505;
+    will-change: transform, opacity;
+    transform: translate(var(--off-x, 0px), var(--off-y, -300px)) rotate(var(--rot, 0deg));
+    opacity: 0;
+    transition:
+      transform 0.85s cubic-bezier(0.34, 1.18, 0.64, 1),
+      opacity 0.35s ease-out;
+  }
+  .tt-tile.is-landed {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  .tt-tile.is-preplaced {
+    /* Pre-placed tiles skip the transition for the first paint */
+    transition: none;
+  }
+  .proc-tetris-wrap .proc-tetris-mark {
+    position: absolute; bottom: 18px; left: 18px; z-index: 4;
+    font-family: var(--display); font-size: 12px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    font-weight: 900;
+    color: rgba(250,250,250,0.92);
+    text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+    pointer-events: none;
+    mix-blend-mode: difference;
+  }
+  .proc-tetris-wrap .proc-tetris-mark .dot { color: var(--accent); }
+  .proc-teaser-right:hover .vcard { transform: translateY(-6px); }
+  .proc-teaser-right:hover .m { color: var(--accent); }
+
+  /* VISION card styles (shared with /process page) */
+  .vcard { position: relative; width: 100%; border: 1px solid var(--line); background: rgba(0,0,0,0.4); }
+  .vcard .media { position: relative; width: 100%; aspect-ratio: 4/5; overflow: hidden; }
+  .vcard .mark { position: absolute; bottom: 12px; left: 12px; z-index: 2; font-family: var(--display); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 900; }
+  .vcard .meta-top { position: absolute; top: 12px; right: 12px; z-index: 2; text-align: right; }
+  .vcard .prompt-box { padding: 16px 20px; border-top: 1px solid var(--line); }
+  .vcard .prompt-box p { font-family: var(--mono); font-size: 11.5px; line-height: 1.65; color: rgba(10,10,10,0.75); }
+  .vcard .ph { position: absolute; inset: 0; }
+  .vcard .ph-image { background: linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717); }
+  .vcard .ph-image::after { content: ""; position: absolute; inset: 0; opacity: 0.2; mix-blend-mode: overlay; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 1px, transparent 1px, transparent 4px); }
+  .vcard .ph-dark { background: linear-gradient(135deg, #0d0d0d, #161616, #0a0a0a); }
+  .vcard .ph-bright { background: url("for%20placeholders/opt-4.jpg") center top / 118% auto no-repeat, linear-gradient(135deg, #2a2a2a, #1d1d1d, #101010); background-color: #6BB5D8; }
+  .vcard .ph-outline { background: rgba(0,0,0,0.3); border: 1px solid rgba(10,10,10,0.18); }
+
+  /* Cyan-outline button */
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; font-family: var(--mono); }
+  .btn:hover { background: var(--accent); color: var(--bg); }
+
+  /* Dot sculpture interactive section */
+  .dot-sculpture { position: relative; width: 100%; height: 90vh; min-height: 620px; background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; cursor: crosshair; }
+  .dot-sculpture canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .dot-sculpture .corner { position: absolute; padding: 32px 40px; pointer-events: none; z-index: 2; }
+  .dot-sculpture .corner.tl { top: 0; left: 0; }
+  .dot-sculpture .corner.tr { top: 0; right: 0; text-align: right; }
+  .dot-sculpture .corner.bl { bottom: 0; left: 0; }
+  .dot-sculpture .corner.br { bottom: 0; right: 0; text-align: right; }
+  .dot-sculpture .center-title { position: absolute; left: 50%; bottom: 32px; transform: translateX(-50%); pointer-events: none; z-index: 2; text-align: center; }
+  .dot-sculpture .center-title .d { font-size: clamp(28px, 3.4vw, 56px); line-height: 0.95; color: var(--ink, #0a0a0a); }
+  @media (max-width: 720px) { .dot-sculpture .corner { padding: 20px 22px; } }
+</style>
+
+<!-- FAQ — accordion + rotating Forvr logo on the right -->
+<section id="faq" class="block faq-block">
+  <div class="grid faq-grid">
+    <div class="faq-head reveal-group">
+      <p class="m m-accent reveal-line">Common questions</p>
+      <h2 class="d reveal-line">FAQ<span class="dot">.</span></h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>What can you make for my brand?</summary>
+        <div class="faq-body">Full campaigns. Editorial shoots. Product films. Posters. Brand worlds end-to-end. If it's visual, it can be made here.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Does this content convert?</summary>
+        <div class="faq-body">Built to. Every brief starts with funnel context. Creative is concepted against where it's going, not just what it looks like. Strategy in the room from hour one.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Why this approach?</summary>
+        <div class="faq-body">Most AI work runs generic prompts through generic models. The output looks generic. Forvr trains the model on your specific aesthetic, then finishes by hand. One studio, multiple bespoke workflows, your brand at the centre of it.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Will it fit my brand's look?</summary>
+        <div class="faq-body">Yes. Project one starts with a brand DNA extraction. Mood, palette, references, references again. The model gets fine-tuned on that. By project two the system is fluent in you.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How does the process work?</summary>
+        <div class="faq-body">Six steps: DNA, MOOD, MODEL, MAKE, POLISH, SHIP. Full breakdown lives on the Process page. Most projects ship inside three weeks.</div>
+      </details>
+    </div>
+    <div class="faq-logo-col" aria-hidden="true">
+      <div class="faq-logo-wrap" id="faqLogoWrap">
+        <img src="public/forvr-logo.svg" alt="Forvr.Studios logo" class="faq-logo" />
+      </div>
+      <p class="m faq-logo-cue">Click a question<span class="dot">.</span></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-block { padding: 32px 20px; border-top: 1px solid var(--line); }
+  @media (min-width: 768px) { .faq-block { padding: 40px 32px; } }
+  .faq-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 48px 32px; align-items: start; }
+  .faq-head { grid-column: span 12; }
+  .faq-head h2 { font-size: clamp(96px, 14vw, 220px); line-height: 0.88; letter-spacing: -0.03em; margin-top: 8px; }
+  .faq-list { grid-column: span 12; margin-top: 24px; }
+  .faq-logo-col { grid-column: span 12; display: flex; flex-direction: column; align-items: center; gap: 18px; margin-top: 24px; order: -1; }
+  @media (min-width: 900px) {
+    .faq-head { grid-column: span 12; }
+    .faq-list { grid-column: span 7; margin-top: 24px; }
+    .faq-logo-col { grid-column: 9 / span 4; order: 0; position: sticky; top: 120px; }
+  }
+  .faq-logo-wrap { width: 100%; max-width: 280px; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; transition: transform 0.85s cubic-bezier(0.22,1,0.36,1); transform-origin: 50% 50%; }
+  .faq-logo { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 24px rgba(91,194,231,0.18)); }
+  .faq-logo-cue { color: var(--muted); font-size: 10px; letter-spacing: 0.18em; }
+
+  .faq-item { border-top: 1px solid var(--line); padding: 0; }
+  .faq-item:last-child { border-bottom: 1px solid var(--line); }
+  .faq-item summary {
+    cursor: pointer; list-style: none;
+    padding: 28px 0;
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(28px, 3vw, 44px); line-height: 1.05; letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--fg);
+    display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
+    transition: color 0.3s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: "+";
+    font-family: var(--mono); font-weight: 400;
+    font-size: 22px; line-height: 1; color: var(--accent);
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    flex-shrink: 0;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item summary:hover { color: var(--accent); }
+  .faq-body { padding: 0 0 32px; color: rgba(10,10,10,0.78); line-height: 1.6; font-size: clamp(15px, 1.2vw, 18px); max-width: 640px; }
+</style>
+
+<script>
+(function() {
+  const wrap = document.getElementById('faqLogoWrap');
+  if (!wrap) return;
+  let rot = 0;
+  document.querySelectorAll('.faq-item summary').forEach(s => {
+    s.addEventListener('click', () => {
+      rot += 180;
+      wrap.style.transform = 'rotate(' + rot + 'deg)';
+    });
+  });
+})();
+</script>
+
+<!-- POSITION STAT removed (2026-05-28) — Mission section already makes this point -->
+
+<!-- POSITION STAT styles removed (the section was deleted 2026-05-28; styles were dead) -->
+
+<!-- BRAND MARQUEE -->
+<style>
+  .marquee-strip { position: relative; padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; background: var(--bg); }
+  .marquee-strip::before, .marquee-strip::after { content: ""; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+  .marquee-strip::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+  .marquee-strip::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+  .marquee-eyebrow { display: none; }
+  .marquee-track { display: flex; gap: 88px; align-items: center; animation: marquee-scroll 28s linear infinite; width: max-content; padding-top: 0; }
+  .marquee-strip:hover .marquee-track { animation-play-state: paused; }
+  .marquee-item { display: inline-flex; align-items: center; flex-shrink: 0; }
+  .marquee-sep { display: none; }
+
+  .marquee-item .b-mark { width: 64px; height: 64px; flex-shrink: 0; display: inline-block; background-size: contain; background-position: center; background-repeat: no-repeat; }
+  .marquee-item .b-name { display: none; }
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+</style>
+<section class="marquee-strip" aria-label="Tools we use">
+  <span class="marquee-eyebrow">The stack <span class="acc">●</span> tools we build with</span>
+  <div class="marquee-track" id="marqueeTrack">
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/higgsfield.png);"></span><span class="b-name">Higgsfield</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/claude.png);"></span><span class="b-name">Claude</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/openai.svg);"></span><span class="b-name">OpenAI</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/midjourney.svg);"></span><span class="b-name">Midjourney</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/adobephotoshop.svg);"></span><span class="b-name">Adobe Photoshop</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/adobecreativecloud.svg);"></span><span class="b-name">Adobe Creative Cloud</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/davinciresolve.png);"></span><span class="b-name">DaVinci Resolve</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/notion.svg);"></span><span class="b-name">Notion</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/figma.svg);"></span><span class="b-name">Figma</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/cosmos.png);"></span><span class="b-name">cosmos</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(public/brands/weavy.png);"></span><span class="b-name">Weavy</span></div>
+    </div>
+</section>
+<script>
+  (function(){
+    const t = document.getElementById('marqueeTrack');
+    if (!t) return;
+    // Duplicate items once for seamless loop
+    t.innerHTML += t.innerHTML;
+  })();
+</script>
+
+<!-- CONTACT -->
+<section id="contact" class="block">
+  <div class="grid section-head reveal-group" style="margin-bottom: 48px;">
+    <p class="m m-accent reveal-line">Contact / Now</p>
+    <h2 class="d split-text reverse-on-scroll reveal-line">Create more<span class="dot">.</span></h2>
+  </div>
+
+  <a href="contact.html" class="contact-email reveal">
+    <h3 class="d">hello@forvr.org<span class="dot">.</span></h3>
+  </a>
+
+  <div class="meta-strip reveal">
+    <div>
+      <p class="m" style="margin-bottom:8px;">Based</p>
+      <p style="color: rgba(10,10,10,0.85);">Reading</p>
+    </div>
+    <div>
+      <p class="m" style="margin-bottom:8px;">Hours</p>
+      <p style="color: rgba(10,10,10,0.85);">Mon / Fri / 09–19 GMT</p>
+    </div>
+    <div>
+      <p class="m" style="margin-bottom:8px;">Instagram</p>
+      <a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener" style="color: rgba(10,10,10,0.85);">@forvr.cr</a>
+    </div>
+    <div>
+      <p class="m" style="margin-bottom:8px;">Email</p>
+      <a href="mailto:hello@forvr.org" style="color: rgba(10,10,10,0.85);">hello@forvr.org</a>
+    </div>
+  </div>
+
+  <!-- Ask more cue: nudge people down to the AI Ask block -->
+  <a href="#aiAsk" class="ask-more-cue reveal" aria-label="Jump to Ask an AI section">
+    <span class="ask-more-line"></span>
+    <span class="ask-more-text">
+      <span class="m m-accent">Or ask more</span>
+      <span class="ask-more-sub m">Open this site inside ChatGPT, Claude or Perplexity<span class="dot">.</span></span>
+    </span>
+    <span class="ask-more-arrow" aria-hidden="true">↓</span>
+  </a>
+</section>
+
+<style>
+  .ask-more-cue {
+    display: grid; grid-template-columns: 1px 1fr auto; gap: 28px; align-items: center;
+    margin-top: 40px; padding: 32px 0 0;
+    border-top: 1px solid var(--line);
+    color: var(--fg);
+    text-decoration: none;
+    transition: opacity 0.3s, transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .ask-more-cue .ask-more-line { width: 0; height: 1px; background: var(--accent); }
+  .ask-more-cue .ask-more-text { display: grid; gap: 6px; }
+  .ask-more-cue .ask-more-text .m-accent { letter-spacing: 0.18em; }
+  .ask-more-cue .ask-more-sub { color: var(--muted); letter-spacing: 0.10em; text-transform: none; font-size: 13px; font-family: var(--body); }
+  .ask-more-cue .ask-more-arrow {
+    font-family: var(--display); font-size: clamp(40px, 5vw, 72px); line-height: 1; color: var(--accent);
+    transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    animation: arrow-bob 2.4s ease-in-out infinite;
+  }
+  .ask-more-cue:hover { transform: translateY(2px); }
+  .ask-more-cue:hover .ask-more-arrow { transform: translateY(4px); }
+  @keyframes arrow-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+</style>
+
+<!-- Floating navigation -->
+<div class="floating-nav" id="floatingNav">
+  <div class="nav-menu" aria-label="Site navigation">
+    <a class="nav-item active" href="index.html">
+      <span class="num">00</span>
+      <span class="title">Home</span>
+      <span class="caption">Forvr studio</span>
+    </a>
+    <a class="nav-item" href="work.html">
+      <span class="num">01</span>
+      <span class="title">Work</span>
+      <span class="caption">Selected portfolio</span>
+    </a>
+    <a class="nav-item" href="services.html">
+      <span class="num">02</span>
+      <span class="title">Services</span>
+      <span class="caption">Six lanes</span>
+    </a>
+    <a class="nav-item" href="studio.html">
+      <span class="num">03</span>
+      <span class="title">Studio</span>
+      <span class="caption">About Forvr</span>
+    </a>
+    <a class="nav-item" href="process.html">
+      <span class="num">04</span>
+      <span class="title">Process</span>
+      <span class="caption">How we work</span>
+    </a>
+    <a class="nav-item" href="contact.html">
+      <span class="num">05</span>
+      <span class="title">Contact</span>
+      <span class="caption">Start a project</span>
+    </a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu">
+    <span>Navigation</span>
+    <span class="icon" aria-hidden="true"></span>
+  </button>
+</div>
+
+<!-- AI ASK — Learn more with ChatGPT / Claude / Perplexity -->
+<section class="ai-ask" id="aiAsk" aria-label="Ask an AI about Forvr">
+  <div class="ai-ask-inner">
+    <p class="m m-accent">Ask an AI</p>
+    <h3 class="d ai-ask-title">Learn more with<span class="dot">.</span></h3>
+    <p class="ai-ask-sub">Open this site inside the model of your choice and ask it whatever you want about the studio. Each prompt below loads the AI with a brief and the page URL.</p>
+
+    <div class="ai-ask-grid">
+      <div class="ai-ask-row" data-prompt="You are a brand-side marketing lead seeing Forvr.Studios for the first time. Read this page — note the positioning (brand-trained models, hand-finished output, multiple bespoke workflows, founder involved at every step). Explain what Forvr.Studios actually does and how it differs from a typical content agency or freelance designer. What is Forvr, and which kind of brand is it built for? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give it in list format: What it is, How it differs, Who it's for. Under 120 words.">
+        <span class="ai-ask-label">What this studio is</span>
+        <div class="ai-ask-providers"></div>
+      </div>
+      <div class="ai-ask-row" data-prompt="You are a client-side project manager about to commission Forvr. Read this page — note the six services on offer and the six-move process. Walk through how Forvr's pipeline runs from brief to delivery, and what it means for turnaround speed. Talk me through it as if I'm signing the brief next week. Ask me any more questions or anything you're unsure about so you give me a precise answer. Give it in list format: Brief, Build, Polish, Ship. One bullet per stage. Under 150 words.">
+        <span class="ai-ask-label">How the pipeline works</span>
+        <div class="ai-ask-providers"></div>
+      </div>
+      <div class="ai-ask-row" data-prompt="You are an experienced agency-side strategist. Read this page — note Forvr's positioning as a founder-led AI-native studio with brand-trained models and hand-finished output. Tell me why a fashion or streetwear brand should pick Forvr over a traditional comms agency or a freelancer stack. Consider speed, cost, brand-fit, output quality, and creative range. Which factors weigh hardest for a launching or scaling brand, and why? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give the answer in list format: One factor per line with the verdict. Under 150 words.">
+        <span class="ai-ask-label">Why a brand should pick us</span>
+        <div class="ai-ask-providers"></div>
+      </div>
+      <div class="ai-ask-row" data-prompt="You are a creative producer drafting a brief on a client's behalf. Read this page — note the six services, the outcomes claim (weeks not months, fraction of agency cost, every format in one voice), and the brand-trained / hand-finished method. Draft a creative brief Forvr.Studios could deliver against for a launching fashion or streetwear brand. Be specific about deliverables, visual direction, success metric, and timeline. Ask me any more questions or anything you're unsure about so you give me a precise answer. Give it in list format: Deliverables, Visual Direction, Success Metric, Timeline. Under 150 words.">
+        <span class="ai-ask-label">Draft a brief for us</span>
+        <div class="ai-ask-providers"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ai-ask { padding: 48px 24px 56px; border-top: 1px solid var(--line); background: var(--bg); }
+  @media (min-width: 768px) { .ai-ask { padding: 160px 40px 168px; } }
+  .ai-ask-inner { max-width: 1280px; margin: 0 auto; display: grid; gap: 18px; }
+  .ai-ask-inner .m { letter-spacing: 0.18em; }
+  .ai-ask-title { font-size: clamp(48px, 7vw, 120px); line-height: 0.92; letter-spacing: -0.03em; }
+  .ai-ask-sub { color: rgba(10,10,10,0.65); max-width: 560px; font-size: 14.5px; line-height: 1.6; margin-top: 8px; }
+  .ai-ask-grid { margin-top: 56px; display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .ai-ask-row { display: grid; grid-template-columns: 1fr; gap: 16px; padding: 24px 0; border-bottom: 1px solid var(--line); align-items: center; }
+  @media (min-width: 768px) { .ai-ask-row { grid-template-columns: 1fr auto; gap: 32px; padding: 32px 0; } }
+  .ai-ask-label { font-family: var(--display); font-weight: 900; font-size: clamp(22px, 2.4vw, 36px); line-height: 1; letter-spacing: -0.01em; text-transform: uppercase; }
+  .ai-ask-providers { display: flex; gap: 10px; flex-wrap: wrap; }
+  .ai-ask-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid var(--line);
+    background: #fff;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--fg);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .ai-ask-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .ai-ask-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .ai-ask-btn svg path, .ai-ask-btn svg circle, .ai-ask-btn svg polygon { fill: currentColor; }
+  .ai-ask-foot { margin-top: 24px; color: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; }
+</style>
+
+<script>
+(function() {
+  const providers = [
+    {
+      key: "chatgpt", label: "ChatGPT",
+      url: (q) => "https://chatgpt.com/?q=" + encodeURIComponent(q),
+      icon: '<svg viewBox="0 0 24 24"><path d="M22 9.6a5.4 5.4 0 0 0-.5-4.4 5.5 5.5 0 0 0-6-2.6 5.5 5.5 0 0 0-9.3 1.9 5.4 5.4 0 0 0-3.6 2.6 5.5 5.5 0 0 0 .7 6.4 5.4 5.4 0 0 0 .5 4.5 5.5 5.5 0 0 0 6 2.5 5.5 5.5 0 0 0 4.1 1.9 5.5 5.5 0 0 0 5.2-3.8 5.4 5.4 0 0 0 3.6-2.6 5.5 5.5 0 0 0-.7-6.4ZM13.3 21a4.1 4.1 0 0 1-2.6-.9l.1-.1 4.4-2.5a.7.7 0 0 0 .4-.6v-6.2L17.4 12v5a4.1 4.1 0 0 1-4.1 4Zm-8.7-3.7a4 4 0 0 1-.5-2.8l.1.1 4.4 2.5a.7.7 0 0 0 .7 0l5.4-3.1v2.1l-4.5 2.6a4.1 4.1 0 0 1-5.6-1.4Zm-1.1-9a4 4 0 0 1 2.1-1.8v5.2a.7.7 0 0 0 .4.6l5.4 3.1L9.6 16.6 5 14a4.1 4.1 0 0 1-1.5-5.6Zm15.2 3.5L13.4 8.7l1.8-1.1 4.5 2.6a4.1 4.1 0 0 1-.6 7.4v-5.1a.7.7 0 0 0-.4-.6Zm1.9-2.8-.2-.1-4.3-2.5a.7.7 0 0 0-.7 0L9.9 9.5V7.4l4.5-2.6a4.1 4.1 0 0 1 6 4.2Zm-11.7 3.8L8 12 7 11.4V6.3a4.1 4.1 0 0 1 6.7-3.2l-.1.1-4.4 2.5a.7.7 0 0 0-.4.6Zm1-2.4 2.4-1.4 2.4 1.4v2.7l-2.4 1.4-2.4-1.4Z"/></svg>'
+    },
+    {
+      key: "claude", label: "Claude",
+      url: (q) => "https://claude.ai/new?q=" + encodeURIComponent(q),
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2 13.4 9 19 10.5 14.5 12 19 13.5 13.4 15 12 22 10.6 15 5 13.5 9.5 12 5 10.5 10.6 9 Z"/></svg>'
+    },
+    {
+      key: "perplexity", label: "Perplexity",
+      url: (q) => "https://www.perplexity.ai/?q=" + encodeURIComponent(q),
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2v8.5l7-4.5v6.5l-7 4.5V22m0-20-7 4.5 7 4.5 7-4.5L12 2Zm-7 11.5L12 18l-7 4.5v-9Z"/></svg>'
+    }
+  ];
+  document.querySelectorAll('.ai-ask-row').forEach(row => {
+    const prompt = row.dataset.prompt;
+    const slot = row.querySelector('.ai-ask-providers');
+    providers.forEach(p => {
+      const btn = document.createElement('a');
+      btn.className = 'ai-ask-btn';
+      btn.target = '_blank';
+      btn.rel = 'noopener noreferrer';
+      const fullPrompt = prompt + '\n' + window.location.href;
+      btn.href = p.url(fullPrompt);
+      btn.innerHTML = p.icon + '<span>' + p.label + '</span>';
+      slot.appendChild(btn);
+    });
+  });
+})();
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">
+    <svg width="30" height="10" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="8" width="52" height="4" rx="2" fill="url(#pl)" filter="url(#g)"/>
+      <rect x="4" y="9.4" width="52" height="1.2" rx="0.6" fill="#EAF7FC"/>
+    </svg>
+    <span class="brand-name">Forvr<span class="dot">.</span></span>
+  </div>
+  <p class="m">© 2026 Forvr Studios / All rights reserved</p>
+</footer>
+
+<script>
+  // Work — alternating diagonal conveyor
+  (function() {
+    const section = document.getElementById('vc');
+    const cards = document.querySelectorAll('.vc-card');
+    const fill = document.getElementById('vcFill');
+    const idxEl = document.getElementById('vcIdx');
+    if (!section || !cards.length) return;
+    const ENTRY_VW = 56;
+    const ENTRY_VH = 48;
+    const N = cards.length;
+
+    function onScroll() {
+      const rect = section.getBoundingClientRect();
+      const scrollable = section.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, Math.min(scrollable, -rect.top));
+      const progress = scrollable > 0 ? scrolled / scrollable : 0;
+      const cardP = progress * (N - 1);
+
+      cards.forEach((card, i) => {
+        const phase = cardP - i;
+        const dir = (i % 2 === 0) ? -1 : 1;
+        const ap = Math.abs(phase);
+        if (ap > 1.4) { card.style.opacity = '0'; card.style.visibility = 'hidden'; return; }
+        card.style.visibility = 'visible';
+        const tx = -phase * dir * ENTRY_VW;
+        const ty = phase * ENTRY_VH;
+        let op;
+        if (ap < 0.5)      op = 1 - (ap / 0.5) * 0.55;
+        else if (ap < 1.0) op = 0.45 - ((ap - 0.5) / 0.5) * 0.27;
+        else               op = 0.18 * (1.4 - ap) / 0.4;
+        op = Math.max(0, Math.min(1, op));
+        const sc = 1 - Math.min(1, ap) * 0.14;
+        card.style.transform = 'translate(-50%, -50%) translate(' + tx + 'vw, ' + ty + 'vh) scale(' + sc + ')';
+        card.style.opacity = op;
+        card.style.zIndex = String(Math.round(100 - ap * 20));
+      });
+
+      if (fill) fill.style.width = (progress * 100) + '%';
+      if (idxEl) {
+        const idx = Math.min(N, Math.round(cardP) + 1);
+        idxEl.textContent = String(idx).padStart(2, '0');
+      }
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  })();
+
+  // Cartoon ticker live numbers
+  (function() {
+    const c1 = document.getElementById('tickerClock1');
+    const c2 = document.getElementById('tickerClock2');
+    const f1 = document.getElementById('tickerFrame1');
+    const f2 = document.getElementById('tickerFrame2');
+    const pad = (n, w) => String(n).padStart(w, '0');
+    const updateClock = () => {
+      const d = new Date();
+      const txt = pad(d.getHours(), 2) + ':' + pad(d.getMinutes(), 2) + ':' + pad(d.getSeconds(), 2) + ' BST';
+      if (c1) c1.textContent = txt;
+      if (c2) c2.textContent = txt;
+    };
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Frame counter — 24fps style counter
+    const start = performance.now();
+    const tick = () => {
+      const elapsed = (performance.now() - start) / 1000;
+      const frames = Math.floor(elapsed * 24) % 1000000;
+      const txt = pad(frames, 6);
+      if (f1) f1.textContent = txt;
+      if (f2) f2.textContent = txt;
+      requestAnimationFrame(tick);
+    };
+    tick();
+  })();
+
+  // Dot sculpture — interactive scratch reveal
+  (function() {
+    const section = document.getElementById('dotSculpture');
+    const canvas = document.getElementById('dotCanvas');
+    const scratchImg = document.getElementById('scratchImg');
+    if (!section || !canvas) return;
+
+    // Seven ball variants. Picked via shuffled deck — every image gets shown
+    // exactly once per cycle before any image repeats. Cycle reshuffles when
+    // the deck is empty.
+    const BALL_VARIANTS = [
+      'forvr%20docs/site-images/supplied/ball1.jpg',
+      'forvr%20docs/site-images/supplied/opt-ball2.jpg',
+      'forvr%20docs/site-images/supplied/opt-ball3.jpg',
+      'forvr%20docs/site-images/supplied/opt-ball4.jpg',
+      'forvr%20docs/site-images/supplied/opt-ball5.jpg',
+      'forvr%20docs/site-images/supplied/opt-ball6.jpg',
+      'forvr%20docs/site-images/supplied/opt-ball7.jpg',
+    ];
+    let ballDeck = [];
+    let lastShownIndex = -1;
+    function shuffleBallDeck() {
+      ballDeck = BALL_VARIANTS.map((_, i) => i);
+      // Fisher-Yates
+      for (let i = ballDeck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [ballDeck[i], ballDeck[j]] = [ballDeck[j], ballDeck[i]];
+      }
+      // If the next pick would repeat the last-shown (rare across cycles),
+      // swap it deeper so we never get a back-to-back repeat across cycles.
+      if (ballDeck.length > 1 && ballDeck[ballDeck.length - 1] === lastShownIndex) {
+        const swapTarget = Math.floor(Math.random() * (ballDeck.length - 1));
+        [ballDeck[ballDeck.length - 1], ballDeck[swapTarget]] =
+          [ballDeck[swapTarget], ballDeck[ballDeck.length - 1]];
+      }
+    }
+    function pickBall() {
+      if (!scratchImg) return;
+      if (ballDeck.length === 0) shuffleBallDeck();
+      const idx = ballDeck.pop();
+      lastShownIndex = idx;
+      scratchImg.src = BALL_VARIANTS[idx];
+    }
+    pickBall();
+
+    const ctx = canvas.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // Offscreen masks (sized in device pixels). Opaque = covered. Transparent = revealed.
+    const hoverMask = document.createElement('canvas');
+    const dragMask = document.createElement('canvas');
+    // Only ONE trace layer now: traceMaskPersist (right-click drag only,
+    // never decays, cleared on reset). Hover used to paint into a second
+    // decay layer but anything painted to a canvas leaves a residue that
+    // reads as "permanent low-opacity trail" — so hover is now rendered as
+    // a transient cursor halo directly each frame, never stored anywhere.
+    const traceMaskPersist = document.createElement('canvas');
+    const hmCtx = hoverMask.getContext('2d');
+    const dmCtx = dragMask.getContext('2d');
+    const tpCtx = traceMaskPersist.getContext('2d');
+
+    let dots = [];
+    let mx = -10000, my = -10000;
+    let pmx = -10000, pmy = -10000;
+    let lastMove = 0;
+    let visible = true;
+    // null | 'left' | 'right'
+    //   left  = reveal-only drag, NO trail
+    //   right = reveal + persistent neon trail (stays until reset)
+    let dragMode = null;
+    let cursorInside = false;
+    let hasDragScratch = false;
+    // Per-stroke hue counter for cycling-neon trail. Increments per
+    // segment / dot painted so the persistent trail looks rainbow-banded.
+    let strokeHue = Math.random() * 360;
+    let cx = 0, cy = 0, R = 0; // circle of dots
+    const HOVER_RADIUS = 200;       // dot push-away interaction radius
+    const HOVER_BRUSH = 46;         // hover scratch brush radius
+    const DRAG_BRUSH = 78;          // drag scratch brush radius
+    const resetBtn = document.getElementById('scratchReset');
+
+    function build() {
+      const rect = section.getBoundingClientRect();
+      const W = Math.floor(rect.width * dpr);
+      const H = Math.floor(rect.height * dpr);
+
+      canvas.width = W; canvas.height = H;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      hoverMask.width = W; hoverMask.height = H;
+      dragMask.width = W; dragMask.height = H;
+      traceMaskPersist.width = W; traceMaskPersist.height = H;
+      hmCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      dmCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      tpCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // Fully opaque = fully covered. Image not visible.
+      hmCtx.globalCompositeOperation = 'source-over';
+      hmCtx.fillStyle = '#fff'; hmCtx.fillRect(0, 0, rect.width, rect.height);
+      dmCtx.globalCompositeOperation = 'source-over';
+      dmCtx.fillStyle = '#fff'; dmCtx.fillRect(0, 0, rect.width, rect.height);
+      // Persistent trace layer starts empty.
+      tpCtx.clearRect(0, 0, rect.width, rect.height);
+
+      dots = [];
+      cx = rect.width / 2;
+      cy = rect.height / 2;
+      R = Math.min(rect.width, rect.height) * ((window.matchMedia && window.matchMedia('(max-width: 767px)').matches) ? 0.36 : 0.45);
+      const spacing = 14;
+      for (let y = cy - R; y <= cy + R; y += spacing) {
+        for (let x = cx - R; x <= cx + R; x += spacing) {
+          if (Math.hypot(x - cx, y - cy) <= R) dots.push({ x, y, ox: x, oy: y, baseR: 1.4 });
+        }
+      }
+    }
+
+    function scratchDot(maskCtx, x, y, radius, alpha) {
+      maskCtx.save();
+      maskCtx.globalCompositeOperation = 'destination-out';
+      const grad = maskCtx.createRadialGradient(x, y, 0, x, y, radius);
+      grad.addColorStop(0, 'rgba(0,0,0,' + alpha + ')');
+      grad.addColorStop(0.6, 'rgba(0,0,0,' + (alpha * 0.45) + ')');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      maskCtx.fillStyle = grad;
+      maskCtx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+      maskCtx.restore();
+    }
+
+    function scratchSegment(maskCtx, x0, y0, x1, y1, radius, alpha) {
+      const d = Math.hypot(x1 - x0, y1 - y0);
+      const steps = Math.max(1, Math.ceil(d / (radius * 0.32)));
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        scratchDot(maskCtx, x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, radius, alpha);
+      }
+    }
+
+    // Neon trace — paints cycling-hue dots into the persistent layer
+    // (tpCtx). The composite step in the frame loop draws this layer with
+    // 'screen' blend so the colours read as bright fluorescent regardless
+    // of the image underneath. `hue` is a 0-360 value and varies per
+    // segment so the trail bands through different neon colours like a
+    // highlighter dipped in a rainbow.
+    function traceDot(targetCtx, x, y, radius, alpha, hue) {
+      const h = (((hue % 360) + 360) % 360).toFixed(0);
+      targetCtx.save();
+      targetCtx.globalCompositeOperation = 'source-over';
+      const grad = targetCtx.createRadialGradient(x, y, 0, x, y, radius);
+      grad.addColorStop(0,    'hsla(' + h + ', 100%, 62%, ' + alpha + ')');
+      grad.addColorStop(0.55, 'hsla(' + h + ', 100%, 62%, ' + (alpha * 0.55) + ')');
+      grad.addColorStop(1,    'hsla(' + h + ', 100%, 62%, 0)');
+      targetCtx.fillStyle = grad;
+      targetCtx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+      targetCtx.restore();
+    }
+    function traceSegment(targetCtx, x0, y0, x1, y1, radius, alpha, hueStart, hueEnd) {
+      const d = Math.hypot(x1 - x0, y1 - y0);
+      const steps = Math.max(1, Math.ceil(d / (radius * 0.32)));
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const h = hueStart + (hueEnd - hueStart) * t;
+        traceDot(targetCtx, x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, radius, alpha, h);
+      }
+    }
+
+    function frame(t) {
+      requestAnimationFrame(frame);
+      if (!visible) return;
+      const rect = section.getBoundingClientRect();
+
+      // 1) Decay hover scratches back to "covered" by repainting white at low alpha
+      hmCtx.save();
+      hmCtx.globalCompositeOperation = 'source-over';
+      hmCtx.fillStyle = 'rgba(255,255,255,0.045)';
+      hmCtx.fillRect(0, 0, rect.width, rect.height);
+      hmCtx.restore();
+
+      // 2) Render dots over a solid cover circle into the visible canvas
+      ctx.clearRect(0, 0, rect.width, rect.height);
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, R + 0.5, 0, Math.PI * 2);
+      ctx.clip();
+
+      // Solid cover matches body bg so it visually conceals the image beneath
+      ctx.fillStyle = '#fafafa';
+      ctx.fillRect(0, 0, rect.width, rect.height);
+
+      const idle = (performance.now() - lastMove) > 700;
+
+      for (let i = 0; i < dots.length; i++) {
+        const d = dots[i];
+        const dx = d.ox - mx;
+        const dy = d.oy - my;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        let intensity = dist < HOVER_RADIUS ? (1 - dist / HOVER_RADIUS) : 0;
+        intensity = intensity * intensity;
+
+        if (intensity > 0) {
+          const push = intensity * 8;
+          const a = Math.atan2(dy, dx);
+          d.x = d.ox + Math.cos(a) * push;
+          d.y = d.oy + Math.sin(a) * push;
+        } else {
+          d.x += (d.ox - d.x) * 0.18;
+          d.y += (d.oy - d.y) * 0.18;
+        }
+
+        let ambient = 0;
+        if (idle) {
+          const adist = Math.hypot(d.ox - cx, d.oy - cy);
+          ambient = (Math.sin(t * 0.0009 - adist * 0.009) + 1) * 0.5 * 0.20;
+        }
+        const lit = Math.max(intensity, ambient);
+
+        const r = d.baseR + lit * 3.4;
+        // Balls always cyan — opacity scales with hover proximity, color stays.
+        // Base ~45% at rest, pumps to ~100% when cursor is on top.
+        const alpha = 0.45 + lit * 0.55;
+
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(91, 194, 231,' + alpha + ')';
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 3) Apply the masks: cover survives only where both masks are still opaque
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-in';
+      ctx.drawImage(hoverMask, 0, 0, rect.width, rect.height);
+      ctx.drawImage(dragMask, 0, 0, rect.width, rect.height);
+      ctx.restore();
+
+      // 4a) Persistent right-click trail composited with 'screen' for a
+      //     bright neon glow. Hue-cycling source colours stay vivid on
+      //     dark image regions and lift further on light regions.
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, R + 0.5, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.globalCompositeOperation = 'screen';
+      ctx.drawImage(traceMaskPersist, 0, 0, rect.width, rect.height);
+      ctx.restore();
+
+      // 4b) Transient hover halo — drawn directly each frame at the current
+      //     cursor position. Never stored on a canvas, so it cannot leave a
+      //     residual trail. Disappears the moment the cursor leaves the
+      //     section. Cycling hue + screen blend = neon under the pointer.
+      if (!dragMode && cursorInside && mx > -9000) {
+        const hue = (performance.now() * 0.18) % 360;
+        const haloR = HOVER_BRUSH * 1.6;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(cx, cy, R + 0.5, 0, Math.PI * 2);
+        ctx.clip();
+        ctx.globalCompositeOperation = 'screen';
+        const grad = ctx.createRadialGradient(mx, my, 0, mx, my, haloR);
+        grad.addColorStop(0,    'hsla(' + hue.toFixed(0) + ', 100%, 62%, 0.55)');
+        grad.addColorStop(0.45, 'hsla(' + hue.toFixed(0) + ', 100%, 62%, 0.22)');
+        grad.addColorStop(1,    'hsla(' + hue.toFixed(0) + ', 100%, 62%, 0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(mx - haloR, my - haloR, haloR * 2, haloR * 2);
+        ctx.restore();
+      }
+    }
+
+    function onMove(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
+      const nx = clientX - rect.left;
+      const ny = clientY - rect.top;
+      const insideCircle = Math.hypot(nx - cx, ny - cy) <= R + 12;
+
+      if (dragMode && insideCircle) {
+        // Reveal the image (both drag types do this)
+        if (pmx > -9000) {
+          scratchSegment(dmCtx, pmx, pmy, nx, ny, DRAG_BRUSH, 0.95);
+        } else {
+          scratchDot(dmCtx, nx, ny, DRAG_BRUSH, 0.95);
+        }
+        // Persistent neon trail ONLY on right-click drag. Hue advances per
+        // stroke step so the trail bands through neon colours.
+        if (dragMode === 'right') {
+          const hueA = strokeHue;
+          strokeHue += 6;
+          const hueB = strokeHue;
+          if (pmx > -9000) {
+            traceSegment(tpCtx, pmx, pmy, nx, ny, DRAG_BRUSH, 0.55, hueA, hueB);
+          } else {
+            traceDot(tpCtx, nx, ny, DRAG_BRUSH, 0.55, hueA);
+          }
+        }
+        markDragScratch();
+      } else if (!dragMode && insideCircle) {
+        // Hover scratches the image so a brief glimpse shows through (this
+        // fades back via the per-frame decay in frame()). NO trail painting
+        // here — the neon halo is rendered live in frame() at the current
+        // cursor and never accumulates on a canvas.
+        if (pmx > -9000) {
+          scratchSegment(hmCtx, pmx, pmy, nx, ny, HOVER_BRUSH, 0.22);
+        } else {
+          scratchDot(hmCtx, nx, ny, HOVER_BRUSH, 0.22);
+        }
+      }
+
+      pmx = nx; pmy = ny;
+      mx = nx; my = ny;
+      cursorInside = insideCircle;
+      lastMove = performance.now();
+    }
+
+    function markDragScratch() {
+      if (!hasDragScratch) {
+        hasDragScratch = true;
+        if (resetBtn) resetBtn.classList.add('is-visible');
+      }
+    }
+
+    function resetScratch() {
+      const rect = section.getBoundingClientRect();
+      hmCtx.save();
+      hmCtx.globalCompositeOperation = 'source-over';
+      hmCtx.fillStyle = '#fff';
+      hmCtx.fillRect(0, 0, rect.width, rect.height);
+      hmCtx.restore();
+      dmCtx.save();
+      dmCtx.globalCompositeOperation = 'source-over';
+      dmCtx.fillStyle = '#fff';
+      dmCtx.fillRect(0, 0, rect.width, rect.height);
+      dmCtx.restore();
+      // Clear the persistent trace layer
+      tpCtx.clearRect(0, 0, rect.width, rect.height);
+      hasDragScratch = false;
+      if (resetBtn) resetBtn.classList.remove('is-visible');
+      pickBall(); // randomize image on every reset
+    }
+
+    section.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
+    section.addEventListener('mousedown', (e) => {
+      if (resetBtn && (e.target === resetBtn || resetBtn.contains(e.target))) return;
+      // 0 = left button = reveal-only (no yellow). 2 = right button = reveal + persistent yellow.
+      dragMode = (e.button === 2) ? 'right' : 'left';
+      // First press also lays down a scratch dot at the cursor
+      const rect = canvas.getBoundingClientRect();
+      const nx = e.clientX - rect.left;
+      const ny = e.clientY - rect.top;
+      if (Math.hypot(nx - cx, ny - cy) <= R + 12) {
+        scratchDot(dmCtx, nx, ny, DRAG_BRUSH, 0.95);
+        if (dragMode === 'right') {
+          strokeHue += 12;
+          traceDot(tpCtx, nx, ny, DRAG_BRUSH, 0.55, strokeHue);
+        }
+        markDragScratch();
+      }
+      e.preventDefault();
+    });
+    // Suppress the native context menu so right-click + drag works as a paint tool
+    section.addEventListener('contextmenu', (e) => e.preventDefault());
+    window.addEventListener('mouseup', () => { dragMode = null; });
+    section.addEventListener('mouseleave', () => {
+      mx = -10000; my = -10000;
+      pmx = -10000; pmy = -10000;
+      cursorInside = false;
+    });
+
+    // Reset button + Cmd/Ctrl+Z keybind
+    if (resetBtn) {
+      resetBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        resetScratch();
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (!hasDragScratch) return;
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'z' || e.key === 'Z')) {
+        const ae = document.activeElement;
+        if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.isContentEditable)) return;
+        // Only act if the sculpture is in view OR the user is currently hovering it
+        const rect = section.getBoundingClientRect();
+        const inView = rect.bottom > 0 && rect.top < window.innerHeight;
+        if (inView || cursorInside) {
+          e.preventDefault();
+          resetScratch();
+        }
+      }
+    });
+
+    // Touch — treat as left-click drag (reveal only, no yellow trail)
+    section.addEventListener('touchstart', (e) => {
+      if (!e.touches.length) return;
+      dragMode = 'left';
+      const rect = canvas.getBoundingClientRect();
+      const nx = e.touches[0].clientX - rect.left;
+      const ny = e.touches[0].clientY - rect.top;
+      pmx = nx; pmy = ny;
+      if (Math.hypot(nx - cx, ny - cy) <= R + 12) {
+        scratchDot(dmCtx, nx, ny, DRAG_BRUSH, 0.95);
+        markDragScratch();
+      }
+    }, { passive: true });
+    section.addEventListener('touchmove', (e) => {
+      if (!e.touches.length) return;
+      onMove(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    section.addEventListener('touchend', () => {
+      dragMode = null;
+      pmx = -10000; pmy = -10000;
+      mx = -10000; my = -10000;
+    });
+
+    // Pause when off-screen
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { visible = e.isIntersecting; });
+      }, { threshold: 0 });
+      io.observe(section);
+    }
+
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(build, 120);
+    });
+
+    build();
+    requestAnimationFrame(frame);
+  })();
+
+  // Floating nav toggle
+  const floatingNav = document.getElementById('floatingNav');
+  const navToggle = document.getElementById('navToggle');
+  if (navToggle) {
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      } else {
+        floatingNav.classList.add('open');
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!floatingNav.contains(e.target) && floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      }
+    });
+  }
+
+  // Hero video parallax
+  const heroVideo = document.getElementById('heroVideo');
+  const heroEl = document.querySelector('.hero');
+  if (heroVideo && heroEl) {
+    const onScrollVideo = () => {
+      const rect = heroEl.getBoundingClientRect();
+      if (rect.bottom < 0) return;
+      const progress = Math.max(0, Math.min(1, -rect.top / rect.height));
+      heroVideo.style.transform = `translateY(${progress * 15}%)`;
+    };
+    window.addEventListener('scroll', onScrollVideo, { passive: true });
+    onScrollVideo();
+  }
+
+  // Auto-tag elements for animation pack (must run before observer setup)
+  document.querySelectorAll('.btn').forEach(b => b.classList.add('magnetic'));
+  document.querySelectorAll('#work .card .media').forEach(m => m.classList.add('clip-reveal'));
+
+  // Auto-index .reveal-line children inside any .reveal-group so they stagger
+  document.querySelectorAll('.reveal-group').forEach((group) => {
+    let i = 0;
+    group.querySelectorAll('.reveal-line').forEach((el) => {
+      if (!el.style.getPropertyValue('--i')) el.style.setProperty('--i', i++);
+    });
+  });
+
+  // Scroll reveal — fire ONCE. Re-triggering on scroll-up made text and
+  // titles re-animate every pass, which fought the scroll-scrubbed sections
+  // (Pillars video, Process knockout, Tetris reveals, Studio gap-scrub) and
+  // felt nervy. Those scroll-driven sections live in their own handlers and
+  // still respond to scroll position; only the generic .reveal* fades become
+  // one-shot here.
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '-50px 0px' });
+  document.querySelectorAll('.reveal, .reveal-line, .split-text, .clip-reveal, .divider').forEach((el) => io.observe(el));
+
+  // Split-text wrapper — wraps every word in spans, preserves <br> and inline elements (.dot etc.)
+  document.querySelectorAll('.split-text').forEach((el) => {
+    const out = [];
+    el.childNodes.forEach((node) => {
+      if (node.nodeType === 3) {
+        const parts = node.textContent.split(/(\s+)/);
+        parts.forEach((p) => {
+          if (/^\s+$/.test(p)) out.push(p);
+          else if (p.length > 0) out.push(`<span class="word"><span class="inner">${p}</span></span>`);
+        });
+      } else {
+        out.push(node.outerHTML);
+      }
+    });
+    el.innerHTML = out.join('');
+  });
+
+  // Magnetic CTA — buttons gently attract the cursor when nearby
+  document.querySelectorAll('.magnetic').forEach((btn) => {
+    const strength = 0.35;
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = 'translate(0, 0)';
+    });
+  });
+
+  // Work mosaic mouse-drift parallax — each tile floats with mouse position
+  const workSection = document.getElementById('work');
+  if (workSection) {
+    const workCards = workSection.querySelectorAll('.card');
+    let raf = null;
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+    workSection.addEventListener('mousemove', (e) => {
+      const rect = workSection.getBoundingClientRect();
+      targetX = ((e.clientX - rect.left - rect.width / 2) / rect.width) * 2;
+      targetY = ((e.clientY - rect.top - rect.height / 2) / rect.height) * 2;
+      if (!raf) raf = requestAnimationFrame(applyParallax);
+    });
+    workSection.addEventListener('mouseleave', () => {
+      targetX = 0; targetY = 0;
+      if (!raf) raf = requestAnimationFrame(applyParallax);
+    });
+    function applyParallax() {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      workCards.forEach((card, i) => {
+        const depth = ((i % 3) + 1) * 5; // 5, 10, 15px varied
+        card.style.transform = `translate3d(${currentX * depth}px, ${currentY * depth}px, 0)`;
+      });
+      if (Math.abs(targetX - currentX) > 0.001 || Math.abs(targetY - currentY) > 0.001) {
+        raf = requestAnimationFrame(applyParallax);
+      } else {
+        raf = null;
+      }
+    }
+  }
+
+  // Services — always-visible image. Idle = blank blue screen. Hover a service to swap the image; leave to revert to blue.
+  const svcItems = document.querySelectorAll('.svc-list li');
+  const svcScrollBg = document.getElementById('svcScrollBg');
+  const svcScrollMeta = document.getElementById('svcScrollMeta');
+  const svcNames = {
+    '1': 'Video Production',
+    '2': 'Image Creation',
+    '3': 'Creative Direction',
+    '4': 'Graphic Design',
+    '5': 'Website Design',
+    '6': 'Brand Identity & Strategy'
+  };
+  svcItems.forEach((li) => {
+    li.addEventListener('mouseenter', () => {
+      const id = li.getAttribute('data-svc');
+      if (svcScrollBg) svcScrollBg.setAttribute('data-active', id);
+      if (svcScrollMeta) svcScrollMeta.textContent = id.padStart(2, '0') + ' — ' + svcNames[id];
+    });
+    li.addEventListener('mouseleave', () => {
+      if (svcScrollBg) svcScrollBg.removeAttribute('data-active');
+      if (svcScrollMeta) svcScrollMeta.textContent = 'Hover any service';
+    });
+  });
+
+  // Mexican wave — service names reveal word by word, staggered across the list, when the section enters view.
+  // Word-level (not char-level) so inline elements like the cyan .dot span on item 06 are preserved cleanly.
+  (function svcMexicanWave() {
+    const section = document.getElementById('services');
+    if (!section) return;
+    const headings = section.querySelectorAll('.svc-list .content h3');
+    if (!headings.length) return;
+    headings.forEach((h3, itemIdx) => {
+      if (h3.dataset.split) return;
+      h3.dataset.split = '1';
+      h3.setAttribute('aria-label', h3.textContent);
+      // Tokenize childNodes: split text by whitespace; keep element nodes (e.g. <span class="dot">) intact as single tokens
+      const tokens = [];
+      h3.childNodes.forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const parts = node.textContent.split(/(\s+)/);
+          parts.forEach(p => {
+            if (p.length === 0) return;
+            tokens.push({ type: /^\s+$/.test(p) ? 'space' : 'word', content: p });
+          });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          tokens.push({ type: 'element', node: node.cloneNode(true) });
+        }
+      });
+      h3.innerHTML = '';
+      const baseDelay = itemIdx * 0.12;
+      let wIdx = 0;
+      tokens.forEach(tok => {
+        if (tok.type === 'space') {
+          h3.appendChild(document.createTextNode(tok.content));
+        } else if (tok.type === 'word') {
+          const s = document.createElement('span');
+          s.className = 'wave-word';
+          s.textContent = tok.content;
+          s.style.animationDelay = (baseDelay + wIdx * 0.08) + 's';
+          h3.appendChild(s);
+          wIdx++;
+        } else {
+          const s = document.createElement('span');
+          s.className = 'wave-word';
+          s.style.animationDelay = (baseDelay + wIdx * 0.08) + 's';
+          s.appendChild(tok.node);
+          h3.appendChild(s);
+          wIdx++;
+        }
+      });
+    });
+    if (!('IntersectionObserver' in window)) {
+      section.classList.add('is-waved');
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          section.classList.add('is-waved');
+          io.unobserve(section);
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(section);
+  })();
+
+  // Old Process sticky-image JS removed. Home teaser uses simple .reveal hooks.
+</script>
+
+<script src="public/cursor.js?v=3" defer></script>
+<script id="forvr-brand-detect">
+(function(){
+  const brand = document.querySelector('.top-brand');
+  if (!brand) return;
+  function rgbToLum(r,g,b){ return 0.2126*r + 0.7152*g + 0.0722*b; }
+  function check(){
+    // Sample the element 80px below the brand mark center — that's the content under it
+    const rect = brand.getBoundingClientRect();
+    const sx = rect.left + rect.width / 2;
+    const sy = rect.top + rect.height / 2 + 60;
+    // Temporarily hide the brand so elementFromPoint doesn't return it
+    brand.style.pointerEvents = 'none';
+    const prev = brand.style.visibility;
+    brand.style.visibility = 'hidden';
+    const el = document.elementFromPoint(sx, sy);
+    brand.style.visibility = prev;
+    brand.style.pointerEvents = '';
+    if (!el) return;
+    // Walk up to find first non-transparent bg
+    let node = el;
+    let isDark = false;
+    while (node && node !== document.body) {
+      if (node.tagName === 'VIDEO' || node.tagName === 'IMG') { isDark = true; break; }
+      const bg = getComputedStyle(node).backgroundColor;
+      const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+      if (m) {
+        const a = m[4] === undefined ? 1 : parseFloat(m[4]);
+        if (a > 0.5) {
+          const lum = rgbToLum(+m[1], +m[2], +m[3]);
+          isDark = lum < 128;
+          break;
+        }
+      }
+      node = node.parentElement;
+    }
+    brand.classList.toggle('on-dark', isDark);
+  }
+  let ticking = false;
+  function onScroll(){ if (!ticking){ requestAnimationFrame(function(){ check(); ticking = false; }); ticking = true; } }
+  // initial + scroll + resize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', check);
+  } else {
+    check();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+})();
+</script>
+</body>
+</html>

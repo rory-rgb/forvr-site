@@ -1,0 +1,1319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Process | Six moves from brief to ship | Fast creative studio UK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+<style>
+  @font-face {
+    font-family: "BringBold Nineties";
+    src: url("public/fonts/BringBold-Nineties.woff2") format("woff2");
+    font-weight: 400 900;
+    font-display: swap;
+  }
+  :root {
+    --bg: #fafafa;
+    --fg: #0a0a0a;
+    --muted: #6a6a6a;
+    --line: #e5e5e5;
+    --accent: #5BC2E7;
+    --display: "BringBold Nineties", "Anton", "Helvetica Neue", Impact, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: var(--accent); color: #000; }
+
+  .d { font-family: var(--display); font-weight: 900; line-height: 0.88; letter-spacing: -0.02em; text-transform: uppercase; }
+  .m { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .m-accent { color: var(--accent); }
+  .dot { color: var(--accent); }
+  a { color: inherit; text-decoration: none; }
+
+  /* Nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; transition: background 0.4s, border-color 0.4s; border-bottom: 1px solid transparent; }
+  @media (min-width: 768px) { .nav { padding: 20px 40px; } }
+  .nav.scrolled { background: rgba(250,250,250,0.85); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom-color: var(--line); }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; }
+  .nav-links { display: flex; gap: 22px; }
+  @media (min-width: 768px) { .nav-links { gap: 36px; } }
+  .nav-links a { font-size: 13px; letter-spacing: 0.04em; color: rgba(10,10,10,0.8); transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  main { padding-top: 128px; padding-bottom: 128px; }
+  @media (min-width: 768px) { main { padding-top: 160px; } }
+
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+  @media (min-width: 768px) { .grid { gap: 24px; } }
+  .col-span-12 { grid-column: span 12; }
+  @media (min-width: 768px) { .md-col-2 { grid-column: span 2; } .md-col-10 { grid-column: span 10; } .md-col-8 { grid-column: 3 / span 8; } }
+
+  /* Hero */
+  .hero { padding: 0 24px; margin-bottom: 32px; }
+  @media (min-width: 768px) { .hero { padding: 0 40px; margin-bottom: 40px; } }
+  @media (min-width: 768px) { .hero { padding: 0 40px; margin-bottom: 160px; } }
+  .hero h1 { font-size: clamp(72px, 12vw, 240px); }
+  .hero .lede { font-size: clamp(18px, 1.5vw, 24px); line-height: 1.55; color: rgba(10,10,10,0.85); }
+
+  /* Divider */
+  .divider { padding: 8px 24px; margin: 8px 0; }
+  @media (min-width: 768px) { .divider { padding: 16px 40px; margin: 16px 0; } }
+  .divider .rule { height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 1.2s cubic-bezier(0.22,1,0.36,1); }
+  .divider.is-in .rule { transform: scaleX(1); }
+
+  /* Sticky-steps block */
+  .sticky-block { padding: 0 24px; margin-bottom: 32px; }
+  @media (min-width: 768px) { .sticky-block { padding: 0 40px; margin-bottom: 40px; } }
+  @media (min-width: 768px) { .sticky-block { padding: 0 40px; margin-bottom: 192px; } }
+  .sticky-block .row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .sticky-block .card-col { grid-column: span 12; margin-bottom: 40px; }
+  .sticky-block .steps-col { grid-column: span 12; }
+  @media (min-width: 768px) {
+    .sticky-block .card-col { grid-column: span 5; margin-bottom: 0; }
+    .sticky-block .steps-col { grid-column: 7 / span 6; }
+    .sticky-block .sticky-inner { position: sticky; top: 128px; }
+  }
+  /* Phone + tablet-portrait: sticky image-swap does not work without the tall
+     scroll, so hide the sticky card and show each step's own image inline above
+     its text (injected by JS). Desktop + tablet-landscape keep the sticky swap. */
+  @media (max-width: 900px) {
+    .sticky-block .card-col { display: none; }
+    .sticky-block .steps-col { grid-column: span 12; }
+    .sticky-block .sticky-inner { position: static; }
+    .step { min-height: 0; padding: 20px 0 36px; flex-direction: column; align-items: stretch; }
+    .step .content { max-width: 100%; }
+    .step .step-media-m {
+      width: 100%; aspect-ratio: 4 / 5;
+      background-size: cover; background-position: center;
+      border: 1px solid var(--line); margin-bottom: 22px;
+    }
+  }
+
+  /* VISION card — dark editorial card on light page */
+  .vcard { position: relative; width: 100%; border: 1px solid rgba(255,255,255,0.06); background: #0e0e0e; transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1); color: #f5f5f5; }
+  .vcard * { color: inherit; }
+  .vcard .m-accent { color: var(--accent); }
+  .vcard .m { color: rgba(245,245,245,0.7); }
+  .vcard .media { position: relative; width: 100%; aspect-ratio: 4/5; overflow: hidden; }
+  .vcard .mark { position: absolute; bottom: 12px; left: 12px; z-index: 2; font-family: var(--display); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 900; color: #f5f5f5; }
+  .vcard .meta-top { position: absolute; top: 12px; right: 12px; z-index: 2; text-align: right; }
+  .vcard .prompt-box { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.08); min-height: 110px; }
+  .vcard .prompt-box p { font-family: var(--mono); font-size: 11.5px; line-height: 1.65; color: rgba(245,245,245,0.78); }
+  .vcard .ph { position: absolute; inset: 0; transition: opacity 0.55s; }
+  .vcard .ph-image { background: linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717); }
+  .vcard .ph-image::after { content: ""; position: absolute; inset: 0; opacity: 0.2; mix-blend-mode: overlay; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 1px, transparent 1px, transparent 4px); }
+  .vcard .ph-dark { background: linear-gradient(135deg, #0d0d0d, #161616, #0a0a0a); }
+  .vcard .ph-bright { background: linear-gradient(135deg, #2a2a2a, #1d1d1d, #101010); }
+  .vcard .ph-outline { background: rgba(0,0,0,0.3); border: 1px solid rgba(10,10,10,0.18); }
+
+  /* Step counter row */
+  .step-counter { margin-top: 20px; display: flex; align-items: center; gap: 8px; }
+  .step-counter .tick { height: 1px; background: rgba(10,10,10,0.2); transition: width 0.5s, background 0.5s; width: 20px; display: block; }
+  .step-counter .tick.active { width: 40px; background: var(--accent); }
+  .step-counter .label { margin-left: auto; }
+
+  /* Reveal-line primitive — line-by-line fade-up, stagger via --i */
+  .reveal-line {
+    opacity: 0.12;
+    transform: translateY(20px);
+    transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1);
+    transition-delay: calc(var(--i, 0) * 0.08s);
+    will-change: opacity, transform;
+  }
+  .reveal-line.is-in { opacity: 1; transform: translateY(0); }
+  .reveal-line.r-img { opacity: 0; }
+  .reveal-line.r-img.is-in { opacity: 1; }
+
+  /* Step block (right column) */
+  .step { min-height: 70vh; display: flex; align-items: center; padding: 24px 0; }
+  @media (min-width: 768px) { .step { min-height: 80vh; } }
+  .step .content { opacity: 0; transform: translateY(30px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); max-width: 520px; }
+  .step.is-in .content { opacity: 1; transform: none; }
+  .step .eyebrow { margin-bottom: 20px; }
+  .step .head { display: flex; align-items: flex-start; gap: 20px; }
+  @media (min-width: 768px) { .step .head { gap: 28px; } }
+  .step .num { font-family: var(--display); color: var(--accent); line-height: 0.85; font-size: clamp(56px, 7vw, 120px); font-weight: 900; letter-spacing: -0.02em; }
+  .step .head-text { padding-top: 8px; }
+  @media (min-width: 768px) { .step .head-text { padding-top: 12px; } }
+  .step h3 { font-size: clamp(40px, 5.5vw, 88px); line-height: 0.92; }
+  .step .desc { margin-top: 28px; color: rgba(10,10,10,0.85); line-height: 1.6; font-size: clamp(16px, 1.2vw, 19px); }
+  @media (min-width: 768px) { .step .desc { margin-top: 36px; } }
+
+  /* Position stat */
+  .stat-block { padding: 32px 24px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  @media (min-width: 768px) { .stat-block { padding: 40px 40px; } }
+  .stat-block .row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: end; }
+  .stat-block .eyebrow { grid-column: span 12; }
+  @media (min-width: 768px) { .stat-block .eyebrow { grid-column: span 2; } }
+  .stat-block .big { grid-column: span 12; font-family: var(--display); color: var(--accent); line-height: 0.85; font-size: clamp(200px, 32vw, 600px); font-weight: 900; letter-spacing: -0.04em; opacity: 0; transform: translateY(60px); transition: opacity 1.1s cubic-bezier(0.22,1,0.36,1), transform 1.1s cubic-bezier(0.22,1,0.36,1); }
+  @media (min-width: 768px) { .stat-block .big { grid-column: span 10; } }
+  .stat-block.is-in .big { opacity: 1; transform: none; }
+  .stat-block .caption-row { grid-column: span 12; display: flex; flex-direction: column; gap: 24px; margin-top: 24px; }
+  @media (min-width: 768px) { .stat-block .caption-row { grid-column: 3 / span 9; flex-direction: row; gap: 64px; align-items: flex-end; margin-top: 40px; } }
+  .stat-block .caption-row h3 { font-size: clamp(36px, 4.5vw, 72px); line-height: 0.92; max-width: 800px; }
+  .stat-block .caption-row p { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.7); line-height: 1.6; max-width: 320px; }
+
+  /* CTA */
+  .cta { padding: 40px 24px 0; }
+  @media (min-width: 768px) { .cta { padding: 56px 40px 0; } }
+  @media (min-width: 768px) { .cta { padding: 160px 40px 0; } }
+  .cta h2 { font-size: clamp(56px, 9vw, 160px); line-height: 0.9; }
+  .cta .lede { margin-top: 32px; max-width: 640px; color: rgba(10,10,10,0.85); line-height: 1.6; font-size: clamp(17px, 1.3vw, 21px); }
+  @media (min-width: 768px) { .cta .lede { margin-top: 40px; } }
+  .cta .actions { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+  @media (min-width: 768px) { .cta .actions { margin-top: 56px; } }
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; }
+  .btn:hover { background: var(--accent); color: var(--bg); }
+  .link { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.8); border-bottom: 1px solid rgba(10,10,10,0.3); padding-bottom: 4px; transition: color 0.3s, border-color 0.3s; }
+  .link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--line); padding: 32px 24px; display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-top: 40px; }
+  @media (min-width: 768px) { footer { padding: 40px 40px; } }
+  footer .brand-name { font-size: 14px; }
+
+  /* Top brand mark — replaces top nav */
+  .top-brand { position: fixed; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 10px; pointer-events: auto;}
+  @media (min-width: 768px) { .top-brand { top: 28px; left: 40px; } }
+  .top-brand .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; color: #fff;  mix-blend-mode: difference; }
+
+  /* Floating navigation — dark HUD aesthetic */
+  .floating-nav { position: fixed; bottom: 24px; right: 24px; z-index: 60; }
+  @media (min-width: 768px) { .floating-nav { bottom: 28px; right: 40px; } }
+  .nav-toggle { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(245,245,245,0.85); transition: all 0.35s; overflow: hidden; }
+  .nav-toggle::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: 999px; pointer-events: none; }
+  .nav-toggle:hover, .floating-nav.open .nav-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35), inset 0 0 18px rgba(91,194,231,0.08); }
+  .nav-toggle .icon { display: inline-block; width: 9px; height: 9px; position: relative; z-index: 1; }
+  .nav-toggle .icon::before, .nav-toggle .icon::after { content: ""; position: absolute; background: currentColor; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+  .nav-toggle .icon::before { top: 4px; left: 0; right: 0; height: 1.5px; }
+  .nav-toggle .icon::after { top: 0; bottom: 0; left: 4px; width: 1.5px; }
+  .floating-nav.open .nav-toggle .icon::after { transform: rotate(90deg); }
+  .nav-toggle > span:first-child { position: relative; z-index: 1; }
+
+  .nav-menu { position: absolute; bottom: calc(100% + 8px); right: 0; display: flex; flex-direction: column-reverse; gap: 6px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
+  .floating-nav.open .nav-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+  /* Wave-open keyframe — cyan pulse rushes through each item as it appears */
+  @keyframes nav-wave-in {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+    45% { opacity: 1; transform: translateY(-2px) scale(1.04); background: rgba(91,194,231,0.45); border-color: var(--accent); box-shadow: 0 0 36px rgba(91,194,231,0.55), inset 0 0 18px rgba(91,194,231,0.25); }
+    100% { opacity: 1; transform: translateY(0) scale(1); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+  }
+  /* Genie close — items distort and suck into the toggle button bottom-right */
+  @keyframes nav-genie-out {
+    0% { opacity: 1; transform: translate(0, 0) scale(1, 1) skewX(0deg); border-radius: 999px; filter: blur(0px); }
+    40% { opacity: 0.85; transform: translate(20px, 14px) scale(0.55, 0.6) skewX(-6deg); border-radius: 16px; filter: blur(0.4px); }
+    80% { opacity: 0.35; transform: translate(38px, 30px) scale(0.18, 0.22) skewX(-12deg); border-radius: 50%; filter: blur(1.5px); }
+    100% { opacity: 0; transform: translate(50px, 38px) scale(0.02, 0.04) skewX(-16deg); border-radius: 50%; filter: blur(3px); }
+  }
+
+  .nav-item { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border: 1px solid rgba(91,194,231,0.20); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; transform-origin: bottom right; opacity: 0; transform: translateY(20px) scale(0.7); white-space: nowrap; overflow: hidden; transition: border-color 0.35s, box-shadow 0.35s; }
+  .nav-item::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: inherit; pointer-events: none; }
+  .nav-item:hover { border-color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.4), inset 0 0 18px rgba(91,194,231,0.10); transform: translateY(0) translateX(-4px) scale(1); transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s; }
+  .floating-nav.open .nav-item { animation: nav-wave-in 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .floating-nav.open .nav-item:nth-child(1) { animation-delay: 0.28s; }
+  .floating-nav.open .nav-item:nth-child(2) { animation-delay: 0.22s; }
+  .floating-nav.open .nav-item:nth-child(3) { animation-delay: 0.16s; }
+  .floating-nav.open .nav-item:nth-child(4) { animation-delay: 0.10s; }
+  .floating-nav.open .nav-item:nth-child(5) { animation-delay: 0.04s; }
+  .floating-nav.open .nav-item:nth-child(6) { animation-delay: 0.00s; }
+  /* Genie close: items distort + suck into toggle button (bottom-right of stack) */
+  .floating-nav.closing .nav-item { animation: nav-genie-out 0.55s cubic-bezier(0.7, 0, 0.84, 0) forwards !important; transform-origin: bottom right; opacity: 1; transform: translateY(0) scale(1); }
+  .floating-nav.closing .nav-item:nth-child(1) { animation-delay: 0.00s !important; }
+  .floating-nav.closing .nav-item:nth-child(2) { animation-delay: 0.05s !important; }
+  .floating-nav.closing .nav-item:nth-child(3) { animation-delay: 0.10s !important; }
+  .floating-nav.closing .nav-item:nth-child(4) { animation-delay: 0.15s !important; }
+  .floating-nav.closing .nav-item:nth-child(5) { animation-delay: 0.20s !important; }
+  .floating-nav.closing .nav-item:nth-child(6) { animation-delay: 0.25s !important; }
+  .floating-nav.closing .nav-menu { pointer-events: none; }
+  .nav-item .num { position: relative; z-index: 1; font-family: var(--mono); font-size: 9px; color: var(--accent); letter-spacing: 0.10em; }
+  .nav-item .title { position: relative; z-index: 1; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; line-height: 1; color: rgba(245,245,245,0.9); transition: color 0.35s; }
+  .nav-item:hover .title { color: var(--accent); }
+  .nav-item .caption { display: none; }
+  .nav-item.active { border-color: var(--accent); box-shadow: 0 0 14px rgba(91,194,231,0.30); }
+  .nav-item.active .title { color: var(--accent); }
+
+</style>
+
+<style id="forvr-deploy-overrides">
+  /* Forvr deploy overrides — sections touch, no top white space, cyan dividers. */
+
+  /* (1) Kill the top white-space below the fixed nav.
+        Many pages set `main { padding-top: 128-160px }` to clear the fixed nav.
+        We want the hero to start at the very top instead. */
+  main { padding-top: 0 !important; padding-bottom: 0 !important; }
+  body > main:first-of-type > *:first-child { margin-top: 0 !important; }
+
+  /* (2) Cyan dividers — every divider that was gray becomes accent cyan. */
+  hr, .divider .rule { background: var(--accent) !important; height: 1px !important; }
+  section, .block, .proc-teaser-block, .faq-block,
+  .outcomes-block, .tenants-block, .form-section,
+  .cta, .cta-row, .big-email, .meta, .stats, .ai-ask {
+    border-top-color: rgba(91, 194, 231, 0.32) !important;
+    border-bottom-color: rgba(91, 194, 231, 0.32) !important;
+  }
+
+  /* (3) Section paddings tight (28 desktop / 20 mobile). */
+  section.block, .proc-teaser-block, .faq-block, .outcomes-head,
+  .ai-ask, .pull-quote, .pull-quote-large, .stat-block,
+  .pivot-line, .divider-sentence, .service, .cta, .work-hero,
+  .sticky-block, .form-section, .big-email, .meta, .stats, .cta-row {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+  @media (max-width: 767px) {
+    section.block, .proc-teaser-block, .faq-block, .outcomes-head,
+    .ai-ask, .pull-quote, .pull-quote-large, .stat-block,
+    .pivot-line, .divider-sentence, .service, .cta, .work-hero,
+    .sticky-block, .form-section, .big-email, .meta, .stats, .cta-row {
+      padding-top: 40px !important;
+      padding-bottom: 40px !important;
+    }
+  }
+
+  /* (4) Section heads sit tight against next content. */
+  .section-head, .usp-header { margin-bottom: 18px !important; }
+  @media (max-width: 767px) { .section-head, .usp-header { margin-bottom: 16px !important; } }
+
+  /* (5) NO gaps between sections — every margin-bottom collapses.
+        The blue border-top on the next section IS the divider. No spacer. */
+  .hero, .sticky-block, .form-section, .big-email, .meta, .cta-row,
+  .stats, section.block, .proc-teaser-block, .faq-block,
+  .outcomes-head, .outcomes-block, .ai-ask, .pull-quote, .pull-quote-large,
+  .stat-block, .pivot-line, .divider-sentence, .service, .cta,
+  .work-hero, .h-work, .gap-scrub, .mission-sticky, .position-sticky,
+  .pillars-scroll, .contact-hero-bleed, .work-hero-split,
+  .proc-hero-split, .svc-hero-split, .hero-section, .svc-grid-block,
+  .tenants-block, .marquee-strip, .proc-knockout-outer {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* (6) Footer */
+  footer { padding-top: 24px !important; padding-bottom: 24px !important; margin-top: 0 !important; }
+
+  /* (7) Full-bleed hero sections — keep their 100vh, but they should butt up
+        against the next section with no margin. */
+  .contact-hero-bleed, .work-hero-split, .proc-hero-split, .svc-hero-split,
+  .proc-knockout-outer {
+    border-bottom: 1px solid rgba(91, 194, 231, 0.32) !important;
+  }
+  .proc-knockout-outer { padding: 0 !important; }
+  .proc-knockout-pin { padding: 0 !important; }
+
+  /* Top-brand mark — adaptive color based on what sits beneath it */
+  .top-brand { transition: opacity 0.3s; }
+  .top-brand .brand-name {
+    color: var(--accent) !important;
+    opacity: 0.55 !important;
+    mix-blend-mode: normal !important;
+    transition: color 0.3s, opacity 0.3s !important;
+  }
+  .top-brand:hover .brand-name {
+    color: var(--accent) !important;
+    opacity: 1 !important;
+  }
+  .top-brand.on-dark .brand-name {
+    color: #fafafa !important;
+    opacity: 0.85 !important;
+  }
+  .top-brand.on-dark:hover .brand-name {
+    color: var(--accent) !important;
+    opacity: 1 !important;
+  }
+  .top-brand .brand-logo { transition: filter 0.3s, opacity 0.3s; opacity: 0.85; }
+  .top-brand:hover .brand-logo { opacity: 1; }
+  .top-brand.on-dark .brand-logo { filter: brightness(0) invert(1); opacity: 0.9; }
+  .top-brand.on-dark:hover .brand-logo { filter: none; opacity: 1; }
+
+</style>
+<!-- ===== SEO META (auto-managed by forvr-seo-block — don't hand-edit) ===== -->
+<meta name="description" content="Forvr.Studios six-step creative process: DNA, MOOD, MODEL, MAKE, POLISH, SHIP. Brand-trained AI models, hand-finished output. Projects ship in weeks not months, at a fraction of traditional agency cost." />
+<meta name="keywords" content="fast creative process UK, creative agency workflow, AI creative production workflow, brand campaign workflow, end-to-end creative process, fast creative studio UK, rapid creative agency, creative agency fast turnaround" />
+<meta name="author" content="Forvr.Studios" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow" />
+<link rel="canonical" href="https://forvr.org/process" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:site_name" content="Forvr.Studios" />
+<meta property="og:title" content="Process — six moves from brief to ship | Forvr.Studios" />
+<meta property="og:description" content="DNA, MOOD, MODEL, MAKE, POLISH, SHIP. Brand-trained, hand-finished, in weeks not months." />
+<meta property="og:url" content="https://forvr.org/process" />
+<meta property="og:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Forvr.Studios — creative studio UK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Process — six moves from brief to ship | Forvr.Studios" />
+<meta name="twitter:description" content="DNA, MOOD, MODEL, MAKE, POLISH, SHIP. Brand-trained, hand-finished, in weeks not months." />
+<meta name="twitter:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta name="theme-color" content="#0a0a0a" />
+<meta name="apple-mobile-web-app-title" content="Forvr.Studios" />
+<meta name="application-name" content="Forvr.Studios" />
+<meta name="format-detection" content="telephone=no" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://forvr.org/#organization",
+      "name": "Forvr.Studios",
+      "alternateName": [
+        "Forvr",
+        "Forvr Studios",
+        "Forvr Creative",
+        "Forvr Agency"
+      ],
+      "url": "https://forvr.org/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://forvr.org/public/forvr-logo.svg",
+        "width": 200,
+        "height": 200
+      },
+      "image": "https://forvr.org/public/forvr-og.jpg",
+      "description": "Creative studio in Reading, UK. AI-native, founder-led, six in-house lanes. Video, image, creative direction, graphic design, website design, brand identity. Fast turnaround, hand-finished output. Built for fashion, streetwear and lifestyle brands.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Reading",
+        "addressRegion": "Berkshire",
+        "addressCountry": "GB"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.4543,
+        "longitude": -0.9781
+      },
+      "email": "hello@forvr.org",
+      "sameAs": [
+        "https://www.instagram.com/forvr.cr/"
+      ],
+      "knowsAbout": [
+        "creative studio",
+        "creative agency",
+        "AI creative production",
+        "AI video production",
+        "AI image generation",
+        "creative direction",
+        "graphic design",
+        "website design",
+        "brand identity",
+        "brand strategy",
+        "fashion campaign production",
+        "streetwear creative",
+        "lifestyle brand creative",
+        "brand-trained generative models",
+        "fast creative production",
+        "boutique creative studio",
+        "founder-led creative studio",
+        "AI-native creative agency"
+      ],
+      "foundingDate": "2026",
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "United Kingdom"
+        },
+        {
+          "@type": "Place",
+          "name": "Worldwide"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://forvr.org/#website",
+      "url": "https://forvr.org/",
+      "name": "Forvr.Studios",
+      "description": "Creative studio UK — AI-native, founder-led, fast and affordable. Brand worlds, campaigns, films and identity for fashion, streetwear and lifestyle brands.",
+      "publisher": {
+        "@id": "https://forvr.org/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://forvr.org/process#webpage",
+      "url": "https://forvr.org/process",
+      "name": "Process | Six moves from brief to ship | Fast creative studio UK",
+      "description": "Forvr.Studios six-step creative process: DNA, MOOD, MODEL, MAKE, POLISH, SHIP. Brand-trained AI models, hand-finished output. Projects ship in weeks not months, at a fraction of traditional agency cost.",
+      "isPartOf": {
+        "@id": "https://forvr.org/#website"
+      },
+      "about": {
+        "@id": "https://forvr.org/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://forvr.org/process#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forvr.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Process",
+          "item": "https://forvr.org/process"
+        }
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "Forvr.Studios creative process",
+      "description": "Six steps from brief to ship.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "DNA",
+          "text": "Extract the brand's visual language and reference world."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "MOOD",
+          "text": "Build the reference moodboard the project lives inside."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "MODEL",
+          "text": "Fine-tune a model on the brand-specific aesthetic."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "MAKE",
+          "text": "Produce the campaign, film, imagery and assets."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "POLISH",
+          "text": "Hand-finish: retouching, colour, motion, final cuts."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 6,
+          "name": "SHIP",
+          "text": "Deliver in every format the brand needs."
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- ===== /SEO META ===== -->
+</head>
+<body>
+
+<!-- Top brand mark -->
+<a href="index.html" class="top-brand" aria-label="Forvr">
+  <img class="brand-logo" src="public/forvr-logo.svg" alt="Forvr" width="36" height="26" style="display:block;height:26px;width:auto;">
+  <span class="brand-name">Forvr<span class="dot">.</span></span>
+</a>
+
+<main>
+  <!-- Hero — text-knockout sticky scroll: "SIX MOVES" letters punched out of a white panel,
+       video behind. As you scroll, the text mask scales until the video fills the screen,
+       then the body paragraph fades in. -->
+  <section class="proc-knockout-outer" aria-label="Process hero">
+    <div class="proc-knockout-pin">
+      <video class="proc-knockout-video"
+             src="forvr%20docs/site-images/supplied/opt-proccess.mp4"
+             autoplay muted loop playsinline disablepictureinpicture preload="metadata"
+             aria-hidden="true"></video>
+      <svg class="proc-knockout-svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <mask id="pkKnockoutMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900">
+            <rect x="0" y="0" width="1600" height="900" fill="white"/>
+            <g id="pkMaskTextG">
+              <text id="pkMaskText" x="815" y="475"
+                    text-anchor="middle" dominant-baseline="middle"
+                    font-family="'BringBold Nineties', 'Anton', 'Arial Black', Impact, sans-serif"
+                    font-weight="900" font-size="260" letter-spacing="-6"
+                    fill="black">SIX MOVES</text>
+              <!-- Mobile/tablet two-line variant. The cover-scaled SVG crops a
+                   single wide line to its middle letters on portrait screens.
+                   Stacking SIX / MOVES keeps both words in the visible window.
+                   textLength forces MOVES to a width that always fits. -->
+              <text id="pkMaskTextMobile" text-anchor="middle"
+                    font-family="'BringBold Nineties', 'Anton', 'Arial Black', Impact, sans-serif"
+                    font-weight="900" font-size="150" letter-spacing="-4" fill="black">
+                <tspan x="815" y="400">SIX</tspan>
+                <tspan x="815" y="560" textLength="380" lengthAdjust="spacingAndGlyphs">MOVES</tspan>
+              </text>
+              <!--
+                Safety focal-dot — a small black circle co-anchored at the
+                scale focal (815, 475). At scale 1 it reads as a punctuation
+                dot riding the MOVES baseline; at scale 28 it expands to a
+                ~336px-diameter video-revealing hole at the viewport centre.
+                This guarantees that no matter what negative space the
+                letter geometry has at the focal, the viewport centre always
+                shows video — never a white-only frame.
+              -->
+              <circle id="pkFocalDot" cx="815" cy="475" r="7" fill="black"/>
+            </g>
+          </mask>
+        </defs>
+        <rect class="proc-knockout-white" x="0" y="0" width="1600" height="900"
+              fill="#f5f5f5" mask="url(#pkKnockoutMask)"/>
+      </svg>
+      <div class="proc-knockout-eyebrow">
+        <span class="pk-meta">CH.PROC</span>
+        <span class="pk-sep">·</span>
+        <span class="pk-meta">How we work</span>
+      </div>
+      <div class="proc-knockout-body">
+        <h1 class="d pk-body-h">Six moves<span class="dot">.</span></h1>
+        <p class="lede">
+          Most generative work uses generic prompts on generic models. Every Forvr project is built around your brand individually. We extract your visual DNA, translate it into a moodboard, feed it into models trained on your specific aesthetic.
+        </p>
+      </div>
+      <div class="pk-scroll-hint">SCROLL</div>
+    </div>
+  </section>
+
+  <style>
+    /* Full-bleed split hero — video left 2fr, text right 1fr */
+    .proc-hero-split {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 0;
+      align-items: stretch;
+      background: #050505;
+      overflow: hidden;
+    }
+    @media (max-width: 900px) {
+      .proc-hero-split { grid-template-columns: 1fr; grid-template-rows: 60vh 1fr; height: auto; min-height: 100vh; }
+    }
+    .proc-hero-video-side { position: relative; overflow: hidden; background: #050505; }
+    .proc-hero-bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .proc-hero-video-side .vid-corner-meta {
+      position: absolute; top: 24px; left: 24px; z-index: 2;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent);
+      background: rgba(0,0,0,0.55); padding: 5px 10px;
+      border: 1px solid rgba(91,194,231,0.28);
+    }
+    .proc-hero-text-side {
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: flex-start;
+      padding: 40px 48px;
+      min-width: 0;
+    }
+    @media (max-width: 900px) { .proc-hero-text-side { padding: 56px 24px; } }
+    .proc-hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 20px;
+      min-width: 0; max-width: 100%;
+    }
+    .proc-hero-headline { font-size: clamp(48px, 5.6vw, 112px); line-height: 0.94; color: #0a0a0a; }
+    .proc-hero-text .lede { font-size: clamp(15px, 1.15vw, 17px); line-height: 1.55; color: rgba(10,10,10,0.78); max-width: 38ch; }
+    .hero-grid { display: grid; grid-template-columns: 1fr; gap: 64px; align-items: center; max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+    @media (min-width: 980px) { .hero-grid { grid-template-columns: 1fr 1fr; gap: 64px; padding: 0 40px; } }
+    .hero-left { display: grid; gap: 28px; }
+    .hero-with-ladder .hero-headline { font-size: clamp(56px, 8.5vw, 144px); line-height: 0.9; letter-spacing: -0.02em; }
+    .hero-left .lede { font-size: clamp(15px, 1.2vw, 18px); line-height: 1.6; color: rgba(10,10,10,0.85); max-width: 540px; }
+
+    /* (legacy .proc-hero-video styles removed — full-bleed split now uses .proc-hero-video-side) */
+    .pg-hint { position: absolute; bottom: 18px; left: 18px; right: 18px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245,245,245,0.5); pointer-events: none; }
+
+    /* === Text-knockout sticky hero ====================================== */
+    .proc-knockout-outer {
+      position: relative;
+      height: 320vh;            /* scroll budget: ~3 viewports of progress */
+      background: #f5f5f5;
+    }
+    .proc-knockout-pin {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+    .proc-knockout-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      z-index: 1;
+      background: #050505;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+    .proc-knockout-svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      display: block;
+      will-change: transform;
+    }
+    #pkMaskTextG { transform-box: fill-box; }
+    .proc-knockout-white { transition: none; }
+    /* Single line on desktop, two-line stack on phone + tablet so "SIX MOVES"
+       is never cropped to "MO" by the cover-scaled SVG. */
+    #pkMaskTextMobile { display: none; }
+    @media (max-width: 1024px) {
+      #pkMaskText { display: none; }
+      #pkMaskTextMobile { display: inline; }
+    }
+
+    .proc-knockout-eyebrow {
+      position: absolute; top: 28px; left: 32px;
+      z-index: 4;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(10,10,10,0.72);
+      display: inline-flex; gap: 10px; align-items: center;
+      mix-blend-mode: difference;
+      color: rgba(245,245,245,0.85);
+    }
+    .proc-knockout-eyebrow .pk-sep { opacity: 0.5; }
+
+    .proc-knockout-body {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      z-index: 4;
+      padding: 0 40px 56px;
+      display: flex; flex-direction: column;
+      align-items: flex-start; justify-content: flex-end;
+      gap: 18px;
+      opacity: 0;
+      transform: translateY(24px);
+      pointer-events: none;
+      max-width: 100%;
+    }
+    .proc-knockout-body .pk-body-h {
+      font-size: clamp(40px, 5.4vw, 96px);
+      line-height: 0.92;
+      color: #fff;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.55);
+    }
+    .proc-knockout-body .lede {
+      max-width: 64ch;
+      font-size: clamp(15px, 1.15vw, 18px);
+      line-height: 1.55;
+      color: rgba(245,245,245,0.92);
+      text-shadow: 0 1px 18px rgba(0,0,0,0.55);
+    }
+    @media (max-width: 700px) {
+      .proc-knockout-body { padding: 0 24px 40px; }
+    }
+
+    .pk-scroll-hint {
+      position: absolute; bottom: 22px; right: 26px;
+      z-index: 4;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(10,10,10,0.55);
+      mix-blend-mode: difference;
+      color: rgba(245,245,245,0.7);
+      animation: pkHintBlink 1.6s ease-in-out infinite;
+    }
+    @keyframes pkHintBlink { 0%,100% { opacity: 0.35; } 50% { opacity: 0.85; } }
+  </style>
+
+  <script>
+  // (Interactive process-graph canvas removed 2026-05-29 — its target elements no longer exist; the code was dead/unreachable.)
+  </script>
+
+  <div class="divider"><div class="rule"></div></div>
+
+  <!-- Sticky VISION card + steps -->
+  <section class="sticky-block">
+    <div class="row">
+      <div class="card-col">
+        <div class="sticky-inner">
+          <div class="vcard" id="vcard">
+            <div class="media">
+              <div class="ph ph-outline" id="vph"></div>
+              <span class="mark">forvr<span class="dot">.</span></span>
+              <!-- Version/res tags removed (2026-05-28) — unnecessary text on image -->
+              <div class="meta-top" style="display:none;" aria-hidden="true">
+                <p class="m m-accent" id="vVersion">DNA 0.1</p>
+                <p class="m" id="vRes">Audit</p>
+              </div>
+            </div>
+          </div>
+          <div class="step-counter" id="stepCounter">
+            <span class="tick active"></span>
+            <span class="tick"></span>
+            <span class="tick"></span>
+            <span class="tick"></span>
+            <span class="tick"></span>
+            <span class="tick"></span>
+            <span class="m m-accent label" id="counterLabel">01 / 06</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="steps-col">
+        <div class="step" data-step="0" data-image="for%20placeholders/opt-rwhypervail_Subject_The_same_male_fashion_model_unchanged_sty_b00f3fde-c902-4089-8e44-5809bb7ee208_2.jpg" data-version="DNA 0.1" data-res="Audit" data-treatment="ph-outline" data-prompt="Reference stack: 24 still frames pulled from your last three campaigns plus adjacent brands you've cited. Output: palette matrix (six anchor colours plus treatment range), composition logic, tonal register. Captured before we touch a prompt.">
+          <div class="content">
+            <p class="m m-accent eyebrow">Step / 01</p>
+            <div class="head">
+              <span class="num">01</span>
+              <div class="head-text"><h3 class="d">Extract</h3></div>
+            </div>
+            <p class="desc">Brand colours, references, tone, and mood. Your visual fingerprint, captured before we make anything.</p>
+          </div>
+        </div>
+
+        <div class="step" data-step="1" data-image="for%20placeholders/opt-2.jpg" data-version="MOOD 0.3" data-res="v3" data-treatment="ph-dark" data-prompt="Moodboard v0.3: streetwear editorial crossed with interior architecture. Palette anchored cool teal, bone, oxidised copper. Lighting register: hard sunlight at low angle. Camera: 35mm prime. Grain: 400-speed analogue. Signed off before we train.">
+          <div class="content">
+            <p class="m m-accent eyebrow">Step / 02</p>
+            <div class="head">
+              <span class="num">02</span>
+              <div class="head-text"><h3 class="d">Translate</h3></div>
+            </div>
+            <p class="desc">Reference imagery, palette, and treatment rules locked into a single moodboard. The brief becomes a build.</p>
+          </div>
+        </div>
+
+        <div class="step" data-step="2" data-image="for%20placeholders/opt-rwhypervail_A_full-body_studio_fashion_photograph_of_a_black__b8b56a8e-dda5-46e6-b653-001af4ea8db2_1.jpg" data-version="MODEL 1.4" data-res="Fine-tune" data-treatment="ph-bright" data-prompt="Fine-tune v1.4: 1,800 brand-curated frames plus 240 negative examples. Target style: editorial fashion documentary. Iteration: 12,000 steps. Inference resolution: 4096 by 6144. Sampler: DPM++ 2M Karras.">
+          <div class="content">
+            <p class="m m-accent eyebrow">Step / 03</p>
+            <div class="head">
+              <span class="num">03</span>
+              <div class="head-text"><h3 class="d">Train</h3></div>
+            </div>
+            <p class="desc">Your visual DNA fed into models tuned specifically to your brand. No generic prompts on generic engines.</p>
+          </div>
+        </div>
+
+        <div class="step" data-step="3" data-image="for%20placeholders/opt-hf_20260513_132227_7dfd9840-0d44-4981-a252-1b510a5c71ba.jpg" data-version="FRAME 04" data-res="4K" data-treatment="ph-image" data-prompt="Full-body portrait. Subject in oversized varsity jacket and wide-leg denim, centre-frame against weathered concrete. Late afternoon hard sunlight from camera-right. 35mm prime, f/2.0. Cool industrial colour grade with warm skin retention.">
+          <div class="content">
+            <p class="m m-accent eyebrow">Step / 04</p>
+            <div class="head">
+              <span class="num">04</span>
+              <div class="head-text"><h3 class="d">Produce</h3></div>
+            </div>
+            <p class="desc">Brand-specific assets generated at scale. Dozens of variations across formats, compositions, and styles in one delivery window.</p>
+          </div>
+        </div>
+
+        <div class="step" data-step="4" data-image="for%20placeholders/opt-1.jpg" data-version="POST 04/12" data-res="Master" data-treatment="ph-dark" data-prompt="Master comp 04 of 12. Skin retouch pass, dodge and burn on shadow side. Colour grade: lift shadows +0.08, midtones +0.04. Sharpen low-frequency at 0.45. Output: ProRes 4444, 4K UHD, 16-bit linear.">
+          <div class="content">
+            <p class="m m-accent eyebrow">Step / 05</p>
+            <div class="head">
+              <span class="num">05</span>
+              <div class="head-text"><h3 class="d">Post-Production</h3></div>
+            </div>
+            <p class="desc">Manual retouching in Photoshop, colour grading, and finishing touches. Hand-finished, not shipped raw.</p>
+          </div>
+        </div>
+
+        <div class="step" data-step="5" data-image="for%20placeholders/opt-rwhypervail_An_interior_architectural_shot_showcasing_a_stark_35bee0c5-2a9d-4260-ac4c-97af9aca093b_2.jpg" data-version="DROP 01" data-res="Final" data-treatment="ph-image" data-prompt="Asset package: one hero film (4K UHD, ProRes), four campaign stills (TIFF 16-bit, 6K), twelve social cuts (1:1, 9:16, 4:5, H.264 master). Brand book extension included. Delivered via secure drop link.">
+          <div class="content">
+            <p class="m m-accent eyebrow">Step / 06</p>
+            <div class="head">
+              <span class="num">06</span>
+              <div class="head-text"><h3 class="d">Deliver<span class="dot">.</span></h3></div>
+            </div>
+            <p class="desc">Final assets packaged and handed over, ready for deployment. Master files plus platform-ready variations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Position stat: ZERO generic prompts -->
+  <section class="stat-block" data-stat>
+    <div class="row">
+      <p class="m m-accent eyebrow">The edge / 01</p>
+      <p class="big">0</p>
+      <div class="caption-row">
+        <h3 class="d">Generic prompts on generic models<span class="dot">.</span></h3>
+        <p>Every Forvr project is built around your brand individually. Not assembled from someone else's template.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Universal CTA -->
+  <section class="cta">
+    <div class="grid">
+      <p class="m m-accent col-span-12 md-col-2">Next / Start</p>
+      <div class="col-span-12 md-col-10">
+        <h2 class="d">Start anywhere<span class="dot">.</span></h2>
+        <p class="lede">Bring a brief, a sketch, or just a feeling. Fully formed concept or zero idea yet. We meet you where you are.</p>
+        <div class="actions">
+          <a class="btn" href="contact.html">Get in touch →</a>
+          <a class="link" href="work.html">See the work <span class="dot">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Floating navigation -->
+<div class="floating-nav" id="floatingNav">
+  <div class="nav-menu" aria-label="Site navigation">
+    <a class="nav-item" href="index.html">
+      <span class="num">00</span>
+      <span class="title">Home</span>
+      <span class="caption">Forvr studio</span>
+    </a>
+    <a class="nav-item" href="work.html">
+      <span class="num">01</span>
+      <span class="title">Work</span>
+      <span class="caption">Selected portfolio</span>
+    </a>
+    <a class="nav-item" href="services.html">
+      <span class="num">02</span>
+      <span class="title">Services</span>
+      <span class="caption">Six lanes</span>
+    </a>
+    <a class="nav-item" href="studio.html">
+      <span class="num">03</span>
+      <span class="title">Studio</span>
+      <span class="caption">About Forvr</span>
+    </a>
+    <a class="nav-item active" href="process.html">
+      <span class="num">04</span>
+      <span class="title">Process</span>
+      <span class="caption">How we work</span>
+    </a>
+    <a class="nav-item" href="contact.html">
+      <span class="num">05</span>
+      <span class="title">Contact</span>
+      <span class="caption">Start a project</span>
+    </a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu">
+    <span>Navigation</span>
+    <span class="icon" aria-hidden="true"></span>
+  </button>
+</div>
+
+<footer>
+  <div class="brand">
+    <svg width="30" height="10" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="8" width="52" height="4" rx="2" fill="url(#pl)" filter="url(#g)"/>
+      <rect x="4" y="9.4" width="52" height="1.2" rx="0.6" fill="#EAF7FC"/>
+    </svg>
+    <span class="brand-name">Forvr<span class="dot">.</span></span>
+  </div>
+  <p class="m">© 2026 Forvr Studios / All rights reserved</p>
+</footer>
+
+<script>
+  // Floating nav toggle
+  const floatingNav = document.getElementById('floatingNav');
+  const navToggle = document.getElementById('navToggle');
+  if (navToggle) {
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      } else {
+        floatingNav.classList.add('open');
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!floatingNav.contains(e.target) && floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      }
+    });
+  }
+
+  // Auto-index .reveal-line children inside any .reveal-group so they stagger
+  document.querySelectorAll('.reveal-group').forEach((group) => {
+    let i = 0;
+    group.querySelectorAll('.reveal-line').forEach((el) => {
+      if (!el.style.getPropertyValue('--i')) el.style.setProperty('--i', i++);
+    });
+  });
+
+  // Generic reveal on view — fire ONCE. The Process knockout hero scrub
+  // lives in its own scroll handler and stays scroll-driven; this only
+  // governs the generic body fades.
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '-80px 0px' });
+  document.querySelectorAll('.divider, .stat-block, .reveal-line').forEach((el) => io.observe(el));
+
+  // Step active tracker — drives VISION card content
+  const steps = document.querySelectorAll('.step');
+  const vph = document.getElementById('vph');
+  const vVersion = document.getElementById('vVersion');
+  const vRes = document.getElementById('vRes');
+  const ticks = document.querySelectorAll('.step-counter .tick');
+  const counterLabel = document.getElementById('counterLabel');
+  const vcard = document.getElementById('vcard');
+
+  // Phone + tablet-portrait: no sticky swap. Inject each step's own image above
+  // its text so the image reads with the step, and reveal the content directly.
+  const isStacked = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
+  if (isStacked) {
+    steps.forEach((step) => {
+      const img = step.dataset.image;
+      if (img) {
+        const media = document.createElement('div');
+        media.className = 'step-media-m';
+        media.style.backgroundImage = 'url("' + img + '"), linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717)';
+        step.insertBefore(media, step.firstChild);
+      }
+      step.classList.add('is-in');
+    });
+  }
+
+  const updateCard = (step) => {
+    // Fade card briefly during swap
+    vcard.style.opacity = '0';
+    vcard.style.transform = 'translateY(8px)';
+    setTimeout(() => {
+      vph.className = 'ph ' + step.dataset.treatment;
+      const img = step.dataset.image;
+      vph.style.backgroundImage = img ? `url("${img}"), linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717)` : '';
+      vph.style.backgroundSize = 'cover';
+      vph.style.backgroundPosition = 'center';
+      vVersion.textContent = step.dataset.version;
+      vRes.textContent = step.dataset.res;
+      vcard.style.opacity = '1';
+      vcard.style.transform = 'translateY(0)';
+    }, 250);
+
+    const idx = parseInt(step.dataset.step, 10);
+    ticks.forEach((t, i) => t.classList.toggle('active', i === idx));
+    counterLabel.textContent = String(idx + 1).padStart(2, '0') + ' / 06';
+  };
+
+  const stepIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        updateCard(e.target);
+      }
+    });
+  }, { rootMargin: '-40% 0px -40% 0px' });
+  if (!isStacked) steps.forEach((s) => stepIO.observe(s));
+</script>
+<script src="public/cursor.js?v=3" defer></script>
+<style id="ask-fab-styles">
+  .ask-fab { position: fixed; bottom: 24px; left: 24px; z-index: 60; }
+  @media (min-width: 768px) { .ask-fab { bottom: 28px; left: 40px; } }
+  .ask-fab-toggle {
+    position: relative; display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-radius: 999px; cursor: pointer;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase;
+    color: rgba(245,245,245,0.85); transition: all 0.35s;
+  }
+  .ask-fab-toggle:hover, .ask-fab.open .ask-fab-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35); }
+  .ask-fab-toggle .ask-fab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: ask-fab-pulse 1.6s ease-in-out infinite; }
+  @keyframes ask-fab-pulse { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
+  .ask-fab-toggle .ask-fab-arrow { font-family: var(--display); font-size: 14px; transition: transform 0.35s; }
+  .ask-fab.open .ask-fab-toggle .ask-fab-arrow { transform: rotate(180deg); }
+
+  .ask-fab-panel {
+    position: absolute; bottom: calc(100% + 10px); left: 0;
+    width: min(420px, 92vw);
+    background: rgba(15,15,15,0.94); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    border: 1px solid rgba(91,194,231,0.22); border-radius: 18px;
+    padding: 22px 22px 18px;
+    color: rgba(245,245,245,0.92);
+    opacity: 0; pointer-events: none; transform: translateY(10px) scale(0.97);
+    transition: opacity 0.42s cubic-bezier(0.22,1,0.36,1), transform 0.42s cubic-bezier(0.22,1,0.36,1);
+  }
+  .ask-fab.open .ask-fab-panel { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+  .ask-fab-panel .head { display: grid; gap: 6px; padding-bottom: 12px; border-bottom: 1px solid rgba(91,194,231,0.18); }
+  .ask-fab-panel .head .m-accent { letter-spacing: 0.18em; color: var(--accent); font-family: var(--mono); font-size: 10px; text-transform: uppercase; }
+  .ask-fab-panel .head .sub { font-family: var(--body); font-size: 12px; color: rgba(245, 245, 245, 0.74); line-height: 1.5; }
+  .ask-fab-panel .prompt-row { padding: 14px 0; border-bottom: 1px solid rgba(91,194,231,0.10); }
+  .ask-fab-panel .prompt-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .ask-fab-panel .prompt-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .ask-fab-panel .prompt-label { font-family: var(--display); font-weight: 900; font-size: 16px; letter-spacing: -0.01em; line-height: 1; text-transform: uppercase; }
+  .ask-fab-panel .prompt-copy {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 9px;
+    background: transparent; border: 1px solid rgba(91,194,231,0.28);
+    color: rgba(245,245,245,0.75); cursor: pointer;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    border-radius: 999px;
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .ask-fab-panel .prompt-copy:hover { background: var(--accent); color: #050505; border-color: var(--accent); }
+  .ask-fab-panel .prompt-copy.is-copied { background: var(--accent); color: #050505; border-color: var(--accent); }
+  .ask-fab-panel .providers { display: flex; gap: 6px; margin-top: 10px; }
+  .ask-fab-panel .providers a {
+    flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 8px 10px; border: 1px solid rgba(245,245,245,0.18); border-radius: 999px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.10em; text-transform: uppercase;
+    color: rgba(245,245,245,0.85); text-decoration: none; transition: all 0.3s;
+  }
+  .ask-fab-panel .providers a:hover { border-color: var(--accent); color: var(--accent); }
+  .ask-fab-panel .providers svg { width: 12px; height: 12px; flex-shrink: 0; }
+  .ask-fab-panel .providers svg path, .ask-fab-panel .providers svg circle, .ask-fab-panel .providers svg polygon { fill: currentColor; }
+</style>
+
+<div class="ask-fab" id="askFab">
+  <button class="ask-fab-toggle" id="askFabToggle" aria-expanded="false" aria-controls="askFabPanel" type="button">
+    <span class="ask-fab-dot"></span>
+    <span>Ask AI</span>
+    <span class="ask-fab-arrow">↑</span>
+  </button>
+  <div class="ask-fab-panel" id="askFabPanel" role="dialog" aria-label="Ask an AI about Forvr">
+    <div class="head">
+      <span class="m-accent">Ask an AI</span>
+      <span class="sub">Page-aware prompts. Open in your model of choice, or copy the prompt to use anywhere.</span>
+    </div>
+    <div id="askFabRows"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var fab = document.getElementById('askFab');
+  var toggle = document.getElementById('askFabToggle');
+  var rows = document.getElementById('askFabRows');
+  if (!fab || !toggle || !rows) return;
+  var prompts = [{"label": "Walk me through the steps", "q": "You are a client-side project manager about to commission Forvr. Walk through Forvr's six-step process from the client's perspective. At each step, name what the client does, what Forvr does, and what's needed to move on. Talk me through it as if I'm signing the brief tomorrow. Ask me any more questions or anything you're unsure about so you give me a precise answer. Give it in list format: One bullet per step (DNA, MOOD, MODEL, MAKE, POLISH, SHIP). Client action, Forvr action, Move-on condition. Under 150 words."}, {"label": "Time and cost roughly", "q": "You are an experienced production producer. Based on Forvr's process, estimate rough timeline windows and what the client commits to at each step. Be conservative \u2014 flag where it could slip. Roughly, how long would a typical project take, and where could it run over? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give the answer in list format: Step, Realistic timeline, Slip risk. Under 120 words."}, {"label": "Where it could break", "q": "You are a risk-averse procurement lead. Pressure-test the six-step process. Which step is most likely to fail or stall, what would cause it, and what mitigation does Forvr need to offer. Which step is the highest risk and what would I want guaranteed before signing? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give the answer in list format: Highest-risk step, Failure mode, Mitigation ask. Under 100 words."}];
+  var providers = [
+    { label: "ChatGPT", url: function(q){ return "https://chatgpt.com/?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M22 9.6a5.4 5.4 0 0 0-.5-4.4 5.5 5.5 0 0 0-6-2.6 5.5 5.5 0 0 0-9.3 1.9 5.4 5.4 0 0 0-3.6 2.6 5.5 5.5 0 0 0 .7 6.4 5.4 5.4 0 0 0 .5 4.5 5.5 5.5 0 0 0 6 2.5 5.5 5.5 0 0 0 4.1 1.9 5.5 5.5 0 0 0 5.2-3.8 5.4 5.4 0 0 0 3.6-2.6 5.5 5.5 0 0 0-.7-6.4Z"/></svg>' },
+    { label: "Claude", url: function(q){ return "https://claude.ai/new?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2 13.4 9 19 10.5 14.5 12 19 13.5 13.4 15 12 22 10.6 15 5 13.5 9.5 12 5 10.5 10.6 9 Z"/></svg>' },
+    { label: "Perplexity", url: function(q){ return "https://www.perplexity.ai/?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2v8.5l7-4.5v6.5l-7 4.5V22m0-20-7 4.5 7 4.5 7-4.5L12 2Zm-7 11.5L12 18l-7 4.5v-9Z"/></svg>' }
+  ];
+  var NL = String.fromCharCode(10);
+  var copyIcon = '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="9" rx="1"/><path d="M6 4V3a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v8"/></svg>';
+  var checkIcon = '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>';
+  rows.innerHTML = prompts.map(function(p, i){
+    var providerLinks = providers.map(function(pr){
+      var fullQ = p.q + NL + window.location.href;
+      return '<a href="' + pr.url(fullQ) + '" target="_blank" rel="noopener noreferrer">' + pr.icon + '<span>' + pr.label + '</span></a>';
+    }).join('');
+    return '<div class="prompt-row" data-i="' + i + '">'
+      + '<div class="prompt-head">'
+      + '<div class="prompt-label">' + p.label + '<span class="dot">.</span></div>'
+      + '<button type="button" class="prompt-copy" title="Copy prompt to clipboard" aria-label="Copy prompt">' + copyIcon + '</button>'
+      + '</div>'
+      + '<div class="providers">' + providerLinks + '</div>'
+      + '</div>';
+  }).join('');
+  var copyBtns = rows.querySelectorAll('.prompt-copy');
+  copyBtns.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var row = btn.closest('.prompt-row');
+      var idx = parseInt(row.getAttribute('data-i'), 10);
+      var text = prompts[idx].q + NL + window.location.href;
+      var show = function(){ btn.innerHTML = checkIcon; btn.classList.add('is-copied'); setTimeout(function(){ btn.innerHTML = copyIcon; btn.classList.remove('is-copied'); }, 1400); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(show).catch(function(){
+          var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); show(); } catch (_) {}
+          document.body.removeChild(ta);
+        });
+      } else {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); show(); } catch (_) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+  function openFab(){ fab.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); }
+  function closeFab(){ fab.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+  toggle.addEventListener('click', function(e){ e.stopPropagation(); if (fab.classList.contains('open')) closeFab(); else openFab(); });
+  document.addEventListener('click', function(e){ if (fab.classList.contains('open') && !e.target.closest('.ask-fab')) closeFab(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeFab(); });
+})();
+</script>
+
+<script id="forvr-brand-detect">
+(function(){
+  const brand = document.querySelector('.top-brand');
+  if (!brand) return;
+  function rgbToLum(r,g,b){ return 0.2126*r + 0.7152*g + 0.0722*b; }
+  function check(){
+    // Sample the element 80px below the brand mark center — that's the content under it
+    const rect = brand.getBoundingClientRect();
+    const sx = rect.left + rect.width / 2;
+    const sy = rect.top + rect.height / 2 + 60;
+    // Temporarily hide the brand so elementFromPoint doesn't return it
+    brand.style.pointerEvents = 'none';
+    const prev = brand.style.visibility;
+    brand.style.visibility = 'hidden';
+    const el = document.elementFromPoint(sx, sy);
+    brand.style.visibility = prev;
+    brand.style.pointerEvents = '';
+    if (!el) return;
+    // Walk up to find first non-transparent bg
+    let node = el;
+    let isDark = false;
+    while (node && node !== document.body) {
+      if (node.tagName === 'VIDEO' || node.tagName === 'IMG') { isDark = true; break; }
+      const bg = getComputedStyle(node).backgroundColor;
+      const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+      if (m) {
+        const a = m[4] === undefined ? 1 : parseFloat(m[4]);
+        if (a > 0.5) {
+          const lum = rgbToLum(+m[1], +m[2], +m[3]);
+          isDark = lum < 128;
+          break;
+        }
+      }
+      node = node.parentElement;
+    }
+    brand.classList.toggle('on-dark', isDark);
+  }
+  let ticking = false;
+  function onScroll(){ if (!ticking){ requestAnimationFrame(function(){ check(); ticking = false; }); ticking = true; } }
+  // initial + scroll + resize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', check);
+  } else {
+    check();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+})();
+</script>
+
+<script>
+/* ============================================================
+   Process hero — text-knockout sticky scroll
+   Stage 1 (0 -> 0.55): "SIX MOVES" mask text scales 1x -> 18x
+     → the transparent letter shape grows until it consumes the white panel,
+       so the video bleeds through and fills the screen.
+   Stage 2 (0.45 -> 0.70): white rect fill-opacity fades 1 -> 0
+     → any residual white tint disappears, pure video remains.
+   Stage 3 (0.65 -> 0.95): body paragraph fades up
+     → eyebrow softens out at the same time.
+   ============================================================ */
+(function() {
+  const outer  = document.querySelector('.proc-knockout-outer');
+  if (!outer) return;
+  const maskG  = outer.querySelector('#pkMaskTextG');
+  const maskT  = outer.querySelector('#pkMaskText');
+  const white  = outer.querySelector('.proc-knockout-white');
+  const body   = outer.querySelector('.proc-knockout-body');
+  const eyebrow= outer.querySelector('.proc-knockout-eyebrow');
+  const hint   = outer.querySelector('.pk-scroll-hint');
+  const video  = outer.querySelector('.proc-knockout-video');
+  if (!maskG || !white || !body) return;
+
+  // Mask viewBox center. Text bbox sits around (800, 500) but the geometric
+  // bbox centre of "SIX MOVES" lands in the gap between the words. Scaling
+  // there pulls the viewport into white space. Anchor the zoom into the
+  // body of the M in MOVES so the viewport is always inside dark mask
+  // (i.e. always sees video, never sees white panel).
+  const CX = 815, CY = 475;
+  const MIN_SCALE = 1;
+  const MAX_SCALE = 28;
+
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+  function easeInCubic(t){ return t*t*t; }
+  function easeInOutCubic(t){ return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2; }
+
+  let raf = 0;
+  function update() {
+    raf = 0;
+    const rect = outer.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = rect.height - vh;
+    if (total <= 0) return;
+    const scrolled = clamp(-rect.top, 0, total);
+    const p = scrolled / total;
+
+    // Stage 1: scale mask text + safety focal-dot together. Easing is more
+    // linear early-on so the focal-dot grows visibly from the very start,
+    // bleeding video outward from the centre — no "moving under the text
+    // then white" gap.
+    const sp = clamp(p / 0.55, 0, 1);
+    const scale = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * easeOutCubic(sp);
+    maskG.setAttribute('transform',
+      'translate(' + CX + ' ' + CY + ') scale(' + scale + ') translate(' + (-CX) + ' ' + (-CY) + ')');
+
+    // Stage 1b: video pushes IN harder so you feel like you're diving
+    // straight into the picture, not standing back while letters grow.
+    const vp = clamp(p / 0.65, 0, 1);
+    const videoScale = 1 + easeOutCubic(vp) * 0.24;
+    if (video) video.style.transform = 'scale(' + videoScale + ')';
+
+    // Stage 2: fade white rect EARLIER and finish well before the text
+    // reaches max scale. The safety focal-dot already guarantees the
+    // viewport centre is video from the very start; this just clears the
+    // peripheral white panel out of the way faster so there is never a
+    // "white screen" moment between the zoom and the video reveal.
+    const wp = clamp((p - 0.05) / 0.35, 0, 1);
+    white.setAttribute('fill-opacity', String(1 - easeOutCubic(wp)));
+
+    // Stage 3: body paragraph fade-up
+    const bp = clamp((p - 0.55) / 0.30, 0, 1);
+    const bpe = easeOutCubic(bp);
+    body.style.opacity = String(bpe);
+    body.style.transform = 'translateY(' + ((1 - bpe) * 24) + 'px)';
+
+    // Eyebrow + scroll hint fade out
+    const ep = clamp((p - 0.30) / 0.25, 0, 1);
+    if (eyebrow) eyebrow.style.opacity = String(1 - ep * 0.7);
+    if (hint)    hint.style.opacity    = String(clamp(1 - p * 2.4, 0, 1));
+  }
+
+  function onScroll() {
+    if (!raf) raf = requestAnimationFrame(update);
+  }
+  function onResize() {
+    if (!raf) raf = requestAnimationFrame(update);
+  }
+
+  // Re-trigger video play if browser paused on tab switch
+  if (video) {
+    video.addEventListener('canplay', function(){ try { video.play(); } catch(e){} }, { once: true });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onResize, { passive: true });
+  // Run once at load + on next frame (after layout settles)
+  update();
+  requestAnimationFrame(update);
+})();
+</script>
+</body>
+</html>

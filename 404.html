@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Forvr<span>.</span> 404.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+<style>
+  @font-face {
+    font-family: "BringBold Nineties";
+    src: url("public/fonts/BringBold-Nineties.woff2") format("woff2");
+    font-weight: 400 900;
+    font-display: swap;
+  }
+  :root {
+    --bg: #0a0a0a;
+    --fg: #fafafa;
+    --muted: rgba(245,245,245,0.55);
+    --line: rgba(245,245,245,0.12);
+    --accent: #5BC2E7;
+    --display: "BringBold Nineties", "Anton", "Helvetica Neue", "Avenir Next Condensed", Impact, "Arial Black", sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); -webkit-font-smoothing: antialiased; overflow: hidden; }
+  a { color: inherit; text-decoration: none; }
+
+  .d { font-family: var(--display); font-weight: 900; line-height: 0.88; letter-spacing: -0.02em; text-transform: uppercase; }
+  .m { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .dot { color: var(--accent); }
+
+  /* Top brand */
+  .top-brand { position: fixed; top: 28px; left: 32px; z-index: 10; }
+  .top-brand .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; color: var(--fg); }
+
+  /* Corner meta */
+  .corner { position: fixed; padding: 28px 32px; z-index: 10; color: var(--muted); }
+  .corner.tr { top: 0; right: 0; text-align: right; }
+  .corner.bl { bottom: 0; left: 0; }
+  .corner.br { bottom: 0; right: 0; text-align: right; }
+
+  /* Centre stage */
+  .stage { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 64px 32px; text-align: center; }
+  .stage::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(91,194,231,0.06), transparent 60%);
+    pointer-events: none;
+  }
+  .stage .num { font-family: var(--display); font-weight: 900; font-size: clamp(20px, 2vw, 28px); letter-spacing: 0.06em; color: var(--accent); margin-bottom: 32px; }
+  .stage h1 { font-size: clamp(72px, 12vw, 220px); letter-spacing: -0.03em; }
+  .stage h1 .light { color: var(--accent); }
+  .stage .sub { margin-top: 40px; font-size: 13px; letter-spacing: 0.08em; max-width: 400px; color: var(--muted); line-height: 1.6; }
+  .stage .actions { margin-top: 56px; display: flex; gap: 16px; align-items: center; }
+  .stage .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 22px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .stage .btn:hover { background: var(--accent); color: var(--bg); }
+  .stage .ghost {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--muted);
+    transition: color 0.3s;
+  }
+  .stage .ghost:hover { color: var(--fg); }
+
+  /* Dust particles — subtle drift in background */
+  .dust { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.6; }
+  .dust canvas { width: 100%; height: 100%; display: block; }
+
+  /* Glyph that hovers near the title */
+  .floater { position: absolute; opacity: 0.25; pointer-events: none; }
+  .floater.a { top: 24%; left: 14%; font-size: 64px; }
+  .floater.b { bottom: 18%; right: 12%; font-size: 96px; transform: rotate(8deg); }
+
+  @media (max-width: 720px) {
+    .corner.tr, .corner.br { display: none; }
+    .stage h1 { font-size: clamp(56px, 16vw, 110px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-brand"><span class="brand-name">Forvr<span class="dot">.</span></span></div>
+
+<div class="corner tr m">404 / Page not found</div>
+<div class="corner bl m">Reading <span class="dot">●</span> Solo studio</div>
+<div class="corner br m"><a href="index.html">Return to home <span class="dot">→</span></a></div>
+
+<div class="dust"><canvas id="dustCanvas"></canvas></div>
+
+<main class="stage">
+  <span class="floater a d">/</span>
+  <span class="floater b d">·</span>
+
+  <p class="num">404 <span class="dot">/</span> Page off the table</p>
+  <h1 class="d">We think<br/>about the <span class="light">dust</span><span class="dot">.</span></h1>
+  <p class="sub">Whatever you were after isn't here. The work, the studio, and everything that matters lives back at the top<span class="dot">.</span></p>
+
+  <div class="actions">
+    <a class="btn" href="index.html">Back to home <span class="dot">→</span></a>
+    <a class="ghost" href="work.html">Or see the work</a>
+  </div>
+</main>
+
+<script>
+// Dust drift — tiny slow-moving specks
+(function() {
+  const canvas = document.getElementById('dustCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let particles = [];
+  let W = 0, H = 0;
+
+  function size() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  size();
+  window.addEventListener('resize', size);
+
+  // Seed
+  for (let i = 0; i < 90; i++) {
+    particles.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: 0.4 + Math.random() * 1.2,
+      vx: (Math.random() - 0.5) * 0.15,
+      vy: -0.05 - Math.random() * 0.18,
+      a: 0.15 + Math.random() * 0.4
+    });
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+      if (p.x < -10) p.x = W + 10;
+      if (p.x > W + 10) p.x = -10;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(245,245,245,' + p.a + ')';
+      ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+
+<script src="public/cursor.js?v=3" defer></script>
+</body>
+</html>

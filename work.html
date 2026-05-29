@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Selected work | Creative studio case studies | Forvr.Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+<style>
+  @font-face {
+    font-family: "BringBold Nineties";
+    src: url("public/fonts/BringBold-Nineties.woff2") format("woff2");
+    font-weight: 400 900;
+    font-display: swap;
+  }
+  :root {
+    --bg: #fafafa;
+    --fg: #0a0a0a;
+    --muted: #6a6a6a;
+    --line: #e5e5e5;
+    --accent: #5BC2E7;
+    --display: "BringBold Nineties", "Anton", "Helvetica Neue", Impact, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: var(--accent); color: #000; }
+
+  .d { font-family: var(--display); font-weight: 900; line-height: 0.88; letter-spacing: -0.02em; text-transform: uppercase; }
+  .m { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .m-accent { color: var(--accent); }
+  .dot { color: var(--accent); }
+  a { color: inherit; text-decoration: none; }
+
+  /* Scroll progress bar */
+  .scroll-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); width: 0%; z-index: 60; transition: width 0.05s linear; }
+
+  /* Nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; transition: background 0.4s, border-color 0.4s; border-bottom: 1px solid transparent; }
+  @media (min-width: 768px) { .nav { padding: 20px 40px; } }
+  .nav.scrolled { background: rgba(250,250,250,0.85); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom-color: var(--line); }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; }
+  .nav-links { display: flex; gap: 22px; }
+  @media (min-width: 768px) { .nav-links { gap: 36px; } }
+  .nav-links a { font-size: 13px; letter-spacing: 0.04em; color: rgba(10,10,10,0.8); transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  /* Studio marker */
+  .studio-mark { position: fixed; bottom: 24px; left: 24px; z-index: 40; display: flex; align-items: center; gap: 8px; pointer-events: none; }
+  @media (max-width: 767px) { .studio-mark { display: none; } }
+  .studio-mark .pulse { position: relative; width: 6px; height: 6px; }
+  .studio-mark .pulse::before, .studio-mark .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); }
+  .studio-mark .pulse::after { opacity: 0.7; animation: pulse 2s ease-out infinite; }
+  @keyframes pulse { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(3); opacity: 0; } }
+
+  /* Progress counter (fixed right) */
+  .progress { position: fixed; top: 50%; right: 24px; transform: translateY(-50%); z-index: 30; display: flex; align-items: center; gap: 12px; pointer-events: none; opacity: 0; transition: opacity 0.8s 1s; }
+  @media (max-width: 767px) { .progress { display: none; } }
+  .progress.show { opacity: 1; }
+  .progress .big { font-family: var(--display); color: var(--accent); font-size: 32px; line-height: 1; font-weight: 900; letter-spacing: -0.02em; }
+
+  main { padding-top: 128px; padding-bottom: 128px; position: relative; }
+  @media (min-width: 768px) { main { padding-top: 160px; } }
+
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+  @media (min-width: 768px) { .grid { gap: 24px; } }
+  .c12 { grid-column: span 12; }
+  @media (min-width: 768px) { .md-c2 { grid-column: span 2; } .md-c10 { grid-column: span 10; } .md-c8 { grid-column: 3 / span 8; } }
+
+  /* Hero */
+  .hero { padding: 0 24px; margin-bottom: 64px; }
+  @media (min-width: 768px) { .hero { padding: 0 40px; margin-bottom: 96px; } }
+  .hero h1 { font-size: clamp(72px, 13vw, 260px); }
+  .hero .lede { font-size: clamp(17px, 1.4vw, 21px); line-height: 1.55; color: rgba(10,10,10,0.85); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.is-in { opacity: 1; transform: none; }
+
+  /* Reveal-line primitive — line-by-line fade-up, stagger via --i */
+  .reveal-line {
+    opacity: 0.12;
+    transform: translateY(20px);
+    transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1);
+    transition-delay: calc(var(--i, 0) * 0.08s);
+    will-change: opacity, transform;
+  }
+  .reveal-line.is-in { opacity: 1; transform: translateY(0); }
+  .reveal-line.r-img { opacity: 0; }
+  .reveal-line.r-img.is-in { opacity: 1; }
+
+  /* Work hero — full-bleed split: 1fr text left + 2fr video right.
+     100vh height, no horizontal padding on the section (panels handle their own). */
+  .work-hero-split {
+    position: relative;
+    height: 100vh;
+    min-height: 560px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0;
+    align-items: stretch;
+    background: #050505;
+    overflow: hidden;
+  }
+  @media (max-width: 900px) {
+    .work-hero-split { grid-template-columns: 1fr; grid-template-rows: 1fr 60vh; height: auto; min-height: 100vh; }
+  }
+  .work-hero-text-side {
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: flex-start;
+    padding: 32px 32px;
+    min-width: 0;
+  }
+  @media (min-width: 768px) { .work-hero-text-side { padding: 40px 48px; } }
+  @media (max-width: 900px) { .work-hero-text-side { padding: 56px 24px; } }
+  .work-hero-text {
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 20px;
+    min-width: 0; max-width: 100%;
+  }
+  .work-hero-headline { font-size: clamp(48px, 5.6vw, 112px); line-height: 0.94; color: #0a0a0a; }
+  .work-hero-text .lede { font-size: clamp(15px, 1.15vw, 17px); line-height: 1.55; color: rgba(10,10,10,0.78); max-width: 38ch; }
+  .work-hero-cue { margin-top: 8px; color: rgba(10,10,10,0.5); }
+  .work-hero-video-side {
+    position: relative;
+    overflow: hidden;
+    background: #050505;
+  }
+  .work-hero-bg-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .work-hero-video-side .vid-corner-meta {
+    position: absolute; top: 24px; left: 24px; z-index: 2;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent);
+    background: rgba(0,0,0,0.55); padding: 5px 10px;
+    border: 1px solid rgba(91,194,231,0.28);
+  }
+
+  /* Horizontal sweep — pinned section, vertical scroll drives horizontal translate */
+  .h-work {
+    position: relative;
+    height: 500vh;
+    background: #050505;
+    color: #fafafa;
+  }
+  .h-work-pin {
+    position: sticky; top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .h-work-head {
+    position: absolute; top: 28px; left: 32px; z-index: 4;
+    display: grid; gap: 8px;
+  }
+  .h-work-head .m-accent { color: var(--accent); letter-spacing: 0.22em; font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
+  .h-work-head h3 {
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(30px, 3.4vw, 52px);
+    line-height: 0.95; text-transform: uppercase;
+    max-width: 18ch; letter-spacing: -0.02em;
+  }
+  .h-work-head h3 .dot { color: var(--accent); }
+
+  .h-work-progress {
+    position: absolute; bottom: 28px; left: 32px; right: 32px; z-index: 4;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .h-work-progress .bar { flex: 1; height: 2px; background: rgba(250,250,250,0.18); position: relative; overflow: hidden; }
+  .h-work-progress .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); width: 0%; transition: width 0.25s linear; }
+  .h-work-progress .count { font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em; color: rgba(250,250,250,0.65); min-width: 5ch; text-align: right; }
+
+  .h-work-track {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 168px 32px 92px;
+    will-change: transform;
+  }
+  .h-work-item {
+    flex: 0 0 78vw;
+    height: 62vh;
+    position: relative;
+    background: #0d0d0d;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+  }
+  @media (min-width: 900px) { .h-work-item { flex-basis: 62vw; } }
+  @media (min-width: 1300px) { .h-work-item { flex-basis: 52vw; } }
+  .h-work-item:hover { transform: translateY(-6px); }
+  .h-work-item .bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .h-work-item:hover .bg { transform: scale(1.03); }
+  .h-work-item::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.0) 65%);
+  }
+  .h-work-item .meta {
+    position: absolute; left: 24px; bottom: 24px; right: 24px; z-index: 2;
+    display: flex; align-items: end; justify-content: space-between; gap: 24px;
+    color: #fafafa;
+  }
+  .h-work-item .meta .num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em; color: var(--accent); }
+  .h-work-item .meta .name {
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(32px, 4vw, 64px); line-height: 0.94;
+    text-transform: uppercase; letter-spacing: -0.015em; margin-top: 6px;
+  }
+  .h-work-item .meta .name .dot { color: var(--accent); }
+  .h-work-item .meta .cat-stack { text-align: right; display: grid; gap: 10px; }
+  .h-work-item .meta .cat { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(250,250,250,0.6); }
+  .h-work-item .meta .view-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent);
+    transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
+  }
+  .h-work-item:hover .meta .view-link { transform: translateX(8px); }
+
+  @media (max-width: 760px) {
+    .h-work { height: 400vh; }
+    .h-work-head { top: 20px; left: 20px; }
+    .h-work-progress { left: 20px; right: 20px; bottom: 20px; }
+    .h-work-track { padding: 100px 20px 80px; gap: 16px; }
+    .h-work-item { flex-basis: 86vw; height: 70vh; }
+  }
+
+  /* Legacy spread styles (kept for any old projects/case refs, hidden) */
+  .spreads, .spread { display: none; }
+  .spread .row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 48px 24px; width: 100%; align-items: center; }
+  .spread .text { grid-column: span 12; opacity: 0; transform: translateX(-2%); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .spread .media-col { grid-column: span 12; opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .spread.is-in .text, .spread.is-in .media-col { opacity: 1; transform: none; }
+  @media (min-width: 768px) {
+    .spread:nth-child(even) .text { grid-column: 1 / span 7; }
+    .spread:nth-child(even) .media-col { grid-column: 8 / span 5; }
+    .spread:nth-child(odd) .text { grid-column: 6 / span 7; }
+    .spread:nth-child(odd) .media-col { grid-column: 1 / span 5; grid-row: 1; }
+  }
+  .spread h2 { font-size: clamp(56px, 11vw, 200px); line-height: 0.85; transition: color 0.5s; }
+  .spread a:hover h2 { color: var(--accent); }
+  .spread .desc { font-family: var(--body); margin-top: 32px; color: rgba(10,10,10,0.7); max-width: 420px; line-height: 1.65; font-size: 14px; }
+  @media (min-width: 768px) { .spread .desc { margin-top: 40px; } }
+  .spread .view-link { margin-top: 32px; display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); color: var(--accent); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+  .spread a:hover .view-link { transform: translateX(8px); }
+  .spread .media { position: relative; width: 100%; overflow: hidden; }
+  .spread .media .ph { position: absolute; inset: -12%; will-change: transform; transition: transform 0.05s linear; }
+  .spread .media .mark { position: absolute; bottom: 16px; left: 16px; z-index: 2; font-family: var(--display); font-size: 11px; letter-spacing: 0.06em; font-weight: 900; text-transform: uppercase; color: #f5f5f5; }
+  .spread .media .meta-top { position: absolute; top: 16px; right: 16px; z-index: 2; text-align: right; color: rgba(245,245,245,0.7); }
+  .spread .media .meta-top .m-accent { color: var(--accent); }
+
+  .ph-image { background: linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717); }
+  .ph-image::after { content: ""; position: absolute; inset: 0; opacity: 0.2; mix-blend-mode: overlay; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 1px, transparent 1px, transparent 4px); }
+  .ph-dark { background: linear-gradient(135deg, #0d0d0d, #161616, #0a0a0a); }
+  .ph-bright { background: linear-gradient(135deg, #2a2a2a, #1d1d1d, #101010); }
+  .ph-outline { background: rgba(0,0,0,0.3); border: 1px solid rgba(10,10,10,0.18); }
+  .spread .media .cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .spread .media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 50%, rgba(0,0,0,0.55) 100%); pointer-events: none; z-index: 1; }
+  .spread .media .mark, .spread .media .meta-top { z-index: 2; }
+
+  /* CTA bottom */
+  .cta { padding: 40px 24px 0; }
+  @media (min-width: 768px) { .cta { padding: 56px 40px 0; } }
+  .cta h2 { font-size: clamp(56px, 9vw, 160px); line-height: 0.9; }
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; font-family: var(--mono); }
+  .btn:hover { background: var(--accent); color: var(--bg); }
+  .link { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(10,10,10,0.8); border-bottom: 1px solid rgba(10,10,10,0.3); padding-bottom: 4px; transition: color 0.3s, border-color 0.3s; }
+  .link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 24px; display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-top: 40px; }
+  @media (min-width: 768px) { footer { padding: 32px 40px; } }
+
+  /* Top brand mark — replaces top nav */
+  .top-brand { position: fixed; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 10px; pointer-events: auto;}
+  @media (min-width: 768px) { .top-brand { top: 28px; left: 40px; } }
+  .top-brand .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; color: #fff;  mix-blend-mode: difference; }
+
+  /* Floating navigation — dark HUD aesthetic */
+  .floating-nav { position: fixed; bottom: 24px; right: 24px; z-index: 60; }
+  @media (min-width: 768px) { .floating-nav { bottom: 28px; right: 40px; } }
+  .nav-toggle { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(245,245,245,0.85); transition: all 0.35s; overflow: hidden; }
+  .nav-toggle::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: 999px; pointer-events: none; }
+  .nav-toggle:hover, .floating-nav.open .nav-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35), inset 0 0 18px rgba(91,194,231,0.08); }
+  .nav-toggle .icon { display: inline-block; width: 9px; height: 9px; position: relative; z-index: 1; }
+  .nav-toggle .icon::before, .nav-toggle .icon::after { content: ""; position: absolute; background: currentColor; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+  .nav-toggle .icon::before { top: 4px; left: 0; right: 0; height: 1.5px; }
+  .nav-toggle .icon::after { top: 0; bottom: 0; left: 4px; width: 1.5px; }
+  .floating-nav.open .nav-toggle .icon::after { transform: rotate(90deg); }
+  .nav-toggle > span:first-child { position: relative; z-index: 1; }
+
+  .nav-menu { position: absolute; bottom: calc(100% + 8px); right: 0; display: flex; flex-direction: column-reverse; gap: 6px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
+  .floating-nav.open .nav-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+  /* Wave-open keyframe — cyan pulse rushes through each item as it appears */
+  @keyframes nav-wave-in {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+    45% { opacity: 1; transform: translateY(-2px) scale(1.04); background: rgba(91,194,231,0.45); border-color: var(--accent); box-shadow: 0 0 36px rgba(91,194,231,0.55), inset 0 0 18px rgba(91,194,231,0.25); }
+    100% { opacity: 1; transform: translateY(0) scale(1); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+  }
+  /* Genie close — items distort and suck into the toggle button bottom-right */
+  @keyframes nav-genie-out {
+    0% { opacity: 1; transform: translate(0, 0) scale(1, 1) skewX(0deg); border-radius: 999px; filter: blur(0px); }
+    40% { opacity: 0.85; transform: translate(20px, 14px) scale(0.55, 0.6) skewX(-6deg); border-radius: 16px; filter: blur(0.4px); }
+    80% { opacity: 0.35; transform: translate(38px, 30px) scale(0.18, 0.22) skewX(-12deg); border-radius: 50%; filter: blur(1.5px); }
+    100% { opacity: 0; transform: translate(50px, 38px) scale(0.02, 0.04) skewX(-16deg); border-radius: 50%; filter: blur(3px); }
+  }
+
+  .nav-item { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border: 1px solid rgba(91,194,231,0.20); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; transform-origin: bottom right; opacity: 0; transform: translateY(20px) scale(0.7); white-space: nowrap; overflow: hidden; transition: border-color 0.35s, box-shadow 0.35s; }
+  .nav-item::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: inherit; pointer-events: none; }
+  .nav-item:hover { border-color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.4), inset 0 0 18px rgba(91,194,231,0.10); transform: translateY(0) translateX(-4px) scale(1); transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s; }
+  .floating-nav.open .nav-item { animation: nav-wave-in 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .floating-nav.open .nav-item:nth-child(1) { animation-delay: 0.28s; }
+  .floating-nav.open .nav-item:nth-child(2) { animation-delay: 0.22s; }
+  .floating-nav.open .nav-item:nth-child(3) { animation-delay: 0.16s; }
+  .floating-nav.open .nav-item:nth-child(4) { animation-delay: 0.10s; }
+  .floating-nav.open .nav-item:nth-child(5) { animation-delay: 0.04s; }
+  .floating-nav.open .nav-item:nth-child(6) { animation-delay: 0.00s; }
+  /* Genie close: items distort + suck into toggle button (bottom-right of stack) */
+  .floating-nav.closing .nav-item { animation: nav-genie-out 0.55s cubic-bezier(0.7, 0, 0.84, 0) forwards !important; transform-origin: bottom right; opacity: 1; transform: translateY(0) scale(1); }
+  .floating-nav.closing .nav-item:nth-child(1) { animation-delay: 0.00s !important; }
+  .floating-nav.closing .nav-item:nth-child(2) { animation-delay: 0.05s !important; }
+  .floating-nav.closing .nav-item:nth-child(3) { animation-delay: 0.10s !important; }
+  .floating-nav.closing .nav-item:nth-child(4) { animation-delay: 0.15s !important; }
+  .floating-nav.closing .nav-item:nth-child(5) { animation-delay: 0.20s !important; }
+  .floating-nav.closing .nav-item:nth-child(6) { animation-delay: 0.25s !important; }
+  .floating-nav.closing .nav-menu { pointer-events: none; }
+  .nav-item .num { position: relative; z-index: 1; font-family: var(--mono); font-size: 9px; color: var(--accent); letter-spacing: 0.10em; }
+  .nav-item .title { position: relative; z-index: 1; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; line-height: 1; color: rgba(245,245,245,0.9); transition: color 0.35s; }
+  .nav-item:hover .title { color: var(--accent); }
+  .nav-item .caption { display: none; }
+  .nav-item.active { border-color: var(--accent); box-shadow: 0 0 14px rgba(91,194,231,0.30); }
+  .nav-item.active .title { color: var(--accent); }
+
+</style>
+
+<style id="forvr-deploy-overrides">
+  /* Forvr deploy overrides — sections touch, no top white space, cyan dividers. */
+
+  /* (1) Kill the top white-space below the fixed nav.
+        Many pages set `main { padding-top: 128-160px }` to clear the fixed nav.
+        We want the hero to start at the very top instead. */
+  main { padding-top: 0 !important; padding-bottom: 0 !important; }
+  body > main:first-of-type > *:first-child { margin-top: 0 !important; }
+
+  /* (2) Cyan dividers — every divider that was gray becomes accent cyan. */
+  hr, .divider .rule { background: var(--accent) !important; height: 1px !important; }
+  section, .block, .proc-teaser-block, .faq-block,
+  .outcomes-block, .tenants-block, .form-section,
+  .cta, .cta-row, .big-email, .meta, .stats, .ai-ask {
+    border-top-color: rgba(91, 194, 231, 0.32) !important;
+    border-bottom-color: rgba(91, 194, 231, 0.32) !important;
+  }
+
+  /* (3) Section paddings tight (28 desktop / 20 mobile). */
+  section.block, .proc-teaser-block, .faq-block, .outcomes-head,
+  .ai-ask, .pull-quote, .pull-quote-large, .stat-block,
+  .pivot-line, .divider-sentence, .service, .cta, .work-hero,
+  .sticky-block, .form-section, .big-email, .meta, .stats, .cta-row {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+  @media (max-width: 767px) {
+    section.block, .proc-teaser-block, .faq-block, .outcomes-head,
+    .ai-ask, .pull-quote, .pull-quote-large, .stat-block,
+    .pivot-line, .divider-sentence, .service, .cta, .work-hero,
+    .sticky-block, .form-section, .big-email, .meta, .stats, .cta-row {
+      padding-top: 40px !important;
+      padding-bottom: 40px !important;
+    }
+  }
+
+  /* (4) Section heads sit tight against next content. */
+  .section-head, .usp-header { margin-bottom: 18px !important; }
+  @media (max-width: 767px) { .section-head, .usp-header { margin-bottom: 16px !important; } }
+
+  /* (5) NO gaps between sections — every margin-bottom collapses.
+        The blue border-top on the next section IS the divider. No spacer. */
+  .hero, .sticky-block, .form-section, .big-email, .meta, .cta-row,
+  .stats, section.block, .proc-teaser-block, .faq-block,
+  .outcomes-head, .outcomes-block, .ai-ask, .pull-quote, .pull-quote-large,
+  .stat-block, .pivot-line, .divider-sentence, .service, .cta,
+  .work-hero, .h-work, .gap-scrub, .mission-sticky, .position-sticky,
+  .pillars-scroll, .contact-hero-bleed, .work-hero-split,
+  .proc-hero-split, .svc-hero-split, .hero-section, .svc-grid-block,
+  .tenants-block, .marquee-strip {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* (6) Footer */
+  footer { padding-top: 24px !important; padding-bottom: 24px !important; margin-top: 0 !important; }
+
+  /* (7) Full-bleed hero sections — keep their 100vh, but they should butt up
+        against the next section with no margin. */
+  .contact-hero-bleed, .work-hero-split, .proc-hero-split, .svc-hero-split {
+    border-bottom: 1px solid rgba(91, 194, 231, 0.32) !important;
+  }
+
+  /* Top-brand mark — adaptive color based on what sits beneath it */
+  .top-brand { transition: opacity 0.3s; }
+  .top-brand .brand-name {
+    color: var(--accent) !important;
+    opacity: 0.55 !important;
+    mix-blend-mode: normal !important;
+    transition: color 0.3s, opacity 0.3s !important;
+  }
+  .top-brand:hover .brand-name {
+    color: var(--accent) !important;
+    opacity: 1 !important;
+  }
+  .top-brand.on-dark .brand-name {
+    color: #fafafa !important;
+    opacity: 0.85 !important;
+  }
+  .top-brand.on-dark:hover .brand-name {
+    color: var(--accent) !important;
+    opacity: 1 !important;
+  }
+  .top-brand .brand-logo { transition: filter 0.3s, opacity 0.3s; opacity: 0.85; }
+  .top-brand:hover .brand-logo { opacity: 1; }
+  .top-brand.on-dark .brand-logo { filter: brightness(0) invert(1); opacity: 0.9; }
+  .top-brand.on-dark:hover .brand-logo { filter: none; opacity: 1; }
+
+</style>
+<!-- ===== SEO META (auto-managed by forvr-seo-block — don't hand-edit) ===== -->
+<meta name="description" content="Selected case studies from Forvr.Studios. Grit, Small Circle, Forvr Collection, Posters, Fashion Films. AI-native creative work for fashion, streetwear and lifestyle brands. Brand campaigns, fashion films, editorial, posters, identity." />
+<meta name="keywords" content="creative agency portfolio UK, creative studio case studies, fashion campaign portfolio, streetwear campaign agency, fashion film production UK, Forvr work, AI creative case studies, brand campaign portfolio UK, creative agency Reading work" />
+<meta name="author" content="Forvr.Studios" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow" />
+<link rel="canonical" href="https://forvr.org/work" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:site_name" content="Forvr.Studios" />
+<meta property="og:title" content="Selected work — Forvr.Studios case studies" />
+<meta property="og:description" content="Five projects, one production language. AI-native creative for fashion, streetwear and lifestyle." />
+<meta property="og:url" content="https://forvr.org/work" />
+<meta property="og:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Forvr.Studios — creative studio UK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Selected work — Forvr.Studios case studies" />
+<meta name="twitter:description" content="Five projects, one production language. AI-native creative for fashion, streetwear and lifestyle." />
+<meta name="twitter:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta name="theme-color" content="#0a0a0a" />
+<meta name="apple-mobile-web-app-title" content="Forvr.Studios" />
+<meta name="application-name" content="Forvr.Studios" />
+<meta name="format-detection" content="telephone=no" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://forvr.org/#organization",
+      "name": "Forvr.Studios",
+      "alternateName": [
+        "Forvr",
+        "Forvr Studios",
+        "Forvr Creative",
+        "Forvr Agency"
+      ],
+      "url": "https://forvr.org/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://forvr.org/public/forvr-logo.svg",
+        "width": 200,
+        "height": 200
+      },
+      "image": "https://forvr.org/public/forvr-og.jpg",
+      "description": "Creative studio in Reading, UK. AI-native, founder-led, six in-house lanes. Video, image, creative direction, graphic design, website design, brand identity. Fast turnaround, hand-finished output. Built for fashion, streetwear and lifestyle brands.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Reading",
+        "addressRegion": "Berkshire",
+        "addressCountry": "GB"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.4543,
+        "longitude": -0.9781
+      },
+      "email": "hello@forvr.org",
+      "sameAs": [
+        "https://www.instagram.com/forvr.cr/"
+      ],
+      "knowsAbout": [
+        "creative studio",
+        "creative agency",
+        "AI creative production",
+        "AI video production",
+        "AI image generation",
+        "creative direction",
+        "graphic design",
+        "website design",
+        "brand identity",
+        "brand strategy",
+        "fashion campaign production",
+        "streetwear creative",
+        "lifestyle brand creative",
+        "brand-trained generative models",
+        "fast creative production",
+        "boutique creative studio",
+        "founder-led creative studio",
+        "AI-native creative agency"
+      ],
+      "foundingDate": "2026",
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "United Kingdom"
+        },
+        {
+          "@type": "Place",
+          "name": "Worldwide"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://forvr.org/#website",
+      "url": "https://forvr.org/",
+      "name": "Forvr.Studios",
+      "description": "Creative studio UK — AI-native, founder-led, fast and affordable. Brand worlds, campaigns, films and identity for fashion, streetwear and lifestyle brands.",
+      "publisher": {
+        "@id": "https://forvr.org/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://forvr.org/work#webpage",
+      "url": "https://forvr.org/work",
+      "name": "Selected work | Creative studio case studies | Forvr.Studios",
+      "description": "Selected case studies from Forvr.Studios. Grit, Small Circle, Forvr Collection, Posters, Fashion Films. AI-native creative work for fashion, streetwear and lifestyle brands. Brand campaigns, fashion films, editorial, posters, identity.",
+      "isPartOf": {
+        "@id": "https://forvr.org/#website"
+      },
+      "about": {
+        "@id": "https://forvr.org/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://forvr.org/work#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forvr.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Work",
+          "item": "https://forvr.org/work"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- ===== /SEO META ===== -->
+</head>
+<body>
+
+<div class="scroll-bar" id="scrollBar"></div>
+
+<!-- Top brand mark -->
+<a href="index.html" class="top-brand" aria-label="Forvr">
+  <img class="brand-logo" src="public/forvr-logo.svg" alt="Forvr" width="36" height="26" style="display:block;height:26px;width:auto;" loading="lazy" decoding="async">
+  <span class="brand-name">Forvr<span class="dot">.</span></span>
+</a>
+
+<div class="studio-mark">
+  <span class="pulse"></span>
+  <p class="m"><span class="m-accent">RDG</span> / 51.4543 N / 0.9781 W</p>
+</div>
+
+<div class="progress" id="progress">
+  <span class="big" id="progressNum">01</span>
+  <span class="m">/ 05</span>
+</div>
+
+<main>
+  <!-- HERO — full-bleed split: 1/3 text left + 2/3 video right (Mission-style) -->
+  <section class="work-hero-split">
+    <div class="work-hero-text-side">
+      <div class="work-hero-text reveal-group">
+        <p class="m m-accent reveal-line">Portfolio / 01–05</p>
+        <h1 class="d work-hero-headline reveal-line">Selected work<span class="dot">.</span></h1>
+        <p class="lede reveal-line">
+          A curated selection of video, image, and brand projects. Each one conceptual unless stated otherwise, built with custom workflows and hand-finished in post.
+        </p>
+        <p class="m work-hero-cue reveal-line">↓ All five projects in one sweep</p>
+      </div>
+    </div>
+    <div class="work-hero-video-side">
+      <video class="work-hero-bg-video" src="forvr%20docs/site-images/supplied/opt-work.mp4" autoplay muted loop playsinline disablepictureinpicture preload="metadata"></video>
+      <span class="vid-corner-meta">CH.WORK</span>
+    </div>
+  </section>
+
+  <!-- HORIZONTAL SWEEP — all five projects in one pinned section -->
+  <section class="h-work" id="hWork">
+    <div class="h-work-pin">
+      <div class="h-work-head">
+        <p class="m m-accent">Work / 01–05</p>
+        <h3 class="d">Five projects, one sweep<span class="dot">.</span></h3>
+      </div>
+
+      <div class="h-work-track" id="hWorkTrack">
+        <a class="h-work-item" href="grit.html" data-i="0">
+          <img class="bg" src="forvr%20docs/images/grit-project/opt-rwhypervail_Moody_boxing_gym_silhouette_of_a_Black_male_athle_a8c43333-bcb7-4806-84f9-de2baa946afa_0.jpg" alt="Grit campaign, boxing-gym strength portrait"  loading="lazy" decoding="async">
+          <div class="meta">
+            <div><p class="num">01 / 05</p><p class="name">Grit<span class="dot">.</span></p></div>
+            <div class="cat-stack"><p class="cat">Studio campaign · 2026</p><span class="view-link">View case →</span></div>
+          </div>
+        </a>
+        <a class="h-work-item" href="small-circle.html" data-i="1">
+          <img class="bg" src="forvr%20docs/small%20circle/Studio-Shoot/opt-1.jpg" alt="Small Circle varsity collection, studio shoot"  loading="lazy" decoding="async">
+          <div class="meta">
+            <div><p class="num">02 / 05</p><p class="name">Small Circle<span class="dot">.</span></p></div>
+            <div class="cat-stack"><p class="cat">Varsity collab · 2026</p><span class="view-link">View case →</span></div>
+          </div>
+        </a>
+        <a class="h-work-item" href="forvr-collection.html" data-i="2">
+          <img class="bg" src="forvr%20docs/images/forvr/jewel/opt-hf_20260206_103516_1f2c38f0-e68e-4e8d-992b-70bdf491a830.jpg" alt="Forvr Collection, jewellery campaign image"  loading="lazy" decoding="async">
+          <div class="meta">
+            <div><p class="num">03 / 05</p><p class="name">Forvr Collection<span class="dot">.</span></p></div>
+            <div class="cat-stack"><p class="cat">Own brand · 2026</p><span class="view-link">View case →</span></div>
+          </div>
+        </a>
+        <a class="h-work-item" href="posters.html" data-i="3">
+          <img class="bg" src="forvr%20docs/images/posters/opt-tom%20forvr.jpg" alt="Fragrance poster concept"  loading="lazy" decoding="async">
+          <div class="meta">
+            <div><p class="num">04 / 05</p><p class="name">Posters<span class="dot">.</span></p></div>
+            <div class="cat-stack"><p class="cat">Graphic series · 2026</p><span class="view-link">View case →</span></div>
+          </div>
+        </a>
+        <a class="h-work-item" href="fashion-films.html" data-i="4">
+          <img class="bg" src="forvr%20docs/videos/streetwear/sp5der/opt-f81fa3ee-1fdb-413f-a643-7d3c6d206f40%20(1).jpg" alt="Spider streetwear campaign still"  loading="lazy" decoding="async">
+          <div class="meta">
+            <div><p class="num">05 / 05</p><p class="name">Fashion Films<span class="dot">.</span></p></div>
+            <div class="cat-stack"><p class="cat">Streetwear reel · 2026</p><span class="view-link">View case →</span></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="h-work-progress">
+        <span class="count" id="hWorkCountA">01</span>
+        <div class="bar"><i id="hWorkBar"></i></div>
+        <span class="count" id="hWorkCountB">05</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="grid">
+      <p class="m m-accent c12 md-c2">Want more / Ask</p>
+      <div class="c12 md-c10">
+        <h2 class="d reveal">Want the full archive<span class="dot">?</span></h2>
+        <div style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;">
+          <a class="btn" href="contact.html">Ask for it →</a>
+          <a class="link" href="process.html">See the process <span class="dot">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Floating navigation -->
+<div class="floating-nav" id="floatingNav">
+  <div class="nav-menu" aria-label="Site navigation">
+    <a class="nav-item" href="index.html">
+      <span class="num">00</span>
+      <span class="title">Home</span>
+      <span class="caption">Forvr studio</span>
+    </a>
+    <a class="nav-item active" href="work.html">
+      <span class="num">01</span>
+      <span class="title">Work</span>
+      <span class="caption">Selected portfolio</span>
+    </a>
+    <a class="nav-item" href="services.html">
+      <span class="num">02</span>
+      <span class="title">Services</span>
+      <span class="caption">Six lanes</span>
+    </a>
+    <a class="nav-item" href="studio.html">
+      <span class="num">03</span>
+      <span class="title">Studio</span>
+      <span class="caption">About Forvr</span>
+    </a>
+    <a class="nav-item" href="process.html">
+      <span class="num">04</span>
+      <span class="title">Process</span>
+      <span class="caption">How we work</span>
+    </a>
+    <a class="nav-item" href="contact.html">
+      <span class="num">05</span>
+      <span class="title">Contact</span>
+      <span class="caption">Start a project</span>
+    </a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu">
+    <span>Navigation</span>
+    <span class="icon" aria-hidden="true"></span>
+  </button>
+</div>
+
+<footer>
+  <div class="brand">
+    <svg width="30" height="10" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="8" width="52" height="4" rx="2" fill="url(#pl)" filter="url(#g)"/>
+      <rect x="4" y="9.4" width="52" height="1.2" rx="0.6" fill="#EAF7FC"/>
+    </svg>
+    <span class="brand-name">Forvr<span class="dot">.</span></span>
+  </div>
+  <p class="m">© 2026 Forvr Studios / All rights reserved</p>
+</footer>
+
+<script>
+  // Scroll progress bar
+  const bar = document.getElementById('scrollBar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+  // Floating nav toggle
+  const floatingNav = document.getElementById('floatingNav');
+  const navToggle = document.getElementById('navToggle');
+  if (navToggle) {
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      } else {
+        floatingNav.classList.add('open');
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!floatingNav.contains(e.target) && floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      }
+    });
+  }
+
+  // Auto-index .reveal-line children inside any .reveal-group so they stagger
+  document.querySelectorAll('.reveal-group').forEach((group) => {
+    let i = 0;
+    group.querySelectorAll('.reveal-line').forEach((el) => {
+      if (!el.style.getPropertyValue('--i')) el.style.setProperty('--i', i++);
+    });
+  });
+
+  // Reveal — fire ONCE. The horizontal sweep below remains scroll-driven.
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '-50px 0px' });
+  document.querySelectorAll('.reveal, .reveal-line').forEach((el) => io.observe(el));
+
+  // Horizontal sweep — vertical scroll drives horizontal translate of the project track
+  (function workHorizontalSweep() {
+    const wrap = document.getElementById('hWork');
+    const track = document.getElementById('hWorkTrack');
+    const bar = document.getElementById('hWorkBar');
+    const countA = document.getElementById('hWorkCountA');
+    const progressEl = document.getElementById('progress');
+    const progressNum = document.getElementById('progressNum');
+    if (!wrap || !track) return;
+    const items = track.querySelectorAll('.h-work-item');
+    let ticking = false;
+    const compute = () => {
+      const rect = wrap.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const total = rect.height - vh;
+      const progress = Math.max(0, Math.min(1, (-rect.top) / total));
+      const maxX = track.scrollWidth - window.innerWidth;
+      track.style.transform = `translateX(${-progress * maxX}px)`;
+      if (bar) bar.style.width = (progress * 100).toFixed(1) + '%';
+      const idx = Math.min(items.length - 1, Math.floor(progress * items.length));
+      const label = String(idx + 1).padStart(2, '0');
+      if (countA) countA.textContent = label;
+      // Mirror to the floating top-right counter when section is active
+      if (rect.top < vh && rect.bottom > 0) {
+        if (progressNum) progressNum.textContent = label;
+        if (progressEl) progressEl.classList.add('show');
+      } else if (progressEl) {
+        progressEl.classList.remove('show');
+      }
+      ticking = false;
+    };
+    const onScroll = () => { if (!ticking) { requestAnimationFrame(compute); ticking = true; } };
+    compute();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  })();
+</script>
+<script src="public/cursor.js?v=3" defer></script>
+<style id="ask-fab-styles">
+  .ask-fab { position: fixed; bottom: 24px; left: 24px; z-index: 60; }
+  @media (min-width: 768px) { .ask-fab { bottom: 28px; left: 40px; } }
+  .ask-fab-toggle {
+    position: relative; display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-radius: 999px; cursor: pointer;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase;
+    color: rgba(245,245,245,0.85); transition: all 0.35s;
+  }
+  .ask-fab-toggle:hover, .ask-fab.open .ask-fab-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35); }
+  .ask-fab-toggle .ask-fab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: ask-fab-pulse 1.6s ease-in-out infinite; }
+  @keyframes ask-fab-pulse { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
+  .ask-fab-toggle .ask-fab-arrow { font-family: var(--display); font-size: 14px; transition: transform 0.35s; }
+  .ask-fab.open .ask-fab-toggle .ask-fab-arrow { transform: rotate(180deg); }
+
+  .ask-fab-panel {
+    position: absolute; bottom: calc(100% + 10px); left: 0;
+    width: min(420px, 92vw);
+    background: rgba(15,15,15,0.94); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    border: 1px solid rgba(91,194,231,0.22); border-radius: 18px;
+    padding: 22px 22px 18px;
+    color: rgba(245,245,245,0.92);
+    opacity: 0; pointer-events: none; transform: translateY(10px) scale(0.97);
+    transition: opacity 0.42s cubic-bezier(0.22,1,0.36,1), transform 0.42s cubic-bezier(0.22,1,0.36,1);
+  }
+  .ask-fab.open .ask-fab-panel { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+  .ask-fab-panel .head { display: grid; gap: 6px; padding-bottom: 12px; border-bottom: 1px solid rgba(91,194,231,0.18); }
+  .ask-fab-panel .head .m-accent { letter-spacing: 0.18em; color: var(--accent); font-family: var(--mono); font-size: 10px; text-transform: uppercase; }
+  .ask-fab-panel .head .sub { font-family: var(--body); font-size: 12px; color: rgba(245, 245, 245, 0.74); line-height: 1.5; }
+  .ask-fab-panel .prompt-row { padding: 14px 0; border-bottom: 1px solid rgba(91,194,231,0.10); }
+  .ask-fab-panel .prompt-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .ask-fab-panel .prompt-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .ask-fab-panel .prompt-label { font-family: var(--display); font-weight: 900; font-size: 16px; letter-spacing: -0.01em; line-height: 1; text-transform: uppercase; }
+  .ask-fab-panel .prompt-copy {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 9px;
+    background: transparent; border: 1px solid rgba(91,194,231,0.28);
+    color: rgba(245,245,245,0.75); cursor: pointer;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    border-radius: 999px;
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .ask-fab-panel .prompt-copy:hover { background: var(--accent); color: #050505; border-color: var(--accent); }
+  .ask-fab-panel .prompt-copy.is-copied { background: var(--accent); color: #050505; border-color: var(--accent); }
+  .ask-fab-panel .providers { display: flex; gap: 6px; margin-top: 10px; }
+  .ask-fab-panel .providers a {
+    flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 8px 10px; border: 1px solid rgba(245,245,245,0.18); border-radius: 999px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.10em; text-transform: uppercase;
+    color: rgba(245,245,245,0.85); text-decoration: none; transition: all 0.3s;
+  }
+  .ask-fab-panel .providers a:hover { border-color: var(--accent); color: var(--accent); }
+  .ask-fab-panel .providers svg { width: 12px; height: 12px; flex-shrink: 0; }
+  .ask-fab-panel .providers svg path, .ask-fab-panel .providers svg circle, .ask-fab-panel .providers svg polygon { fill: currentColor; }
+</style>
+
+<div class="ask-fab" id="askFab">
+  <button class="ask-fab-toggle" id="askFabToggle" aria-expanded="false" aria-controls="askFabPanel" type="button">
+    <span class="ask-fab-dot"></span>
+    <span>Ask AI</span>
+    <span class="ask-fab-arrow">↑</span>
+  </button>
+  <div class="ask-fab-panel" id="askFabPanel" role="dialog" aria-label="Ask an AI about Forvr">
+    <div class="head">
+      <span class="m-accent">Ask an AI</span>
+      <span class="sub">Page-aware prompts. Open in your model of choice, or copy the prompt to use anywhere.</span>
+    </div>
+    <div id="askFabRows"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var fab = document.getElementById('askFab');
+  var toggle = document.getElementById('askFabToggle');
+  var rows = document.getElementById('askFabRows');
+  if (!fab || !toggle || !rows) return;
+  var prompts = [{"label": "Closest fit to my brand", "q": "You are a creative director picking a studio for a brand launch. Look at the five projects on this page. Compare them across tone, technique, ambition and brand fit. Which project is the closest fit to a launch for the kind of brand I'd run, and why? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give the answer in list format: Project, Why it fits, What's different from my brand. Under 120 words."}, {"label": "Reverse the brief", "q": "You are a senior brand strategist. Pick one project on this page and reverse-engineer the brief Forvr likely worked from. Cover audience, problem, deliverables, constraints. Give me the reverse-engineered brief for the project that looks most ambitious. Ask me any more questions or anything you're unsure about so you give me a precise answer. Give it in list format: Audience, Problem, Deliverables, Constraints. Under 150 words."}, {"label": "Where the range shows", "q": "You are a creative critic evaluating a portfolio. Compare how the five projects differ in tone, technique, and visual ambition. Where does Forvr's range show most clearly, and where does the work risk feeling samey? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give the answer as two short lists: Range Strengths, Range Risks. Under 120 words."}];
+  var providers = [
+    { label: "ChatGPT", url: function(q){ return "https://chatgpt.com/?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M22 9.6a5.4 5.4 0 0 0-.5-4.4 5.5 5.5 0 0 0-6-2.6 5.5 5.5 0 0 0-9.3 1.9 5.4 5.4 0 0 0-3.6 2.6 5.5 5.5 0 0 0 .7 6.4 5.4 5.4 0 0 0 .5 4.5 5.5 5.5 0 0 0 6 2.5 5.5 5.5 0 0 0 4.1 1.9 5.5 5.5 0 0 0 5.2-3.8 5.4 5.4 0 0 0 3.6-2.6 5.5 5.5 0 0 0-.7-6.4Z"/></svg>' },
+    { label: "Claude", url: function(q){ return "https://claude.ai/new?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2 13.4 9 19 10.5 14.5 12 19 13.5 13.4 15 12 22 10.6 15 5 13.5 9.5 12 5 10.5 10.6 9 Z"/></svg>' },
+    { label: "Perplexity", url: function(q){ return "https://www.perplexity.ai/?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2v8.5l7-4.5v6.5l-7 4.5V22m0-20-7 4.5 7 4.5 7-4.5L12 2Zm-7 11.5L12 18l-7 4.5v-9Z"/></svg>' }
+  ];
+  var NL = String.fromCharCode(10);
+  var copyIcon = '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="9" rx="1"/><path d="M6 4V3a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v8"/></svg>';
+  var checkIcon = '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>';
+  rows.innerHTML = prompts.map(function(p, i){
+    var providerLinks = providers.map(function(pr){
+      var fullQ = p.q + NL + window.location.href;
+      return '<a href="' + pr.url(fullQ) + '" target="_blank" rel="noopener noreferrer">' + pr.icon + '<span>' + pr.label + '</span></a>';
+    }).join('');
+    return '<div class="prompt-row" data-i="' + i + '">'
+      + '<div class="prompt-head">'
+      + '<div class="prompt-label">' + p.label + '<span class="dot">.</span></div>'
+      + '<button type="button" class="prompt-copy" title="Copy prompt to clipboard" aria-label="Copy prompt">' + copyIcon + '</button>'
+      + '</div>'
+      + '<div class="providers">' + providerLinks + '</div>'
+      + '</div>';
+  }).join('');
+  var copyBtns = rows.querySelectorAll('.prompt-copy');
+  copyBtns.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var row = btn.closest('.prompt-row');
+      var idx = parseInt(row.getAttribute('data-i'), 10);
+      var text = prompts[idx].q + NL + window.location.href;
+      var show = function(){ btn.innerHTML = checkIcon; btn.classList.add('is-copied'); setTimeout(function(){ btn.innerHTML = copyIcon; btn.classList.remove('is-copied'); }, 1400); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(show).catch(function(){
+          var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); show(); } catch (_) {}
+          document.body.removeChild(ta);
+        });
+      } else {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); show(); } catch (_) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+  function openFab(){ fab.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); }
+  function closeFab(){ fab.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+  toggle.addEventListener('click', function(e){ e.stopPropagation(); if (fab.classList.contains('open')) closeFab(); else openFab(); });
+  document.addEventListener('click', function(e){ if (fab.classList.contains('open') && !e.target.closest('.ask-fab')) closeFab(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeFab(); });
+})();
+</script>
+
+<script id="forvr-brand-detect">
+(function(){
+  const brand = document.querySelector('.top-brand');
+  if (!brand) return;
+  function rgbToLum(r,g,b){ return 0.2126*r + 0.7152*g + 0.0722*b; }
+  function check(){
+    // Sample the element 80px below the brand mark center — that's the content under it
+    const rect = brand.getBoundingClientRect();
+    const sx = rect.left + rect.width / 2;
+    const sy = rect.top + rect.height / 2 + 60;
+    // Temporarily hide the brand so elementFromPoint doesn't return it
+    brand.style.pointerEvents = 'none';
+    const prev = brand.style.visibility;
+    brand.style.visibility = 'hidden';
+    const el = document.elementFromPoint(sx, sy);
+    brand.style.visibility = prev;
+    brand.style.pointerEvents = '';
+    if (!el) return;
+    // Walk up to find first non-transparent bg
+    let node = el;
+    let isDark = false;
+    while (node && node !== document.body) {
+      if (node.tagName === 'VIDEO' || node.tagName === 'IMG') { isDark = true; break; }
+      const bg = getComputedStyle(node).backgroundColor;
+      const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+      if (m) {
+        const a = m[4] === undefined ? 1 : parseFloat(m[4]);
+        if (a > 0.5) {
+          const lum = rgbToLum(+m[1], +m[2], +m[3]);
+          isDark = lum < 128;
+          break;
+        }
+      }
+      node = node.parentElement;
+    }
+    brand.classList.toggle('on-dark', isDark);
+  }
+  let ticking = false;
+  function onScroll(){ if (!ticking){ requestAnimationFrame(function(){ check(); ticking = false; }); ticking = true; } }
+  // initial + scroll + resize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', check);
+  } else {
+    check();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+})();
+</script>
+</body>
+</html>

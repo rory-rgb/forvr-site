@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contact | Start a project with Forvr.Studios | Creative studio UK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+<style>
+  @font-face {
+    font-family: "BringBold Nineties";
+    src: url("public/fonts/BringBold-Nineties.woff2") format("woff2");
+    font-weight: 400 900;
+    font-display: swap;
+  }
+  :root {
+    --bg: #fafafa;
+    --fg: #0a0a0a;
+    --muted: #6a6a6a;
+    --line: #e5e5e5;
+    --accent: #5BC2E7;
+    --display: "BringBold Nineties", "Anton", "Helvetica Neue", Impact, sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: var(--accent); color: #000; }
+
+  .d { font-family: var(--display); font-weight: 900; line-height: 0.88; letter-spacing: -0.02em; text-transform: uppercase; }
+  .m { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .m-accent { color: var(--accent); }
+  .dot { color: var(--accent); }
+  a { color: inherit; text-decoration: none; }
+
+  /* Scroll progress bar */
+  .scroll-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); width: 0%; z-index: 60; transition: width 0.05s linear; }
+
+  /* Nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; transition: background 0.4s, border-color 0.4s; border-bottom: 1px solid transparent; }
+  @media (min-width: 768px) { .nav { padding: 20px 40px; } }
+  .nav.scrolled { background: rgba(250,250,250,0.85); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom-color: var(--line); }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; }
+  .nav-links { display: flex; gap: 22px; }
+  @media (min-width: 768px) { .nav-links { gap: 36px; } }
+  .nav-links a { font-size: 13px; letter-spacing: 0.04em; color: rgba(10,10,10,0.8); transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  /* Studio marker bottom-left */
+  .studio-mark { position: fixed; bottom: 24px; left: 24px; z-index: 40; display: flex; align-items: center; gap: 8px; pointer-events: none; }
+  @media (max-width: 767px) { .studio-mark { display: none; } }
+  .studio-mark .pulse { position: relative; width: 6px; height: 6px; }
+  .studio-mark .pulse::before, .studio-mark .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--accent); }
+  .studio-mark .pulse::after { opacity: 0.7; animation: pulse 2s ease-out infinite; }
+  @keyframes pulse { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(3); opacity: 0; } }
+
+  main { padding-top: 128px; padding-bottom: 128px; }
+  @media (min-width: 768px) { main { padding-top: 160px; } }
+
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+  @media (min-width: 768px) { .grid { gap: 24px; } }
+  .c12 { grid-column: span 12; }
+  @media (min-width: 768px) { .md-c2 { grid-column: span 2; } .md-c10 { grid-column: span 10; } .md-c8 { grid-column: 3 / span 8; } .md-c6 { grid-column: span 6; } .md-c3 { grid-column: span 3; } }
+
+  /* Hero */
+  .hero { padding: 0 24px; margin-bottom: 32px; }
+  @media (min-width: 768px) { .hero { padding: 0 40px; margin-bottom: 40px; } }
+  @media (min-width: 768px) { .hero { padding: 0 40px; margin-bottom: 160px; } }
+  .hero h1 { font-size: clamp(72px, 13vw, 260px); }
+  .hero .lede { font-size: clamp(18px, 1.5vw, 24px); line-height: 1.55; color: rgba(10,10,10,0.85); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.is-in { opacity: 1; transform: none; }
+
+  /* Reveal-line primitive — line-by-line fade-up, stagger via --i */
+  .reveal-line {
+    opacity: 0.12;
+    transform: translateY(20px);
+    transition: opacity 0.85s cubic-bezier(0.22,1,0.36,1), transform 0.85s cubic-bezier(0.22,1,0.36,1);
+    transition-delay: calc(var(--i, 0) * 0.08s);
+    will-change: opacity, transform;
+  }
+  .reveal-line.is-in { opacity: 1; transform: translateY(0); }
+  .reveal-line.r-img { opacity: 0; }
+  .reveal-line.r-img.is-in { opacity: 1; }
+
+  /* Twin CTA cards */
+  .cta-row { padding: 32px 24px 0; border-top: 1px solid var(--line); margin-bottom: 40px; }
+  @media (min-width: 768px) { .cta-row { padding: 40px 40px 0; margin-bottom: 48px; } }
+  .cta-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .cta-card { grid-column: span 12; }
+  @media (min-width: 768px) { .cta-card { grid-column: span 6; } }
+  .cta-card a { display: block; border: 1px solid var(--line); padding: 32px; transition: border-color 0.5s; height: 100%; }
+  @media (min-width: 768px) { .cta-card a { padding: 48px; } }
+  .cta-card a:hover { border-color: var(--accent); }
+  .cta-card h2 { font-size: clamp(40px, 5vw, 84px); line-height: 0.95; transition: color 0.5s; }
+  .cta-card a:hover h2 { color: var(--accent); }
+  .cta-card .arrow { display: inline-block; margin-left: 8px; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
+  .cta-card a:hover .arrow { transform: translateX(8px); }
+  .cta-card .footnote { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.5); margin-top: 24px; }
+
+  /* Stats row */
+  .stats { padding: 0 24px; margin-bottom: 32px; }
+  @media (min-width: 768px) { .stats { padding: 0 40px; margin-bottom: 40px; } }
+  .stats-inner { display: grid; grid-template-columns: 1fr; gap: 48px; }
+  @media (min-width: 768px) { .stats-inner { grid-template-columns: repeat(3, 1fr); gap: 64px; } }
+  .stat .num { font-family: var(--display); color: var(--accent); line-height: 1; margin-bottom: 16px; font-size: clamp(64px, 6vw, 110px); font-weight: 900; letter-spacing: -0.02em; }
+  .stat p { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.75); max-width: 180px; line-height: 1.6; }
+
+  /* Form */
+  .form-section { padding: 32px 24px 0; border-top: 1px solid var(--line); margin-bottom: 40px; scroll-margin-top: 80px; }
+  @media (min-width: 768px) { .form-section { padding: 40px 40px 0; margin-bottom: 48px; } }
+  .form-header { margin-bottom: 64px; }
+  @media (min-width: 768px) { .form-header { margin-bottom: 32px; } }
+  .form-header h3 { font-size: clamp(48px, 7vw, 120px); }
+  .form-wrap { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+  .form-wrap form { grid-column: span 12; }
+  @media (min-width: 768px) { .form-wrap form { grid-column: 3 / span 8; } }
+  form .row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 32px 24px; margin-bottom: 32px; }
+  form .field { grid-column: span 12; }
+  @media (min-width: 768px) { form .field-half { grid-column: span 6; } }
+  form label > span.lbl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  form label > span.lbl .req { color: var(--accent); margin-left: 4px; }
+  form input, form textarea, form select { width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 12px 0; color: var(--fg); font-family: var(--body); font-size: 16px; transition: border-color 0.3s; appearance: none; }
+  form input:focus, form textarea:focus, form select:focus { outline: 0; border-bottom-color: var(--accent); }
+  form input::placeholder, form textarea::placeholder { color: rgba(10,10,10,0.3); }
+  form textarea { resize: none; }
+  form select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%235BC2E7' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 24px; cursor: pointer; }
+  form select option { background: #000; }
+  .submit-btn { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; font-family: var(--mono); cursor: pointer; background: transparent; }
+  .submit-btn:hover { background: var(--accent); color: var(--bg); }
+  .preview-note { display: inline-block; margin-left: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.4); }
+
+  /* Big email */
+  .big-email { padding: 32px 24px 0; border-top: 1px solid var(--line); margin-bottom: 40px; }
+  @media (min-width: 768px) { .big-email { padding: 40px 40px 0; margin-bottom: 48px; } }
+  .big-email a { display: block; }
+  .big-email h3 { font-size: clamp(48px, 10vw, 180px); line-height: 0.88; word-break: break-word; transition: color 0.6s, transform 0.6s cubic-bezier(0.22,1,0.36,1); }
+  .big-email a:hover h3 { color: var(--accent); transform: translateX(8px); }
+  /* Phone + tablet: keep the email on one clean line. Desktop unchanged. */
+  @media (max-width: 900px) {
+    .big-email h3 { font-size: clamp(20px, 8vw, 60px); white-space: nowrap; word-break: normal; }
+  }
+
+  /* Meta strip */
+  .meta { padding: 32px 24px 0; border-top: 1px solid var(--line); }
+  @media (min-width: 768px) { .meta { padding: 40px 40px 0; } }
+  .meta-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 40px 24px; margin-top: 48px; }
+  .meta-grid > div { grid-column: span 6; }
+  @media (min-width: 768px) { .meta-grid > div { grid-column: span 3; } }
+  .meta a:hover { color: var(--accent); }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 24px; display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-top: 40px; }
+  @media (min-width: 768px) { footer { padding: 40px 40px; } }
+
+  /* Top brand mark — replaces top nav */
+  .top-brand { position: fixed; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 10px; pointer-events: auto;}
+  @media (min-width: 768px) { .top-brand { top: 28px; left: 40px; } }
+  .top-brand .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; color: #fff;  mix-blend-mode: difference; }
+
+  /* Floating navigation — dark HUD aesthetic */
+  .floating-nav { position: fixed; bottom: 24px; right: 24px; z-index: 60; }
+  @media (min-width: 768px) { .floating-nav { bottom: 28px; right: 40px; } }
+  .nav-toggle { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(245,245,245,0.85); transition: all 0.35s; overflow: hidden; }
+  .nav-toggle::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: 999px; pointer-events: none; }
+  .nav-toggle:hover, .floating-nav.open .nav-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35), inset 0 0 18px rgba(91,194,231,0.08); }
+  .nav-toggle .icon { display: inline-block; width: 9px; height: 9px; position: relative; z-index: 1; }
+  .nav-toggle .icon::before, .nav-toggle .icon::after { content: ""; position: absolute; background: currentColor; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+  .nav-toggle .icon::before { top: 4px; left: 0; right: 0; height: 1.5px; }
+  .nav-toggle .icon::after { top: 0; bottom: 0; left: 4px; width: 1.5px; }
+  .floating-nav.open .nav-toggle .icon::after { transform: rotate(90deg); }
+  .nav-toggle > span:first-child { position: relative; z-index: 1; }
+
+  .nav-menu { position: absolute; bottom: calc(100% + 8px); right: 0; display: flex; flex-direction: column-reverse; gap: 6px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
+  .floating-nav.open .nav-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+  /* Wave-open keyframe — cyan pulse rushes through each item as it appears */
+  @keyframes nav-wave-in {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+    45% { opacity: 1; transform: translateY(-2px) scale(1.04); background: rgba(91,194,231,0.45); border-color: var(--accent); box-shadow: 0 0 36px rgba(91,194,231,0.55), inset 0 0 18px rgba(91,194,231,0.25); }
+    100% { opacity: 1; transform: translateY(0) scale(1); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+  }
+  /* Genie close — items distort and suck into the toggle button bottom-right */
+  @keyframes nav-genie-out {
+    0% { opacity: 1; transform: translate(0, 0) scale(1, 1) skewX(0deg); border-radius: 999px; filter: blur(0px); }
+    40% { opacity: 0.85; transform: translate(20px, 14px) scale(0.55, 0.6) skewX(-6deg); border-radius: 16px; filter: blur(0.4px); }
+    80% { opacity: 0.35; transform: translate(38px, 30px) scale(0.18, 0.22) skewX(-12deg); border-radius: 50%; filter: blur(1.5px); }
+    100% { opacity: 0; transform: translate(50px, 38px) scale(0.02, 0.04) skewX(-16deg); border-radius: 50%; filter: blur(3px); }
+  }
+
+  .nav-item { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border: 1px solid rgba(91,194,231,0.20); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; transform-origin: bottom right; opacity: 0; transform: translateY(20px) scale(0.7); white-space: nowrap; overflow: hidden; transition: border-color 0.35s, box-shadow 0.35s; }
+  .nav-item::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: inherit; pointer-events: none; }
+  .nav-item:hover { border-color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.4), inset 0 0 18px rgba(91,194,231,0.10); transform: translateY(0) translateX(-4px) scale(1); transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s; }
+  .floating-nav.open .nav-item { animation: nav-wave-in 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .floating-nav.open .nav-item:nth-child(1) { animation-delay: 0.28s; }
+  .floating-nav.open .nav-item:nth-child(2) { animation-delay: 0.22s; }
+  .floating-nav.open .nav-item:nth-child(3) { animation-delay: 0.16s; }
+  .floating-nav.open .nav-item:nth-child(4) { animation-delay: 0.10s; }
+  .floating-nav.open .nav-item:nth-child(5) { animation-delay: 0.04s; }
+  .floating-nav.open .nav-item:nth-child(6) { animation-delay: 0.00s; }
+  /* Genie close: items distort + suck into toggle button (bottom-right of stack) */
+  .floating-nav.closing .nav-item { animation: nav-genie-out 0.55s cubic-bezier(0.7, 0, 0.84, 0) forwards !important; transform-origin: bottom right; opacity: 1; transform: translateY(0) scale(1); }
+  .floating-nav.closing .nav-item:nth-child(1) { animation-delay: 0.00s !important; }
+  .floating-nav.closing .nav-item:nth-child(2) { animation-delay: 0.05s !important; }
+  .floating-nav.closing .nav-item:nth-child(3) { animation-delay: 0.10s !important; }
+  .floating-nav.closing .nav-item:nth-child(4) { animation-delay: 0.15s !important; }
+  .floating-nav.closing .nav-item:nth-child(5) { animation-delay: 0.20s !important; }
+  .floating-nav.closing .nav-item:nth-child(6) { animation-delay: 0.25s !important; }
+  .floating-nav.closing .nav-menu { pointer-events: none; }
+  .nav-item .num { position: relative; z-index: 1; font-family: var(--mono); font-size: 9px; color: var(--accent); letter-spacing: 0.10em; }
+  .nav-item .title { position: relative; z-index: 1; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; line-height: 1; color: rgba(245,245,245,0.9); transition: color 0.35s; }
+  .nav-item:hover .title { color: var(--accent); }
+  .nav-item .caption { display: none; }
+  .nav-item.active { border-color: var(--accent); box-shadow: 0 0 14px rgba(91,194,231,0.30); }
+  .nav-item.active .title { color: var(--accent); }
+
+</style>
+
+<style id="forvr-deploy-overrides">
+  /* Forvr deploy overrides — sections touch, no top white space, cyan dividers. */
+
+  /* (1) Kill the top white-space below the fixed nav.
+        Many pages set `main { padding-top: 128-160px }` to clear the fixed nav.
+        We want the hero to start at the very top instead. */
+  main { padding-top: 0 !important; padding-bottom: 0 !important; }
+  body > main:first-of-type > *:first-child { margin-top: 0 !important; }
+
+  /* (2) Cyan dividers — every divider that was gray becomes accent cyan. */
+  hr, .divider .rule { background: var(--accent) !important; height: 1px !important; }
+  section, .block, .proc-teaser-block, .faq-block,
+  .outcomes-block, .tenants-block, .form-section,
+  .cta, .cta-row, .big-email, .meta, .stats, .ai-ask {
+    border-top-color: rgba(91, 194, 231, 0.32) !important;
+    border-bottom-color: rgba(91, 194, 231, 0.32) !important;
+  }
+
+  /* (3) Section paddings tight (28 desktop / 20 mobile). */
+  section.block, .proc-teaser-block, .faq-block, .outcomes-head,
+  .ai-ask, .pull-quote, .pull-quote-large, .stat-block,
+  .pivot-line, .divider-sentence, .service, .cta, .work-hero,
+  .sticky-block, .form-section, .big-email, .meta, .stats, .cta-row {
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+  }
+  @media (max-width: 767px) {
+    section.block, .proc-teaser-block, .faq-block, .outcomes-head,
+    .ai-ask, .pull-quote, .pull-quote-large, .stat-block,
+    .pivot-line, .divider-sentence, .service, .cta, .work-hero,
+    .sticky-block, .form-section, .big-email, .meta, .stats, .cta-row {
+      padding-top: 40px !important;
+      padding-bottom: 40px !important;
+    }
+  }
+
+  /* (4) Section heads sit tight against next content. */
+  .section-head, .usp-header { margin-bottom: 18px !important; }
+  @media (max-width: 767px) { .section-head, .usp-header { margin-bottom: 16px !important; } }
+
+  /* (5) NO gaps between sections — every margin-bottom collapses.
+        The blue border-top on the next section IS the divider. No spacer. */
+  .hero, .sticky-block, .form-section, .big-email, .meta, .cta-row,
+  .stats, section.block, .proc-teaser-block, .faq-block,
+  .outcomes-head, .outcomes-block, .ai-ask, .pull-quote, .pull-quote-large,
+  .stat-block, .pivot-line, .divider-sentence, .service, .cta,
+  .work-hero, .h-work, .gap-scrub, .mission-sticky, .position-sticky,
+  .pillars-scroll, .contact-hero-bleed, .work-hero-split,
+  .proc-hero-split, .svc-hero-split, .hero-section, .svc-grid-block,
+  .tenants-block, .marquee-strip {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* (6) Footer */
+  footer { padding-top: 24px !important; padding-bottom: 24px !important; margin-top: 0 !important; }
+
+  /* (7) Full-bleed hero sections — keep their 100vh, but they should butt up
+        against the next section with no margin. */
+  .contact-hero-bleed, .work-hero-split, .proc-hero-split, .svc-hero-split {
+    border-bottom: 1px solid rgba(91, 194, 231, 0.32) !important;
+  }
+
+  /* Top-brand mark — adaptive color based on what sits beneath it */
+  .top-brand { transition: opacity 0.3s; }
+  .top-brand .brand-name {
+    color: var(--accent) !important;
+    opacity: 0.55 !important;
+    mix-blend-mode: normal !important;
+    transition: color 0.3s, opacity 0.3s !important;
+  }
+  .top-brand:hover .brand-name {
+    color: var(--accent) !important;
+    opacity: 1 !important;
+  }
+  .top-brand.on-dark .brand-name {
+    color: #fafafa !important;
+    opacity: 0.85 !important;
+  }
+  .top-brand.on-dark:hover .brand-name {
+    color: var(--accent) !important;
+    opacity: 1 !important;
+  }
+  .top-brand .brand-logo { transition: filter 0.3s, opacity 0.3s; opacity: 0.85; }
+  .top-brand:hover .brand-logo { opacity: 1; }
+  .top-brand.on-dark .brand-logo { filter: brightness(0) invert(1); opacity: 0.9; }
+  .top-brand.on-dark:hover .brand-logo { filter: none; opacity: 1; }
+
+</style>
+<!-- ===== SEO META (auto-managed by forvr-seo-block — don't hand-edit) ===== -->
+<meta name="description" content="Start a creative project with Forvr.Studios. A small, founder-led creative agency in Reading, UK. Reply within 48 hours. A brief, a sketch, or just a feeling. hello@forvr.org." />
+<meta name="keywords" content="contact creative agency UK, hire Forvr studio, start creative project UK, creative agency brief UK, contact creative studio Reading, creative agency contact" />
+<meta name="author" content="Forvr.Studios" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow" />
+<link rel="canonical" href="https://forvr.org/contact" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:site_name" content="Forvr.Studios" />
+<meta property="og:title" content="Contact Forvr.Studios — start a project" />
+<meta property="og:description" content="A brief, a sketch, or just a feeling. Reply within 48 hours." />
+<meta property="og:url" content="https://forvr.org/contact" />
+<meta property="og:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Forvr.Studios — creative studio UK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Contact Forvr.Studios — start a project" />
+<meta name="twitter:description" content="A brief, a sketch, or just a feeling. Reply within 48 hours." />
+<meta name="twitter:image" content="https://forvr.org/public/forvr-og.jpg" />
+<meta name="theme-color" content="#0a0a0a" />
+<meta name="apple-mobile-web-app-title" content="Forvr.Studios" />
+<meta name="application-name" content="Forvr.Studios" />
+<meta name="format-detection" content="telephone=no" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://forvr.org/#organization",
+      "name": "Forvr.Studios",
+      "alternateName": [
+        "Forvr",
+        "Forvr Studios",
+        "Forvr Creative",
+        "Forvr Agency"
+      ],
+      "url": "https://forvr.org/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://forvr.org/public/forvr-logo.svg",
+        "width": 200,
+        "height": 200
+      },
+      "image": "https://forvr.org/public/forvr-og.jpg",
+      "description": "Creative studio in Reading, UK. AI-native, founder-led, six in-house lanes. Video, image, creative direction, graphic design, website design, brand identity. Fast turnaround, hand-finished output. Built for fashion, streetwear and lifestyle brands.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Reading",
+        "addressRegion": "Berkshire",
+        "addressCountry": "GB"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.4543,
+        "longitude": -0.9781
+      },
+      "email": "hello@forvr.org",
+      "sameAs": [
+        "https://www.instagram.com/forvr.cr/"
+      ],
+      "knowsAbout": [
+        "creative studio",
+        "creative agency",
+        "AI creative production",
+        "AI video production",
+        "AI image generation",
+        "creative direction",
+        "graphic design",
+        "website design",
+        "brand identity",
+        "brand strategy",
+        "fashion campaign production",
+        "streetwear creative",
+        "lifestyle brand creative",
+        "brand-trained generative models",
+        "fast creative production",
+        "boutique creative studio",
+        "founder-led creative studio",
+        "AI-native creative agency"
+      ],
+      "foundingDate": "2026",
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "United Kingdom"
+        },
+        {
+          "@type": "Place",
+          "name": "Worldwide"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://forvr.org/#website",
+      "url": "https://forvr.org/",
+      "name": "Forvr.Studios",
+      "description": "Creative studio UK — AI-native, founder-led, fast and affordable. Brand worlds, campaigns, films and identity for fashion, streetwear and lifestyle brands.",
+      "publisher": {
+        "@id": "https://forvr.org/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://forvr.org/contact#webpage",
+      "url": "https://forvr.org/contact",
+      "name": "Contact | Start a project with Forvr.Studios | Creative studio UK",
+      "description": "Start a creative project with Forvr.Studios. A small, founder-led creative agency in Reading, UK. Reply within 48 hours. A brief, a sketch, or just a feeling. hello@forvr.org.",
+      "isPartOf": {
+        "@id": "https://forvr.org/#website"
+      },
+      "about": {
+        "@id": "https://forvr.org/#organization"
+      },
+      "inLanguage": "en-GB"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://forvr.org/contact#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://forvr.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Contact",
+          "item": "https://forvr.org/contact"
+        }
+      ]
+    },
+    {
+      "@type": "ContactPage",
+      "name": "Contact Forvr.Studios",
+      "url": "https://forvr.org/contact",
+      "mainEntity": {
+        "@id": "https://forvr.org/#organization"
+      }
+    }
+  ]
+}
+</script>
+<!-- ===== /SEO META ===== -->
+</head>
+<body>
+
+<div class="scroll-bar" id="scrollBar"></div>
+
+<!-- Top brand mark -->
+<a href="index.html" class="top-brand" aria-label="Forvr">
+  <img class="brand-logo" src="public/forvr-logo.svg" alt="Forvr" width="36" height="26" style="display:block;height:26px;width:auto;">
+  <span class="brand-name">Forvr<span class="dot">.</span></span>
+</a>
+
+<div class="studio-mark">
+  <span class="pulse"></span>
+  <p class="m"><span class="m-accent">RDG</span> / 51.4543 N / 0.9781 W</p>
+</div>
+
+<main>
+  <!-- HERO — full-bleed Contact video, text overlays the left side -->
+  <section class="contact-hero-bleed">
+    <video class="contact-hero-bg-video" src="forvr%20docs/site-images/supplied/opt-contact.mp4" autoplay muted loop playsinline disablepictureinpicture preload="metadata"></video>
+    <div class="contact-hero-vignette" aria-hidden="true"></div>
+    <div class="contact-hero-text reveal-group">
+      <p class="m m-accent reveal-line">Contact / Start here</p>
+      <h1 class="d contact-hero-headline reveal-line">Let&rsquo;s build<br/>something<span class="dot">.</span></h1>
+      <p class="contact-hero-lede reveal-line">
+        A brief, a sketch, or just a feeling. We meet you where you are.
+      </p>
+      <div class="contact-hero-ctas reveal-line">
+        <a class="contact-hero-btn primary" href="#contactForm">Start a project →</a>
+        <a class="contact-hero-btn ghost" href="work.html">See the work →</a>
+      </div>
+    </div>
+    <span class="vid-corner-meta">CH.CONTACT</span>
+  </section>
+
+  <style>
+    /* Full-bleed contact hero — video fills the section, text overlays bottom-left */
+    .contact-hero-bleed {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 560px;
+      overflow: hidden;
+      background: #050505;
+      color: #fafafa;
+    }
+    .contact-hero-bg-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      z-index: 0;
+    }
+    .contact-hero-vignette {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.0) 65%),
+        linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.0) 25%, rgba(0,0,0,0.0) 70%, rgba(0,0,0,0.55) 100%);
+    }
+    .contact-hero-text {
+      position: absolute;
+      left: 24px; right: 24px;
+      bottom: 32px;
+      max-width: 720px;
+      z-index: 2;
+      display: grid; gap: 18px;
+    }
+    @media (min-width: 768px) {
+      .contact-hero-text { left: 48px; right: auto; bottom: 48px; max-width: 760px; gap: 22px; }
+    }
+    .contact-hero-headline {
+      font-family: var(--display); font-weight: 900;
+      font-size: clamp(48px, 7vw, 128px);
+      line-height: 0.92; letter-spacing: -0.02em;
+      color: #fafafa;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.5);
+    }
+    .contact-hero-headline .m-accent { color: var(--accent); }
+    .contact-hero-headline .dot { color: var(--accent); }
+    .contact-hero-lede {
+      font-family: var(--body);
+      font-size: clamp(15px, 1.25vw, 18px); line-height: 1.55;
+      color: rgba(250,250,250,0.86);
+      max-width: 48ch;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.5);
+    }
+    .contact-hero-ctas {
+      margin-top: 8px;
+      display: flex; flex-wrap: wrap; gap: 12px;
+    }
+    .contact-hero-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 20px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      transition: background 0.25s, color 0.25s, transform 0.25s;
+    }
+    .contact-hero-btn.primary { background: var(--accent); color: #050505; }
+    .contact-hero-btn.primary:hover { background: transparent; color: var(--accent); transform: translateY(-2px); }
+    .contact-hero-btn.ghost { background: rgba(0,0,0,0.35); color: var(--accent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+    .contact-hero-btn.ghost:hover { background: var(--accent); color: #050505; transform: translateY(-2px); }
+    .contact-hero-bleed .vid-corner-meta {
+      position: absolute; top: 24px; left: 24px; z-index: 3;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(0,0,0,0.55); padding: 5px 10px;
+      border: 1px solid rgba(91,194,231,0.28);
+    }
+    @media (min-width: 768px) { .contact-hero-bleed .vid-corner-meta { top: 48px; left: 48px; } }
+
+    /* Contact panel — dark card, ripple visualisation, live clock */
+    .contact-panel { background: #0a0a0a; color: rgba(245,245,245,0.85); padding: 18px 0; }
+    .cp-head { display: flex; justify-content: space-between; padding: 0 24px 18px; border-bottom: 1px solid rgba(245,245,245,0.10); font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245, 245, 245, 0.74); }
+    .cp-head .m-accent { color: var(--accent); }
+    .cp-pulse { position: relative; aspect-ratio: 16/9; margin: 0 24px; overflow: hidden; }
+    .cp-pulse canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .cp-dot { position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transform: translate(-50%, -50%); box-shadow: 0 0 24px rgba(91,194,231,0.85); z-index: 2; }
+    .cp-coords { position: absolute; bottom: 12px; left: 12px; right: 12px; display: flex; justify-content: space-between; font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; color: rgba(245, 245, 245, 0.74); z-index: 2; }
+    .cp-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline; padding: 16px 24px; border-top: 1px solid rgba(245,245,245,0.08); }
+    .cp-row:first-of-type { border-top: 1px solid rgba(245,245,245,0.10); margin-top: 18px; }
+    .cp-row .m { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,245,245,0.5); }
+    .cp-row .d { font-family: var(--display); font-weight: 900; font-size: clamp(20px, 2vw, 28px); line-height: 1; letter-spacing: -0.01em; text-transform: uppercase; color: rgba(245,245,245,0.92); }
+    .cp-clock { font-variant-numeric: tabular-nums; }
+  </style>
+
+  <script>
+  (function() {
+    // Live clock
+    const clock = document.getElementById('cpClock');
+    if (clock) {
+      const pad = (n) => String(n).padStart(2, '0');
+      function tick() {
+        const d = new Date();
+        clock.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+      }
+      tick(); setInterval(tick, 1000);
+    }
+    // Ripple canvas — rings emanate from cursor when hovering, fall back to centre
+    const c = document.getElementById('contactRipple');
+    const dot = document.querySelector('.cp-dot');
+    if (!c) return;
+    const ctx = c.getContext('2d');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    function resize() {
+      const rect = c.getBoundingClientRect();
+      c.width = Math.floor(rect.width * dpr);
+      c.height = Math.floor(rect.height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const rings = [];
+    let last = 0;
+    let origin = { x: -1, y: -1 };
+    let target = { x: -1, y: -1 };
+    let isHover = false;
+
+    c.addEventListener('mousemove', (e) => {
+      const rect = c.getBoundingClientRect();
+      target.x = e.clientX - rect.left;
+      target.y = e.clientY - rect.top;
+      isHover = true;
+    });
+    c.addEventListener('mouseleave', () => { isHover = false; });
+    c.addEventListener('click', (e) => {
+      // Click sends a strong pulse
+      const rect = c.getBoundingClientRect();
+      rings.push({ r: 0, x: e.clientX - rect.left, y: e.clientY - rect.top, strong: true });
+    });
+
+    function frame(now) {
+      const rect = c.getBoundingClientRect();
+      const W = rect.width, H = rect.height;
+      ctx.fillStyle = 'rgba(10,10,10,0.10)';
+      ctx.fillRect(0, 0, W, H);
+
+      // Origin lerps toward target if hovering, otherwise centre
+      const cx = W / 2, cy = H / 2;
+      if (isHover && target.x >= 0) {
+        if (origin.x < 0) { origin.x = target.x; origin.y = target.y; }
+        origin.x += (target.x - origin.x) * 0.18;
+        origin.y += (target.y - origin.y) * 0.18;
+      } else {
+        if (origin.x < 0) { origin.x = cx; origin.y = cy; }
+        origin.x += (cx - origin.x) * 0.06;
+        origin.y += (cy - origin.y) * 0.06;
+      }
+
+      const cadence = isHover ? 700 : 1400;
+      if (now - last > cadence) { rings.push({ r: 0, x: origin.x, y: origin.y }); last = now; }
+
+      const maxR = Math.max(W, H) * 0.95;
+      for (let i = 0; i < rings.length; i++) {
+        const ring = rings[i];
+        ring.r += ring.strong ? 1.6 : 0.7;
+        const t = ring.r / maxR;
+        const alpha = (1 - t) * (ring.strong ? 0.85 : 0.55);
+        if (alpha <= 0.01) { rings.splice(i, 1); i--; continue; }
+        ctx.strokeStyle = 'rgba(91,194,231,' + alpha + ')';
+        ctx.lineWidth = ring.strong ? 1.4 : 0.8;
+        ctx.beginPath(); ctx.arc(ring.x, ring.y, ring.r, 0, Math.PI * 2); ctx.stroke();
+      }
+
+      // Move the visible dot to the origin
+      if (dot) {
+        dot.style.left = origin.x + 'px';
+        dot.style.top = origin.y + 'px';
+        dot.style.transform = 'translate(-50%, -50%)';
+      }
+
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+  </script>
+
+  <!-- TWIN CTAs removed (2026-05-28) — hero already has Start a project + See the work buttons -->
+
+  <!-- STATS -->
+  <section class="stats">
+    <div class="grid" style="align-items: start;">
+      <p class="m m-accent c12 md-c2">Promise / Studio</p>
+      <div class="md-c10 c12">
+        <div class="stats-inner">
+          <div class="stat reveal">
+            <div class="num">48h</div>
+            <p>Reply window</p>
+          </div>
+          <div class="stat reveal">
+            <div class="num">01</div>
+            <p>Founder on every project</p>
+          </div>
+          <div class="stat reveal">
+            <div class="num">0</div>
+            <p>Retainers required upfront</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <section class="form-section" id="form">
+    <div class="grid form-header">
+      <p class="m m-accent c12 md-c2">Send a note</p>
+      <h3 class="d md-c10 reveal">Tell us more<span class="dot">.</span></h3>
+    </div>
+
+    <div class="form-wrap">
+      <form id="contactForm">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px;" />
+
+        <div class="row">
+          <label class="field field-half">
+            <span class="lbl">Name<span class="req">*</span></span>
+            <input type="text" name="name" required placeholder="Your name" />
+          </label>
+          <label class="field field-half">
+            <span class="lbl">Email<span class="req">*</span></span>
+            <input type="email" name="email" required placeholder="you@brand.com" />
+          </label>
+          <label class="field">
+            <span class="lbl">Brand / company</span>
+            <input type="text" name="brand" placeholder="Optional" />
+          </label>
+          <label class="field">
+            <span class="lbl">Rough budget</span>
+            <select name="budget">
+              <option value="">Skip</option>
+              <option>Under £5k</option>
+              <option>£5k – £15k</option>
+              <option>£15k – £50k</option>
+              <option>£50k+</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+          <label class="field">
+            <textarea name="message" rows="6" placeholder="Anything else? Drop it in. Optional."></textarea>
+          </label>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px;">
+          <button type="submit" class="submit-btn">Send message →</button>
+          <span class="preview-note">[Form active on the live site only]</span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- BIG EMAIL -->
+  <section class="big-email">
+    <div class="grid">
+      <p class="m m-accent c12 md-c2">Or email direct</p>
+      <a class="md-c10 c12" href="mailto:hello@forvr.org">
+        <h3 class="d">hello@forvr.org<span class="dot">.</span></h3>
+      </a>
+    </div>
+  </section>
+
+  <!-- META STRIP -->
+  <section class="meta">
+    <div class="grid">
+      <p class="m m-accent c12 md-c2">Details / Studio</p>
+    </div>
+    <div class="meta-grid reveal">
+      <div>
+        <p class="m" style="margin-bottom: 12px;">Based</p>
+        <p style="color: rgba(10,10,10,0.85);">Reading</p>
+      </div>
+      <div>
+        <p class="m" style="margin-bottom: 12px;">Hours</p>
+        <p style="color: rgba(10,10,10,0.85);">Mon / Fri / 09–19 GMT</p>
+      </div>
+      <div>
+        <p class="m" style="margin-bottom: 12px;">Instagram</p>
+        <a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener" style="color: rgba(10,10,10,0.85);">@forvr.cr</a>
+      </div>
+      <div>
+        <p class="m" style="margin-bottom: 12px;">Reply window</p>
+        <p style="color: rgba(10,10,10,0.85);">Within 48 hours</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Floating navigation -->
+<div class="floating-nav" id="floatingNav">
+  <div class="nav-menu" aria-label="Site navigation">
+    <a class="nav-item" href="index.html">
+      <span class="num">00</span>
+      <span class="title">Home</span>
+      <span class="caption">Forvr studio</span>
+    </a>
+    <a class="nav-item" href="work.html">
+      <span class="num">01</span>
+      <span class="title">Work</span>
+      <span class="caption">Selected portfolio</span>
+    </a>
+    <a class="nav-item" href="services.html">
+      <span class="num">02</span>
+      <span class="title">Services</span>
+      <span class="caption">Six lanes</span>
+    </a>
+    <a class="nav-item" href="studio.html">
+      <span class="num">03</span>
+      <span class="title">Studio</span>
+      <span class="caption">About Forvr</span>
+    </a>
+    <a class="nav-item" href="process.html">
+      <span class="num">04</span>
+      <span class="title">Process</span>
+      <span class="caption">How we work</span>
+    </a>
+    <a class="nav-item active" href="contact.html">
+      <span class="num">05</span>
+      <span class="title">Contact</span>
+      <span class="caption">Start a project</span>
+    </a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu">
+    <span>Navigation</span>
+    <span class="icon" aria-hidden="true"></span>
+  </button>
+</div>
+
+<footer>
+  <div class="brand">
+    <svg width="30" height="10" viewBox="0 0 60 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="8" width="52" height="4" rx="2" fill="url(#pl)" filter="url(#g)"/>
+      <rect x="4" y="9.4" width="52" height="1.2" rx="0.6" fill="#EAF7FC"/>
+    </svg>
+    <span class="brand-name">Forvr<span class="dot">.</span></span>
+  </div>
+  <p class="m">© 2026 Forvr Studios / All rights reserved</p>
+</footer>
+
+<script>
+  // Scroll progress bar
+  const bar = document.getElementById('scrollBar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+  // Floating nav toggle
+  const floatingNav = document.getElementById('floatingNav');
+  const navToggle = document.getElementById('navToggle');
+  if (navToggle) {
+    navToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      } else {
+        floatingNav.classList.add('open');
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!floatingNav.contains(e.target) && floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && floatingNav.classList.contains('open')) {
+        floatingNav.classList.add('closing');
+        floatingNav.classList.remove('open');
+        setTimeout(() => floatingNav.classList.remove('closing'), 850);
+      }
+    });
+  }
+
+  // Auto-index .reveal-line children inside any .reveal-group so they stagger
+  document.querySelectorAll('.reveal-group').forEach((group) => {
+    let i = 0;
+    group.querySelectorAll('.reveal-line').forEach((el) => {
+      if (!el.style.getPropertyValue('--i')) el.style.setProperty('--i', i++);
+    });
+  });
+
+  // Reveal — fire ONCE. No re-trigger on scroll back up.
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '-50px 0px' });
+  document.querySelectorAll('.reveal, .reveal-line').forEach((el) => io.observe(el));
+
+  // Form preview behaviour — just shows alert
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Form is preview-only here. Live site sends emails via Resend.');
+  });
+</script>
+<script src="public/cursor.js?v=3" defer></script>
+<style id="ask-fab-styles">
+  .ask-fab { position: fixed; bottom: 24px; left: 24px; z-index: 60; }
+  @media (min-width: 768px) { .ask-fab { bottom: 28px; left: 40px; } }
+  .ask-fab-toggle {
+    position: relative; display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-radius: 999px; cursor: pointer;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase;
+    color: rgba(245,245,245,0.85); transition: all 0.35s;
+  }
+  .ask-fab-toggle:hover, .ask-fab.open .ask-fab-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35); }
+  .ask-fab-toggle .ask-fab-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: ask-fab-pulse 1.6s ease-in-out infinite; }
+  @keyframes ask-fab-pulse { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
+  .ask-fab-toggle .ask-fab-arrow { font-family: var(--display); font-size: 14px; transition: transform 0.35s; }
+  .ask-fab.open .ask-fab-toggle .ask-fab-arrow { transform: rotate(180deg); }
+
+  .ask-fab-panel {
+    position: absolute; bottom: calc(100% + 10px); left: 0;
+    width: min(420px, 92vw);
+    background: rgba(15,15,15,0.94); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    border: 1px solid rgba(91,194,231,0.22); border-radius: 18px;
+    padding: 22px 22px 18px;
+    color: rgba(245,245,245,0.92);
+    opacity: 0; pointer-events: none; transform: translateY(10px) scale(0.97);
+    transition: opacity 0.42s cubic-bezier(0.22,1,0.36,1), transform 0.42s cubic-bezier(0.22,1,0.36,1);
+  }
+  .ask-fab.open .ask-fab-panel { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+  .ask-fab-panel .head { display: grid; gap: 6px; padding-bottom: 12px; border-bottom: 1px solid rgba(91,194,231,0.18); }
+  .ask-fab-panel .head .m-accent { letter-spacing: 0.18em; color: var(--accent); font-family: var(--mono); font-size: 10px; text-transform: uppercase; }
+  .ask-fab-panel .head .sub { font-family: var(--body); font-size: 12px; color: rgba(245, 245, 245, 0.74); line-height: 1.5; }
+  .ask-fab-panel .prompt-row { padding: 14px 0; border-bottom: 1px solid rgba(91,194,231,0.10); }
+  .ask-fab-panel .prompt-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .ask-fab-panel .prompt-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .ask-fab-panel .prompt-label { font-family: var(--display); font-weight: 900; font-size: 16px; letter-spacing: -0.01em; line-height: 1; text-transform: uppercase; }
+  .ask-fab-panel .prompt-copy {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 9px;
+    background: transparent; border: 1px solid rgba(91,194,231,0.28);
+    color: rgba(245,245,245,0.75); cursor: pointer;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    border-radius: 999px;
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .ask-fab-panel .prompt-copy:hover { background: var(--accent); color: #050505; border-color: var(--accent); }
+  .ask-fab-panel .prompt-copy.is-copied { background: var(--accent); color: #050505; border-color: var(--accent); }
+  .ask-fab-panel .providers { display: flex; gap: 6px; margin-top: 10px; }
+  .ask-fab-panel .providers a {
+    flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 8px 10px; border: 1px solid rgba(245,245,245,0.18); border-radius: 999px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.10em; text-transform: uppercase;
+    color: rgba(245,245,245,0.85); text-decoration: none; transition: all 0.3s;
+  }
+  .ask-fab-panel .providers a:hover { border-color: var(--accent); color: var(--accent); }
+  .ask-fab-panel .providers svg { width: 12px; height: 12px; flex-shrink: 0; }
+  .ask-fab-panel .providers svg path, .ask-fab-panel .providers svg circle, .ask-fab-panel .providers svg polygon { fill: currentColor; }
+</style>
+
+<div class="ask-fab" id="askFab">
+  <button class="ask-fab-toggle" id="askFabToggle" aria-expanded="false" aria-controls="askFabPanel" type="button">
+    <span class="ask-fab-dot"></span>
+    <span>Ask AI</span>
+    <span class="ask-fab-arrow">↑</span>
+  </button>
+  <div class="ask-fab-panel" id="askFabPanel" role="dialog" aria-label="Ask an AI about Forvr">
+    <div class="head">
+      <span class="m-accent">Ask an AI</span>
+      <span class="sub">Page-aware prompts. Open in your model of choice, or copy the prompt to use anywhere.</span>
+    </div>
+    <div id="askFabRows"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var fab = document.getElementById('askFab');
+  var toggle = document.getElementById('askFabToggle');
+  var rows = document.getElementById('askFabRows');
+  if (!fab || !toggle || !rows) return;
+  var prompts = [{"label": "Draft the intro message", "q": "You are a brand founder writing a first-touch message. Based on what you can see of Forvr, draft a four-sentence introduction message I could send to start a project conversation. Make it specific to a brand launch. Write me the message I'd send. Ask me any more questions or anything you're unsure about so you give me a precise answer. Give just the message body, no greeting, no sign-off. Under 80 words."}, {"label": "Five questions to ready", "q": "You are a creative producer prepping the client for a discovery call. If I'm reaching out to Forvr cold, what are the five questions they're most likely to ask back. Make them specific to brand launch / campaign scope. What are the five questions I should be ready to answer? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give it as a numbered list of five questions, one line each. Under 100 words."}, {"label": "Why now", "q": "You are a sharp marketing strategist. Help me articulate why now is the moment to start a project with a studio like Forvr \u2014 consider the moment for AI-native production, the cost dynamic, the speed advantage, and the brand opportunity. Why is now the right time, and what's still holding me back? Ask me any more questions or anything you're unsure about so you give me a precise answer. Give it as two short lists: Reasons to go, Reasons to wait. Under 120 words."}];
+  var providers = [
+    { label: "ChatGPT", url: function(q){ return "https://chatgpt.com/?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M22 9.6a5.4 5.4 0 0 0-.5-4.4 5.5 5.5 0 0 0-6-2.6 5.5 5.5 0 0 0-9.3 1.9 5.4 5.4 0 0 0-3.6 2.6 5.5 5.5 0 0 0 .7 6.4 5.4 5.4 0 0 0 .5 4.5 5.5 5.5 0 0 0 6 2.5 5.5 5.5 0 0 0 4.1 1.9 5.5 5.5 0 0 0 5.2-3.8 5.4 5.4 0 0 0 3.6-2.6 5.5 5.5 0 0 0-.7-6.4Z"/></svg>' },
+    { label: "Claude", url: function(q){ return "https://claude.ai/new?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2 13.4 9 19 10.5 14.5 12 19 13.5 13.4 15 12 22 10.6 15 5 13.5 9.5 12 5 10.5 10.6 9 Z"/></svg>' },
+    { label: "Perplexity", url: function(q){ return "https://www.perplexity.ai/?q=" + encodeURIComponent(q); },
+      icon: '<svg viewBox="0 0 24 24"><path d="M12 2v8.5l7-4.5v6.5l-7 4.5V22m0-20-7 4.5 7 4.5 7-4.5L12 2Zm-7 11.5L12 18l-7 4.5v-9Z"/></svg>' }
+  ];
+  var NL = String.fromCharCode(10);
+  var copyIcon = '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="8" height="9" rx="1"/><path d="M6 4V3a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v8"/></svg>';
+  var checkIcon = '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>';
+  rows.innerHTML = prompts.map(function(p, i){
+    var providerLinks = providers.map(function(pr){
+      var fullQ = p.q + NL + window.location.href;
+      return '<a href="' + pr.url(fullQ) + '" target="_blank" rel="noopener noreferrer">' + pr.icon + '<span>' + pr.label + '</span></a>';
+    }).join('');
+    return '<div class="prompt-row" data-i="' + i + '">'
+      + '<div class="prompt-head">'
+      + '<div class="prompt-label">' + p.label + '<span class="dot">.</span></div>'
+      + '<button type="button" class="prompt-copy" title="Copy prompt to clipboard" aria-label="Copy prompt">' + copyIcon + '</button>'
+      + '</div>'
+      + '<div class="providers">' + providerLinks + '</div>'
+      + '</div>';
+  }).join('');
+  var copyBtns = rows.querySelectorAll('.prompt-copy');
+  copyBtns.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var row = btn.closest('.prompt-row');
+      var idx = parseInt(row.getAttribute('data-i'), 10);
+      var text = prompts[idx].q + NL + window.location.href;
+      var show = function(){ btn.innerHTML = checkIcon; btn.classList.add('is-copied'); setTimeout(function(){ btn.innerHTML = copyIcon; btn.classList.remove('is-copied'); }, 1400); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(show).catch(function(){
+          var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); show(); } catch (_) {}
+          document.body.removeChild(ta);
+        });
+      } else {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); show(); } catch (_) {}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+  function openFab(){ fab.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); }
+  function closeFab(){ fab.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+  toggle.addEventListener('click', function(e){ e.stopPropagation(); if (fab.classList.contains('open')) closeFab(); else openFab(); });
+  document.addEventListener('click', function(e){ if (fab.classList.contains('open') && !e.target.closest('.ask-fab')) closeFab(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeFab(); });
+})();
+</script>
+
+<script id="forvr-brand-detect">
+(function(){
+  const brand = document.querySelector('.top-brand');
+  if (!brand) return;
+  function rgbToLum(r,g,b){ return 0.2126*r + 0.7152*g + 0.0722*b; }
+  function check(){
+    // Sample the element 80px below the brand mark center — that's the content under it
+    const rect = brand.getBoundingClientRect();
+    const sx = rect.left + rect.width / 2;
+    const sy = rect.top + rect.height / 2 + 60;
+    // Temporarily hide the brand so elementFromPoint doesn't return it
+    brand.style.pointerEvents = 'none';
+    const prev = brand.style.visibility;
+    brand.style.visibility = 'hidden';
+    const el = document.elementFromPoint(sx, sy);
+    brand.style.visibility = prev;
+    brand.style.pointerEvents = '';
+    if (!el) return;
+    // Walk up to find first non-transparent bg
+    let node = el;
+    let isDark = false;
+    while (node && node !== document.body) {
+      if (node.tagName === 'VIDEO' || node.tagName === 'IMG') { isDark = true; break; }
+      const bg = getComputedStyle(node).backgroundColor;
+      const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+      if (m) {
+        const a = m[4] === undefined ? 1 : parseFloat(m[4]);
+        if (a > 0.5) {
+          const lum = rgbToLum(+m[1], +m[2], +m[3]);
+          isDark = lum < 128;
+          break;
+        }
+      }
+      node = node.parentElement;
+    }
+    brand.classList.toggle('on-dark', isDark);
+  }
+  let ticking = false;
+  function onScroll(){ if (!ticking){ requestAnimationFrame(function(){ check(); ticking = false; }); ticking = true; } }
+  // initial + scroll + resize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', check);
+  } else {
+    check();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+})();
+</script>
+</body>
+</html>
