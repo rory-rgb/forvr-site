@@ -251,7 +251,7 @@
     position: sticky; top: 72px;
     width: 100%;
     height: 100%;
-    min-height: 480px;
+    min-height: 640px;
     background: #5BC2E7;
     overflow: hidden;
     border: 1px solid var(--line);
@@ -2011,7 +2011,7 @@
   .studio-sculpture .scratch-img {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
-    object-fit: contain; object-position: 50% 50%;
+    object-fit: cover; object-position: 50% 50%;
     clip-path: circle(45% at 50% 50%);
     -webkit-clip-path: circle(45% at 50% 50%);
     pointer-events: none;
@@ -2212,12 +2212,17 @@ window.buildTetrisReveal = function(opts) {
     const dispW = imgNatural.w * scale, dispH = imgNatural.h * scale;
     const offX = (pw - dispW) / 2, offY = (ph - dispH) / 2;
     const cellWpx = pw / COLS, cellHpx = ph / ROWS;
-    const oxpx = (cellWpx * TILE_OVER - cellWpx) / 2;
-    const oypx = (cellHpx * TILE_OVER - cellHpx) / 2;
+    const overWpx = cellWpx * TILE_OVER, overHpx = cellHpx * TILE_OVER;
+    const oxpx = (overWpx - cellWpx) / 2;
+    const oypx = (overHpx - cellHpx) / 2;
     for (let i = 0; i < tiles.length; i++) {
       const t = tiles[i];
       const c = +t.dataset.c, r = +t.dataset.r;
       const tl = c * cellWpx - oxpx, tt = r * cellHpx - oypx;
+      t.style.left = tl + 'px';
+      t.style.top = tt + 'px';
+      t.style.width = Math.ceil(overWpx) + 'px';
+      t.style.height = Math.ceil(overHpx) + 'px';
       t.style.backgroundSize = dispW + 'px ' + dispH + 'px';
       t.style.backgroundPosition = (offX - tl) + 'px ' + (offY - tt) + 'px';
     }

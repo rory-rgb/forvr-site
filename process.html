@@ -95,12 +95,12 @@
     .step .step-media-m {
       width: 100%; aspect-ratio: 4 / 5;
       background-size: cover; background-position: center;
-      border: 1px solid var(--line); margin-bottom: 22px;
+      margin-bottom: 22px;
     }
   }
 
   /* VISION card — dark editorial card on light page */
-  .vcard { position: relative; width: 100%; border: 1px solid rgba(255,255,255,0.06); background: #0e0e0e; transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1); color: #f5f5f5; }
+  .vcard { position: relative; width: 100%; border: 0; background: #0e0e0e; transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1); color: #f5f5f5; }
   .vcard * { color: inherit; }
   .vcard .m-accent { color: var(--accent); }
   .vcard .m { color: rgba(245,245,245,0.7); }
@@ -109,12 +109,12 @@
   .vcard .meta-top { position: absolute; top: 12px; right: 12px; z-index: 2; text-align: right; }
   .vcard .prompt-box { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.08); min-height: 110px; }
   .vcard .prompt-box p { font-family: var(--mono); font-size: 11.5px; line-height: 1.65; color: rgba(245,245,245,0.78); }
-  .vcard .ph { position: absolute; inset: 0; transition: opacity 0.55s; }
+  .vcard .ph { position: absolute; inset: 0; background-size: cover; background-position: center; transition: opacity 0.55s; }
   .vcard .ph-image { background: linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717); }
   .vcard .ph-image::after { content: ""; position: absolute; inset: 0; opacity: 0.2; mix-blend-mode: overlay; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 1px, transparent 1px, transparent 4px); }
   .vcard .ph-dark { background: linear-gradient(135deg, #0d0d0d, #161616, #0a0a0a); }
   .vcard .ph-bright { background: linear-gradient(135deg, #2a2a2a, #1d1d1d, #101010); }
-  .vcard .ph-outline { background: rgba(0,0,0,0.3); border: 1px solid rgba(10,10,10,0.18); }
+  .vcard .ph-outline { background: linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717); }
 
   /* Step counter row */
   .step-counter { margin-top: 20px; display: flex; align-items: center; gap: 8px; }
