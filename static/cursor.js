@@ -44,14 +44,15 @@
       position: absolute; inset: 0; border: 1px solid rgba(91,194,231,0.0); border-radius: 50%;
       transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
     }
-    /* Hover state — over clickable elements: spin the crosshair into an X + grow ring */
-    .forvr-cursor.is-hover { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(1.7) rotate(45deg); }
-    .forvr-cursor.is-hover .ring { border-color: rgba(91,194,231,0.8); transform: scale(1.6); }
-    /* On dark backgrounds the X + ring turn white; on light backgrounds they stay cyan
-       (so it never disappears against white). Toggled by JS via .on-dark. */
+    /* Hover state — spin the crosshair into an X and grow it. No ring. */
+    .forvr-cursor.is-hover { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(2) rotate(45deg); }
+    .forvr-cursor.is-hover .ring { border-color: transparent; transform: scale(1); }
+    /* Colour swaps for contrast: black on light backgrounds, white on dark.
+       (Default cyan washes out over white/blue, so on hover we go monochrome.) */
+    .forvr-cursor.is-hover::before,
+    .forvr-cursor.is-hover::after { background: #0a0a0a; }
     .forvr-cursor.is-hover.on-dark::before,
     .forvr-cursor.is-hover.on-dark::after { background: #ffffff; }
-    .forvr-cursor.is-hover.on-dark .ring { border-color: rgba(255,255,255,0.9); }
     /* Pressed state */
     .forvr-cursor.is-down { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(0.8); }
     /* Idle state before first mouse move */
