@@ -133,10 +133,34 @@
   form input:focus, form textarea:focus, form select:focus { outline: 0; border-bottom-color: var(--accent); }
   form input::placeholder, form textarea::placeholder { color: rgba(10,10,10,0.3); }
   form textarea { resize: none; }
-  form select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%235BC2E7' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 4px center; padding-right: 24px; cursor: pointer; }
-  form select option { background: #fafafa; color: #0a0a0a; }
-  .budget-select { color: #0a0a0a; }
-  .budget-select:invalid, .budget-select option[value=""] { color: rgba(10,10,10,0.5); }
+  /* Custom Forvr dropdown — identical on every OS (no native select chrome). */
+  .fvr-select { position: relative; }
+  .fvr-select-trigger {
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: transparent; border: 0; border-bottom: 1px solid var(--line);
+    padding: 12px 0; color: var(--fg); font-family: var(--body); font-size: 16px;
+    cursor: pointer; transition: border-color 0.3s; text-align: left;
+  }
+  .fvr-select.is-open .fvr-select-trigger,
+  .fvr-select-trigger:focus-visible { outline: 0; border-bottom-color: var(--accent); }
+  .fvr-select-value[data-placeholder]:not(.has-value) { color: rgba(10,10,10,0.3); }
+  .fvr-select-arrow { display: inline-flex; transition: transform 0.3s cubic-bezier(0.22,1,0.36,1); flex-shrink: 0; }
+  .fvr-select.is-open .fvr-select-arrow { transform: rotate(180deg); }
+  .fvr-select-list {
+    list-style: none; margin: 0; padding: 6px; position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 40;
+    background: #fff; border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: 0 18px 44px rgba(10,10,10,0.14);
+    opacity: 0; transform: translateY(-6px); pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.22,1,0.36,1);
+    max-height: 280px; overflow-y: auto;
+  }
+  .fvr-select.is-open .fvr-select-list { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .fvr-select-list li {
+    padding: 11px 14px; border-radius: 7px; cursor: pointer; font-family: var(--body); font-size: 15px; color: var(--fg);
+    transition: background 0.18s, color 0.18s; line-height: 1.2;
+  }
+  .fvr-select-list li:hover, .fvr-select-list li.is-active { background: var(--accent); color: #fff; }
+  .fvr-select-list li[aria-selected="true"] { font-weight: 600; }
   .submit-btn { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; font-family: var(--mono); cursor: pointer; background: transparent; }
   .submit-btn:hover { background: var(--accent); color: var(--bg); }
   .preview-note { display: inline-block; margin-left: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.4); }
@@ -732,16 +756,25 @@
             <span class="lbl">Brand / company</span>
             <input type="text" name="brand" placeholder="Optional" />
           </label>
-          <label class="field">
+          <div class="field">
             <span class="lbl">Rough budget</span>
-            <select name="budget" class="budget-select">
-              <option value="">Skip</option>
-              <option>Under £1k</option>
-              <option>£3k – £5k</option>
-              <option>£10k+</option>
-              <option>Not sure yet</option>
-            </select>
-          </label>
+            <input type="hidden" name="budget" id="budgetValue" value="" />
+            <div class="fvr-select" id="budgetSelect">
+              <button type="button" class="fvr-select-trigger" id="budgetTrigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="fvr-select-value" data-placeholder="Skip">Skip</span>
+                <span class="fvr-select-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 12 8" width="12" height="8" fill="none"><path d="M1 1L6 6L11 1" stroke="#5BC2E7" stroke-width="1.5"/></svg>
+                </span>
+              </button>
+              <ul class="fvr-select-list" id="budgetList" role="listbox" tabindex="-1" aria-label="Rough budget">
+                <li role="option" data-value="">Skip</li>
+                <li role="option" data-value="Under £1k">Under £1k</li>
+                <li role="option" data-value="£3k – £5k">£3k – £5k</li>
+                <li role="option" data-value="£10k+">£10k+</li>
+                <li role="option" data-value="Not sure yet">Not sure yet</li>
+              </ul>
+            </div>
+          </div>
           <label class="field">
             <textarea name="message" rows="6" placeholder="Anything else? Drop it in. Optional."></textarea>
           </label>
@@ -899,6 +932,58 @@
     });
   }, { rootMargin: '-50px 0px' });
   document.querySelectorAll('.reveal, .reveal-line').forEach((el) => io.observe(el));
+
+  // Custom budget dropdown — themed, identical on every OS. Writes to #budgetValue
+  // so the form still submits a "budget" field to Formspree.
+  (function(){
+    var root = document.getElementById('budgetSelect');
+    if (!root) return;
+    var trigger = document.getElementById('budgetTrigger');
+    var list = document.getElementById('budgetList');
+    var valueEl = trigger.querySelector('.fvr-select-value');
+    var hidden = document.getElementById('budgetValue');
+    var opts = Array.prototype.slice.call(list.querySelectorAll('li'));
+    var activeIdx = 0;
+
+    function open(){ root.classList.add('is-open'); trigger.setAttribute('aria-expanded','true'); setActive(activeIdx); list.focus(); }
+    function close(){ root.classList.remove('is-open'); trigger.setAttribute('aria-expanded','false'); }
+    function setActive(i){
+      activeIdx = Math.max(0, Math.min(opts.length-1, i));
+      opts.forEach(function(o,idx){ o.classList.toggle('is-active', idx===activeIdx); });
+      opts[activeIdx].scrollIntoView({block:'nearest'});
+    }
+    function choose(li){
+      opts.forEach(function(o){ o.setAttribute('aria-selected','false'); });
+      li.setAttribute('aria-selected','true');
+      var val = li.getAttribute('data-value');
+      hidden.value = val;
+      valueEl.textContent = li.textContent;
+      valueEl.classList.toggle('has-value', val !== '');
+      close(); trigger.focus();
+    }
+
+    trigger.addEventListener('click', function(e){ e.stopPropagation(); root.classList.contains('is-open') ? close() : open(); });
+    opts.forEach(function(li,idx){
+      li.addEventListener('click', function(e){ e.stopPropagation(); activeIdx=idx; choose(li); });
+      li.addEventListener('mouseenter', function(){ setActive(idx); });
+    });
+    document.addEventListener('click', function(e){ if (!root.contains(e.target)) close(); });
+    trigger.addEventListener('keydown', function(e){
+      if (e.key==='ArrowDown'||e.key==='Enter'||e.key===' '){ e.preventDefault(); open(); }
+    });
+    list.addEventListener('keydown', function(e){
+      if (e.key==='Escape'){ e.preventDefault(); close(); trigger.focus(); }
+      else if (e.key==='ArrowDown'){ e.preventDefault(); setActive(activeIdx+1); }
+      else if (e.key==='ArrowUp'){ e.preventDefault(); setActive(activeIdx-1); }
+      else if (e.key==='Enter'||e.key===' '){ e.preventDefault(); choose(opts[activeIdx]); }
+    });
+    // reset visual state if the form is reset after a successful send
+    var form = document.getElementById('contactForm');
+    if (form) form.addEventListener('reset', function(){
+      hidden.value=''; valueEl.textContent='Skip'; valueEl.classList.remove('has-value');
+      opts.forEach(function(o){ o.setAttribute('aria-selected','false'); }); activeIdx=0;
+    });
+  })();
 
   // Contact form — submit to Formspree via fetch, show inline status (no page reload).
   (function(){
