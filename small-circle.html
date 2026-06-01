@@ -133,6 +133,15 @@ a { color: inherit; text-decoration: none; }
 .outro .end .k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--muted); }
 .outro .end h2 { font-family: var(--display); font-weight: 900; font-size: clamp(56px, 9vw, 160px); line-height: 0.88; letter-spacing: -0.02em; text-transform: uppercase; margin-top: 14px; }
 .outro .next { text-align: right; }
+.outro .prev { text-align: left; }
+.outro .prev a { display: inline-flex; align-items: end; gap: 18px; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), color 0.5s; }
+.outro .prev a:hover { transform: translateX(8px); color: var(--accent); }
+.outro .prev a .arrow-l { align-self: center; display: inline-block; width: 22px; height: 1px; background: currentColor; position: relative; flex-shrink: 0; }
+.outro .prev a .arrow-l::before { content: ""; position: absolute; left: 0; top: -4px; width: 8px; height: 1px; background: currentColor; transform: rotate(-35deg); transform-origin: left center; }
+.outro .prev a .arrow-l::after { content: ""; position: absolute; left: 0; top: 4px; width: 8px; height: 1px; background: currentColor; transform: rotate(35deg); transform-origin: left center; }
+.outro .prev a .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.outro .prev a span.big { font-family: var(--display); font-weight: 900; font-size: clamp(40px, 6vw, 88px); letter-spacing: -0.02em; line-height: 0.92; text-transform: uppercase; }
+@media (max-width: 640px) { .outro { grid-template-columns: 1fr; gap: 48px; } .outro .next, .outro .prev { text-align: left; } }
 .outro .next a { display: inline-flex; align-items: end; gap: 18px; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), color 0.5s; }
 .outro .next a:hover { transform: translateX(-8px); color: var(--accent); }
 .outro .next a .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
@@ -483,11 +492,16 @@ a { color: inherit; text-decoration: none; }
 </div>
 
 <section class="outro">
-  <div class="end">
-    <div class="k">End of</div>
-    <h2>Small Circle<span class="dot-text">.</span></h2>
-  </div>
-  <div class="next">
+  <div class="prev">
+      <a href="grit.html">
+        <span class="arrow-l" aria-hidden="true"></span>
+        <div>
+          <div class="k">Previous · 01 / 05</div>
+          <span class="big">Grit<span class="dot-text">.</span></span>
+        </div>
+      </a>
+    </div>
+    <div class="next">
     <a href="forvr-collection.html">
       <div>
         <div class="k">Next · 03 / 05</div>
