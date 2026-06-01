@@ -44,9 +44,14 @@
       position: absolute; inset: 0; border: 1px solid rgba(91,194,231,0.0); border-radius: 50%;
       transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
     }
-    /* Hover state — over clickable elements */
-    .forvr-cursor.is-hover { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(1.7); }
+    /* Hover state — over clickable elements: spin the crosshair into an X + grow ring */
+    .forvr-cursor.is-hover { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(1.7) rotate(45deg); }
     .forvr-cursor.is-hover .ring { border-color: rgba(91,194,231,0.8); transform: scale(1.6); }
+    /* On dark backgrounds the X + ring turn white; on light backgrounds they stay cyan
+       (so it never disappears against white). Toggled by JS via .on-dark. */
+    .forvr-cursor.is-hover.on-dark::before,
+    .forvr-cursor.is-hover.on-dark::after { background: #ffffff; }
+    .forvr-cursor.is-hover.on-dark .ring { border-color: rgba(255,255,255,0.9); }
     /* Pressed state */
     .forvr-cursor.is-down { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(0.8); }
     /* Idle state before first mouse move */
@@ -75,11 +80,32 @@
   document.addEventListener('mousedown', () => cursor.classList.add('is-down'));
   document.addEventListener('mouseup', () => cursor.classList.remove('is-down'));
 
+  // Walk up from an element to find the first non-transparent background colour,
+  // then decide if it's dark. Used to flip the hover cursor white only on dark.
+  function bgIsDark(el) {
+    let node = el;
+    for (let i = 0; i < 6 && node && node !== document.documentElement; i++) {
+      const bg = getComputedStyle(node).backgroundColor;
+      const m = bg && bg.match(/rgba?\(([0-9.]+),\s*([0-9.]+),\s*([0-9.]+)(?:,\s*([0-9.]+))?\)/);
+      if (m) {
+        const a = m[4] === undefined ? 1 : parseFloat(m[4]);
+        if (a > 0.2) {
+          const lum = 0.2126*+m[1] + 0.7152*+m[2] + 0.0722*+m[3];
+          return lum < 128;
+        }
+      }
+      node = node.parentElement;
+    }
+    return true; // default: assume dark (site is black-dominant)
+  }
   document.addEventListener('mouseover', (e) => {
-    if (e.target.closest('a, button, [role="button"], .ucard, .fcard, .ask-fab-toggle, .nav-item, .nav-toggle, .top-brand, .pillars-deck .fcard, .usp-orbit, .faq-item summary, .ask-more-cue, .sg-cell, .ladder-list li, .svc-row, .m-tile, .wheel-cue, .ai-ask-btn')) {
+    const hit = e.target.closest('a, button, [role="button"], input, textarea, select, label, .fvr-select-trigger, .fvr-select-list li, .ucard, .fcard, .ask-fab-toggle, .nav-item, .nav-toggle, .top-brand, .pillars-deck .fcard, .usp-orbit, .faq-item summary, .ask-more-cue, .sg-cell, .ladder-list li, .svc-row, .m-tile, .wheel-cue, .ai-ask-btn, .svc-link, .prompt-row, [data-svc]');
+    if (hit) {
       cursor.classList.add('is-hover');
+      cursor.classList.toggle('on-dark', bgIsDark(hit));
     } else {
       cursor.classList.remove('is-hover');
+      cursor.classList.remove('on-dark');
     }
   });
 
