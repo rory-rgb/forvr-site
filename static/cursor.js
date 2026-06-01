@@ -26,9 +26,12 @@
     .forvr-cursor {
       position: fixed; top: 0; left: 0; width: 14px; height: 14px;
       pointer-events: none; z-index: 99999;
-      transform: translate(-50%, -50%) scale(1);
+      /* Position via GPU-composited transform (translate3d) on an inner layer;
+         scale states live on this element so the two never fight. */
+      transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(1);
       transition: transform 0.18s cubic-bezier(0.22,1,0.36,1), opacity 0.2s;
       filter: drop-shadow(0 0 4px rgba(91,194,231,0.45));
+      will-change: transform;
     }
     .forvr-cursor::before, .forvr-cursor::after {
       content: ""; position: absolute; background: #5BC2E7;
@@ -42,10 +45,10 @@
       transition: border-color 0.25s, transform 0.3s cubic-bezier(0.22,1,0.36,1);
     }
     /* Hover state — over clickable elements */
-    .forvr-cursor.is-hover { transform: translate(-50%, -50%) scale(1.7); }
+    .forvr-cursor.is-hover { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(1.7); }
     .forvr-cursor.is-hover .ring { border-color: rgba(91,194,231,0.8); transform: scale(1.6); }
     /* Pressed state */
-    .forvr-cursor.is-down { transform: translate(-50%, -50%) scale(0.8); }
+    .forvr-cursor.is-down { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(0.8); }
     /* Idle state before first mouse move */
     .forvr-cursor.is-idle { opacity: 0; }
   `;
@@ -57,11 +60,17 @@
   document.body.appendChild(cursor);
 
   let revealed = false;
+  let lx = 0, ly = 0, queued = false;
+  function paint() {
+    queued = false;
+    cursor.style.setProperty('--cx', lx + 'px');
+    cursor.style.setProperty('--cy', ly + 'px');
+  }
   document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    lx = e.clientX; ly = e.clientY;
+    if (!queued) { queued = true; requestAnimationFrame(paint); }
     if (!revealed) { cursor.classList.remove('is-idle'); revealed = true; }
-  });
+  }, { passive: true });
 
   document.addEventListener('mousedown', () => cursor.classList.add('is-down'));
   document.addEventListener('mouseup', () => cursor.classList.remove('is-down'));
@@ -105,9 +114,12 @@
     if (hoverCapable) {
       // Reveal while the cursor is near the top-left corner; hide otherwise.
       var ZONE_X = 300, ZONE_Y = 130;
+      var bx = 0, by = 0, bqueued = false;
+      function bpaint(){ bqueued = false; brand.classList.toggle('brand-revealed', bx < ZONE_X && by < ZONE_Y); }
       document.addEventListener('mousemove', function(e) {
-        brand.classList.toggle('brand-revealed', e.clientX < ZONE_X && e.clientY < ZONE_Y);
-      });
+        bx = e.clientX; by = e.clientY;
+        if (!bqueued) { bqueued = true; requestAnimationFrame(bpaint); }
+      }, { passive: true });
       document.addEventListener('mouseleave', function() { brand.classList.remove('brand-revealed'); });
     } else {
       // Touch: no hover, so reveal after a small scroll instead.
