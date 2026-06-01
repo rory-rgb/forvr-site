@@ -138,6 +138,9 @@
   .submit-btn { display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s; font-family: var(--mono); cursor: pointer; background: transparent; }
   .submit-btn:hover { background: var(--accent); color: var(--bg); }
   .preview-note { display: inline-block; margin-left: 24px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(10,10,10,0.4); }
+  .form-status { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; transition: opacity 0.3s; }
+  .form-status.is-ok { color: var(--accent); }
+  .form-status.is-err { color: #c0392b; }
 
   /* Big email */
   .big-email { padding: 32px 24px 0; border-top: 1px solid var(--line); margin-bottom: 40px; }
@@ -716,7 +719,7 @@
     </div>
 
     <div class="form-wrap">
-      <form id="contactForm">
+      <form id="contactForm" action="https://formspree.io/f/mdajrlge" method="POST">
         <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px;" />
 
         <div class="row">
@@ -750,6 +753,7 @@
 
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px;">
           <button type="submit" class="submit-btn">Send message →</button>
+          <span class="form-status" id="formStatus" role="status" aria-live="polite"></span>
         </div>
       </form>
     </div>
@@ -904,11 +908,37 @@
   }, { rootMargin: '-50px 0px' });
   document.querySelectorAll('.reveal, .reveal-line').forEach((el) => io.observe(el));
 
-  // Form preview behaviour — just shows alert
-  document.getElementById('contactForm').addEventListener('submit', (e) => {
-    e.preventDefault();
-    alert('Form is preview-only here. Live site sends emails via Resend.');
-  });
+  // Contact form — submit to Formspree via fetch, show inline status (no page reload).
+  (function(){
+    var form = document.getElementById('contactForm');
+    if (!form) return;
+    var statusEl = document.getElementById('formStatus');
+    var btn = form.querySelector('.submit-btn');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if (statusEl){ statusEl.className = 'form-status'; statusEl.textContent = 'Sending…'; }
+      if (btn) btn.disabled = true;
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res){
+        if (res.ok){
+          form.reset();
+          if (statusEl){ statusEl.className = 'form-status is-ok'; statusEl.textContent = 'Sent. We reply within 48 hours.'; }
+        } else {
+          res.json().then(function(d){
+            var msg = (d && d.errors && d.errors.length) ? d.errors[0].message : 'Something went wrong. Email hello@forvr.org.';
+            if (statusEl){ statusEl.className = 'form-status is-err'; statusEl.textContent = msg; }
+          }).catch(function(){
+            if (statusEl){ statusEl.className = 'form-status is-err'; statusEl.textContent = 'Something went wrong. Email hello@forvr.org.'; }
+          });
+        }
+      }).catch(function(){
+        if (statusEl){ statusEl.className = 'form-status is-err'; statusEl.textContent = 'Network error. Email hello@forvr.org.'; }
+      }).finally(function(){ if (btn) btn.disabled = false; });
+    });
+  })();
 </script>
 <script src="static/cursor.js?v=4" defer></script>
 <style id="ask-fab-styles">
