@@ -247,12 +247,13 @@
      Height matches the list height (no aspect-ratio cap), so the image bottom lines up with
      the bottom of the last service item. */
   .svc-grid { align-items: stretch; }
-  .svc-grid .visual-wrap { height: 100%; }
+  .svc-grid .visual-wrap { height: auto; align-self: start; }
   .svc-image-box {
     position: sticky; top: 72px;
+    align-self: start;
     width: 100%;
-    height: 100%;
-    min-height: 760px;
+    height: auto;
+    aspect-ratio: 3 / 4;
     background: #5BC2E7;
     overflow: hidden;
     border: 1px solid var(--line);
