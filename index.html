@@ -202,6 +202,7 @@
   @media (min-width: 768px) { .svc-list li { padding: 36px 0; } }
   .svc-list li:last-child { border-bottom: 1px solid var(--line); }
   .svc-list .row { display: flex; align-items: start; gap: 24px; }
+  .svc-list a.svc-link { display: flex; align-items: start; gap: 24px; text-decoration: none; color: inherit; cursor: pointer; }
   @media (min-width: 768px) { .svc-list .row { gap: 40px; } }
   .svc-list .num { width: 40px; flex-shrink: 0; padding-top: 8px; }
   .svc-list .content { flex: 1; }
@@ -1706,46 +1707,46 @@
   <div class="grid svc-grid">
     <ul class="svc-list list-wrap">
       <li data-svc="1">
-        <div class="row">
+        <a class="row svc-link" href="services.html#svc-1">
           <span class="m num">01</span>
           <div class="content"><h3 class="d">Video Production</h3></div>
           <span class="m arrow">→</span>
-        </div>
+        </a>
       </li>
       <li data-svc="2">
-        <div class="row">
+        <a class="row svc-link" href="services.html#svc-2">
           <span class="m num">02</span>
           <div class="content"><h3 class="d">Image Creation</h3></div>
           <span class="m arrow">→</span>
-        </div>
+        </a>
       </li>
       <li data-svc="3">
-        <div class="row">
+        <a class="row svc-link" href="services.html#svc-3">
           <span class="m num">03</span>
           <div class="content"><h3 class="d">Creative Direction</h3></div>
           <span class="m arrow">→</span>
-        </div>
+        </a>
       </li>
       <li data-svc="4">
-        <div class="row">
+        <a class="row svc-link" href="services.html#svc-4">
           <span class="m num">04</span>
           <div class="content"><h3 class="d">Graphic Design</h3></div>
           <span class="m arrow">→</span>
-        </div>
+        </a>
       </li>
       <li data-svc="5">
-        <div class="row">
+        <a class="row svc-link" href="services.html#svc-5">
           <span class="m num">05</span>
           <div class="content"><h3 class="d">Website Design</h3></div>
           <span class="m arrow">→</span>
-        </div>
+        </a>
       </li>
       <li data-svc="6">
-        <div class="row">
+        <a class="row svc-link" href="services.html#svc-6">
           <span class="m num">06</span>
           <div class="content"><h3 class="d">Brand Identity &amp; Strategy<span class="dot">.</span></h3></div>
           <span class="m arrow">→</span>
-        </div>
+        </a>
       </li>
     </ul>
     <div class="visual-wrap">
@@ -1759,12 +1760,12 @@
   <!-- Phone + small-tablet only: image grid with name overlay (the desktop
        name+arrow list is hidden at this width). -->
   <div class="svc-grid-mobile">
-    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-01.jpg')"><span class="svc-cell-num">01</span><span class="svc-cell-name">Video Production</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-02.jpg')"><span class="svc-cell-num">02</span><span class="svc-cell-name">Image Creation</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-03.jpg')"><span class="svc-cell-num">03</span><span class="svc-cell-name">Creative Direction</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-04.jpg')"><span class="svc-cell-num">04</span><span class="svc-cell-name">Graphic Design</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-05.jpg')"><span class="svc-cell-num">05</span><span class="svc-cell-name">Website Design</span></a>
-    <a class="svc-cell" href="services.html" style="background-image: url('static/services/opt-06.jpg')"><span class="svc-cell-num">06</span><span class="svc-cell-name">Brand Identity &amp; Strategy</span></a>
+    <a class="svc-cell" href="services.html#svc-1" style="background-image: url('static/services/opt-01.jpg')"><span class="svc-cell-num">01</span><span class="svc-cell-name">Video Production</span></a>
+    <a class="svc-cell" href="services.html#svc-2" style="background-image: url('static/services/opt-02.jpg')"><span class="svc-cell-num">02</span><span class="svc-cell-name">Image Creation</span></a>
+    <a class="svc-cell" href="services.html#svc-3" style="background-image: url('static/services/opt-03.jpg')"><span class="svc-cell-num">03</span><span class="svc-cell-name">Creative Direction</span></a>
+    <a class="svc-cell" href="services.html#svc-4" style="background-image: url('static/services/opt-04.jpg')"><span class="svc-cell-num">04</span><span class="svc-cell-name">Graphic Design</span></a>
+    <a class="svc-cell" href="services.html#svc-5" style="background-image: url('static/services/opt-05.jpg')"><span class="svc-cell-num">05</span><span class="svc-cell-name">Website Design</span></a>
+    <a class="svc-cell" href="services.html#svc-6" style="background-image: url('static/services/opt-06.jpg')"><span class="svc-cell-num">06</span><span class="svc-cell-name">Brand Identity &amp; Strategy</span></a>
   </div>
 </section>
 

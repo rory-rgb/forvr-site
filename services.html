@@ -712,7 +712,7 @@
     </div>
 
     <div class="svc-grid-3x2">
-      <article class="svc-tile" data-i="0">
+      <article class="svc-tile" id="svc-1" data-i="0">
         <img class="bg" src="static/services/opt-01.jpg" alt="Video production by Forvr.Studios, AI-native creative studio" />
         <div class="overlay">
           <span class="num">01</span>
@@ -731,7 +731,7 @@
           </div>
         </div>
       </article>
-      <article class="svc-tile" data-i="1">
+      <article class="svc-tile" id="svc-2" data-i="1">
         <img class="bg" src="static/services/opt-02.jpg" alt="Image creation by Forvr.Studios, brand-trained AI imagery" />
         <div class="overlay">
           <span class="num">02</span>
@@ -750,7 +750,7 @@
           </div>
         </div>
       </article>
-      <article class="svc-tile" data-i="2">
+      <article class="svc-tile" id="svc-3" data-i="2">
         <img class="bg" src="static/services/opt-03.jpg" alt="Creative direction by Forvr.Studios" />
         <div class="overlay">
           <span class="num">03</span>
@@ -769,7 +769,7 @@
           </div>
         </div>
       </article>
-      <article class="svc-tile" data-i="3">
+      <article class="svc-tile" id="svc-4" data-i="3">
         <img class="bg" src="static/services/opt-04.jpg" alt="Graphic design by Forvr.Studios, decks, posters and print" />
         <div class="overlay">
           <span class="num">04</span>
@@ -788,7 +788,7 @@
           </div>
         </div>
       </article>
-      <article class="svc-tile" data-i="4">
+      <article class="svc-tile" id="svc-5" data-i="4">
         <img class="bg" src="static/services/opt-05.jpg" alt="Website design and build by Forvr.Studios" />
         <div class="overlay">
           <span class="num">05</span>
@@ -807,7 +807,7 @@
           </div>
         </div>
       </article>
-      <article class="svc-tile" data-i="5">
+      <article class="svc-tile" id="svc-6" data-i="5">
         <img class="bg" src="static/services/opt-06.jpg" alt="Brand identity and strategy by Forvr.Studios" />
         <div class="overlay">
           <span class="num">06</span>
@@ -1180,6 +1180,27 @@
       if (e.key === 'Escape') closeAll(null);
     });
   })();
+
+  // Deep-link: /services#svc-N opens that card's Read panel and scrolls to it.
+  (function svcDeepLink(){
+    function openFromHash(){
+      var h = (location.hash||'').replace('#','');
+      if(!/^svc-[1-6]$/.test(h)) return;
+      var tile = document.getElementById(h);
+      if(!tile) return;
+      document.querySelectorAll('.svc-tile').forEach(function(t){
+        if(t!==tile){ t.classList.remove('is-revealed'); }
+      });
+      tile.classList.add('is-revealed');
+      var tg = tile.querySelector('.svc-toggle'); if(tg) tg.setAttribute('aria-expanded','true');
+      var rv = tile.querySelector('.svc-reveal'); if(rv) rv.setAttribute('aria-hidden','false');
+      try { tile.scrollIntoView({behavior:'smooth', block:'center'}); } catch(e){ tile.scrollIntoView(); }
+    }
+    if(document.readyState!=='loading') setTimeout(openFromHash,120);
+    else document.addEventListener('DOMContentLoaded', function(){ setTimeout(openFromHash,120); });
+    window.addEventListener('hashchange', openFromHash);
+  })();
+
 </script>
 <script src="static/cursor.js?v=4" defer></script>
 <style id="ask-fab-styles">
