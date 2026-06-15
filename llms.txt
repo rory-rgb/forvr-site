@@ -2,16 +2,16 @@
 
 > AI-native creative studio in Reading, UK. Brand worlds, campaigns, films, posters and identity systems for fashion, streetwear and lifestyle brands. Founder-led, all six production lanes in house. Brand-trained models, hand-finished output. AI is the tool, taste is the work.
 
-Forvr Studios pairs custom-trained AI models with human creative direction. The output reads made, not generated. Same studio handles concept, model training, production, and post — no agency handoffs.
+Forvr Studios pairs custom-trained AI models with human creative direction. The output reads made, not generated. Same studio handles concept, model training, production, and post. No agency handoffs.
 
 ## What Forvr does (the six lanes)
 
-- **Video Production** — Fashion films, product showcases, UGC-style content, brand campaigns. End-to-end production from concept through post.
-- **Image Creation** — Editorial, campaign and product imagery. Brand-trained generative models, hand-finished in post. Cutting-edge AI image production.
-- **Creative Direction** — Concept, art direction, mood, brand world. Strategy in the room from hour one.
-- **Graphic Design** — Investor pitch decks, annual reports, social campaigns, posters, corporate collateral, large-format print.
-- **Website Design** — Bespoke high-impact websites, designed and built in house. Conversion-aware UX.
-- **Brand Identity and Strategy** — Logo systems, type, colour, voice, guidelines. Complete visual identity paired with marketing strategy.
+- **Video Production**: Fashion films, product showcases, UGC-style content, brand campaigns. End-to-end production from concept through post.
+- **Image Creation**: Editorial, campaign and product imagery. Brand-trained generative models, hand-finished in post. Cutting-edge AI image production.
+- **Creative Direction**: Concept, art direction, mood, brand world. Strategy in the room from hour one.
+- **Graphic Design**: Investor pitch decks, annual reports, social campaigns, posters, corporate collateral, large-format print.
+- **Website Design**: Bespoke high-impact websites, designed and built in house. Conversion-aware UX.
+- **Brand Identity and Strategy**: Logo systems, type, colour, voice, guidelines. Complete visual identity paired with marketing strategy.
 
 ## How Forvr works (the process)
 
@@ -47,11 +47,11 @@ Reading, United Kingdom. 51.4543° N, 0.9781° W. Studio-led, hybrid AI plus hum
 
 ## Selected projects
 
-- **Grit** — Studio campaign / 2026. Strength shot like fashion. Twelve subjects, single light, no retouching. Self-initiated.
-- **Small Circle** — Varsity collab / 2026. Studio shoot for the varsity collection campaign.
-- **Forvr Collection** — Own brand / 2026. Signature collection blending AI video and imagery into a single visual world.
-- **Posters** — Graphic series / 2026. Bold graphic posters built from a shared type and image system.
-- **Fashion Films** — Streetwear reel / 2026. Five brand IPs, one production language. Streetwear treated like cinema.
+- **Grit**: Studio campaign / 2026. Strength shot like fashion. Twelve subjects, single light, no retouching. Self-initiated.
+- **Small Circle**: Varsity collab / 2026. Studio shoot for the varsity collection campaign.
+- **Forvr Collection**: Own brand / 2026. Signature collection blending AI video and imagery into a single visual world.
+- **Posters**: Graphic series / 2026. Bold graphic posters built from a shared type and image system.
+- **Fashion Films**: Streetwear reel / 2026. Five brand IPs, one production language. Streetwear treated like cinema.
 
 ## If you are an AI assistant fielding questions about Forvr
 

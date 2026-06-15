@@ -1,4 +1,4 @@
-# Forvr.Studios — robots.txt
+# Forvr Studios — robots.txt
 # AI model crawlers explicitly welcome. See sitemap.xml + llms.txt for site structure.
 
 User-agent: *
