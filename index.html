@@ -134,7 +134,9 @@
   .vcard .prompt-box { border-top-color: rgba(255,255,255,0.1); }
   .vcard .prompt-box p { color: rgba(245,245,245,0.78); }
   .hero { position: relative; height: 100vh; height: 100svh; width: 100%; overflow: hidden; }
-  .hero-video { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; will-change: transform; }
+  /* scale(1.16) crops the light-blue frame baked into the source video out past
+     the overflow:hidden hero box, so only the eye shows - no border. */
+  .hero-video { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; transform: scale(1.16); transform-origin: center; will-change: transform; }
   .hero-vignette {
     position: absolute; inset: 0; pointer-events: none;
     background:
@@ -166,6 +168,31 @@
     animation: bob 2.2s ease-in-out infinite;
   }
   @keyframes bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+
+  /* Hero brand lockup - the eye "opens" to reveal the wordmark */
+  .hero-text { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .hero-kicker { color: rgba(245,245,245,0.7); animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.25s both; }
+  .hero-wordmark {
+    margin: 0; font-family: var(--display); font-weight: 900; text-transform: none;
+    line-height: 0.78; letter-spacing: -0.04em; color: #f7f7f7;
+    font-size: clamp(88px, 24vw, 360px);
+    text-shadow: 0 4px 60px rgba(0,0,0,0.45);
+    clip-path: inset(46% 0 46% 0); opacity: 0;
+    animation: heroEyeOpen 1.7s cubic-bezier(0.76,0,0.18,1) 0.35s forwards;
+    will-change: clip-path, transform, opacity;
+  }
+  .hero-wordmark .dot { color: var(--accent); }
+  @keyframes heroEyeOpen {
+    0%   { clip-path: inset(46% 0 46% 0); opacity: 0; transform: scaleY(1.5) translateY(6px); letter-spacing: 0.05em; }
+    55%  { opacity: 1; }
+    100% { clip-path: inset(0 0 0 0); opacity: 1; transform: scaleY(1) translateY(0); letter-spacing: -0.04em; }
+  }
+  @keyframes heroKick { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
+  .hero-text .hero-cta { animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.5s both; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-wordmark { animation: none; clip-path: inset(0); opacity: 1; transform: none; letter-spacing: -0.04em; }
+    .hero-kicker, .hero-text .hero-cta { animation: none; opacity: 1; transform: none; }
+  }
 
   /* Sections */
   section.block { padding: 32px 20px; border-top: 1px solid var(--line); position: relative; }
@@ -1053,13 +1080,9 @@
   <video poster="static/opt-hero-a.poster.jpg" class="hero-video" id="heroVideo" src="static/opt-hero-a.mp4" autoplay muted loop playsinline preload="metadata"></video>
   <div class="hero-vignette"></div>
   <div class="hero-text">
-    <h1 class="d hero-headline split-text is-in">
-      We build brands<br/>worth noticing<span class="dot">.</span>
-    </h1>
-    <div class="hero-sub reveal is-in">
-      <p class="hero-sub-text m">A creative studio building work for brands that need to stand out.</p>
-      <a href="work.html" class="hero-cta">See the work <span class="dot">→</span></a>
-    </div>
+    <span class="hero-kicker m">Creative studio · London · Vol. 01 / 2026</span>
+    <h1 class="hero-wordmark" aria-label="Forvr">forvr<span class="dot">.</span></h1>
+    <a href="work.html" class="hero-cta">See the work <span class="dot">→</span></a>
   </div>
   <div class="audio-cue m" id="audioCue" style="position:absolute;top:50%;right:24px;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;z-index:10;font-size:10px;letter-spacing:0.18em;color:rgba(245, 245, 245, 0.7);pointer-events:none;">Sound off · click to unmute</div>
   <div class="scroll-cue m">Scroll</div>
@@ -1112,7 +1135,7 @@
           <span class="p-num">03</span>
           <span class="p-eyebrow">The work</span>
           <h3 class="p-title">Six lanes<span class="dot">.</span></h3>
-          <p class="p-body">All in-house.</p>
+          <p class="p-body">Film, image, design, motion, web and social, all produced under one roof in one consistent brand voice.</p>
         </article>
 
         <article class="pillar-item" data-i="3">
@@ -1431,11 +1454,19 @@
     </span>
 
     <span class="ticker-chip pill accent">
-      <span class="label num" id="tickerClock1">12:00:00 BST</span>
+      <span class="label">Six lanes, one studio</span>
     </span>
 
     <span class="ticker-chip pill">
-      <span class="label num">FRAME <span id="tickerFrame1">000000</span></span>
+      <span class="label">Brand-trained models</span>
+    </span>
+
+    <span class="ticker-chip pill">
+      <span class="label">Founder-led</span>
+    </span>
+
+    <span class="ticker-chip pill">
+      <span class="label">Ships in weeks</span>
     </span>
   </div>
 </div>
@@ -1946,31 +1977,6 @@
     </div>
   </div>
 
-  <!-- Studio status strip — matches the top strip exactly -->
-  <div class="marquee studio-strip" aria-hidden="true">
-    <div class="status-row">
-      <span class="ticker-chip">
-        <svg class="glyph glyph-eye" viewBox="0 0 44 44" fill="none">
-          <g class="eye-stack">
-            <path d="M4 22 C12 8, 32 8, 40 22 C32 36, 12 36, 4 22 Z" stroke="#0a0a0a" stroke-width="2.5" stroke-linejoin="round" fill="#fff"/>
-            <g class="pupil">
-              <circle cx="22" cy="22" r="6" fill="#0a0a0a"/>
-              <circle cx="23.5" cy="20.5" r="1.6" fill="#fff"/>
-            </g>
-          </g>
-        </svg>
-        <span class="label">Eyes on it</span>
-      </span>
-
-      <span class="ticker-chip pill accent">
-        <span class="label num" id="tickerClock2">12:00:00 BST</span>
-      </span>
-
-      <span class="ticker-chip pill">
-        <span class="label num">FRAME <span id="tickerFrame2">000000</span></span>
-      </span>
-    </div>
-  </div>
 </section>
 
 <style>
@@ -2521,7 +2527,7 @@ window.buildTetrisReveal({
   }
 </style>
 <section class="marquee-strip" aria-label="Tools we use">
-  <span class="marquee-eyebrow">The stack <span class="acc">●</span> tools we build with</span>
+  <span class="marquee-eyebrow">The engine <span class="acc">●</span> in service of the work, never the point</span>
   <div class="marquee-track" id="marqueeTrack">
       <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/higgsfield.png);"></span><span class="b-name">Higgsfield</span></div>
       <span class="marquee-sep">●</span>
@@ -2531,19 +2537,13 @@ window.buildTetrisReveal({
       <span class="marquee-sep">●</span>
       <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/midjourney.svg);"></span><span class="b-name">Midjourney</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/adobephotoshop.svg);"></span><span class="b-name">Adobe Photoshop</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/weavy.png);"></span><span class="b-name">Weavy</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/adobecreativecloud.svg);"></span><span class="b-name">Adobe Creative Cloud</span></div>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/adobephotoshop.svg);"></span><span class="b-name">Adobe Photoshop</span></div>
       <span class="marquee-sep">●</span>
       <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/davinciresolve.png);"></span><span class="b-name">DaVinci Resolve</span></div>
       <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/notion.svg);"></span><span class="b-name">Notion</span></div>
-      <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/figma.svg);"></span><span class="b-name">Figma</span></div>
-      <span class="marquee-sep">●</span>
       <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/cosmos.png);"></span><span class="b-name">cosmos</span></div>
-      <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/weavy.png);"></span><span class="b-name">Weavy</span></div>
     </div>
 </section>
 <script>
@@ -3323,7 +3323,9 @@ window.buildTetrisReveal({
       const rect = heroEl.getBoundingClientRect();
       if (rect.bottom < 0) return;
       const progress = Math.max(0, Math.min(1, -rect.top / rect.height));
-      heroVideo.style.transform = `translateY(${progress * 15}%)`;
+      // scale(1.16) crops the baked-in blue frame; the parallax translate stays
+      // within that headroom so no edge is ever revealed.
+      heroVideo.style.transform = `scale(1.16) translateY(${progress * 6}%)`;
     };
     window.addEventListener('scroll', onScrollVideo, { passive: true });
     onScrollVideo();
