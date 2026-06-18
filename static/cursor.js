@@ -213,3 +213,54 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
+/* Scroll-linked type drift — elements tagged .scroll-drift (or the existing
+   dormant .reverse-on-scroll headings) glide horizontally as they pass through
+   the viewport. Bidirectional: follows the scroll both down and back up, in the
+   spirit of the hero wordmark reveal. Direction auto-alternates; override with
+   data-drift-dir="1|-1", amplitude with data-drift="<px>" (x) / data-drift-y.
+   Transform-only + rAF-batched, so it stays smooth; skipped for reduced-motion. */
+(function() {
+  if (window.__forvrDriftInit) return;
+  window.__forvrDriftInit = true;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  function init() {
+    var els = Array.prototype.slice.call(
+      document.querySelectorAll('.scroll-drift, .reverse-on-scroll')
+    );
+    if (!els.length) return;
+    els.forEach(function(el, i) {
+      el.style.willChange = 'transform';
+      if (el.dataset.driftDir === undefined) el.dataset.driftDir = (i % 2 === 0) ? '1' : '-1';
+    });
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var vw = window.innerWidth || document.documentElement.clientWidth;
+      var defAmp = Math.min(vw * 0.035, 42); // subtle, won't push type off-screen
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        var r = el.getBoundingClientRect();
+        if (r.bottom < -240 || r.top > vh + 240) continue; // far offscreen: skip
+        var center = r.top + r.height / 2;
+        var p = (center - vh / 2) / (vh / 2 + r.height / 2); // +1 entering bottom -> -1 leaving top
+        if (p > 1) p = 1; else if (p < -1) p = -1;
+        var dir = parseFloat(el.dataset.driftDir) || 1;
+        var ampX = el.dataset.drift !== undefined ? parseFloat(el.dataset.drift) : defAmp;
+        var ampY = el.dataset.driftY !== undefined ? parseFloat(el.dataset.driftY) : 0;
+        var x = p * ampX * dir;
+        var y = p * ampY;
+        el.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
+      }
+    }
+    function onScroll() { if (!ticking) { requestAnimationFrame(update); ticking = true; } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();

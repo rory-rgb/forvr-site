@@ -173,8 +173,10 @@
   .hero-text { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 100%; }
   .hero-kicker { margin-top: 4px; color: rgba(245,245,245,0.78); animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.25s both; }
   .hero-wordmark {
-    margin: 0; max-width: 100%; font-family: var(--display); font-weight: 900; text-transform: none;
-    line-height: 0.9; letter-spacing: -0.045em; color: #fff;
+    /* padding-top + matching negative margin give the glyph tops headroom so the
+       resting clip-path: inset(0) never shaves the top of the letters. */
+    margin: -0.14em 0 0; padding-top: 0.14em; max-width: 100%; font-family: var(--display); font-weight: 900; text-transform: none;
+    line-height: 1.0; letter-spacing: -0.045em; color: #fff;
     font-size: clamp(76px, 18.5vw, 230px);
     text-shadow: 0 1px 1px rgba(0,0,0,0.4), 0 3px 22px rgba(0,0,0,0.28);
     clip-path: inset(46% 0 46% 0); opacity: 0;
