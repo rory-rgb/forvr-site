@@ -170,13 +170,13 @@
   @keyframes bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
 
   /* Hero brand lockup - the eye "opens" to reveal the wordmark */
-  .hero-text { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
-  .hero-kicker { color: rgba(245,245,245,0.7); animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.25s both; }
+  .hero-text { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 100%; }
+  .hero-kicker { margin-top: 4px; color: rgba(245,245,245,0.78); animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.25s both; }
   .hero-wordmark {
-    margin: 0; font-family: var(--display); font-weight: 900; text-transform: none;
-    line-height: 0.78; letter-spacing: -0.04em; color: #f7f7f7;
-    font-size: clamp(88px, 24vw, 360px);
-    text-shadow: 0 4px 60px rgba(0,0,0,0.45);
+    margin: 0; max-width: 100%; font-family: var(--display); font-weight: 900; text-transform: none;
+    line-height: 0.9; letter-spacing: -0.045em; color: #fff;
+    font-size: clamp(76px, 18.5vw, 230px);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4), 0 3px 22px rgba(0,0,0,0.28);
     clip-path: inset(46% 0 46% 0); opacity: 0;
     animation: heroEyeOpen 1.7s cubic-bezier(0.76,0,0.18,1) 0.35s forwards;
     will-change: clip-path, transform, opacity;
@@ -185,12 +185,14 @@
   @keyframes heroEyeOpen {
     0%   { clip-path: inset(46% 0 46% 0); opacity: 0; transform: scaleY(1.5) translateY(6px); letter-spacing: 0.05em; }
     55%  { opacity: 1; }
-    100% { clip-path: inset(0 0 0 0); opacity: 1; transform: scaleY(1) translateY(0); letter-spacing: -0.04em; }
+    100% { clip-path: inset(0 0 0 0); opacity: 1; transform: scaleY(1) translateY(0); letter-spacing: -0.045em; }
   }
   @keyframes heroKick { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
   .hero-text .hero-cta { animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.5s both; }
+  /* On phones the lockup sits above the fixed Ask-AI button + scroll cue */
+  @media (max-width: 767px) { .hero-text { bottom: 84px; gap: 10px; } }
   @media (prefers-reduced-motion: reduce) {
-    .hero-wordmark { animation: none; clip-path: inset(0); opacity: 1; transform: none; letter-spacing: -0.04em; }
+    .hero-wordmark { animation: none; clip-path: inset(0); opacity: 1; transform: none; letter-spacing: -0.045em; }
     .hero-kicker, .hero-text .hero-cta { animation: none; opacity: 1; transform: none; }
   }
 
@@ -1080,8 +1082,8 @@
   <video poster="static/opt-hero-a.poster.jpg" class="hero-video" id="heroVideo" src="static/opt-hero-a.mp4" autoplay muted loop playsinline preload="metadata"></video>
   <div class="hero-vignette"></div>
   <div class="hero-text">
-    <span class="hero-kicker m">Creative studio · London · Vol. 01 / 2026</span>
     <h1 class="hero-wordmark" aria-label="Forvr">forvr<span class="dot">.</span></h1>
+    <span class="hero-kicker m">Creative studio · London · Vol. 01 / 2026</span>
     <a href="work.html" class="hero-cta">See the work <span class="dot">→</span></a>
   </div>
   <div class="audio-cue m" id="audioCue" style="position:absolute;top:50%;right:24px;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;z-index:10;font-size:10px;letter-spacing:0.18em;color:rgba(245, 245, 245, 0.7);pointer-events:none;">Sound off · click to unmute</div>
