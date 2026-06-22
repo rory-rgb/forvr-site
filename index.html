@@ -2083,9 +2083,10 @@
   .ir-sec { position: relative; height: 230vh; background: #070707; }
   .ir-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #070707; }
   .ir-layer { position: absolute; inset: 0; will-change: clip-path; }
-  .ir-in { background: #050505; }
-  .ir-in img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .ir-in::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%, transparent 38%, rgba(0,0,0,0.5)); }
+  .ir-in { background: #060606; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 24px; }
+  .ir-in::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(58vmin circle at 50% 50%, rgba(91,194,231,0.12), transparent 70%); }
+  .ir-in .ir-statement { margin: 0; position: relative; z-index: 1; font-family: var(--display); font-weight: 900; text-transform: none; color: #f7f7f7; font-size: clamp(40px, 8vw, 132px); line-height: 0.9; letter-spacing: -0.03em; text-shadow: 0 4px 44px rgba(0,0,0,0.5); will-change: transform; }
+  .ir-in .ir-statement .dot { color: var(--accent); }
   .ir-out { background: #070707; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 24px; }
   .ir-out .ir-line { margin: 0; font-family: var(--display); font-weight: 900; text-transform: none; color: #f5f5f5; font-size: clamp(40px, 8vw, 130px); line-height: 0.95; letter-spacing: -0.02em; }
   .ir-out .ir-line .dot { color: var(--accent); }
@@ -2099,7 +2100,7 @@
 <section class="ir-sec" id="irisPortal" aria-label="Forvr — eyes on the work">
   <div class="ir-pin">
     <div class="ir-layer ir-in">
-      <img src="static/iris-eye.jpg" alt="Extreme close-up of an eye" loading="lazy" width="1376" height="768" />
+      <h2 class="ir-statement">The work is<br/>the argument<span class="dot">.</span></h2>
     </div>
     <div class="ir-layer ir-out">
       <h2 class="ir-line">Eyes on<br/>the work<span class="dot">.</span></h2>
@@ -2123,6 +2124,7 @@
   var outL = sec.querySelector('.ir-out');
   var ring = sec.querySelector('.ir-ring');
   var cap = sec.querySelector('.ir-cap');
+  var stmt = sec.querySelector('.ir-statement');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) { inL.style.clipPath = 'circle(150% at 50% 50%)'; return; }
   function lerp(a, b, t){ return a + (b - a) * t; }
@@ -2131,13 +2133,14 @@
     var range = r.height - vh;
     var p = range > 0 ? Math.max(0, Math.min(1, -r.top / range)) : 0;
     var rOut = p <= 0.5 ? lerp(100, 0, p / 0.5) : 0;       // outgoing view closes to a pupil
-    var rIn  = p >= 0.5 ? lerp(0, 100, (p - 0.5) / 0.5) : 0; // macro eye irises open
+    var rIn  = p >= 0.5 ? lerp(0, 100, (p - 0.5) / 0.5) : 0; // statement irises open
     outL.style.clipPath = 'circle(' + rOut.toFixed(1) + '% at 50% 50%)';
     inL.style.clipPath  = 'circle(' + rIn.toFixed(1) + '% at 50% 50%)';
     var pinch = 1 - Math.min(1, Math.abs(p - 0.5) * 2);     // 0 at ends -> 1 at the pinch
     ring.style.opacity = (0.22 + pinch * 0.78).toFixed(3);
     ring.style.transform = 'translate(-50%,-50%) rotate(' + (p * 240).toFixed(1) + 'deg) scale(' + (1.15 - pinch * 0.72).toFixed(3) + ')';
     if (cap) cap.style.opacity = (1 - pinch).toFixed(2);
+    if (stmt) stmt.style.transform = 'scale(' + (p >= 0.5 ? (0.92 + ((p - 0.5) / 0.5) * 0.08) : 0.92).toFixed(3) + ')'; // settle in as the aperture opens
   }
   window.addEventListener('scroll', frame, { passive: true });
   window.addEventListener('resize', frame);
