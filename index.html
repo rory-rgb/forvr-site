@@ -1762,6 +1762,114 @@
   }
 </style>
 
+<!-- THE DEVELOP — scroll-scrubbed denoise/grade of one frame: raw model -> shipped.
+     The AI-native-craft thesis made literal on a single watched frame. Vanilla. -->
+<style>
+  .dev-sec { position: relative; height: 320vh; background: #0a0a0a; }
+  .dev-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; }
+  .dev-inner { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 6vw; align-items: center; width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 40px; }
+  .dev-eyebrow { margin: 0 0 22px; }
+  .dev-title { color: #f5f5f5; font-size: clamp(34px, 4.4vw, 72px); line-height: 0.98; margin: 0; }
+  .dev-title .dot { color: var(--accent); }
+  .dev-sub { color: rgba(245,245,245,0.6); margin: 20px 0 30px; max-width: 34ch; line-height: 1.5; }
+  .dev-stages { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .dev-stages li { display: flex; align-items: baseline; gap: 14px; font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(18px, 1.7vw, 26px); letter-spacing: 0.01em; color: rgba(245,245,245,0.26); transition: color 0.45s ease, transform 0.45s ease; }
+  .dev-stages li .dev-st-n { font-family: var(--mono); font-weight: 600; font-size: 11px; letter-spacing: 0.1em; color: rgba(245,245,245,0.3); transition: color 0.45s ease; }
+  .dev-stages li.is-on { color: #f5f5f5; transform: translateX(6px); }
+  .dev-stages li.is-on .dev-st-n { color: var(--accent); }
+  .dev-frame { position: relative; aspect-ratio: 3 / 4; max-height: 80vh; margin: 0 auto; width: 100%; max-width: 460px; overflow: hidden; background: #050505; border: 1px solid rgba(255,255,255,0.08); }
+  .dev-img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.02); will-change: filter; }
+  .dev-grain { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: screen; pointer-events: none; image-rendering: pixelated; opacity: 0; }
+  .dev-scan { position: absolute; left: 0; right: 0; height: 28%; pointer-events: none; background: linear-gradient(to bottom, transparent, rgba(91,194,231,0.10), transparent); mix-blend-mode: screen; }
+  .dev-pct { position: absolute; bottom: 12px; right: 14px; color: rgba(245,245,245,0.7); font-variant-numeric: tabular-nums; }
+  .dev-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 80px rgba(0,0,0,0.5); }
+  .dev-rail { position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: rgba(255,255,255,0.06); }
+  .dev-rail-fill { display: block; width: 100%; height: 0%; background: var(--accent); box-shadow: 0 0 14px rgba(91,194,231,0.6); }
+  @media (max-width: 860px) {
+    .dev-sec { height: 280vh; }
+    .dev-inner { grid-template-columns: 1fr; gap: 28px; padding: 0 24px; }
+    .dev-frame { max-height: 56vh; max-width: 320px; }
+    .dev-stages { flex-direction: row; flex-wrap: wrap; gap: 8px 18px; }
+    .dev-title { font-size: clamp(30px, 8vw, 44px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dev-sec { height: auto; } .dev-pin { position: static; height: auto; padding: 90px 0; }
+  }
+</style>
+<section class="dev-sec" id="develop" aria-label="From raw model to shipped">
+  <div class="dev-pin">
+    <div class="dev-inner">
+      <div class="dev-copy reveal-group">
+        <p class="m m-accent dev-eyebrow reveal-line">● &nbsp; The craft</p>
+        <h2 class="d dev-title reveal-line">We make it look<br/>made, not generated<span class="dot">.</span></h2>
+        <p class="m dev-sub reveal-line">One frame, start to finish. Raw model output, brand-trained, hand-graded, shipped. Scroll to develop it.</p>
+        <ol class="dev-stages reveal-line">
+          <li data-s="0"><span class="dev-st-n">01</span> Raw model</li>
+          <li data-s="1"><span class="dev-st-n">02</span> Brand-trained</li>
+          <li data-s="2"><span class="dev-st-n">03</span> Graded</li>
+          <li data-s="3"><span class="dev-st-n">04</span> Shipped</li>
+        </ol>
+      </div>
+      <div class="dev-frame">
+        <img class="dev-img" src="static/develop-frame.jpg" alt="Editorial fashion frame developing from raw AI model output to a hand-graded, shipped image" loading="lazy" width="1200" height="1600" />
+        <canvas class="dev-grain"></canvas>
+        <div class="dev-scan"></div>
+        <span class="dev-pct m">000</span>
+      </div>
+    </div>
+    <div class="dev-rail"><span class="dev-rail-fill"></span></div>
+  </div>
+</section>
+<script>
+(function(){
+  var sec = document.getElementById('develop');
+  if (!sec) return;
+  var img = sec.querySelector('.dev-img');
+  var grain = sec.querySelector('.dev-grain');
+  var railFill = sec.querySelector('.dev-rail-fill');
+  var pctEl = sec.querySelector('.dev-pct');
+  var stages = sec.querySelectorAll('.dev-stages li');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var gctx = grain.getContext('2d');
+  var GW = 170, GH = 226; grain.width = GW; grain.height = GH;
+  var p = 0, inView = false, rafGrain = 0, lastGrain = 0;
+
+  function lerp(a, b, t){ return a + (b - a) * t; }
+  function render(){
+    var blur = lerp(16, 0, p), gray = lerp(1, 0, p), con = lerp(0.78, 1.06, p), bri = lerp(0.55, 1.02, p), sat = lerp(0, 1.08, p);
+    img.style.filter = 'blur(' + blur.toFixed(2) + 'px) grayscale(' + gray.toFixed(3) + ') contrast(' + con.toFixed(3) + ') brightness(' + bri.toFixed(3) + ') saturate(' + sat.toFixed(3) + ')';
+    grain.style.opacity = Math.max(0, (1 - p) * 0.9).toFixed(3);
+    if (railFill) railFill.style.height = (p * 100).toFixed(1) + '%';
+    if (pctEl) pctEl.textContent = ('00' + Math.round(p * 100)).slice(-3);
+    var idx = Math.min(3, Math.floor(p * 4 + 0.0001));
+    for (var i = 0; i < stages.length; i++) stages[i].classList.toggle('is-on', i <= idx);
+  }
+  function drawGrain(ts){
+    rafGrain = 0;
+    if (!inView || p >= 0.99) return;
+    if (ts - lastGrain > 45){
+      lastGrain = ts;
+      var id = gctx.createImageData(GW, GH), d = id.data;
+      for (var i = 0; i < d.length; i += 4){ var v = (Math.random() * 255) | 0; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; }
+      gctx.putImageData(id, 0, 0);
+    }
+    rafGrain = requestAnimationFrame(drawGrain);
+  }
+  function onScroll(){
+    var r = sec.getBoundingClientRect(), vh = window.innerHeight;
+    inView = r.bottom > 0 && r.top < vh;
+    var range = r.height - vh;
+    p = range > 0 ? Math.max(0, Math.min(1, -r.top / range)) : (r.top <= 0 ? 1 : 0);
+    if (reduce) p = 1;
+    render();
+    if (inView && !reduce && p < 0.99 && !rafGrain) rafGrain = requestAnimationFrame(drawGrain);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+})();
+</script>
+
 <!-- SERVICES -->
 <section id="services" class="block">
   <div class="grid section-head reveal-group">
