@@ -170,14 +170,15 @@
   @keyframes bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
 
   /* Hero brand lockup - the eye "opens" to reveal the wordmark */
-  .hero-text { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 100%; }
+  .hero-text { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 100%; container-type: inline-size; }
   .hero-kicker { margin-top: 4px; color: rgba(245,245,245,0.78); animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.25s both; }
   .hero-wordmark {
     /* padding-top + matching negative margin give the glyph tops headroom so the
        resting clip-path: inset(0) never shaves the top of the letters. */
     margin: -0.14em 0 0; padding-top: 0.14em; max-width: 100%; font-family: var(--display); font-weight: 900; text-transform: none;
     line-height: 1.0; letter-spacing: -0.045em; color: #fff;
-    font-size: clamp(72px, 16vw, 210px);
+    font-size: clamp(64px, 16vw, 200px);                 /* fallback for browsers without container query units */
+    font-size: clamp(64px, 44cqw, 210px);                /* cqw ties the size to ~83% of the column width, so "forvr." (incl. dot) can never overflow */
     text-shadow: 0 1px 1px rgba(0,0,0,0.4), 0 3px 22px rgba(0,0,0,0.28);
     clip-path: inset(46% 0 46% 0); opacity: 0;
     animation: heroEyeOpen 1.7s cubic-bezier(0.76,0,0.18,1) 0.35s forwards;
