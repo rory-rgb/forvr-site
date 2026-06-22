@@ -264,3 +264,42 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
+/* "Eyes on it" — the brand eye-glyph pupils track the cursor. Pointer-driven +
+   eased; replaces the random dart with intentional watching (the blink stays).
+   Skipped on touch (no hover) and for reduced-motion. */
+(function() {
+  if (window.__forvrEyeTrackInit) return;
+  window.__forvrEyeTrackInit = true;
+  if (window.matchMedia && (window.matchMedia('(hover: none)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+
+  function init() {
+    var eyes = Array.prototype.slice.call(document.querySelectorAll('.glyph-eye'));
+    if (!eyes.length) return;
+    eyes.forEach(function(svg) {
+      var p = svg.querySelector('.pupil');
+      if (p) { p.style.animation = 'none'; p.style.transition = 'transform 0.18s cubic-bezier(0.22,1,0.36,1)'; }
+    });
+    var mx = 0, my = 0, queued = false;
+    function apply() {
+      queued = false;
+      for (var i = 0; i < eyes.length; i++) {
+        var svg = eyes[i], p = svg.querySelector('.pupil');
+        if (!p) continue;
+        var r = svg.getBoundingClientRect();
+        if (!r.width || r.bottom < 0 || r.top > window.innerHeight) continue;
+        var dx = mx - (r.left + r.width / 2), dy = my - (r.top + r.height / 2);
+        var d = Math.sqrt(dx * dx + dy * dy) || 1;
+        var travel = Math.min(d / 150, 1) * 4; // up to ~4 SVG units, matches the eye scale
+        p.style.transform = 'translate(' + (dx / d * travel).toFixed(2) + 'px,' + (dy / d * travel).toFixed(2) + 'px)';
+      }
+    }
+    document.addEventListener('mousemove', function(e) {
+      mx = e.clientX; my = e.clientY;
+      if (!queued) { queued = true; requestAnimationFrame(apply); }
+    }, { passive: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
