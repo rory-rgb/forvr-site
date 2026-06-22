@@ -63,12 +63,6 @@
   .studio-mark .pulse::after { opacity: 0.7; animation: pulse 2s ease-out infinite; }
   @keyframes pulse { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(3); opacity: 0; } }
 
-  /* Progress counter (fixed right) */
-  .progress { position: fixed; top: 50%; right: 24px; transform: translateY(-50%); z-index: 30; display: flex; align-items: center; gap: 12px; pointer-events: none; opacity: 0; transition: opacity 0.8s 1s; }
-  @media (max-width: 767px) { .progress { display: none; } }
-  .progress.show { opacity: 1; }
-  .progress .big { font-family: var(--display); color: var(--accent); font-size: 32px; line-height: 1; font-weight: 900; letter-spacing: -0.02em; }
-
   main { padding-top: 128px; padding-bottom: 128px; position: relative; }
   @media (min-width: 768px) { main { padding-top: 160px; } }
 
@@ -149,132 +143,89 @@
     border: 1px solid rgba(91,194,231,0.28);
   }
 
-  /* Horizontal sweep — pinned section, vertical scroll drives horizontal translate */
-  .h-work {
-    position: relative;
-    height: 500vh;
+  /* Work grid — editorial asymmetric layout of the five projects */
+  .work-grid-section {
     background: #050505;
     color: #fafafa;
+    padding: 56px 24px 72px;
   }
-  .h-work-pin {
-    position: sticky; top: 0;
-    height: 100vh;
-    overflow: hidden;
-  }
-  .h-work-head {
-    position: absolute; top: 28px; left: 32px; z-index: 4;
-    display: grid; gap: 8px;
-  }
-  .h-work-head .m-accent { color: var(--accent); letter-spacing: 0.22em; font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
-  .h-work-head h3 {
+  @media (min-width: 768px) { .work-grid-section { padding: 72px 40px 96px; } }
+  .work-grid-head { display: grid; gap: 10px; margin-bottom: 32px; }
+  @media (min-width: 768px) { .work-grid-head { margin-bottom: 44px; } }
+  .work-grid-head .m-accent { color: var(--accent); letter-spacing: 0.22em; font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
+  .work-grid-head h3 {
     font-family: var(--display); font-weight: 900;
-    font-size: clamp(30px, 3.4vw, 52px);
+    font-size: clamp(30px, 4.6vw, 72px);
     line-height: 0.95; text-transform: uppercase;
-    max-width: 18ch; letter-spacing: -0.02em;
+    max-width: 20ch; letter-spacing: -0.02em;
   }
-  .h-work-head h3 .dot { color: var(--accent); }
+  .work-grid-head h3 .dot { color: var(--accent); }
 
-  .h-work-progress {
-    position: absolute; bottom: 28px; left: 32px; right: 32px; z-index: 4;
-    display: flex; align-items: center; gap: 14px;
+  .work-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 768px) {
+    .work-grid {
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: minmax(260px, 32vh);
+      gap: 20px;
+    }
+    /* Hero — large left block spanning two rows */
+    .card-hero { grid-column: span 4; grid-row: span 2; }
+    /* Tall — narrow portrait beside the hero */
+    .card-tall { grid-column: span 2; grid-row: span 2; }
+    /* Wide — full-width band */
+    .card-wide { grid-column: span 6; grid-row: span 1; }
+    /* Standard — two side-by-side */
+    .card-std  { grid-column: span 3; grid-row: span 1; }
   }
-  .h-work-progress .bar { flex: 1; height: 2px; background: rgba(250,250,250,0.18); position: relative; overflow: hidden; }
-  .h-work-progress .bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); width: 0%; transition: width 0.25s linear; }
-  .h-work-progress .count { font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em; color: rgba(250,250,250,0.65); min-width: 5ch; text-align: right; }
 
-  .h-work-track {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    padding: 168px 32px 92px;
-    will-change: transform;
-  }
-  .h-work-item {
-    flex: 0 0 78vw;
-    height: 62vh;
+  .work-card {
     position: relative;
     background: #0d0d0d;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
+    display: block;
+    min-height: 56vw;
     transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
   }
-  @media (min-width: 900px) { .h-work-item { flex-basis: 62vw; } }
-  @media (min-width: 1300px) { .h-work-item { flex-basis: 52vw; } }
-  .h-work-item:hover { transform: translateY(-6px); }
-  .h-work-item .bg {
+  @media (min-width: 768px) { .work-card { min-height: 0; } }
+  .work-card:hover { transform: translateY(-6px); }
+  .work-card .bg {
     position: absolute; inset: 0; width: 100%; height: 100%;
     object-fit: cover; display: block;
     transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
   }
-  .h-work-item:hover .bg { transform: scale(1.03); }
-  .h-work-item::after {
+  .work-card:hover .bg { transform: scale(1.04); }
+  .work-card::after {
     content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.28) 35%, rgba(0,0,0,0.0) 65%);
+    background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.28) 38%, rgba(0,0,0,0.0) 68%);
   }
-  .h-work-item .meta {
+  .work-card .meta {
     position: absolute; left: 24px; bottom: 24px; right: 24px; z-index: 2;
     display: flex; align-items: end; justify-content: space-between; gap: 24px;
     color: #fafafa;
   }
-  .h-work-item .meta .num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em; color: var(--accent); }
-  .h-work-item .meta .name {
+  .work-card .meta .num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em; color: var(--accent); }
+  .work-card .meta .name {
     font-family: var(--display); font-weight: 900;
-    font-size: clamp(32px, 4vw, 64px); line-height: 0.94;
+    font-size: clamp(28px, 3vw, 56px); line-height: 0.94;
     text-transform: uppercase; letter-spacing: -0.015em; margin-top: 6px;
   }
-  .h-work-item .meta .name .dot { color: var(--accent); }
-  .h-work-item .meta .cat-stack { text-align: right; display: grid; gap: 10px; }
-  .h-work-item .meta .cat { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(250,250,250,0.6); }
-  .h-work-item .meta .view-link {
-    display: inline-flex; align-items: center; gap: 8px;
+  .card-hero .meta .name { font-size: clamp(40px, 4.4vw, 76px); }
+  .work-card .meta .name .dot { color: var(--accent); }
+  .work-card .meta .cat-stack { text-align: right; display: grid; gap: 10px; flex-shrink: 0; }
+  .work-card .meta .cat { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,250,250,0.7); }
+  .work-card .meta .view-link {
+    display: inline-flex; align-items: center; gap: 8px; justify-content: flex-end;
     font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--accent);
     transition: transform 0.45s cubic-bezier(0.22,1,0.36,1);
   }
-  .h-work-item:hover .meta .view-link { transform: translateX(8px); }
-
-  @media (max-width: 760px) {
-    .h-work { height: 400vh; }
-    .h-work-head { top: 20px; left: 20px; }
-    .h-work-progress { left: 20px; right: 20px; bottom: 20px; }
-    .h-work-track { padding: 100px 20px 80px; gap: 16px; }
-    .h-work-item { flex-basis: 86vw; height: 70vh; }
+  .work-card:hover .meta .view-link { transform: translateX(8px); }
+  @media (max-width: 767px) {
+    .work-card .meta { left: 18px; right: 18px; bottom: 18px; }
+    .work-card .meta .cat-stack { gap: 8px; }
   }
-
-  /* Legacy spread styles (kept for any old projects/case refs, hidden) */
-  .spreads, .spread { display: none; }
-  .spread .row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 48px 24px; width: 100%; align-items: center; }
-  .spread .text { grid-column: span 12; opacity: 0; transform: translateX(-2%); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
-  .spread .media-col { grid-column: span 12; opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
-  .spread.is-in .text, .spread.is-in .media-col { opacity: 1; transform: none; }
-  @media (min-width: 768px) {
-    .spread:nth-child(even) .text { grid-column: 1 / span 7; }
-    .spread:nth-child(even) .media-col { grid-column: 8 / span 5; }
-    .spread:nth-child(odd) .text { grid-column: 6 / span 7; }
-    .spread:nth-child(odd) .media-col { grid-column: 1 / span 5; grid-row: 1; }
-  }
-  .spread h2 { font-size: clamp(56px, 11vw, 200px); line-height: 0.85; transition: color 0.5s; }
-  .spread a:hover h2 { color: var(--accent); }
-  .spread .desc { font-family: var(--body); margin-top: 32px; color: rgba(10,10,10,0.7); max-width: 420px; line-height: 1.65; font-size: 14px; }
-  @media (min-width: 768px) { .spread .desc { margin-top: 40px; } }
-  .spread .view-link { margin-top: 32px; display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); color: var(--accent); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); }
-  .spread a:hover .view-link { transform: translateX(8px); }
-  .spread .media { position: relative; width: 100%; overflow: hidden; }
-  .spread .media .ph { position: absolute; inset: -12%; will-change: transform; transition: transform 0.05s linear; }
-  .spread .media .mark { position: absolute; bottom: 16px; left: 16px; z-index: 2; font-family: var(--display); font-size: 11px; letter-spacing: 0.06em; font-weight: 900; text-transform: uppercase; color: #f5f5f5; }
-  .spread .media .meta-top { position: absolute; top: 16px; right: 16px; z-index: 2; text-align: right; color: rgba(245,245,245,0.7); }
-  .spread .media .meta-top .m-accent { color: var(--accent); }
-
-  .ph-image { background: linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717); }
-  .ph-image::after { content: ""; position: absolute; inset: 0; opacity: 0.2; mix-blend-mode: overlay; background: repeating-linear-gradient(0deg, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 1px, transparent 1px, transparent 4px); }
-  .ph-dark { background: linear-gradient(135deg, #0d0d0d, #161616, #0a0a0a); }
-  .ph-bright { background: linear-gradient(135deg, #2a2a2a, #1d1d1d, #101010); }
-  .ph-outline { background: rgba(0,0,0,0.3); border: 1px solid rgba(10,10,10,0.18); }
-  .spread .media .cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-  .spread .media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 50%, rgba(0,0,0,0.55) 100%); pointer-events: none; z-index: 1; }
-  .spread .media .mark, .spread .media .meta-top { z-index: 2; }
 
   /* CTA bottom */
   .cta { padding: 40px 24px 0; }
@@ -601,93 +552,80 @@
   <p class="m"><span class="m-accent">RDG</span> / 51.4543 N / 0.9781 W</p>
 </div>
 
-<div class="progress" id="progress">
-  <span class="big" id="progressNum">01</span>
-  <span class="m">/ 05</span>
-</div>
-
 <main>
-  <!-- HERO — full-bleed split: 1/3 text left + 2/3 video right (Mission-style) -->
+  <!-- HERO — full-bleed split: 1/3 text left + 2/3 real campaign still right -->
   <section class="work-hero-split">
     <div class="work-hero-text-side">
       <div class="work-hero-text reveal-group">
         <p class="m m-accent reveal-line">Portfolio / 01–05</p>
         <h1 class="d work-hero-headline reveal-line">Selected work<span class="dot">.</span></h1>
         <p class="lede reveal-line">
-          A curated selection of video, image, and brand projects. Each one conceptual unless stated otherwise, built with custom workflows and hand-finished in post.
+          Five projects, one production language. Brand campaigns, films, identity and print — built with custom workflows and hand-finished in post.
         </p>
-        <p class="m work-hero-cue reveal-line">↓ All five projects in one sweep</p>
+        <p class="m work-hero-cue reveal-line">↓ Five projects below</p>
       </div>
     </div>
     <div class="work-hero-video-side">
-      <video poster="forvr%20docs/site-images/supplied/opt-work.poster.jpg" class="work-hero-bg-video" src="forvr%20docs/site-images/supplied/opt-work.mp4" autoplay muted loop playsinline disablepictureinpicture preload="metadata"></video>
+      <img class="work-hero-bg-video" src="forvr%20docs/images/grit-project/opt-rwhypervail_Moody_boxing_gym_silhouette_of_a_Black_male_athle_a8c43333-bcb7-4806-84f9-de2baa946afa_0.jpg" alt="Forvr campaign still — boxing-gym strength portrait" loading="eager" decoding="async">
       <span class="vid-corner-meta">CH.WORK</span>
     </div>
   </section>
 
-  <!-- HORIZONTAL SWEEP — all five projects in one pinned section -->
-  <section class="h-work" id="hWork">
-    <div class="h-work-pin">
-      <div class="h-work-head">
-        <p class="m m-accent">Work / 01–05</p>
-        <h3 class="d">Five projects, one sweep<span class="dot">.</span></h3>
-      </div>
+  <!-- WORK GRID — five projects, editorial asymmetric layout -->
+  <section class="work-grid-section">
+    <div class="work-grid-head">
+      <p class="m m-accent">Work / 01–05</p>
+      <h3 class="d">Five projects, one production language<span class="dot">.</span></h3>
+    </div>
 
-      <div class="h-work-track" id="hWorkTrack">
-        <a class="h-work-item" href="grit.html" data-i="0">
-          <img class="bg" src="forvr%20docs/images/grit-project/opt-rwhypervail_Moody_boxing_gym_silhouette_of_a_Black_male_athle_a8c43333-bcb7-4806-84f9-de2baa946afa_0.jpg" alt="Grit campaign, boxing-gym strength portrait"  loading="lazy" decoding="async">
-          <div class="meta">
-            <div><p class="num">01 / 05</p><p class="name">Grit<span class="dot">.</span></p></div>
-            <div class="cat-stack"><p class="cat">Studio campaign · 2026</p><span class="view-link">View case →</span></div>
-          </div>
-        </a>
-        <a class="h-work-item" href="small-circle.html" data-i="1">
-          <img class="bg" src="forvr%20docs/small%20circle/Studio-Shoot/opt-1.jpg" alt="Small Circle varsity collection, studio shoot"  loading="lazy" decoding="async">
-          <div class="meta">
-            <div><p class="num">02 / 05</p><p class="name">Small Circle<span class="dot">.</span></p></div>
-            <div class="cat-stack"><p class="cat">Varsity collab · 2026</p><span class="view-link">View case →</span></div>
-          </div>
-        </a>
-        <a class="h-work-item" href="forvr-collection.html" data-i="2">
-          <img class="bg" src="forvr%20docs/images/forvr/jewel/opt-hf_20260206_103516_1f2c38f0-e68e-4e8d-992b-70bdf491a830.jpg" alt="Forvr Collection, jewellery campaign image"  loading="lazy" decoding="async">
-          <div class="meta">
-            <div><p class="num">03 / 05</p><p class="name">Forvr Collection<span class="dot">.</span></p></div>
-            <div class="cat-stack"><p class="cat">Own brand · 2026</p><span class="view-link">View case →</span></div>
-          </div>
-        </a>
-        <a class="h-work-item" href="posters.html" data-i="3">
-          <img class="bg" src="forvr%20docs/images/posters/opt-tom%20forvr.jpg" alt="Fragrance poster concept"  loading="lazy" decoding="async">
-          <div class="meta">
-            <div><p class="num">04 / 05</p><p class="name">Posters<span class="dot">.</span></p></div>
-            <div class="cat-stack"><p class="cat">Graphic series · 2026</p><span class="view-link">View case →</span></div>
-          </div>
-        </a>
-        <a class="h-work-item" href="fashion-films.html" data-i="4">
-          <img class="bg" src="forvr%20docs/videos/streetwear/sp5der/opt-f81fa3ee-1fdb-413f-a643-7d3c6d206f40%20(1).jpg" alt="Spider streetwear campaign still"  loading="lazy" decoding="async">
-          <div class="meta">
-            <div><p class="num">05 / 05</p><p class="name">Fashion Films<span class="dot">.</span></p></div>
-            <div class="cat-stack"><p class="cat">Streetwear reel · 2026</p><span class="view-link">View case →</span></div>
-          </div>
-        </a>
-      </div>
-
-      <div class="h-work-progress">
-        <span class="count" id="hWorkCountA">01</span>
-        <div class="bar"><i id="hWorkBar"></i></div>
-        <span class="count" id="hWorkCountB">05</span>
-      </div>
+    <div class="work-grid">
+      <a class="work-card card-hero reveal" href="grit.html">
+        <img class="bg" src="forvr%20docs/images/grit-project/opt-rwhypervail_Moody_boxing_gym_silhouette_of_a_Black_male_athle_a8c43333-bcb7-4806-84f9-de2baa946afa_0.jpg" alt="Grit campaign, boxing-gym strength portrait" loading="lazy" decoding="async">
+        <div class="meta">
+          <div><p class="num">01 / 05</p><p class="name">Grit<span class="dot">.</span></p></div>
+          <div class="cat-stack"><p class="cat">Brand campaign · Film + stills</p><span class="view-link">View case →</span></div>
+        </div>
+      </a>
+      <a class="work-card card-tall reveal" href="small-circle.html">
+        <img class="bg" src="forvr%20docs/small%20circle/Studio-Shoot/opt-1.jpg" alt="Small Circle varsity collection, studio shoot" loading="lazy" decoding="async">
+        <div class="meta">
+          <div><p class="num">02 / 05</p><p class="name">Small Circle<span class="dot">.</span></p></div>
+          <div class="cat-stack"><p class="cat">Varsity capsule · Lookbook</p><span class="view-link">View case →</span></div>
+        </div>
+      </a>
+      <a class="work-card card-wide reveal" href="forvr-collection.html">
+        <img class="bg" src="forvr%20docs/images/forvr/jewel/opt-hf_20260206_103516_1f2c38f0-e68e-4e8d-992b-70bdf491a830.jpg" alt="Forvr Collection, jewellery campaign image" loading="lazy" decoding="async">
+        <div class="meta">
+          <div><p class="num">03 / 05</p><p class="name">Forvr Collection<span class="dot">.</span></p></div>
+          <div class="cat-stack"><p class="cat">Own brand · Identity + campaign</p><span class="view-link">View case →</span></div>
+        </div>
+      </a>
+      <a class="work-card card-std reveal" href="posters.html">
+        <img class="bg" src="forvr%20docs/images/posters/opt-tom%20forvr.jpg" alt="Fragrance poster concept" loading="lazy" decoding="async">
+        <div class="meta">
+          <div><p class="num">04 / 05</p><p class="name">Posters<span class="dot">.</span></p></div>
+          <div class="cat-stack"><p class="cat">Poster series · Print/graphic</p><span class="view-link">View case →</span></div>
+        </div>
+      </a>
+      <a class="work-card card-std reveal" href="fashion-films.html">
+        <img class="bg" src="forvr%20docs/videos/streetwear/sp5der/opt-f81fa3ee-1fdb-413f-a643-7d3c6d206f40%20(1).jpg" alt="Spider streetwear campaign still" loading="lazy" decoding="async">
+        <div class="meta">
+          <div><p class="num">05 / 05</p><p class="name">Fashion Films<span class="dot">.</span></p></div>
+          <div class="cat-stack"><p class="cat">Fashion film · Motion</p><span class="view-link">View case →</span></div>
+        </div>
+      </a>
     </div>
   </section>
 
   <!-- CTA -->
   <section class="cta">
     <div class="grid">
-      <p class="m m-accent c12 md-c2">Want more / Ask</p>
+      <p class="m m-accent c12 md-c2">Next / Work with us</p>
       <div class="c12 md-c10">
-        <h2 class="d reveal scroll-drift">Want the full archive<span class="dot">?</span></h2>
+        <h2 class="d reveal scroll-drift">Start a project<span class="dot">.</span></h2>
         <div style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center;">
-          <a class="btn" href="contact.html">Ask for it →</a>
-          <a class="link" href="process.html">See the process <span class="dot">→</span></a>
+          <a class="btn" href="contact.html">Start a project →</a>
+          <a class="link" href="process.html">See how we work <span class="dot">→</span></a>
         </div>
       </div>
     </div>
@@ -796,7 +734,7 @@
     });
   });
 
-  // Reveal — fire ONCE. The horizontal sweep below remains scroll-driven.
+  // Reveal — fire ONCE as elements scroll into view.
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting) {
@@ -806,43 +744,6 @@
     });
   }, { rootMargin: '-50px 0px' });
   document.querySelectorAll('.reveal, .reveal-line').forEach((el) => io.observe(el));
-
-  // Horizontal sweep — vertical scroll drives horizontal translate of the project track
-  (function workHorizontalSweep() {
-    const wrap = document.getElementById('hWork');
-    const track = document.getElementById('hWorkTrack');
-    const bar = document.getElementById('hWorkBar');
-    const countA = document.getElementById('hWorkCountA');
-    const progressEl = document.getElementById('progress');
-    const progressNum = document.getElementById('progressNum');
-    if (!wrap || !track) return;
-    const items = track.querySelectorAll('.h-work-item');
-    let ticking = false;
-    const compute = () => {
-      const rect = wrap.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const total = rect.height - vh;
-      const progress = Math.max(0, Math.min(1, (-rect.top) / total));
-      const maxX = track.scrollWidth - window.innerWidth;
-      track.style.transform = `translateX(${-progress * maxX}px)`;
-      if (bar) bar.style.width = (progress * 100).toFixed(1) + '%';
-      const idx = Math.min(items.length - 1, Math.floor(progress * items.length));
-      const label = String(idx + 1).padStart(2, '0');
-      if (countA) countA.textContent = label;
-      // Mirror to the floating top-right counter when section is active
-      if (rect.top < vh && rect.bottom > 0) {
-        if (progressNum) progressNum.textContent = label;
-        if (progressEl) progressEl.classList.add('show');
-      } else if (progressEl) {
-        progressEl.classList.remove('show');
-      }
-      ticking = false;
-    };
-    const onScroll = () => { if (!ticking) { requestAnimationFrame(compute); ticking = true; } };
-    compute();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-  })();
 </script>
 <script src="static/cursor.js?v=7" defer></script>
 <style id="ask-fab-styles">

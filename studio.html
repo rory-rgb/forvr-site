@@ -708,261 +708,92 @@
     .studio-hero-tiles .tile:hover { transform: rotate(0deg) scale(1.04); z-index: 5; }
   </style>
 
-  <!-- WE SAW THE GAP — full-bleed scroll-scrubbed studio video, three corner reveals -->
-  <section id="gapScrub" class="gap-scrub">
-    <div class="gap-scrub-pin">
-      <div class="gap-scrub-video-wrap">
-        <video poster="forvr%20docs/site-images/supplied/opt-studio-scrub.poster.jpg" id="gapScrubVideo" src="forvr%20docs/site-images/supplied/opt-studio-scrub.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
-        <div class="gap-scrub-vignette" aria-hidden="true"></div>
-        <div class="gap-scrub-grain" aria-hidden="true"></div>
-      </div>
-
-      <div class="gap-scrub-overlay">
-        <div class="gap-scrub-head reveal-group">
-          <p class="m gap-scrub-eyebrow reveal-line">● &nbsp; Why this &nbsp;/&nbsp; The three gaps</p>
-          <h2 class="d gap-scrub-title reveal-line">We saw<br/>the gap<span class="dot">.</span></h2>
-          <p class="gap-scrub-intro reveal-line">Brands need content that converts. The market offered three broken answers.</p>
-        </div>
-
-        <div class="gap-scrub-stage">
-          <article class="gap-scrub-item" data-i="0">
-            <span class="g-num">01</span>
-            <span class="g-eyebrow">Broken answer one</span>
-            <h3 class="g-title">Comms agencies<span class="dot">.</span></h3>
-            <p class="g-body">Slow, expensive production cycles. Built for a media landscape that doesn&rsquo;t exist anymore.</p>
-          </article>
-
-          <article class="gap-scrub-item" data-i="1">
-            <span class="g-num">02</span>
-            <span class="g-eyebrow">Broken answer two</span>
-            <h3 class="g-title">Influencer shops<span class="dot">.</span></h3>
-            <p class="g-body">No production craft. Inflated rates. Zero accountability for what the content actually does.</p>
-          </article>
-
-          <article class="gap-scrub-item" data-i="2">
-            <span class="g-num">03</span>
-            <span class="g-eyebrow">Broken answer three</span>
-            <h3 class="g-title">Generic AI shops<span class="dot">.</span></h3>
-            <p class="g-body">Prompt-and-pray with off-the-shelf models. Output that looks like every other deck.</p>
-          </article>
-        </div>
-
-        <div class="gap-scrub-progress" aria-hidden="true">
-          <span class="g-pip" data-i="0"></span>
-          <span class="g-pip" data-i="1"></span>
-          <span class="g-pip" data-i="2"></span>
-        </div>
-
-        <div class="gap-scrub-hint">scroll ↓</div>
-      </div>
+  <!-- BLOOM portal — a real blue poppy blooms as you scroll. The studio's growth idea:
+       a studio that makes brands open up and stand out. Replaces the old "we saw the gap" scrub. -->
+  <style>
+    .ir-sec { position: relative; height: 240vh; background: #050505; }
+    .ir-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #050505; }
+    .ir-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; background: #050505; }
+    .ir-vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 44%, rgba(0,0,0,0.62)); }
+    .ir-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(44vmin circle at 50% 50%, rgba(91,194,231,0.14), transparent 64%); will-change: opacity; }
+    .ir-tagline { position: absolute; left: 50%; bottom: 9%; transform: translateX(-50%); font-family: var(--display); font-weight: 900; text-transform: none; color: #f5f5f5; font-size: clamp(20px, 3vw, 40px); letter-spacing: -0.01em; white-space: nowrap; opacity: 0; text-shadow: 0 2px 22px rgba(0,0,0,0.7); z-index: 3; will-change: opacity, transform; }
+    .ir-tagline .dot { color: var(--accent); }
+    .ir-ring { position: absolute; top: 50%; left: 50%; width: 70vmin; height: 70vmin; transform: translate(-50%,-50%); pointer-events: none; will-change: transform, opacity; }
+    .ir-cap { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); color: rgba(245,245,245,0.5); z-index: 2; }
+    @media (prefers-reduced-motion: reduce) {
+      .ir-sec { height: auto; } .ir-pin { position: static; height: 80vh; }
+      .ir-cap, .ir-ring { display: none; } .ir-tagline { opacity: 1; }
+    }
+  </style>
+  <section class="ir-sec" id="irisPortal" aria-label="A studio built to make brands bloom">
+    <div class="ir-pin">
+      <video class="ir-video" id="irVideo" src="static/portal-bloom.mp4" poster="static/portal-bloom-poster.jpg" muted playsinline preload="auto" disablepictureinpicture aria-label="A blue poppy blooming"></video>
+      <div class="ir-vignette"></div>
+      <div class="ir-glow"></div>
+      <svg class="ir-ring" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" stroke="rgba(91,194,231,0.45)" stroke-width="0.4" stroke-dasharray="1.6 2.6"/>
+        <circle cx="50" cy="50" r="38" stroke="rgba(91,194,231,0.22)" stroke-width="0.3"/>
+        <g stroke="rgba(91,194,231,0.55)" stroke-width="0.5">
+          <line x1="50" y1="1.5" x2="50" y2="8"/><line x1="50" y1="92" x2="50" y2="98.5"/>
+          <line x1="1.5" y1="50" x2="8" y2="50"/><line x1="92" y1="50" x2="98.5" y2="50"/>
+        </g>
+      </svg>
+      <span class="ir-tagline">Made to stand out<span class="dot">.</span></span>
+      <span class="ir-cap m">●&nbsp; keep scrolling</span>
     </div>
   </section>
+  <script>
+  (function(){
+    var sec = document.getElementById('irisPortal');
+    if (!sec) return;
+    var vid = document.getElementById('irVideo');
+    var glow = sec.querySelector('.ir-glow');
+    var ring = sec.querySelector('.ir-ring');
+    var cap = sec.querySelector('.ir-cap');
+    var tagline = sec.querySelector('.ir-tagline');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var dur = 0, ready = false, lastT = -1, ticking = false;
+    function lerp(a, b, t){ return a + (b - a) * t; }
+    vid.addEventListener('loadedmetadata', function(){
+      dur = vid.duration || 5; ready = true; try { vid.pause(); } catch(e){}
+      if (reduce) { try { vid.currentTime = dur - 0.05; } catch(e){} return; }
+      apply();
+    });
+    try { vid.load(); } catch(e){}
+    function apply(){
+      ticking = false;
+      var r = sec.getBoundingClientRect(), vh = window.innerHeight;
+      var range = r.height - vh;
+      var p = range > 0 ? Math.max(0, Math.min(1, -r.top / range)) : 0;
+      if (ready && dur) {
+        var t = Math.min(dur - 0.04, p * dur);
+        if (Math.abs(t - lastT) > 0.015) { try { vid.currentTime = t; lastT = t; } catch(e){} }
+      }
+      if (glow) glow.style.opacity = (0.35 + Math.sin(Math.min(p, 1) * Math.PI) * 0.55).toFixed(3);
+      if (ring) { var e = 1 - Math.pow(1 - p, 3); ring.style.opacity = (0.5 * (1 - e) + 0.06).toFixed(3); ring.style.transform = 'translate(-50%,-50%) rotate(' + (p * 180).toFixed(1) + 'deg) scale(' + lerp(0.4, 1.2, e).toFixed(3) + ')'; }
+      if (cap) cap.style.opacity = Math.max(0, 1 - p * 2.4).toFixed(2);
+      if (tagline) { var tt = Math.max(0, Math.min(1, (p - 0.62) / 0.28)); tagline.style.opacity = tt.toFixed(3); tagline.style.transform = 'translateX(-50%) translateY(' + lerp(12, 0, tt).toFixed(1) + 'px)'; }
+    }
+    function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(apply); } }
+    if (!reduce) {
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      apply();
+    }
+  })();
+  </script>
 
-  <!-- ADJUSTMENT G — centred pivot line -->
+  <!-- ADJUSTMENT G — single centred statement screen (merged pivot + divider) -->
   <section class="pivot-line">
     <div class="pivot-mark">
       <img src="static/forvr-logo.svg" alt="Forvr Studios logo" />
     </div>
     <h2 class="d pivot-text scroll-drift" data-drift-dir="1" data-type-on>So we built<br/>something different<span class="dot">.</span></h2>
-  </section>
-
-  <!-- ADJUSTMENT G — grey divider headline -->
-  <section class="divider-sentence">
-    <p class="d divider-line" data-type-on>Media that actually moves<span class="dot">.</span></p>
+    <p class="d pivot-sub" data-type-on>Media that actually moves<span class="dot">.</span></p>
   </section>
 
   <style>
-    /* GAP SCRUB — full-bleed scroll-scrubbed studio video, three reveals at corner positions.
-       Same pattern as the homepage Pillars section, three stages instead of four. */
-    .gap-scrub {
-      position: relative;
-      /* 3 items × 100vh + 50vh tail = 350vh of scrollable space */
-      height: 350vh;
-      background: #000;
-    }
-    .gap-scrub-pin {
-      position: sticky; top: 0;
-      width: 100%; height: 100vh;
-      overflow: hidden;
-    }
-    .gap-scrub-video-wrap { position: absolute; inset: 0; z-index: 1; }
-    #gapScrubVideo {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block;
-      will-change: transform;
-      transform: translateZ(0);
-    }
-    .gap-scrub-vignette {
-      position: absolute; inset: 0; z-index: 2;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.7) 100%),
-        linear-gradient(90deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.25) 100%);
-      pointer-events: none;
-    }
-    .gap-scrub-grain {
-      position: absolute; inset: 0; z-index: 3;
-      background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,0.025) 2px 3px);
-      mix-blend-mode: overlay;
-      pointer-events: none;
-    }
-
-    .gap-scrub-overlay {
-      position: absolute; inset: 0; z-index: 4;
-      padding: 56px 32px 56px;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      color: #fafafa;
-    }
-    @media (max-width: 760px) { .gap-scrub-overlay { padding: 48px 20px; } }
-
-    .gap-scrub-head {
-      display: grid; gap: 14px;
-      max-width: 720px;
-      transition: opacity 0.45s;
-    }
-    .gap-scrub-overlay.intro-faded .gap-scrub-head { opacity: 0.18; }
-    .gap-scrub-eyebrow {
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--accent);
-    }
-    .gap-scrub-title {
-      font-family: var(--display);
-      font-size: clamp(56px, 8vw, 144px);
-      line-height: 0.9; letter-spacing: -0.02em;
-      color: #fafafa;
-      max-width: 12ch;
-      text-shadow: 0 2px 24px rgba(0,0,0,0.45);
-    }
-    .gap-scrub-title .dot { color: var(--accent); }
-    .gap-scrub-intro {
-      font-size: clamp(15px, 1.2vw, 19px); line-height: 1.55;
-      color: rgba(250,250,250,0.78);
-      max-width: 460px;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.45);
-    }
-
-    /* Stage fills the full pin so each gap item can anchor to its own corner */
-    .gap-scrub-stage {
-      position: absolute;
-      inset: 56px 32px 80px;
-      pointer-events: none;
-    }
-    @media (max-width: 760px) { .gap-scrub-stage { inset: 48px 20px 80px; } }
-
-    .gap-scrub-item {
-      position: absolute;
-      width: min(440px, 92%);
-      display: grid; gap: 14px;
-      opacity: 0;
-      transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
-      pointer-events: none;
-    }
-    .gap-scrub-item.is-active { opacity: 1; pointer-events: auto; }
-
-    /* 01 — top right */
-    .gap-scrub-item[data-i="0"] {
-      right: 0; top: clamp(180px, 24vh, 280px);
-      text-align: right; justify-items: end;
-      transform: translate(24px, -28px);
-    }
-    .gap-scrub-item[data-i="0"].is-active { transform: translate(0, 0); }
-
-    /* 02 — bottom left */
-    .gap-scrub-item[data-i="1"] {
-      left: 0; bottom: 0;
-      text-align: left; justify-items: start;
-      transform: translate(-24px, 28px);
-    }
-    .gap-scrub-item[data-i="1"].is-active { transform: translate(0, 0); }
-
-    /* 03 — bottom right */
-    .gap-scrub-item[data-i="2"] {
-      right: 0; bottom: 0;
-      text-align: right; justify-items: end;
-      transform: translate(24px, 28px);
-    }
-    .gap-scrub-item[data-i="2"].is-active { transform: translate(0, 0); }
-
-    @media (max-width: 760px) {
-      .gap-scrub-item, .gap-scrub-item[data-i] {
-        width: 100%; left: 0; right: 0; top: auto; bottom: 0;
-        text-align: left; justify-items: start;
-        transform: translateY(28px);
-      }
-      .gap-scrub-item.is-active { transform: translateY(0); }
-    }
-
-    .gap-scrub-item .g-num {
-      font-family: var(--display);
-      font-size: 48px; line-height: 0.9;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-    }
-    .gap-scrub-item .g-eyebrow {
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: rgba(250,250,250,0.65);
-    }
-    .gap-scrub-item .g-title {
-      font-family: var(--display);
-      font-size: clamp(40px, 5.4vw, 80px);
-      line-height: 0.96; letter-spacing: -0.01em;
-      color: #fafafa;
-      text-shadow: 0 2px 18px rgba(0,0,0,0.4);
-    }
-    .gap-scrub-item .g-title .dot { color: var(--accent); }
-    .gap-scrub-item .g-body {
-      font-family: var(--body);
-      font-size: 15.5px; line-height: 1.65;
-      color: rgba(250,250,250,0.86);
-      max-width: 460px;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.45);
-    }
-
-    /* Progress strip — bottom right */
-    .gap-scrub-progress {
-      align-self: end; justify-self: end;
-      display: flex; gap: 8px;
-      padding: 8px 12px;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(91,194,231,0.22);
-    }
-    .gap-scrub-progress .g-pip {
-      width: 20px; height: 4px;
-      background: rgba(250,250,250,0.25);
-      transition: background 0.3s, width 0.3s;
-    }
-    .gap-scrub-progress .g-pip.is-active { background: var(--accent); width: 36px; }
-    .gap-scrub-progress .g-pip.is-past { background: rgba(91,194,231,0.55); }
-    /* Phone + tablet: gap copy is bottom-anchored, so pin the progress strip to
-       the top-right corner to stop it overlapping the number/title. Desktop
-       keeps the bottom-right placement. */
-    @media (max-width: 900px) {
-      .gap-scrub-progress {
-        position: absolute; top: 14px; right: 14px;
-        align-self: auto; justify-self: auto; z-index: 6;
-      }
-    }
-
-    .gap-scrub-hint {
-      position: absolute; bottom: 22px; left: 50%;
-      transform: translateX(-50%);
-      z-index: 5;
-      font-family: var(--mono); font-size: 10px;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: rgba(250,250,250,0.5);
-      pointer-events: none;
-      transition: opacity 0.5s;
-    }
-    .gap-scrub-pin.has-progressed .gap-scrub-hint { opacity: 0; }
-
-    @media (max-width: 760px) {
-      .gap-scrub-overlay { grid-template-rows: auto auto auto; }
-      .gap-scrub-item .g-title { font-size: clamp(36px, 9vw, 56px); }
-      .gap-scrub-item .g-num { font-size: 36px; }
-      .gap-scrub-progress { justify-self: start; }
-    }
+    /* GAP-SCRUB CSS removed (replaced by the BLOOM portal above). */
 
     /* Centred pivot line — logo + huge centred sentence */
     .pivot-line { padding: 48px 24px 48px; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -970,84 +801,9 @@
     .pivot-mark { display: flex; justify-content: center; margin-bottom: 56px; }
     .pivot-mark img { width: 88px; height: auto; }
     .pivot-text { font-size: clamp(56px, 9vw, 168px); line-height: 0.92; letter-spacing: -0.02em; }
-
-    /* Grey divider sentence — large type as architecture */
-    .divider-sentence { padding: 40px 24px; background: #f2f2f2; text-align: left; border-bottom: 1px solid var(--line); overflow: hidden; }
-    @media (min-width: 768px) { .divider-sentence { padding: 56px 64px; } }
-    .divider-line { font-size: clamp(64px, 13vw, 240px); line-height: 0.88; letter-spacing: -0.03em; color: var(--accent); }
+    .pivot-sub { font-size: clamp(28px, 5vw, 88px); line-height: 0.92; letter-spacing: -0.02em; color: var(--accent); margin-top: 28px; }
+    @media (min-width: 768px) { .pivot-sub { margin-top: 40px; } }
   </style>
-
-  <script>
-  (function gapScrubScroll() {
-    const wrap = document.getElementById('gapScrub');
-    const pin = wrap && wrap.querySelector('.gap-scrub-pin');
-    const overlay = wrap && wrap.querySelector('.gap-scrub-overlay');
-    const video = document.getElementById('gapScrubVideo');
-    const items = wrap && wrap.querySelectorAll('.gap-scrub-item');
-    const pips = wrap && wrap.querySelectorAll('.g-pip');
-    if (!wrap || !pin || !video || !items.length) return;
-  var touchPlay = window.matchMedia && window.matchMedia('(hover: none)').matches;
-  if (touchPlay) { try { video.loop = true; video.muted = true; var _vp = video.play(); if (_vp && _vp.catch) _vp.catch(function(){}); } catch(e){} }
-
-    let videoDuration = 0;
-    let lastSeek = -1;
-    let ticking = false;
-
-    video.addEventListener('loadedmetadata', () => {
-      videoDuration = video.duration || 7;
-    });
-
-    const setActive = (idx) => {
-      items.forEach((el, i) => el.classList.toggle('is-active', i === idx));
-      pips.forEach((p, i) => {
-        p.classList.toggle('is-active', i === idx);
-        p.classList.toggle('is-past', i < idx);
-      });
-      // Headline fades to 0.18 the moment GAP 01 reveals (idx >= 0 after intro)
-      overlay.classList.toggle('intro-faded', idx >= 0);
-    };
-
-    const compute = () => {
-      const rect = wrap.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const total = rect.height - vh;
-      const progress = Math.max(0, Math.min(1, (-rect.top) / total));
-
-      // Map progress → video time. Only seek when delta is meaningful — saves work.
-      if (!touchPlay && videoDuration > 0) {
-        const target = progress * videoDuration;
-        if (Math.abs(target - lastSeek) > 0.02) {
-          try { video.currentTime = target; lastSeek = target; } catch (e) {}
-        }
-      }
-
-      // Intro phase: 0 — 0.18 progress. Headline lives alone, no gap active.
-      // Then three gap thresholds across the remaining 0.82 of scroll.
-      if (progress < 0.18) {
-        items.forEach((el) => el.classList.remove('is-active'));
-        pips.forEach((p) => { p.classList.remove('is-active'); p.classList.remove('is-past'); });
-        overlay.classList.remove('intro-faded');
-      } else {
-        const post = (progress - 0.18) / 0.82; // 0–1 across the three gaps
-        const idx = Math.min(2, Math.floor(post * 3));
-        setActive(idx);
-      }
-
-      if (progress > 0.04) pin.classList.add('has-progressed');
-      else pin.classList.remove('has-progressed');
-
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) { requestAnimationFrame(compute); ticking = true; }
-    };
-
-    compute();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-  })();
-  </script>
 
   <!-- TENANTS GRID — 2×2 image tiles with overlaid title + subtitle -->
   <section class="block tenants-block">
@@ -1058,50 +814,46 @@
 
     <div class="tenants-grid">
       <article class="tn-tile" data-i="0">
-        <img class="bg" src="forvr%20docs/site-images/supplied/opt-tenant-advanced.jpg" alt="Forvr Studios campaign image" />
+        <img class="bg" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20(Nano%20Banana%20Pro)-2026-01-25%20at%2018.40.57.jpg" alt="Forvr Studios streetwear campaign — brand-trained model output" />
         <div class="overlay">
           <span class="num">01</span>
           <div class="text">
-            <h3 class="name">Advanced<span class="dot">.</span></h3>
-            <p class="sub">Creative workflows</p>
+            <h3 class="name">Trained<span class="dot">.</span></h3>
+            <p class="sub">Models tuned to your brand</p>
           </div>
         </div>
       </article>
       <article class="tn-tile" data-i="1">
-        <img class="bg" src="forvr%20docs/site-images/supplied/opt-tenant-multi-tool.jpg" alt="Forvr Studios campaign image" />
+        <img class="bg" src="forvr%20docs/images/grit-project/opt-rwhypervail_Moody_boxing_gym_silhouette_of_a_Black_male_athle_a8c43333-bcb7-4806-84f9-de2baa946afa_0.jpg" alt="Forvr Studios editorial campaign — boxing gym portrait" />
         <div class="overlay">
           <span class="num">02</span>
           <div class="text">
-            <h3 class="name">Multi-Tool<span class="dot">.</span></h3>
-            <p class="sub">Production pipeline</p>
+            <h3 class="name">Stacked<span class="dot">.</span></h3>
+            <p class="sub">Six lanes, one studio</p>
           </div>
         </div>
       </article>
       <article class="tn-tile" data-i="2">
-        <img class="bg" src="forvr%20docs/site-images/supplied/opt-tenant-studio-quality.jpg" alt="Forvr Studios campaign image" />
+        <img class="bg" src="forvr%20docs/images/posters/opt-tom%20forvr.jpg" alt="Forvr Studios editorial poster — hand-finished campaign still" />
         <div class="overlay">
           <span class="num">03</span>
           <div class="text">
-            <h3 class="name">Studio Quality<span class="dot">.</span></h3>
-            <p class="sub">Visual production standards</p>
+            <h3 class="name">Editorial<span class="dot">.</span></h3>
+            <p class="sub">Hand-finished, not shipped raw</p>
           </div>
         </div>
       </article>
       <article class="tn-tile" data-i="3">
-        <img class="bg" src="forvr%20docs/site-images/supplied/opt-tenant-built-for.jpg" alt="Forvr Studios campaign image" />
+        <img class="bg" src="forvr%20docs/images/grit-project/opt-rwhypervail_Indoor_plate-lift_portrait_of_a_Latino_male_athle_e30ec554-b34a-49d0-9c5d-d1cdd4ccb8a6_0.jpg" alt="Forvr Studios performance campaign — athlete portrait" />
         <div class="overlay">
           <span class="num">04</span>
           <div class="text">
-            <h3 class="name">Built For<span class="dot">.</span></h3>
-            <p class="sub">Performance creatives</p>
+            <h3 class="name">Built for performance<span class="dot">.</span></h3>
+            <p class="sub">Creative that converts</p>
           </div>
         </div>
       </article>
     </div>
-
-    <p class="tenants-founder-line reveal-line">
-      Built by an AI creative specialist with experience working inside a leading AI content studio, developing professional workflows for high-quality ad and product visuals<span class="dot">.</span>
-    </p>
   </section>
 
   <style>
@@ -1202,164 +954,13 @@
     .tn-tile:hover::after { background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.15) 75%); }
     .tn-tile:hover .name { transform: translateY(-4px); }
 
-    .tenants-founder-line {
-      max-width: 720px;
-      margin-top: 32px;
-      font-family: var(--body);
-      font-size: 15px; line-height: 1.6;
-      color: rgba(10,10,10,0.7);
-    }
-    @media (min-width: 768px) { .tenants-founder-line { margin-top: 40px; } }
-
     @media (max-width: 640px) {
       .tn-tile .overlay { padding: 20px; }
       .tn-tile .sub { font-size: 13px; letter-spacing: 0.22em; }
     }
   </style>
 
-  <!-- Legacy USP wheel removed (2026-05-28). Reel above replaces it. -->
-  <div style="display:none;" aria-hidden="true">
-      <div class="ucard size-lg" data-flippable>
-        <div class="ucard-inner">
-          <div class="face front"><div class="dot-pulse"></div><div><h3 class="d">Trained</h3><p class="sub">Models per brand</p></div><div class="plus">+</div></div>
-          <div class="face back"><p class="sub">Models per brand</p><h4>Trained</h4><p>Every project uses models fine-tuned to your specific aesthetic. Brand-accurate output. Not generic prompts on generic engines.</p></div>
-        </div>
-      </div>
-      <div class="ucard size-md" data-flippable>
-        <div class="ucard-inner">
-          <div class="face front"><div class="dot-pulse"></div><div><h3 class="d">Stacked</h3><p class="sub">Full pipeline</p></div><div class="plus">+</div></div>
-          <div class="face back"><p class="sub">Full pipeline</p><h4>Stacked</h4><p>Concept to ship without leaving the studio. Six lanes, multiple custom workflows. No outsourcing, no agency handoffs.</p></div>
-        </div>
-      </div>
-      <div class="ucard size-md" data-flippable>
-        <div class="ucard-inner">
-          <div class="face front"><div class="dot-pulse"></div><div><h3 class="d">Editorial</h3><p class="sub">Studio standards</p></div><div class="plus">+</div></div>
-          <div class="face back"><p class="sub">Studio standards</p><h4>Editorial</h4><p>Hand-finished, not shipped raw. Manual retouching, colour grading, final polish. AI does the heavy lifting. Taste does the rest.</p></div>
-        </div>
-      </div>
-      <div class="ucard size-md" data-flippable>
-        <div class="ucard-inner">
-          <div class="face front"><div class="dot-pulse"></div><div><h3 class="d">Built For</h3><p class="sub">Performance</p></div><div class="plus">+</div></div>
-          <div class="face back"><p class="sub">Performance</p><h4>Built For</h4><p>Creative that converts because the concept is right. Strategy with taste, not strategy alone.</p></div>
-        </div>
-      </div>
-
-    <!-- Desktop — orbital wheel of four cards -->
-    <div class="usp-wheel-stage reveal" id="uspWheelStage">
-      <div class="usp-wheel" id="uspWheel">
-
-      <div class="usp-orbit" data-base="0">
-        <div class="ucard size-md" data-flippable>
-          <div class="ucard-inner">
-            <div class="face front">
-              <div class="dot-pulse"></div>
-              <div class="card-graphic style-a" id="myceliumStage">
-                <canvas id="myceliumCanvas"></canvas>
-                <div class="frame">
-                  <div class="meta"><span class="ver">PIPELINE v2.1</span><span class="res" id="laneCounter">06 lanes · 12 active</span></div>
-                  <div class="body"></div>
-                  <p class="prompt">Concept → ship<span class="dot">.</span> <span id="laneStage">Capture</span> running<span class="dot">.</span></p>
-                </div>
-              </div>
-              <div><h3 class="d">Stacked</h3><p class="sub">Full pipeline</p></div>
-              <div class="plus">+</div>
-            </div>
-            <div class="face back"><p class="sub">Full pipeline</p><h4>Stacked</h4><p>Concept to ship without leaving the studio. Six lanes, multiple custom workflows. No outsourcing, no agency handoffs.</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="usp-orbit" data-base="90">
-        <div class="ucard size-md" data-flippable>
-          <div class="ucard-inner">
-            <div class="face front">
-              <div class="dot-pulse"></div>
-              <div class="card-graphic style-b" id="neuralStage">
-                <canvas id="neuralCanvas"></canvas>
-                <div class="frame">
-                  <div class="meta"><span class="ver">MODEL 1.4</span><span class="res">Fine-tune</span></div>
-                  <div class="body"></div>
-                  <p class="prompt">Brand-trained model. Live inference.</p>
-                </div>
-              </div>
-              <div><h3 class="d">Trained</h3><p class="sub">Models per brand</p></div>
-              <div class="plus">+</div>
-            </div>
-            <div class="face back"><p class="sub">Models per brand</p><h4>Trained</h4><p>Every project uses models fine-tuned to your specific aesthetic. Brand-accurate output. Not generic prompts on generic engines.</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="usp-orbit" data-base="180">
-        <div class="ucard size-md" data-flippable>
-          <div class="ucard-inner">
-            <div class="face front">
-              <div class="dot-pulse"></div>
-              <div class="card-graphic style-c" id="gradeStage">
-                <canvas id="grainFieldCanvas"></canvas>
-                <div class="frame">
-                  <div class="meta"><span class="ver">GRADE v4.0</span><span class="res" id="grainGrade">Warm 01</span></div>
-                  <div class="body"></div>
-                  <p class="prompt">Hand finish<span class="dot">.</span> <span id="gradeName">Warm shadows</span> engaged<span class="dot">.</span></p>
-                </div>
-              </div>
-              <div><h3 class="d">Editorial</h3><p class="sub">Studio standards</p></div>
-              <div class="plus">+</div>
-            </div>
-            <div class="face back"><p class="sub">Studio standards</p><h4>Editorial</h4><p>Hand-finished, not shipped raw. Manual retouching, colour grading, final polish. AI does the heavy lifting. Taste does the rest.</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="usp-orbit" data-base="270">
-        <div class="ucard size-md" data-flippable>
-          <div class="ucard-inner">
-            <div class="face front">
-              <div class="dot-pulse"></div>
-              <div class="card-graphic style-d" id="radarStage">
-                <canvas id="convergenceCanvas"></canvas>
-                <div class="frame">
-                  <div class="meta"><span class="ver">FUNNEL v1.3</span><span class="res" id="signalReading">Signal 94.2</span></div>
-                  <div class="body"></div>
-                  <p class="prompt">Strategy in the room<span class="dot">.</span> <span id="funnelStage">Converting</span><span class="dot">.</span></p>
-                </div>
-              </div>
-              <div><h3 class="d">Built For</h3><p class="sub">Performance</p></div>
-              <div class="plus">+</div>
-            </div>
-            <div class="face back"><p class="sub">Performance</p><h4>Built For</h4><p>Creative that converts because the concept is right. Strategy with taste, not strategy alone.</p></div>
-          </div>
-        </div>
-      </div>
-      </div><!-- /.usp-wheel -->
-      <div class="usp-wheel-backdrop" id="uspWheelBackdrop" aria-hidden="true"></div>
-    </div><!-- /.usp-wheel-stage -->
-
-    <p class="m usp-wheel-hint" style="margin-top: 48px; color: rgba(10,10,10,0.5); max-width: 32rem;">Hover any card to bring it forward<span class="dot">.</span> It flips after a beat to show its detail<span class="dot">.</span> Move your cursor away and it slips back into the wheel<span class="dot">.</span></p>
-  </div><!-- /legacy hidden wrapper -->
-
-  <style>
-    /* Hide the legacy formation grid rules — we now use .usp-wheel */
-    .usp-wheel-stage { position: relative; width: 100%; max-width: 760px; margin: 0 auto; aspect-ratio: 1/1; display: none; }
-    @media (min-width: 768px) { .usp-wheel-stage { display: block; } .usp-formation { display: none !important; } }
-
-    .usp-wheel { position: absolute; inset: 0; }
-    .usp-orbit { position: absolute; top: 50%; left: 50%; width: 240px; height: 320px; margin: -160px 0 0 -120px; transition: transform 0.85s cubic-bezier(0.22,1,0.36,1), opacity 0.6s; cursor: pointer; will-change: transform; }
-    .usp-orbit .ucard { width: 100%; height: 100%; cursor: pointer; }
-
-    /* HOVER state — hovered card enlarges in place (no centre translate, no flicker), others fade slightly */
-    .usp-wheel.has-open .usp-orbit:not(.is-open) { opacity: 0.4; transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(0.82) !important; transition: opacity 0.5s, transform 0.85s cubic-bezier(0.22,1,0.36,1); }
-    .usp-wheel .usp-orbit.is-open { transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(1.45) !important; z-index: 40; }
-    .usp-wheel .usp-orbit.is-open .ucard { box-shadow: 0 60px 80px -20px rgba(10,10,10,0.42), 0 12px 24px rgba(10,10,10,0.18); }
-    /* Auto-flipped state once hover holds */
-    .usp-wheel .usp-orbit.is-open .ucard.flipped .ucard-inner { transform: rotateY(180deg); }
-
-    /* Soft backdrop while hovering */
-    .usp-wheel-backdrop { position: fixed; inset: 0; background: rgba(10,10,10,0); pointer-events: none; opacity: 0; transition: opacity 0.5s, background 0.5s; z-index: 39; }
-    .usp-wheel-stage.has-open .usp-wheel-backdrop { background: rgba(10,10,10,0.04); opacity: 1; }
-
-    .usp-wheel-hint { text-align: center; }
-  </style>
+  <!-- Legacy USP wheel + canvas markup removed (dead display:none code). -->
 
   <div class="divider"><div class="rule"></div></div>
 
@@ -1372,7 +973,7 @@
 
   <style>
     .pull-quote-large { padding: 56px 24px; }
-    @media (min-width: 768px) { .pull-quote-large { padding: 320px 40px; } }
+    @media (min-width: 768px) { .pull-quote-large { padding: 160px 40px; } }
     .pull-line { font-size: clamp(72px, 14vw, 260px) !important; line-height: 0.86; letter-spacing: -0.03em; }
     .pull-grey { color: var(--accent); }
   </style>
@@ -1511,76 +1112,7 @@
     </div>
   </section>
 
-  <!-- AI ASK — embedded on Studio so visitors can quiz the AI after reading About -->
-  <section class="ai-ask" id="aiAsk" aria-label="Ask an AI about Forvr">
-    <div class="ai-ask-inner">
-      <p class="m m-accent">Ask an AI</p>
-      <h3 class="d ai-ask-title">Still curious<span class="dot">?</span></h3>
-      <p class="ai-ask-sub">Open this Studio page inside the model of your choice. Each prompt below loads the AI with a brief and the URL so it can read what you've just read.</p>
-      <div class="ai-ask-grid">
-        <div class="ai-ask-row" data-prompt="Read this Studio page and summarise what Forvr Studios stands for in three short paragraphs:">
-          <span class="ai-ask-label">Summarise the studio</span>
-          <div class="ai-ask-providers"></div>
-        </div>
-        <div class="ai-ask-row" data-prompt="Based on this Studio page, explain how a single founder-led AI studio can ship work faster than a traditional agency without losing quality:">
-          <span class="ai-ask-label">Speed without losing craft</span>
-          <div class="ai-ask-providers"></div>
-        </div>
-        <div class="ai-ask-row" data-prompt="Read this Studio page and tell me, as a brand owner, whether Forvr is right for me and what kind of project I should bring them:">
-          <span class="ai-ask-label">Is this studio right for me</span>
-          <div class="ai-ask-providers"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    .ai-ask { padding: 48px 24px 56px; border-top: 1px solid var(--line); background: var(--bg); }
-    @media (min-width: 768px) { .ai-ask { padding: 160px 40px 168px; } }
-    .ai-ask-inner { max-width: 1280px; margin: 0 auto; display: grid; gap: 18px; }
-    .ai-ask-inner .m { letter-spacing: 0.18em; }
-    .ai-ask-title { font-size: clamp(48px, 7vw, 120px); line-height: 0.92; letter-spacing: -0.03em; }
-    /* Punctuation dot/mark — give it breathing room so it doesn't overlap
-       the descender / terminal of the preceding letter (e.g. "Still curious?"
-       had the ? clashing into the s). */
-    .ai-ask-title .dot { display: inline-block; margin-left: 0.08em; }
-    .ai-ask-sub { color: rgba(10,10,10,0.65); max-width: 560px; font-size: 14.5px; line-height: 1.6; margin-top: 8px; }
-    .ai-ask-grid { margin-top: 56px; display: grid; gap: 0; border-top: 1px solid var(--line); }
-    .ai-ask-row { display: grid; grid-template-columns: 1fr; gap: 16px; padding: 24px 0; border-bottom: 1px solid var(--line); align-items: center; }
-    @media (min-width: 768px) { .ai-ask-row { grid-template-columns: 1fr auto; gap: 32px; padding: 32px 0; } }
-    .ai-ask-label { font-family: var(--display); font-weight: 900; font-size: clamp(22px, 2.4vw, 36px); line-height: 1; letter-spacing: -0.01em; text-transform: uppercase; }
-    .ai-ask-providers { display: flex; gap: 10px; flex-wrap: wrap; }
-    .ai-ask-btn { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border: 1px solid var(--line); background: #fff; font-family: var(--mono); font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--fg); border-radius: 999px; cursor: pointer; transition: all 0.3s; text-decoration: none; }
-    .ai-ask-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .ai-ask-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
-    .ai-ask-btn svg path, .ai-ask-btn svg circle, .ai-ask-btn svg polygon { fill: currentColor; }
-  </style>
-
-  <script>
-  (function() {
-    const providers = [
-      { key: "chatgpt", label: "ChatGPT", url: (q) => "https://chatgpt.com/?q=" + encodeURIComponent(q),
-        icon: '<svg viewBox="0 0 24 24"><path d="M22 9.6a5.4 5.4 0 0 0-.5-4.4 5.5 5.5 0 0 0-6-2.6 5.5 5.5 0 0 0-9.3 1.9 5.4 5.4 0 0 0-3.6 2.6 5.5 5.5 0 0 0 .7 6.4 5.4 5.4 0 0 0 .5 4.5 5.5 5.5 0 0 0 6 2.5 5.5 5.5 0 0 0 4.1 1.9 5.5 5.5 0 0 0 5.2-3.8 5.4 5.4 0 0 0 3.6-2.6 5.5 5.5 0 0 0-.7-6.4ZM13.3 21a4.1 4.1 0 0 1-2.6-.9l.1-.1 4.4-2.5a.7.7 0 0 0 .4-.6v-6.2L17.4 12v5a4.1 4.1 0 0 1-4.1 4Zm-8.7-3.7a4 4 0 0 1-.5-2.8l.1.1 4.4 2.5a.7.7 0 0 0 .7 0l5.4-3.1v2.1l-4.5 2.6a4.1 4.1 0 0 1-5.6-1.4Zm-1.1-9a4 4 0 0 1 2.1-1.8v5.2a.7.7 0 0 0 .4.6l5.4 3.1L9.6 16.6 5 14a4.1 4.1 0 0 1-1.5-5.6Zm15.2 3.5L13.4 8.7l1.8-1.1 4.5 2.6a4.1 4.1 0 0 1-.6 7.4v-5.1a.7.7 0 0 0-.4-.6Zm1.9-2.8-.2-.1-4.3-2.5a.7.7 0 0 0-.7 0L9.9 9.5V7.4l4.5-2.6a4.1 4.1 0 0 1 6 4.2Zm-11.7 3.8L8 12 7 11.4V6.3a4.1 4.1 0 0 1 6.7-3.2l-.1.1-4.4 2.5a.7.7 0 0 0-.4.6Zm1-2.4 2.4-1.4 2.4 1.4v2.7l-2.4 1.4-2.4-1.4Z"/></svg>' },
-      { key: "claude", label: "Claude", url: (q) => "https://claude.ai/new?q=" + encodeURIComponent(q),
-        icon: '<svg viewBox="0 0 24 24"><path d="M12 2 13.4 9 19 10.5 14.5 12 19 13.5 13.4 15 12 22 10.6 15 5 13.5 9.5 12 5 10.5 10.6 9 Z"/></svg>' },
-      { key: "perplexity", label: "Perplexity", url: (q) => "https://www.perplexity.ai/?q=" + encodeURIComponent(q),
-        icon: '<svg viewBox="0 0 24 24"><path d="M12 2v8.5l7-4.5v6.5l-7 4.5V22m0-20-7 4.5 7 4.5 7-4.5L12 2Zm-7 11.5L12 18l-7 4.5v-9Z"/></svg>' }
-    ];
-    document.querySelectorAll('.ai-ask-row').forEach(row => {
-      const prompt = row.dataset.prompt;
-      const slot = row.querySelector('.ai-ask-providers');
-      providers.forEach(p => {
-        const btn = document.createElement('a');
-        btn.className = 'ai-ask-btn';
-        btn.target = '_blank';
-        btn.rel = 'noopener noreferrer';
-        btn.href = p.url(prompt + '\n' + window.location.href);
-        btn.innerHTML = p.icon + '<span>' + p.label + '</span>';
-        slot.appendChild(btn);
-      });
-    });
-  })();
-  </script>
+  <!-- In-page Ask-AI section removed — the floating Ask-AI FAB covers it. -->
 </main>
 
 <!-- Floating navigation -->
@@ -1730,426 +1262,7 @@
     targets.forEach((el) => tio.observe(el));
   })();
 
-  // Card tap-to-flip (mobile stack only — desktop uses wheel below)
-  document.querySelectorAll('.usp-stack .ucard').forEach((card) => {
-    card.addEventListener('click', () => card.classList.toggle('flipped'));
-  });
-
-  // (Disabled USP-wheel JS removed 2026-05-29 — it early-returned and did nothing; the legacy wheel markup remains.)
-
-  // Mycelium — Stacked USP card (Pipeline)
-  (function() {
-    const stage = document.getElementById('myceliumStage');
-    const canvas = document.getElementById('myceliumCanvas');
-    if (!stage || !canvas) return;
-    const ctx = canvas.getContext('2d');
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    let W = 0, H = 0;
-    let mx = -10000, my = -10000, pmx = -10000, pmy = -10000;
-    let mvx = 0, mvy = 0;
-    let visible = true;
-    let tips = [];
-    let lastSpawn = 0;
-    let last = performance.now();
-
-    function resize() {
-      const rect = stage.getBoundingClientRect();
-      W = rect.width; H = rect.height;
-      canvas.width = W * dpr; canvas.height = H * dpr;
-      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-    resize();
-    let rt;
-    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 100); });
-
-    stage.addEventListener('mousemove', (e) => {
-      const rect = stage.getBoundingClientRect();
-      pmx = mx; pmy = my;
-      mx = e.clientX - rect.left;
-      my = e.clientY - rect.top;
-      if (pmx > -5000) { mvx = mx - pmx; mvy = my - pmy; }
-    });
-    stage.addEventListener('mouseleave', () => { mx = -10000; my = -10000; pmx = -10000; pmy = -10000; });
-    stage.addEventListener('touchmove', (e) => {
-      if (!e.touches.length) return;
-      const rect = stage.getBoundingClientRect();
-      pmx = mx; pmy = my;
-      mx = e.touches[0].clientX - rect.left;
-      my = e.touches[0].clientY - rect.top;
-      if (pmx > -5000) { mvx = mx - pmx; mvy = my - pmy; }
-    }, { passive: true });
-    stage.addEventListener('touchend', () => { mx = -10000; my = -10000; pmx = -10000; pmy = -10000; });
-
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => { visible = e.isIntersecting; });
-      }, { threshold: 0 });
-      io.observe(stage);
-    }
-
-    function loop() {
-      requestAnimationFrame(loop);
-      if (!visible) return;
-      const now = performance.now();
-      const dt = Math.min(50, now - last); last = now;
-      mvx *= 0.86; mvy *= 0.86;
-
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = 'rgba(5,5,5,0.025)';
-      ctx.fillRect(0, 0, W, H);
-
-      const cursorActive = mx > -5000;
-      if (cursorActive && (Math.abs(mvx) + Math.abs(mvy) > 0.3) && now - lastSpawn > 60) {
-        lastSpawn = now;
-        const angle = Math.atan2(mvy, mvx) + (Math.random() - 0.5) * 0.8;
-        tips.push({ x: mx, y: my, a: angle, life: 0, max: 120 + Math.random() * 80, gen: 0, alpha: 1 });
-      } else if (cursorActive && now - lastSpawn > 320) {
-        lastSpawn = now;
-        tips.push({ x: mx, y: my, a: Math.random() * Math.PI * 2, life: 0, max: 100 + Math.random() * 80, gen: 0, alpha: 1 });
-      } else if (!cursorActive && now - lastSpawn > 1100) {
-        lastSpawn = now;
-        tips.push({ x: Math.random() * W, y: Math.random() * H, a: Math.random() * Math.PI * 2, life: 0, max: 90 + Math.random() * 60, gen: 0, alpha: 0.7 });
-      }
-
-      ctx.globalCompositeOperation = 'lighter';
-      const next = [];
-      for (const t of tips) {
-        t.life += dt / 16;
-        if (t.life > t.max) continue;
-        const speed = 1.4 - t.gen * 0.18;
-        const prevX = t.x;
-        const prevY = t.y;
-        t.a += (Math.random() - 0.5) * 0.22;
-        t.x += Math.cos(t.a) * speed;
-        t.y += Math.sin(t.a) * speed;
-        if (t.x < -10 || t.x > W + 10 || t.y < -10 || t.y > H + 10) continue;
-        if (t.gen < 3 && Math.random() < 0.04) {
-          tips.push({ x: t.x, y: t.y, a: t.a + (Math.random() > 0.5 ? 1 : -1) * (0.6 + Math.random() * 0.5), life: 0, max: (t.max - t.life) * 0.7, gen: t.gen + 1, alpha: t.alpha * 0.85 });
-        }
-        const lp = t.life / t.max;
-        const a = t.alpha * (1 - lp * 0.4);
-        const w = Math.max(0.5, 1.6 - t.gen * 0.35);
-        ctx.shadowColor = 'rgba(91,194,231,' + (a * 0.7) + ')';
-        ctx.shadowBlur = 8;
-        ctx.strokeStyle = 'rgba(91,194,231,' + a + ')';
-        ctx.lineCap = 'round';
-        ctx.lineWidth = w;
-        ctx.beginPath();
-        ctx.moveTo(prevX, prevY);
-        ctx.lineTo(t.x, t.y);
-        ctx.stroke();
-        ctx.shadowBlur = 0;
-        ctx.strokeStyle = 'rgba(220,245,255,' + (a * 0.8) + ')';
-        ctx.lineWidth = Math.max(0.3, w * 0.5);
-        ctx.beginPath();
-        ctx.moveTo(prevX, prevY);
-        ctx.lineTo(t.x, t.y);
-        ctx.stroke();
-        next.push(t);
-      }
-      tips = next.slice(-260);
-      ctx.shadowBlur = 0;
-      ctx.globalCompositeOperation = 'source-over';
-    }
-    loop();
-  })();
-
-  // Helper: mount a canvas with cursor + dpr + visibility tracking
-  function mountLive(stageId, canvasId, init, render) {
-    const stage = document.getElementById(stageId);
-    const canvas = document.getElementById(canvasId);
-    if (!stage || !canvas) return;
-    const ctx = canvas.getContext('2d');
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const state = { W: 0, H: 0, mx: -10000, my: -10000, pmx: -10000, pmy: -10000, mvx: 0, mvy: 0, visible: true };
-    function resize() {
-      const rect = stage.getBoundingClientRect();
-      state.W = rect.width; state.H = rect.height;
-      canvas.width = state.W * dpr; canvas.height = state.H * dpr;
-      canvas.style.width = state.W + 'px'; canvas.style.height = state.H + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      if (init) init(state, ctx);
-    }
-    resize();
-    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 100); });
-    stage.addEventListener('mousemove', (e) => {
-      const rect = stage.getBoundingClientRect();
-      state.pmx = state.mx; state.pmy = state.my;
-      state.mx = e.clientX - rect.left; state.my = e.clientY - rect.top;
-      if (state.pmx > -5000) { state.mvx = state.mx - state.pmx; state.mvy = state.my - state.pmy; }
-    });
-    stage.addEventListener('mouseleave', () => { state.mx = -10000; state.my = -10000; state.pmx = -10000; state.pmy = -10000; });
-    if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => { entries.forEach(e => { state.visible = e.isIntersecting; }); }, { threshold: 0 });
-      io.observe(stage);
-    }
-    let last = performance.now();
-    function loop() {
-      requestAnimationFrame(loop);
-      if (!state.visible) return;
-      const now = performance.now();
-      const dt = Math.min(50, now - last); last = now;
-      render(state, ctx, dt, now);
-      state.mvx *= 0.86; state.mvy *= 0.86;
-    }
-    loop();
-  }
-
-  // Trained — Neural network firing
-  mountLive('neuralStage', 'neuralCanvas',
-    (state) => {
-      state.nodes = [];
-      const N = 26;
-      for (let i = 0; i < N; i++) {
-        state.nodes.push({
-          x: 12 + Math.random() * (state.W - 24),
-          y: 12 + Math.random() * (state.H - 24),
-          vx: (Math.random() - 0.5) * 0.12,
-          vy: (Math.random() - 0.5) * 0.12,
-          litUntil: 0
-        });
-      }
-      state.fires = []; // pulses: {a:nodeIdx, b:nodeIdx, t:0..1, start}
-      state.lastFire = 0;
-    },
-    (state, ctx, dt, now) => {
-      const { W, H, mx, my, nodes } = state;
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = 'rgba(5,5,5,0.30)';
-      ctx.fillRect(0, 0, W, H);
-
-      // Move nodes gently with edge bounce
-      for (const n of nodes) {
-        n.x += n.vx; n.y += n.vy;
-        if (n.x < 8 || n.x > W - 8) n.vx *= -1;
-        if (n.y < 8 || n.y > H - 8) n.vy *= -1;
-      }
-
-      // Spawn fires occasionally — prefer near cursor
-      if (now - state.lastFire > 280 + Math.random() * 320) {
-        state.lastFire = now;
-        let aIdx;
-        if (mx > -5000) {
-          // pick closest node to cursor
-          let bestD = Infinity; let best = 0;
-          for (let i = 0; i < nodes.length; i++) {
-            const d = Math.hypot(nodes[i].x - mx, nodes[i].y - my);
-            if (d < bestD) { bestD = d; best = i; }
-          }
-          aIdx = best;
-        } else {
-          aIdx = Math.floor(Math.random() * nodes.length);
-        }
-        // pick a neighbor within range
-        const candidates = [];
-        for (let j = 0; j < nodes.length; j++) {
-          if (j === aIdx) continue;
-          const d = Math.hypot(nodes[j].x - nodes[aIdx].x, nodes[j].y - nodes[aIdx].y);
-          if (d < W * 0.45) candidates.push(j);
-        }
-        if (candidates.length) {
-          const bIdx = candidates[Math.floor(Math.random() * candidates.length)];
-          state.fires.push({ a: aIdx, b: bIdx, start: now, dur: 380 + Math.random() * 200 });
-          nodes[aIdx].litUntil = now + 320;
-        }
-      }
-
-      // Draw connections faintly
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.strokeStyle = 'rgba(91,194,231,0.08)';
-      ctx.lineWidth = 0.7;
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
-          if (d < W * 0.30) {
-            ctx.beginPath();
-            ctx.moveTo(nodes[i].x, nodes[i].y);
-            ctx.lineTo(nodes[j].x, nodes[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw fires (traveling pulses)
-      const next = [];
-      for (const f of state.fires) {
-        const t = (now - f.start) / f.dur;
-        if (t > 1) { nodes[f.b].litUntil = now + 240; continue; }
-        const a = nodes[f.a], b = nodes[f.b];
-        const x = a.x + (b.x - a.x) * t;
-        const y = a.y + (b.y - a.y) * t;
-        ctx.strokeStyle = 'rgba(91,194,231,0.85)';
-        ctx.lineWidth = 1.6;
-        ctx.shadowColor = 'rgba(91,194,231,0.7)';
-        ctx.shadowBlur = 10;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.shadowBlur = 0;
-        next.push(f);
-      }
-      state.fires = next.slice(-40);
-
-      // Draw nodes
-      for (const n of nodes) {
-        const lit = now < n.litUntil;
-        ctx.shadowBlur = lit ? 10 : 0;
-        ctx.shadowColor = 'rgba(91,194,231,0.9)';
-        ctx.fillStyle = lit ? 'rgba(220,245,255,0.95)' : 'rgba(91,194,231,0.45)';
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, lit ? 2.4 : 1.4, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.shadowBlur = 0;
-      ctx.globalCompositeOperation = 'source-over';
-    }
-  );
-
-  // Built For — Convergence field (replaces the old radar)
-  mountLive('radarStage', 'convergenceCanvas',
-    (state) => {
-      state.particles = [];
-      state.focal = { x: 0, y: 0, vx: 0.08, vy: 0.06 };
-      state.seeded = false;
-    },
-    (state, ctx, dt, now) => {
-      const { W, H } = state;
-      if (!state.seeded) {
-        state.focal.x = W / 2; state.focal.y = H / 2;
-        const count = Math.floor(W * H / 380);
-        for (let i = 0; i < count; i++) {
-          state.particles.push({
-            x: Math.random() * W, y: Math.random() * H,
-            r: 0.4 + Math.random() * 1.4,
-            a: 0.18 + Math.random() * 0.5,
-            phase: Math.random() * Math.PI * 2
-          });
-        }
-        state.seeded = true;
-      }
-      ctx.fillStyle = 'rgba(10,10,10,0.10)';
-      ctx.fillRect(0, 0, W, H);
-      // Drift focal point (or follow cursor if hovering)
-      if (state.mx > -5000) {
-        state.focal.x += (state.mx - state.focal.x) * 0.05;
-        state.focal.y += (state.my - state.focal.y) * 0.05;
-      } else {
-        state.focal.x += state.focal.vx;
-        state.focal.y += state.focal.vy;
-        if (state.focal.x < W * 0.3 || state.focal.x > W * 0.7) state.focal.vx *= -1;
-        if (state.focal.y < H * 0.3 || state.focal.y > H * 0.7) state.focal.vy *= -1;
-      }
-      for (const p of state.particles) {
-        p.phase += 0.012;
-        const dx = state.focal.x - p.x; const dy = state.focal.y - p.y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        const pull = Math.sin(p.phase) * 0.35;
-        if (dist > 0.5) {
-          p.x += (dx / dist) * pull;
-          p.y += (dy / dist) * pull;
-        }
-        p.x += (Math.random() - 0.5) * 0.25;
-        p.y += (Math.random() - 0.5) * 0.25;
-        if (p.x < -4) p.x = W + 4; if (p.x > W + 4) p.x = -4;
-        if (p.y < -4) p.y = H + 4; if (p.y > H + 4) p.y = -4;
-        const proximity = Math.max(0, 1 - dist / (Math.max(W, H) * 0.5));
-        const alpha = p.a * (0.5 + proximity * 0.5);
-        ctx.fillStyle = `rgba(91,194,231,${alpha})`;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r + proximity * 0.6, 0, Math.PI * 2); ctx.fill();
-      }
-      // Focal halo
-      const grad = ctx.createRadialGradient(state.focal.x, state.focal.y, 0, state.focal.x, state.focal.y, 32);
-      grad.addColorStop(0, 'rgba(91,194,231,0.30)');
-      grad.addColorStop(1, 'rgba(91,194,231,0)');
-      ctx.fillStyle = grad;
-      ctx.beginPath(); ctx.arc(state.focal.x, state.focal.y, 32, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = 'rgba(91,194,231,0.9)';
-      ctx.beginPath(); ctx.arc(state.focal.x, state.focal.y, 2.2, 0, Math.PI * 2); ctx.fill();
-    }
-  );
-
-  // Editorial — Grain field (replaces the old grade scan)
-  mountLive('gradeStage', 'grainFieldCanvas',
-    (state) => {
-      state.particles = [];
-      state.t = 0;
-      state.seeded = false;
-    },
-    (state, ctx, dt) => {
-      const { W, H } = state;
-      if (!state.seeded) {
-        const count = Math.floor(W * H / 320);
-        for (let i = 0; i < count; i++) state.particles.push({
-          x: Math.random() * W, y: Math.random() * H,
-          r: 0.4 + Math.random() * 1.4,
-          a: 0.1 + Math.random() * 0.55
-        });
-        state.seeded = true;
-      }
-      state.t += dt;
-      ctx.fillStyle = 'rgba(10,10,10,0.10)';
-      ctx.fillRect(0, 0, W, H);
-      const t = state.t;
-      // If hovering, particles get pushed toward the cursor briefly
-      const hover = state.mx > -5000;
-      for (const p of state.particles) {
-        const flow = Math.sin(p.x * 0.008 + t * 0.0015) * 0.8 + Math.cos(p.y * 0.011 + t * 0.0012) * 0.6;
-        p.x += Math.cos(flow) * 0.45;
-        p.y += Math.sin(flow) * 0.45 - 0.06;
-        if (hover) {
-          const dx = state.mx - p.x, dy = state.my - p.y;
-          const d = Math.sqrt(dx*dx + dy*dy);
-          if (d < 80) {
-            p.x += (dx / d) * 0.6;
-            p.y += (dy / d) * 0.6;
-          }
-        }
-        if (p.x < -4) p.x = W + 4; if (p.x > W + 4) p.x = -4;
-        if (p.y < -4) p.y = H + 4; if (p.y > H + 4) p.y = -4;
-        ctx.fillStyle = `rgba(91,194,231,${p.a})`;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
-      }
-    }
-  );
-
-  // Card meta tickers — labels under each card
-  (function() {
-    // Editorial — grade name cycles
-    const nameEl = document.getElementById('gradeName');
-    const gradeMetaEl = document.getElementById('grainGrade');
-    const GRADES = ["Warm", "Cool", "Mute", "Punch"];
-    const SHADOWS = ["Warm shadows", "Cool tones", "Muted mids", "Punchy highs"];
-    let gi = 0;
-    setInterval(() => {
-      gi = (gi + 1) % GRADES.length;
-      if (gradeMetaEl) gradeMetaEl.textContent = GRADES[gi] + ' 0' + (gi + 1);
-      if (nameEl) nameEl.textContent = SHADOWS[gi];
-    }, 2400);
-
-    // Stacked — lane ticker
-    const laneStageEl = document.getElementById('laneStage');
-    const laneCounterEl = document.getElementById('laneCounter');
-    const LANES = ["Concept", "Capture", "Edit", "Retouch", "Grade", "Ship"];
-    let li = 0;
-    setInterval(() => {
-      li = (li + 1) % LANES.length;
-      if (laneStageEl) laneStageEl.textContent = LANES[li];
-      if (laneCounterEl) laneCounterEl.textContent = '06 lanes · ' + String(8 + Math.floor(Math.random() * 9)).padStart(2, '0') + ' active';
-    }, 2200);
-
-    // Built For — funnel ticker + signal reading
-    const funnelStageEl = document.getElementById('funnelStage');
-    const signalEl = document.getElementById('signalReading');
-    const FUNNEL = ["Converting", "Scaling", "Testing", "Optimising"];
-    let fi = 0;
-    setInterval(() => {
-      fi = (fi + 1) % FUNNEL.length;
-      if (funnelStageEl) funnelStageEl.textContent = FUNNEL[fi];
-      if (signalEl) signalEl.textContent = 'Signal ' + (88 + Math.random() * 11).toFixed(1);
-    }, 2700);
-  })();
+  // Legacy USP-card canvas animations (mycelium/neural/grade/radar) removed — markup is gone.
 </script>
 <script src="static/cursor.js?v=7" defer></script>
 <script id="forvr-brand-detect">
