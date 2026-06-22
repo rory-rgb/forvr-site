@@ -177,7 +177,7 @@
        resting clip-path: inset(0) never shaves the top of the letters. */
     margin: -0.14em 0 0; padding-top: 0.14em; max-width: 100%; font-family: var(--display); font-weight: 900; text-transform: none;
     line-height: 1.0; letter-spacing: -0.045em; color: #fff;
-    font-size: clamp(76px, 18.5vw, 230px);
+    font-size: clamp(72px, 16vw, 210px);
     text-shadow: 0 1px 1px rgba(0,0,0,0.4), 0 3px 22px rgba(0,0,0,0.28);
     clip-path: inset(46% 0 46% 0); opacity: 0;
     animation: heroEyeOpen 1.7s cubic-bezier(0.76,0,0.18,1) 0.35s forwards;
@@ -1102,6 +1102,27 @@
     vid.muted = !vid.muted;
     if (cue) cue.textContent = vid.muted ? 'Sound off · click to unmute' : 'Sound on · click to mute';
   });
+})();
+// Fit-to-width guard: shrink the forvr wordmark if it would ever overflow its
+// column, so the trailing accent dot can never be clipped by the hero edge —
+// regardless of viewport width, browser zoom, or how wide the display font renders.
+(function(){
+  var el = document.querySelector('.hero-wordmark');
+  if (!el) return;
+  function fit(){
+    el.style.fontSize = '';                       // reset to the CSS clamp
+    var avail = el.parentElement.clientWidth;     // the hero-text column width
+    var w = el.scrollWidth;                        // natural wordmark width
+    if (w > avail) {
+      var fs = parseFloat(getComputedStyle(el).fontSize);
+      el.style.fontSize = Math.floor(fs * (avail / w) * 0.97) + 'px';
+    }
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  window.addEventListener('load', fit);
+  window.addEventListener('resize', fit);
+  setTimeout(fit, 2300);                           // re-fit once the eye-open animation settles
+  fit();
 })();
 </script>
 
