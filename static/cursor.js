@@ -303,3 +303,55 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
+/* Decode/scramble reveal — elements tagged [data-scramble] resolve their text
+   from random characters when they scroll into view, and re-decode on hover.
+   Terminal-flavoured, on-brand for an AI studio. Skipped for reduced-motion.
+   Only the element's leading text node is scrambled, so child markup (e.g. the
+   accent dot span) is preserved. */
+(function() {
+  if (window.__forvrScrambleInit) return;
+  window.__forvrScrambleInit = true;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var CH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#%&._/';
+
+  function scramble(node) {
+    var final = node.__final != null ? node.__final : (node.__final = node.nodeValue);
+    var len = final.length, start = 0, dur = 560, running = node.__run;
+    if (running) return; node.__run = true;
+    function done() { node.nodeValue = final; node.__run = false; }
+    var guard = setTimeout(done, dur + 250); // hard fallback so it can never stay scrambled
+    function step(ts) {
+      if (!node.__run) return;
+      if (!start) start = ts;
+      var p = Math.min(1, (ts - start) / dur), reveal = Math.floor(p * len), out = '';
+      for (var i = 0; i < len; i++) {
+        out += (i < reveal || final[i] === ' ') ? final[i] : CH[(Math.random() * CH.length) | 0];
+      }
+      node.nodeValue = out;
+      if (p < 1) { requestAnimationFrame(step); } else { clearTimeout(guard); done(); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function init() {
+    var els = document.querySelectorAll('[data-scramble]');
+    if (!els.length) return;
+    Array.prototype.forEach.call(els, function(el) {
+      var tn = null;
+      for (var i = 0; i < el.childNodes.length; i++) {
+        if (el.childNodes[i].nodeType === 3 && el.childNodes[i].nodeValue.trim()) { tn = el.childNodes[i]; break; }
+      }
+      if (!tn) return;
+      el.addEventListener('mouseenter', function() { scramble(tn); });
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(es) {
+          es.forEach(function(e) { if (e.isIntersecting) { scramble(tn); io.disconnect(); } });
+        }, { threshold: 0.6 });
+        io.observe(el);
+      }
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
