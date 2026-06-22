@@ -1112,16 +1112,23 @@
   function fit(){
     el.style.fontSize = '';                       // reset to the CSS clamp
     var avail = el.parentElement.clientWidth;     // the hero-text column width
+    if (!avail) return;
     var w = el.scrollWidth;                        // natural wordmark width
     if (w > avail) {
       var fs = parseFloat(getComputedStyle(el).fontSize);
-      el.style.fontSize = Math.floor(fs * (avail / w) * 0.97) + 'px';
+      el.style.fontSize = Math.floor(fs * (avail / w) * 0.94) + 'px'; // 6% right buffer so the dot always clears the edge
     }
   }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  // Re-fit on every signal that could change the wordmark width: the exact display
+  // font finishing load (the swap fallback can be far wider), window load, resize,
+  // and a few ticks across the first seconds in case of a late font swap.
+  if (document.fonts && document.fonts.load) {
+    document.fonts.load('900 1em "BringBold Nineties"').then(fit).catch(fit);
+    if (document.fonts.ready) document.fonts.ready.then(fit);
+  }
   window.addEventListener('load', fit);
   window.addEventListener('resize', fit);
-  setTimeout(fit, 2300);                           // re-fit once the eye-open animation settles
+  [300, 800, 1500, 2300, 3500].forEach(function(t){ setTimeout(fit, t); });
   fit();
 })();
 </script>
