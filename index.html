@@ -1134,106 +1134,72 @@
 })();
 </script>
 
-<!-- PILLARS — scroll-scrubbed full-bleed video + 4 staged reveals -->
-<section id="pillars" class="pillars-scroll">
-  <div class="pillars-pin">
-    <div class="pillars-video-wrap">
-      <video poster="forvr%20docs/site-images/web/video-01-scrub.poster.jpg" id="pillarsVideo" src="forvr%20docs/site-images/web/video-01-scrub.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
-      <div class="pillars-vignette" aria-hidden="true"></div>
-      <div class="pillars-grain" aria-hidden="true"></div>
+<!-- PILLARS — de-scrubbed to a short, normal-flow section (one screen).
+     Static poster backdrop (no looping video) + the 4 pillar statements +
+     Mission's folded-in "why" line. Phase-2 de-scroll-jack. -->
+<section id="pillars" class="pillars-flat">
+  <div class="pillars-flat-inner">
+    <div class="pillars-head">
+      <p class="m pillars-eyebrow">● &nbsp; 01 &nbsp;/&nbsp; The studio</p>
+      <h2 class="d pillars-title">About forvr<span class="dot">.</span></h2>
+      <p class="pillars-why">Brand-trained, hand-finished creative in a fraction of the time and cost of traditional agencies — going out recognisable as yours, not the model's default.</p>
     </div>
 
-    <div class="pillars-overlay">
-      <div class="pillars-head">
-        <p class="m pillars-eyebrow">● &nbsp; 01 &nbsp;/&nbsp; The studio</p>
-        <h2 class="d pillars-title">About forvr<span class="dot">.</span></h2>
-      </div>
+    <div class="pillars-stage">
+      <article class="pillar-item" data-i="0">
+        <span class="p-num">01</span>
+        <span class="p-eyebrow">Where it started</span>
+        <h3 class="p-title">Built from inside<span class="dot">.</span></h3>
+        <p class="p-body">Founded by an AI-native producer with experience inside a leading AI content studio. Workflows built for high-quality ad and product visuals.</p>
+      </article>
 
-      <div class="pillars-stage">
-        <article class="pillar-item is-active" data-i="0">
-          <span class="p-num">01</span>
-          <span class="p-eyebrow">Where it started</span>
-          <h3 class="p-title">Built from inside<span class="dot">.</span></h3>
-          <p class="p-body">Founded by an AI-native producer with experience inside a leading AI content studio. Workflows built for high-quality ad and product visuals.</p>
-        </article>
+      <article class="pillar-item" data-i="1">
+        <span class="p-num">02</span>
+        <span class="p-eyebrow">The method</span>
+        <h3 class="p-title">The Minotaur<span class="dot">.</span></h3>
+        <p class="p-body">Brand-trained models do the volume. Human direction does the polish.</p>
+      </article>
 
-        <article class="pillar-item" data-i="1">
-          <span class="p-num">02</span>
-          <span class="p-eyebrow">The method</span>
-          <h3 class="p-title">The Minotaur<span class="dot">.</span></h3>
-          <p class="p-body">Brand-trained models do the volume. Human direction does the polish.</p>
-        </article>
+      <article class="pillar-item" data-i="2">
+        <span class="p-num">03</span>
+        <span class="p-eyebrow">The work</span>
+        <h3 class="p-title">Six lanes<span class="dot">.</span></h3>
+        <p class="p-body">Film, image, design, motion, web and social, all produced under one roof in one consistent brand voice.</p>
+      </article>
 
-        <article class="pillar-item" data-i="2">
-          <span class="p-num">03</span>
-          <span class="p-eyebrow">The work</span>
-          <h3 class="p-title">Six lanes<span class="dot">.</span></h3>
-          <p class="p-body">Film, image, design, motion, web and social, all produced under one roof in one consistent brand voice.</p>
-        </article>
-
-        <article class="pillar-item" data-i="3">
-          <span class="p-num">04</span>
-          <span class="p-eyebrow">The mission</span>
-          <h3 class="p-title p-title-mission">Creative that reads made, not generated<span class="dot">.</span></h3>
-        </article>
-      </div>
-
-      <div class="pillars-progress" aria-hidden="true">
-        <span class="dot-pip" data-i="0"></span>
-        <span class="dot-pip" data-i="1"></span>
-        <span class="dot-pip" data-i="2"></span>
-        <span class="dot-pip" data-i="3"></span>
-      </div>
-
-      <div class="pillars-scroll-hint">scroll ↓</div>
+      <article class="pillar-item" data-i="3">
+        <span class="p-num">04</span>
+        <span class="p-eyebrow">The mission</span>
+        <h3 class="p-title p-title-mission">Creative that reads made, not generated<span class="dot">.</span></h3>
+      </article>
     </div>
   </div>
 </section>
 
 <style>
-  /* PILLARS — scroll-scrubbed video with 4 staged reveals */
-  .pillars-scroll {
+  /* PILLARS — de-scrubbed: short, normal-flow section (~one screen).
+     Backdrop is FLAT cyan/black per the blueprint (the old motif-less scrub
+     poster was banned imagery — removed). A near-black darkroom field with a
+     faint top-left cyan wash keeps it on-motif (dot/aperture) without a loop. */
+  .pillars-flat {
     position: relative;
-    /* 4 items × 100vh + 50vh tail = 450vh of scrollable space */
-    height: 450vh;
-    background: #000;
+    background-color: #070707;
+    background-image:
+      radial-gradient(120% 90% at 18% 0%, rgba(91,194,231,0.10) 0%, rgba(91,194,231,0.04) 28%, rgba(7,7,7,0) 60%),
+      linear-gradient(180deg, #0a0a0a 0%, #070707 55%, #050505 100%);
+    background-size: cover;
+    background-position: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
-  .pillars-pin {
-    position: sticky; top: 0;
-    width: 100%; height: 100vh;
-    overflow: hidden;
-  }
-  .pillars-video-wrap { position: absolute; inset: 0; z-index: 1; }
-  #pillarsVideo {
-    width: 100%; height: 100%; object-fit: cover;
-    display: block;
-    will-change: transform;
-    transform: translateZ(0);
-  }
-  .pillars-vignette {
-    position: absolute; inset: 0; z-index: 2;
-    background:
-      linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.7) 100%),
-      linear-gradient(90deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.25) 100%);
-    pointer-events: none;
-  }
-  .pillars-grain {
-    position: absolute; inset: 0; z-index: 3;
-    background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,0.025) 2px 3px);
-    mix-blend-mode: overlay;
-    pointer-events: none;
-  }
-
-  .pillars-overlay {
-    position: absolute; inset: 0; z-index: 4;
-    padding: 56px 32px 56px;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+  .pillars-flat-inner {
+    max-width: 1320px; margin: 0 auto;
+    padding: 96px 32px 104px;
     color: #fafafa;
   }
-  @media (max-width: 760px) { .pillars-overlay { padding: 48px 20px; } }
+  @media (max-width: 760px) { .pillars-flat-inner { padding: 72px 20px 80px; } }
 
-  .pillars-head { display: grid; gap: 14px; }
+  .pillars-head { display: grid; gap: 16px; max-width: 760px; }
   .pillars-eyebrow {
     font-family: var(--mono); font-size: 11px;
     letter-spacing: 0.28em; text-transform: uppercase;
@@ -1241,76 +1207,35 @@
   }
   .pillars-title {
     font-family: var(--display);
-    font-size: clamp(64px, 9vw, 168px);
+    font-size: clamp(56px, 8vw, 132px);
     line-height: 0.88; letter-spacing: -0.02em;
     color: #fafafa;
     max-width: 12ch;
     text-shadow: 0 2px 24px rgba(0,0,0,0.45);
   }
-
-  /* Stage now fills the full pin so each pillar can anchor to its own corner / center */
-  .pillars-stage {
-    position: absolute;
-    inset: 56px 32px 80px;
-    pointer-events: none;
+  .pillars-why {
+    font-family: var(--body);
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.6;
+    color: rgba(250,250,250,0.82);
+    max-width: 56ch;
+    margin-top: 4px;
   }
-  @media (max-width: 760px) { .pillars-stage { inset: 48px 20px 80px; } }
+
+  /* Calm 4-up grid — no absolute corners, no scrub. */
+  .pillars-stage {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 56px;
+  }
+  @media (max-width: 760px) {
+    .pillars-stage { grid-template-columns: 1fr; gap: 36px; margin-top: 48px; }
+  }
 
   .pillar-item {
-    position: absolute;
-    width: min(440px, 92%);
-    display: grid; gap: 14px;
-    opacity: 0;
-    transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
-    pointer-events: none;
-  }
-  .pillar-item.is-active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Corner / centre placements — each pillar gets its own anchor + entry direction */
-  .pillar-item[data-i="0"] { /* 01 — bottom right */
-    right: 0; bottom: 0;
-    text-align: right; justify-items: end;
-    transform: translate(24px, 28px);
-  }
-  .pillar-item[data-i="0"].is-active { transform: translate(0, 0); }
-
-  .pillar-item[data-i="1"] { /* 02 — top right (sits under the headline column) */
-    right: 0; top: clamp(220px, 28vh, 320px);
-    text-align: right; justify-items: end;
-    transform: translate(24px, -28px);
-  }
-  .pillar-item[data-i="1"].is-active { transform: translate(0, 0); }
-
-  .pillar-item[data-i="2"] { /* 03 — bottom left */
-    left: 0; bottom: 0;
-    text-align: left; justify-items: start;
-    transform: translate(-24px, 28px);
-  }
-  .pillar-item[data-i="2"].is-active { transform: translate(0, 0); }
-
-  .pillar-item[data-i="3"] { /* 04 — centre */
-    left: 50%; top: 50%;
-    width: min(560px, 92%);
-    text-align: center; justify-items: center;
-    transform: translate(-50%, calc(-50% + 24px));
-  }
-  .pillar-item[data-i="3"].is-active { transform: translate(-50%, -50%); }
-
-  /* When the centre pillar is live, fade the top headline down so it doesn't fight */
-  .pillars-overlay.center-live .pillars-head { opacity: 0.18; transition: opacity 0.45s; }
-  .pillars-overlay:not(.center-live) .pillars-head { opacity: 1; transition: opacity 0.45s; }
-
-  @media (max-width: 760px) {
-    .pillar-item, .pillar-item[data-i] { width: 100%; }
-    .pillar-item[data-i="0"], .pillar-item[data-i="2"] { left: 0; right: 0; bottom: 0; text-align: left; justify-items: start; transform: translateY(28px); }
-    .pillar-item[data-i="0"].is-active, .pillar-item[data-i="2"].is-active { transform: translateY(0); }
-    .pillar-item[data-i="1"] { left: 0; right: 0; top: auto; bottom: 0; text-align: left; justify-items: start; transform: translateY(28px); }
-    .pillar-item[data-i="1"].is-active { transform: translateY(0); }
-    .pillar-item[data-i="3"] { left: 0; right: 0; top: auto; bottom: 0; transform: translateY(28px); text-align: left; justify-items: start; }
-    .pillar-item[data-i="3"].is-active { transform: translateY(0); }
+    display: grid; gap: 12px;
+    align-content: start;
   }
   .pillar-item .p-num {
     font-family: var(--display);
@@ -1354,123 +1279,16 @@
     margin-right: 6px;
   }
 
-  /* Progress dot strip — bottom-right indicator */
-  .pillars-progress {
-    align-self: end; justify-self: end;
-    display: flex; gap: 8px;
-    padding: 8px 12px;
-    background: rgba(0,0,0,0.35);
-    border: 1px solid rgba(91,194,231,0.22);
-  }
-  .pillars-progress .dot-pip {
-    width: 20px; height: 4px;
-    background: rgba(250,250,250,0.25);
-    transition: background 0.3s, width 0.3s;
-  }
-  .pillars-progress .dot-pip.is-active {
-    background: var(--accent);
-    width: 36px;
-  }
-  .pillars-progress .dot-pip.is-past {
-    background: rgba(91,194,231,0.55);
-  }
-  /* Phone + tablet: the pillar copy is bottom-anchored, so the bottom-right
-     progress strip lands on top of the number/title. Pin it to the top-right
-     corner (clear of the left-aligned header) so it never overlaps. Desktop
-     keeps the bottom-right placement. */
-  @media (max-width: 900px) {
-    .pillars-progress {
-      position: absolute; top: 14px; right: 14px;
-      align-self: auto; justify-self: auto; z-index: 6;
-    }
-  }
-
-  .pillars-scroll-hint {
-    position: absolute; bottom: 22px; left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
-    font-family: var(--mono); font-size: 10px;
-    letter-spacing: 0.28em; text-transform: uppercase;
-    color: rgba(250,250,250,0.5);
-    pointer-events: none;
-    transition: opacity 0.5s;
-  }
-  .pillars-pin.has-progressed .pillars-scroll-hint { opacity: 0; }
-
   @media (max-width: 760px) {
-    .pillars-overlay { grid-template-rows: auto auto auto; }
     .pillar-item .p-title { font-size: clamp(36px, 9vw, 56px); }
     .pillar-item .p-num { font-size: 36px; }
-    .pillars-progress { justify-self: start; }
   }
 </style>
 
-<script>
-(function pillarsScrubScroll() {
-  const wrap = document.getElementById('pillars');
-  const pin = wrap && wrap.querySelector('.pillars-pin');
-  const overlay = wrap && wrap.querySelector('.pillars-overlay');
-  const video = document.getElementById('pillarsVideo');
-  const items = wrap && wrap.querySelectorAll('.pillar-item');
-  const pips = wrap && wrap.querySelectorAll('.dot-pip');
-  if (!wrap || !pin || !video || !items.length) return;
-  var touchPlay = window.matchMedia && window.matchMedia('(hover: none)').matches;
-  if (touchPlay) { try { video.loop = true; video.muted = true; var _vp = video.play(); if (_vp && _vp.catch) _vp.catch(function(){}); } catch(e){} }
+<!-- PILLARS scroll-scrub JS removed (Phase 2 de-scroll-jack) — the section is
+     now static normal-flow markup, so no scroll handler is needed. -->
 
-  let videoDuration = 0;
-  let lastSeek = -1;
-  let ticking = false;
-
-  video.addEventListener('loadedmetadata', () => {
-    videoDuration = video.duration || 7;
-  });
-
-  const setActive = (idx) => {
-    items.forEach((el, i) => el.classList.toggle('is-active', i === idx));
-    pips.forEach((p, i) => {
-      p.classList.toggle('is-active', i === idx);
-      p.classList.toggle('is-past', i < idx);
-    });
-    // Centre pillar (data-i 3) gets a flag on the overlay so the headline fades
-    overlay.classList.toggle('center-live', idx === 3);
-  };
-
-  const compute = () => {
-    const rect = wrap.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const total = rect.height - vh;
-    const progress = Math.max(0, Math.min(1, (-rect.top) / total));
-
-    // Map progress → video time. Only seek when delta is meaningful — saves work.
-    if (!touchPlay && videoDuration > 0) {
-      const target = progress * videoDuration;
-      if (Math.abs(target - lastSeek) > 0.02) {
-        try { video.currentTime = target; lastSeek = target; } catch (e) {}
-      }
-    }
-
-    const idx = Math.min(3, Math.floor(progress * 4));
-    setActive(idx);
-
-    if (progress > 0.04) pin.classList.add('has-progressed');
-    else pin.classList.remove('has-progressed');
-
-    ticking = false;
-  };
-
-  const onScroll = () => {
-    if (!ticking) { requestAnimationFrame(compute); ticking = true; }
-  };
-
-  setActive(0);
-  compute();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  window.addEventListener('resize', layoutTiles);
-})();
-</script>
-
-<!-- STATUS STRIP -->
+<!-- STATUS + STAT BAND -->
 <div class="marquee" aria-hidden="true">
   <div class="status-row">
     <span class="ticker-chip">
@@ -1490,184 +1308,56 @@
       <span class="label num">FRAME <span id="tickerFrame1">000000</span></span>
     </span>
   </div>
-</div>
 
-<!-- MISSION / Why Forvr — sticky split: video left 2/3, text right 1/3 -->
-<section id="mission" class="mission-sticky">
-  <div class="mission-pin">
-    <div class="mission-split">
-      <div class="mission-video-side">
-        <video poster="forvr%20docs/site-images/web/video-02.poster.jpg" class="mission-bg-video" src="forvr%20docs/site-images/web/video-02.mp4" muted loop playsinline autoplay disablepictureinpicture preload="metadata"></video>
-        <span class="mission-corner-meta">CH.02 · MISSION</span>
-      </div>
-      <div class="mission-text-side">
-        <div class="mission-text reveal-group">
-          <p class="mission-ix reveal-line"><span class="bar"></span> 02</p>
-          <h2 class="d mission-h reveal-line">Why forvr<span class="dot">.</span></h2>
-          <div class="mission-paras">
-            <p class="mission-p reveal-line">Forvr ships brand-trained, hand-finished creative in a fraction of the time and cost of traditional agencies. The model trains on your brand from the first brief, then adapts every frame to fit the work.</p>
-            <p class="mission-p reveal-line">The work goes out recognisable as yours, not the model's default.</p>
-          </div>
-          <div class="mission-cta-row reveal-line">
-            <a class="mission-btn" href="work.html">See the work</a>
-            <a class="mission-btn ghost" href="studio.html">Meet the studio</a>
-          </div>
-        </div>
-      </div>
+  <!-- OUTCOMES folded in here as a compact horizontal stat band (Phase 2):
+       the 3 outcome claims now ORIGINATE at this scroll position, beside the
+       live frame-counter (the mid-body kinetic beat). No standalone section. -->
+  <div class="stat-band" aria-label="Outcomes">
+    <div class="stat-item">
+      <span class="stat-num">01</span>
+      <p class="stat-claim">Ship in weeks, not months<span class="dot">.</span></p>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">02</span>
+      <p class="stat-claim">A fraction of traditional production cost<span class="dot">.</span></p>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">03</span>
+      <p class="stat-claim">Every format, one brand voice<span class="dot">.</span></p>
     </div>
   </div>
-</section>
+</div>
 
 <style>
-  /* Mission / Why Forvr — sticky split: video covers left 2/3, text fills right 1/3.
-     Section is 200vh tall; pin holds 100vh while it scrolls. */
-  .mission-sticky {
-    position: relative;
-    height: 200vh;
-    background: #050505;
-    border-top: 1px solid rgba(10,10,10,0.08);
-    border-bottom: 1px solid rgba(10,10,10,0.08);
+  /* Outcomes stat band — sits inside the status strip, one component, one place. */
+  .stat-band {
+    max-width: 1400px; margin: 22px auto 0; padding: 0 48px;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; border-top: 1px solid var(--line); padding-top: 22px;
   }
-  .mission-pin {
-    position: sticky; top: 0;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
+  .stat-item { display: flex; flex-direction: column; gap: 8px; }
+  .stat-num {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--accent);
   }
-  .mission-split {
-    height: 100%;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 0;
-    align-items: stretch;
+  .stat-claim {
+    font-family: var(--body); font-size: clamp(16px, 1.4vw, 21px);
+    font-weight: 600; line-height: 1.25; letter-spacing: -0.005em;
+    color: var(--ink); max-width: 22ch;
   }
+  .stat-claim .dot { color: var(--accent); }
   @media (max-width: 900px) {
-    .mission-split { grid-template-columns: 1fr; grid-template-rows: 60vh 1fr; }
+    .stat-band { padding-left: 20px; padding-right: 20px; }
   }
-  .mission-video-side {
-    position: relative;
-    overflow: hidden;
-    background: #050505;
-  }
-  .mission-bg-video {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%; object-fit: cover;
-    /* Source clip has a ~3% white border baked into every edge. Scaling it up
-       slightly pushes that rim outside the overflow:hidden frame so it never
-       shows, including on the first poster frame. */
-    transform: scale(1.09);
-    transform-origin: center;
-  }
-  .mission-video-side .mission-corner-meta {
-    position: absolute; top: 24px; left: 24px; z-index: 2;
-    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--accent);
-    background: rgba(0,0,0,0.55); padding: 5px 10px;
-  }
-  .mission-text-side {
-    background: #fafafa;
-    display: flex; align-items: center; justify-content: flex-start;
-    padding: 0 32px;
-    min-width: 0;
-  }
-  @media (max-width: 900px) { .mission-text-side { padding: 56px 24px; } }
-  /* Phone + tablet: un-pin Mission so the text and the "See the work" /
-     "Meet the studio" buttons are never clipped by the 100vh pin. */
-  @media (max-width: 900px) {
-    .mission-sticky { height: auto; }
-    .mission-pin { position: static; height: auto; overflow: visible; }
-    .mission-split { grid-template-rows: auto auto; }
-    .mission-video-side { height: 52vh; }
-    .mission-text-side { padding: 36px 24px 48px; }
-  }
-  .mission-text {
-    display: flex; flex-direction: column; justify-content: center;
-    box-sizing: border-box;
-    min-width: 0;
-    max-width: 100%;
-  }
-  .mission-text .mission-h { color: #0a0a0a; max-width: 100%; font-size: clamp(40px, 4.6vw, 84px); line-height: 0.94; }
-  .mission-text .mission-paras { max-width: 36ch; }
-  .mission-text .mission-p { color: rgba(10,10,10,0.72); }
-  .mission-text .mission-ix { color: var(--accent); }
-  .mission-text .mission-ix .bar { background: var(--accent); }
-
-  .mission-ix {
-    display: flex; align-items: center; gap: 12px;
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em;
-    text-transform: uppercase; color: var(--accent);
-  }
-  .mission-ix .bar { flex: 0 0 36px; height: 1px; background: var(--accent); }
-
-  .mission-h {
-    font-size: clamp(56px, 8vw, 128px);
-    line-height: 0.92; letter-spacing: -0.025em;
-    margin-top: 16px;
-    color: #0a0a0a;
-  }
-
-  .mission-paras { margin-top: 20px; display: grid; gap: 12px; max-width: 460px; }
-  .mission-p {
-    font-family: var(--body);
-    font-size: 15.5px;
-    line-height: 1.55;
-    color: rgba(10,10,10,0.72);
-  }
-  .mission-p .flag {
-    display: block; margin-bottom: 10px;
-    font-family: var(--mono); font-size: 10px;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .mission-cta-row {
-    margin-top: 24px;
-    display: flex; flex-wrap: wrap; gap: 10px;
-  }
-  .mission-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 12px 18px;
-    border: 1px solid var(--accent); color: var(--accent);
-    font-family: var(--mono); font-size: 11px;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    text-decoration: none;
-    transition: background 0.18s, color 0.18s;
-  }
-  .mission-btn::after { content: " →"; }
-  .mission-btn:hover { background: var(--accent); color: #050505; }
-  .mission-btn.ghost { border-color: rgba(10,10,10,0.18); color: rgba(10,10,10,0.55); }
-  .mission-btn.ghost:hover { border-color: #0a0a0a; color: #0a0a0a; background: transparent; }
-
-  /* The video — right half, full-bleed to viewport edge */
-  .mission-screen-side {
-    position: relative; z-index: 2;
-    display: flex; align-items: stretch;
-    min-height: 78vh;
-  }
-  @media (max-width: 1000px) {
-    .mission-screen-side { min-height: 56vh; }
-  }
-  .mission-screen {
-    position: relative;
-    width: 100%;
-    background: #000;
-    overflow: hidden;
-    will-change: transform;
-    transform-origin: center;
-    backface-visibility: hidden;
-  }
-  .mission-screen video {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%; object-fit: cover;
-    will-change: transform; transform: translateZ(0);
-  }
-  .mission-corner-meta {
-    position: absolute; top: 18px; left: 18px; z-index: 4;
-    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--accent);
-    background: rgba(0,0,0,0.55); padding: 5px 10px;
+  @media (max-width: 700px) {
+    .stat-band { grid-template-columns: 1fr; gap: 16px; }
   }
 </style>
+
+<!-- MISSION section CUT (Phase 2): its single "why" line was folded into the
+     Pillars section above; the pinned video + duplicated value-prop are removed. -->
+
+<!-- Mission CSS removed with the section (Phase 2). -->
 
 <!-- THE DEVELOP — scroll-scrubbed denoise/grade of one frame: raw model -> shipped.
      The AI-native-craft thesis made literal on a single watched frame. Vanilla. -->
@@ -1692,6 +1382,19 @@
   .dev-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 80px rgba(0,0,0,0.5); }
   .dev-rail { position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: rgba(255,255,255,0.06); }
   .dev-rail-fill { display: block; width: 100%; height: 0%; background: var(--accent); box-shadow: 0 0 14px rgba(91,194,231,0.6); }
+  .dev-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-top: 32px; padding: 14px 24px;
+    background: var(--accent); color: #050505;
+    font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    text-decoration: none; border: 1px solid var(--accent);
+    box-shadow: 0 0 24px rgba(91,194,231,0.35);
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+  }
+  .dev-cta:hover { background: transparent; color: var(--accent); transform: translateX(4px); }
+  .dev-cta .dev-cta-arrow { transition: transform 0.2s; }
+  .dev-cta:hover .dev-cta-arrow { transform: translateX(4px); }
   @media (max-width: 860px) {
     .dev-sec { height: 280vh; }
     .dev-inner { grid-template-columns: 1fr; gap: 28px; padding: 0 24px; }
@@ -1716,9 +1419,11 @@
           <li data-s="2"><span class="dev-st-n">03</span> Graded</li>
           <li data-s="3"><span class="dev-st-n">04</span> Shipped</li>
         </ol>
+        <!-- Primary conversion CTA at the emotional peak (Phase 2). -->
+        <a class="dev-cta reveal-line" href="contact.html">Start a project <span class="dev-cta-arrow">→</span></a>
       </div>
       <div class="dev-frame">
-        <img class="dev-img" src="static/develop-frame.jpg" alt="Editorial fashion frame developing from raw AI model output to a hand-graded, shipped image" loading="lazy" width="1200" height="1600" />
+        <img class="dev-img" src="static/develop-frame.jpg" alt="Real Forvr editorial campaign frame — fashion portrait developing from raw to hand-graded, shipped" loading="lazy" width="1288" height="1600" />
         <canvas class="dev-grain"></canvas>
         <div class="dev-scan"></div>
         <span class="dev-pct m">000</span>
@@ -1885,103 +1590,57 @@
   }
 </style>
 
-<!-- OUTCOMES — three compact cards in a row, body-font titles, fade-up reveal -->
-<section id="outcomes" class="outcomes-block">
-  <div class="outcomes-head reveal-group">
-    <p class="m m-accent reveal-line" data-scramble>Outcomes / 01–03</p>
-  </div>
-
-  <div class="outcomes-row">
-    <article class="oc-card" data-i="0" style="background-image: url('forvr%20docs/site-images/web/16-aesthetic-silk.jpg');">
-      <span class="oc-num">01</span>
-      <h3 class="oc-title">Ship in weeks, not months<span class="dot">.</span></h3>
-    </article>
-    <article class="oc-card" data-i="1" style="background-image: url('forvr%20docs/site-images/web/12-aesthetic-glass-refraction.jpg');">
-      <span class="oc-num">02</span>
-      <h3 class="oc-title">A fraction of traditional production cost<span class="dot">.</span></h3>
-    </article>
-    <article class="oc-card" data-i="2" style="background-image: url('forvr%20docs/site-images/web/14-aesthetic-mercury.jpg');">
-      <span class="oc-num">03</span>
-      <h3 class="oc-title">Every format, one brand voice<span class="dot">.</span></h3>
-    </article>
-  </div>
-</section>
-
+<!-- BRAND MARQUEE -->
 <style>
-  .outcomes-block { border-top: 1px solid var(--line); background: var(--bg); }
-  .outcomes-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    padding: 0 20px 48px;
-  }
-  @media (min-width: 768px) {
-    .outcomes-row { gap: 16px; padding: 0 32px 40px; }
-  }
-  @media (max-width: 700px) {
-    .outcomes-row { grid-template-columns: 1fr; }
-  }
+  .marquee-strip { position: relative; padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; background: var(--bg); }
+  .marquee-strip::before, .marquee-strip::after { content: ""; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+  .marquee-strip::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+  .marquee-strip::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+  .marquee-eyebrow { display: none; }
+  .marquee-track { display: flex; gap: 88px; align-items: center; animation: marquee-scroll 28s linear infinite; width: max-content; padding-top: 0; }
+  .marquee-strip:hover .marquee-track { animation-play-state: paused; }
+  .marquee-item { display: inline-flex; align-items: center; flex-shrink: 0; }
+  .marquee-sep { display: none; }
 
-  .oc-card {
-    position: relative;
-    aspect-ratio: 4/5;
-    background-color: #0a0a0a;
-    background-size: cover; background-position: center;
-    overflow: hidden;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 22px;
-    opacity: 0;
-    transform: translateY(18px);
-    transition:
-      opacity 0.7s cubic-bezier(0.22,1,0.36,1),
-      transform 0.55s cubic-bezier(0.22,1,0.36,1),
-      box-shadow 0.45s cubic-bezier(0.22,1,0.36,1);
-    transition-delay: calc(var(--i, 0) * 0.12s);
-    cursor: pointer;
-  }
-  .oc-card.is-in { opacity: 1; transform: translateY(0); }
-  .oc-card.is-in:hover {
-    transform: translateY(-8px) scale(1.015);
-    box-shadow: 0 22px 48px -18px rgba(0,0,0,0.55), 0 0 0 1px rgba(91,194,231,0.18);
-    transition-delay: 0s;
-    z-index: 2;
-  }
-  .oc-card::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.0) 75%);
-  }
-  .oc-num {
-    position: relative; z-index: 2;
-    color: var(--accent);
-    font-family: var(--mono); font-size: 11px;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .oc-title {
-    position: relative; z-index: 2;
-    color: #fafafa;
-    font-family: var(--body);
-    font-size: clamp(17px, 1.5vw, 24px);
-    font-weight: 600;
-    line-height: 1.22;
-    letter-spacing: -0.005em;
-    max-width: 20ch;
+  .marquee-item .b-mark { width: 64px; height: 64px; flex-shrink: 0; display: inline-block; background-size: contain; background-position: center; background-repeat: no-repeat; }
+  .marquee-item .b-name { display: none; }
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
 </style>
-
+<section class="marquee-strip" aria-label="Tools we use">
+  <span class="marquee-eyebrow">The engine <span class="acc">●</span> in service of the work, never the point</span>
+  <div class="marquee-track" id="marqueeTrack">
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/higgsfield.png);"></span><span class="b-name">Higgsfield</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/claude.png);"></span><span class="b-name">Claude</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/openai.svg);"></span><span class="b-name">OpenAI</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/midjourney.svg);"></span><span class="b-name">Midjourney</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/weavy.png);"></span><span class="b-name">Weavy</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/adobephotoshop.svg);"></span><span class="b-name">Adobe Photoshop</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/davinciresolve.png);"></span><span class="b-name">DaVinci Resolve</span></div>
+      <span class="marquee-sep">●</span>
+      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/cosmos.png);"></span><span class="b-name">cosmos</span></div>
+    </div>
+</section>
 <script>
-(function() {
-  if (!('IntersectionObserver' in window)) return;
-  document.querySelectorAll('.oc-card').forEach((el, i) => { el.style.setProperty('--i', i); });
-  const cards = document.querySelectorAll('.oc-card');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.2 });
-  cards.forEach(c => io.observe(c));
-})();
+  (function(){
+    const t = document.getElementById('marqueeTrack');
+    if (!t) return;
+    // Duplicate items once for seamless loop
+    t.innerHTML += t.innerHTML;
+  })();
 </script>
+
+
+<!-- OUTCOMES standalone section CUT (Phase 2) — its 3 claims now originate in
+     the Status + stat band near the top (one component, one place). -->
 
 <!-- STUDIO (home teaser — full version at /studio) -->
 <section id="studio" class="block">
@@ -2122,9 +1781,8 @@
   @media (min-width: 768px) { .studio-strip { margin-top: 40px; } }
 </style>
 
-<!-- PROCESS (home teaser — sticky-pinned outer so the Tetris reveal can fill while pinned) -->
-<div class="proc-teaser-outer" id="procTeaserOuter">
-<section id="process" class="block proc-teaser-block proc-teaser-pinned">
+<!-- PROCESS (home teaser — static, normal-flow; Tetris reveal removed in Phase 2) -->
+<section id="process" class="block proc-teaser-block">
   <div class="grid proc-teaser-row">
     <!-- Left: copy + button -->
     <div class="proc-teaser-left reveal">
@@ -2140,190 +1798,19 @@
       </div>
     </div>
 
-    <!-- Right: Tetris-style block reveal — image is sliced into a grid of tiles.
-         Tiles fall from above as you scroll the section into view. Some pre-placed,
-         most stagger-fall on scroll progress. Pure CSS transforms — no per-frame canvas. -->
-    <a class="proc-teaser-right reveal" href="process.html" id="procTetrisLink" aria-label="See the process">
-      <div class="proc-tetris-wrap" id="procTetrisWrap" aria-hidden="true">
-        <div class="proc-tetris-grid" id="procTetrisGrid"></div>
+    <!-- Right: static image panel linking to /process (no scroll mechanic). -->
+    <a class="proc-teaser-right reveal" href="process.html" aria-label="See the process">
+      <div class="proc-static-panel" aria-hidden="true">
         <span class="mark proc-tetris-mark">forvr<span class="dot">.</span></span>
       </div>
     </a>
   </div>
 </section>
-</div>
 
-<script>
-// Reusable Tetris-reveal builder. Builds an image-slice grid inside `grid` and
-// drives the fill from `outerEl`'s scroll position. Used on multiple pages.
-window.buildTetrisReveal = function(opts) {
-  const grid = opts.grid;
-  const outerEl = opts.outer || grid;
-  if (!grid) return;
-  const COLS = opts.cols || 14;
-  const ROWS = opts.rows || 9;
-  const IMG = opts.image;
-  const PREPLACED_PROBABILITY = opts.preplaced != null ? opts.preplaced : 0.28;
-  const PROGRESS_SCALE = opts.progressScale || 1.25;
-  // entry: 'top' (default — fall from above) | 'sides' (alternate left/right by row)
-  const ENTRY = opts.entry || 'top';
-
-  // Mobile: the falling-tile reveal needs a tall pinned scroll budget that does
-  // not survive a phone viewport (the panel aspect flips and the cascade never
-  // resolves). On phones, skip the animation entirely and paint the finished
-  // image straight into the panel. Desktop and tablet keep the tetris reveal.
-  if (window.matchMedia && (window.matchMedia('(max-width: 900px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
-    if (IMG) {
-      grid.style.backgroundImage = "url('" + IMG + "')";
-      grid.style.backgroundSize = 'cover';
-      grid.style.backgroundPosition = 'center';
-      grid.style.backgroundRepeat = 'no-repeat';
-    }
-    return;
-  }
-
-  const tiles = [];
-  const TILE_OVER = 1.014; // overlap to kill subpixel seams
-  const cellW = 100 / COLS;
-  const cellH = 100 / ROWS;
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      const tile = document.createElement('div');
-      tile.className = 'tt-tile';
-      const overW = cellW * TILE_OVER, overH = cellH * TILE_OVER;
-      const ox = (overW - cellW) / 2, oy = (overH - cellH) / 2;
-      tile.style.left = (c * cellW - ox) + '%';
-      tile.style.top = (r * cellH - oy) + '%';
-      tile.style.width = overW + '%';
-      tile.style.height = overH + '%';
-      tile.style.backgroundImage = "url('" + IMG + "')";
-      tile.dataset.c = c; tile.dataset.r = r;
-
-      if (Math.random() < PREPLACED_PROBABILITY) {
-        tile.classList.add('is-landed', 'is-preplaced');
-        tile.dataset.threshold = '0';
-      } else {
-        if (ENTRY === 'sides') {
-          // Threshold: cascade left-to-right BUT with rows alternating direction —
-          // even rows fill L→R, odd rows fill R→L. Adjacent rows close from opposite sides.
-          const fillFromLeft = (r % 2) === 0;
-          const colPos = fillFromLeft ? c / COLS : (COLS - 1 - c) / COLS;
-          const base = colPos * 0.78 + (r / ROWS) * 0.08;
-          const jitter = Math.random() * 0.08;
-          tile.dataset.threshold = Math.min(0.94, base + jitter).toFixed(3);
-          // Entry offset: from outside the panel left edge (even rows) or right edge (odd rows)
-          const dist = (Math.random() * 80 + 180);
-          const dir = fillFromLeft ? -dist : dist;
-          tile.style.setProperty('--off-x', dir.toFixed(0) + 'px');
-          tile.style.setProperty('--off-y', '0px');
-          // Tiny tilt matching entry direction
-          tile.style.setProperty('--rot', (fillFromLeft ? -2 : 2) + 'deg');
-        } else {
-          // Default top-down fall
-          const base = (c / COLS) * 0.7 + (r / ROWS) * 0.12;
-          const jitter = Math.random() * 0.10;
-          tile.dataset.threshold = Math.min(0.94, base + jitter).toFixed(3);
-          const rot = (Math.random() * 8 - 4).toFixed(1);
-          tile.style.setProperty('--rot', rot + 'deg');
-          tile.style.setProperty('--off-y', (-(Math.random() * 120 + 240)).toFixed(0) + 'px');
-          tile.style.setProperty('--off-x', '0px');
-        }
-      }
-      grid.appendChild(tile);
-      tiles.push(tile);
-    }
-  }
-
-  const imgNatural = { w: 0, h: 0 };
-  function layoutTiles() {
-    const pw = grid.clientWidth, ph = grid.clientHeight;
-    if (!pw || !ph || !imgNatural.w || !imgNatural.h) return;
-    const scale = Math.max(pw / imgNatural.w, ph / imgNatural.h);
-    const dispW = imgNatural.w * scale, dispH = imgNatural.h * scale;
-    const offX = (pw - dispW) / 2, offY = (ph - dispH) / 2;
-    const cellWpx = pw / COLS, cellHpx = ph / ROWS;
-    const overWpx = cellWpx * TILE_OVER, overHpx = cellHpx * TILE_OVER;
-    const oxpx = (overWpx - cellWpx) / 2;
-    const oypx = (overHpx - cellHpx) / 2;
-    for (let i = 0; i < tiles.length; i++) {
-      const t = tiles[i];
-      const c = +t.dataset.c, r = +t.dataset.r;
-      const tl = c * cellWpx - oxpx, tt = r * cellHpx - oypx;
-      t.style.left = tl + 'px';
-      t.style.top = tt + 'px';
-      t.style.width = Math.ceil(overWpx) + 'px';
-      t.style.height = Math.ceil(overHpx) + 'px';
-      t.style.backgroundSize = dispW + 'px ' + dispH + 'px';
-      t.style.backgroundPosition = (offX - tl) + 'px ' + (offY - tt) + 'px';
-    }
-  }
-  if (IMG) {
-    const _im = new Image();
-    _im.onload = function () { imgNatural.w = _im.naturalWidth; imgNatural.h = _im.naturalHeight; layoutTiles(); };
-    _im.src = IMG;
-  }
-  layoutTiles();
-
-  let ticking = false;
-  function compute() {
-    ticking = false;
-    const rect = outerEl.getBoundingClientRect();
-    const vh = window.innerHeight || 1;
-    const total = rect.height - vh;
-    if (total <= 0) return;
-    let raw = (-rect.top) / total;
-    raw = Math.max(0, Math.min(1, raw));
-    const progress = Math.min(1, raw * PROGRESS_SCALE);
-    for (let i = 0; i < tiles.length; i++) {
-      const t = tiles[i];
-      const th = parseFloat(t.dataset.threshold);
-      if (progress >= th) {
-        if (!t.classList.contains('is-landed')) t.classList.add('is-landed');
-      } else {
-        if (t.classList.contains('is-landed') && !t.classList.contains('is-preplaced')) {
-          t.classList.remove('is-landed');
-        }
-      }
-    }
-  }
-  function onScroll() { if (!ticking) { requestAnimationFrame(compute); ticking = true; } }
-  compute();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-};
-
-// Process teaser — sticky-pinned outer, Tetris fills during pin.
-// entry:'sides' makes blocks come in from left + right alternating by row.
-window.buildTetrisReveal({
-  outer: document.getElementById('procTeaserOuter'),
-  grid: document.getElementById('procTetrisGrid'),
-  image: 'forvr%20docs/site-images/supplied/opt-no-prompt-and-pray.jpg',
-  cols: 14, rows: 9,
-  preplaced: 0.24,
-  progressScale: 1.05,
-  entry: 'sides',
-});
-
-</script>
+<!-- buildTetrisReveal + the process Tetris invocation removed (Phase 2). -->
 
 <style>
-  /* Sticky-pinned outer — outer height = inner pin + cascade scroll budget.
-     No dead space after the cascade finishes — pin releases at the same time as outer ends.
-     Outer 200vh = 100vh pin + 100vh of scroll-cascade budget. */
-  .proc-teaser-outer {
-    position: relative;
-    height: 200vh;
-  }
-  .proc-teaser-pinned {
-    position: sticky !important;
-    top: 0 !important;
-    height: 100vh !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    overflow: hidden !important;
-    border-bottom: 0 !important;
-  }
-  .proc-teaser-pinned .proc-teaser-row { height: 100%; min-height: 100vh; }
+  /* PROCESS teaser — static, normal-flow (Tetris pin removed in Phase 2). */
   .proc-teaser-block { padding: 0 !important; border-top: 1px solid var(--line); overflow: hidden; }
   .proc-teaser-row {
     display: grid;
@@ -2332,7 +1819,7 @@ window.buildTetrisReveal({
     align-items: stretch;
     min-height: 70vh;
   }
-  /* Headline column sized to fit the headline ("No prompt and pray."), canvas takes the rest. */
+  /* Headline column sized to fit the headline ("No prompt and pray."), panel takes the rest. */
   @media (min-width: 900px) {
     .proc-teaser-row { grid-template-columns: minmax(360px, max-content) 1fr; }
   }
@@ -2350,47 +1837,18 @@ window.buildTetrisReveal({
     overflow: hidden;
   }
   @media (max-width: 899px) { .proc-teaser-right { min-height: 50vh; } }
-  /* Phone + tablet-portrait: un-pin the 200vh teaser so the panel shows the
-     static image (painted by the mobile branch of buildTetrisReveal) without a
-     long dead scroll. Matches the buildTetrisReveal 900px cutoff. Desktop and
-     tablet-landscape keep the pinned tetris reveal. */
-  @media (max-width: 900px) {
-    .proc-teaser-outer { height: auto; }
-    .proc-teaser-pinned { position: static !important; height: auto !important; }
-    .proc-teaser-pinned .proc-teaser-row { min-height: 0; }
-  }
 
-  /* Tetris reveal wrapper — image broken into a grid of tiles that fall in
-     as you scroll. Pure CSS transforms, no canvas redraws. */
-  .proc-tetris-wrap {
+  /* Static image panel — the finished image, no scroll mechanic. */
+  .proc-static-panel {
     position: absolute; inset: 0;
-    background: #050505;
-    overflow: hidden;
-  }
-  .proc-tetris-grid {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-  }
-  .tt-tile {
-    position: absolute;
-    background-repeat: no-repeat;
     background-color: #050505;
-    will-change: transform, opacity;
-    transform: translate(var(--off-x, 0px), var(--off-y, -300px)) rotate(var(--rot, 0deg));
-    opacity: 0;
-    transition:
-      transform 0.85s cubic-bezier(0.34, 1.18, 0.64, 1),
-      opacity 0.35s ease-out;
+    background-image: url('forvr%20docs/site-images/supplied/opt-no-prompt-and-pray.jpg');
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
   }
-  .tt-tile.is-landed {
-    transform: translate(0, 0) rotate(0deg);
-    opacity: 1;
-  }
-  .tt-tile.is-preplaced {
-    /* Pre-placed tiles skip the transition for the first paint */
-    transition: none;
-  }
-  .proc-tetris-wrap .proc-tetris-mark {
+  .proc-teaser-right:hover .proc-static-panel { transform: scale(1.03); }
+  .proc-static-panel .proc-tetris-mark {
     position: absolute; bottom: 18px; left: 18px; z-index: 4;
     font-family: var(--display); font-size: 12px;
     letter-spacing: 0.06em; text-transform: uppercase;
@@ -2400,8 +1858,7 @@ window.buildTetrisReveal({
     pointer-events: none;
     mix-blend-mode: difference;
   }
-  .proc-tetris-wrap .proc-tetris-mark .dot { color: var(--accent); }
-  .proc-teaser-right:hover .vcard { transform: translateY(-6px); }
+  .proc-static-panel .proc-tetris-mark .dot { color: var(--accent); }
   .proc-teaser-right:hover .m { color: var(--accent); }
 
   /* VISION card styles (shared with /process page) */
@@ -2490,7 +1947,7 @@ window.buildTetrisReveal({
     .faq-list { grid-column: span 7; margin-top: 24px; }
     .faq-logo-col { grid-column: 9 / span 4; order: 0; position: sticky; top: 120px; }
   }
-  .faq-logo-wrap { width: 100%; max-width: 280px; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; transition: transform 0.85s cubic-bezier(0.22,1,0.36,1); transform-origin: 50% 50%; }
+  .faq-logo-wrap { width: 100%; max-width: 280px; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; }
   .faq-logo { width: 100%; height: auto; display: block; filter: drop-shadow(0 0 24px rgba(91,194,231,0.18)); }
   .faq-logo-cue { color: var(--muted); font-size: 10px; letter-spacing: 0.18em; }
 
@@ -2519,71 +1976,15 @@ window.buildTetrisReveal({
   .faq-body { padding: 0 0 32px; color: rgba(10,10,10,0.78); line-height: 1.6; font-size: clamp(15px, 1.2vw, 18px); max-width: 640px; }
 </style>
 
-<script>
-(function() {
-  const wrap = document.getElementById('faqLogoWrap');
-  if (!wrap) return;
-  let rot = 0;
-  document.querySelectorAll('.faq-item summary').forEach(s => {
-    s.addEventListener('click', () => {
-      rot += 180;
-      wrap.style.transform = 'rotate(' + rot + 'deg)';
-    });
-  });
-})();
-</script>
+<!-- FAQ logo spin removed (Phase 3 motion de-noise): the Forvr mark is now a
+     static sticky element; clicking a question no longer rotates it. -->
+
 
 <!-- POSITION STAT removed (2026-05-28) — Mission section already makes this point -->
 
 <!-- POSITION STAT styles removed (the section was deleted 2026-05-28; styles were dead) -->
 
-<!-- BRAND MARQUEE -->
-<style>
-  .marquee-strip { position: relative; padding: 28px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; background: var(--bg); }
-  .marquee-strip::before, .marquee-strip::after { content: ""; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
-  .marquee-strip::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
-  .marquee-strip::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
-  .marquee-eyebrow { display: none; }
-  .marquee-track { display: flex; gap: 88px; align-items: center; animation: marquee-scroll 28s linear infinite; width: max-content; padding-top: 0; }
-  .marquee-strip:hover .marquee-track { animation-play-state: paused; }
-  .marquee-item { display: inline-flex; align-items: center; flex-shrink: 0; }
-  .marquee-sep { display: none; }
-
-  .marquee-item .b-mark { width: 64px; height: 64px; flex-shrink: 0; display: inline-block; background-size: contain; background-position: center; background-repeat: no-repeat; }
-  .marquee-item .b-name { display: none; }
-  @keyframes marquee-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-</style>
-<section class="marquee-strip" aria-label="Tools we use">
-  <span class="marquee-eyebrow">The engine <span class="acc">●</span> in service of the work, never the point</span>
-  <div class="marquee-track" id="marqueeTrack">
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/higgsfield.png);"></span><span class="b-name">Higgsfield</span></div>
-      <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/claude.png);"></span><span class="b-name">Claude</span></div>
-      <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/openai.svg);"></span><span class="b-name">OpenAI</span></div>
-      <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/midjourney.svg);"></span><span class="b-name">Midjourney</span></div>
-      <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/weavy.png);"></span><span class="b-name">Weavy</span></div>
-      <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/adobephotoshop.svg);"></span><span class="b-name">Adobe Photoshop</span></div>
-      <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/davinciresolve.png);"></span><span class="b-name">DaVinci Resolve</span></div>
-      <span class="marquee-sep">●</span>
-      <div class="marquee-item"><span class="b-mark" style="background-image: url(static/brands/cosmos.png);"></span><span class="b-name">cosmos</span></div>
-    </div>
-</section>
-<script>
-  (function(){
-    const t = document.getElementById('marqueeTrack');
-    if (!t) return;
-    // Duplicate items once for seamless loop
-    t.innerHTML += t.innerHTML;
-  })();
-</script>
+<!-- BRAND MARQUEE moved up to sit right after Services (Phase 2). -->
 
 <!-- CONTACT -->
 <section id="contact" class="block">
@@ -2593,7 +1994,7 @@ window.buildTetrisReveal({
   </div>
 
   <a href="contact.html" class="contact-email reveal">
-    <h3 class="d" data-scramble>hello@forvr.org<span class="dot">.</span></h3>
+    <h3 class="d">hello@forvr.org<span class="dot">.</span></h3>
   </a>
 
   <div class="meta-strip reveal">
@@ -2855,9 +2256,11 @@ window.buildTetrisReveal({
     let dragMode = null;
     let cursorInside = false;
     let hasDragScratch = false;
-    // Per-stroke hue counter for cycling-neon trail. Increments per
-    // segment / dot painted so the persistent trail looks rainbow-banded.
-    let strokeHue = Math.random() * 360;
+    // Brand-cyan hue (#5BC2E7 ≈ 197). The persistent trail is pinned to this
+    // single hue — the old per-stroke rainbow hue-cycling was removed in
+    // Phase 3 motion de-noise. Kept as a constant so traceDot/traceSegment
+    // (which still take a hue arg) always render cyan.
+    const CYAN_HUE = 197;
     let cx = 0, cy = 0, R = 0; // circle of dots
     const HOVER_RADIUS = 200;       // dot push-away interaction radius
     const HOVER_BRUSH = 46;         // hover scratch brush radius
@@ -2921,12 +2324,11 @@ window.buildTetrisReveal({
       }
     }
 
-    // Neon trace — paints cycling-hue dots into the persistent layer
-    // (tpCtx). The composite step in the frame loop draws this layer with
-    // 'screen' blend so the colours read as bright fluorescent regardless
-    // of the image underneath. `hue` is a 0-360 value and varies per
-    // segment so the trail bands through different neon colours like a
-    // highlighter dipped in a rainbow.
+    // Cyan trace — paints dots into the persistent layer (tpCtx). The composite
+    // step in the frame loop draws this layer with 'screen' blend so the colour
+    // reads as a bright cyan glow regardless of the image underneath. `hue` is
+    // kept as a parameter but callers now always pass the pinned brand cyan
+    // (CYAN_HUE); the old per-segment rainbow banding was removed in Phase 3.
     function traceDot(targetCtx, x, y, radius, alpha, hue) {
       const h = (((hue % 360) + 360) % 360).toFixed(0);
       targetCtx.save();
@@ -3035,7 +2437,7 @@ window.buildTetrisReveal({
       //     residual trail. Disappears the moment the cursor leaves the
       //     section. Cycling hue + screen blend = neon under the pointer.
       if (!dragMode && cursorInside && mx > -9000) {
-        const hue = (performance.now() * 0.18) % 360;
+        const hue = CYAN_HUE; // cyan-only halo (rainbow hue-cycle removed, Phase 3)
         const haloR = HOVER_BRUSH * 1.6;
         ctx.save();
         ctx.beginPath();
@@ -3065,16 +2467,14 @@ window.buildTetrisReveal({
         } else {
           scratchDot(dmCtx, nx, ny, DRAG_BRUSH, 0.95);
         }
-        // Persistent neon trail ONLY on right-click drag. Hue advances per
-        // stroke step so the trail bands through neon colours.
+        // Persistent trail ONLY on right-click drag. Hue is PINNED to the brand
+        // cyan (≈197) so the trail is cyan-only — the rainbow hue-cycling was
+        // removed in Phase 3 motion de-noise.
         if (dragMode === 'right') {
-          const hueA = strokeHue;
-          strokeHue += 6;
-          const hueB = strokeHue;
           if (pmx > -9000) {
-            traceSegment(tpCtx, pmx, pmy, nx, ny, DRAG_BRUSH, 0.55, hueA, hueB);
+            traceSegment(tpCtx, pmx, pmy, nx, ny, DRAG_BRUSH, 0.55, CYAN_HUE, CYAN_HUE);
           } else {
-            traceDot(tpCtx, nx, ny, DRAG_BRUSH, 0.55, hueA);
+            traceDot(tpCtx, nx, ny, DRAG_BRUSH, 0.55, CYAN_HUE);
           }
         }
         markDragScratch();
@@ -3134,8 +2534,7 @@ window.buildTetrisReveal({
       if (Math.hypot(nx - cx, ny - cy) <= R + 12) {
         scratchDot(dmCtx, nx, ny, DRAG_BRUSH, 0.95);
         if (dragMode === 'right') {
-          strokeHue += 12;
-          traceDot(tpCtx, nx, ny, DRAG_BRUSH, 0.55, strokeHue);
+          traceDot(tpCtx, nx, ny, DRAG_BRUSH, 0.55, CYAN_HUE);
         }
         markDragScratch();
       }
