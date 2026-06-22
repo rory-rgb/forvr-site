@@ -355,3 +355,75 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
+/* Magnetic pull — elements with .magnet (and the Services capability rows) ease
+   toward the cursor while hovered, then spring back. Pointer-only + reduced-motion safe. */
+(function() {
+  if (window.__forvrMagnetInit) return;
+  window.__forvrMagnetInit = true;
+  if (window.matchMedia && (window.matchMedia('(hover: none)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  function init() {
+    var els = document.querySelectorAll('.magnet, .service .includes li');
+    if (!els.length) return;
+    Array.prototype.forEach.call(els, function(el) {
+      var strength = parseFloat(el.getAttribute('data-magnet')) || 0.35;
+      var raf = 0;
+      el.style.willChange = 'transform';
+      el.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+      el.addEventListener('mousemove', function(e) {
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - (r.left + r.width / 2)) * strength;
+        var y = (e.clientY - (r.top + r.height / 2)) * strength;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function() {
+          el.style.transition = 'transform 0.12s ease-out';
+          el.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+        });
+      });
+      el.addEventListener('mouseleave', function() {
+        if (raf) cancelAnimationFrame(raf);
+        el.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+        el.style.transform = 'translate(0,0)';
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+/* Cursor spotlight — elements with [data-spotlight] get a soft cyan light that
+   follows the cursor across them (a glow that lifts the words it passes). Base
+   text stays fully readable. Pointer-only + reduced-motion safe. */
+(function() {
+  if (window.__forvrSpotlightInit) return;
+  window.__forvrSpotlightInit = true;
+  if (window.matchMedia && (window.matchMedia('(hover: none)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  function init() {
+    var els = document.querySelectorAll('[data-spotlight]');
+    if (!els.length) return;
+    var css = document.createElement('style');
+    css.textContent =
+      '[data-spotlight]{position:relative;}' +
+      '[data-spotlight]::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;transition:opacity .45s ease;' +
+      'background:radial-gradient(260px circle at var(--sx,50%) var(--sy,50%), rgba(91,194,231,0.20), rgba(91,194,231,0.06) 42%, transparent 64%);}' +
+      '[data-spotlight].sp-on::after{opacity:1;}';
+    document.head.appendChild(css);
+    Array.prototype.forEach.call(els, function(el) {
+      var raf = 0;
+      el.addEventListener('mousemove', function(e) {
+        var r = el.getBoundingClientRect();
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function() {
+          el.style.setProperty('--sx', (e.clientX - r.left) + 'px');
+          el.style.setProperty('--sy', (e.clientY - r.top) + 'px');
+        });
+      });
+      el.addEventListener('mouseenter', function() { el.classList.add('sp-on'); });
+      el.addEventListener('mouseleave', function() { el.classList.remove('sp-on'); });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
