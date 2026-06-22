@@ -405,12 +405,14 @@
     if (!els.length) return;
     var css = document.createElement('style');
     css.textContent =
-      '[data-spotlight]{position:relative;}' +
-      '[data-spotlight]::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;transition:opacity .45s ease;' +
-      'background:radial-gradient(260px circle at var(--sx,50%) var(--sy,50%), rgba(91,194,231,0.20), rgba(91,194,231,0.06) 42%, transparent 64%);}' +
+      '[data-spotlight]::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;transition:opacity .5s ease;' +
+      'background:radial-gradient(380px circle at var(--sx,50%) var(--sy,50%), rgba(91,194,231,0.20), rgba(91,194,231,0.06) 42%, transparent 64%);}' +
       '[data-spotlight].sp-on::after{opacity:1;}';
     document.head.appendChild(css);
     Array.prototype.forEach.call(els, function(el) {
+      // only force a positioning context on statically-positioned elements, so we
+      // don't clobber sticky/absolute hosts (e.g. the pinned craft section).
+      if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
       var raf = 0;
       el.addEventListener('mousemove', function(e) {
         var r = el.getBoundingClientRect();

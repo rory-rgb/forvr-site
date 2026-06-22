@@ -177,8 +177,8 @@
        resting clip-path: inset(0) never shaves the top of the letters. */
     margin: -0.14em 0 0; padding-top: 0.14em; max-width: 100%; font-family: var(--display); font-weight: 900; text-transform: none;
     line-height: 1.0; letter-spacing: -0.045em; color: #fff;
-    font-size: clamp(64px, 16vw, 200px);                 /* fallback for browsers without container query units */
-    font-size: clamp(64px, 44cqw, 210px);                /* cqw ties the size to ~83% of the column width, so "forvr." (incl. dot) can never overflow */
+    font-size: clamp(56px, 13vw, 172px);                 /* fallback for browsers without container query units */
+    font-size: clamp(56px, 38cqw, 172px);                /* cqw sizes it to ~72% of the column so "forvr." (incl. the dot) always has clear right-side room */
     text-shadow: 0 1px 1px rgba(0,0,0,0.4), 0 3px 22px rgba(0,0,0,0.28);
     clip-path: inset(46% 0 46% 0); opacity: 0;
     animation: heroEyeOpen 1.7s cubic-bezier(0.76,0,0.18,1) 0.35s forwards;
@@ -1798,9 +1798,9 @@
   }
 </style>
 <section class="dev-sec" id="develop" aria-label="From raw model to shipped">
-  <div class="dev-pin">
+  <div class="dev-pin" data-spotlight>
     <div class="dev-inner">
-      <div class="dev-copy reveal-group" data-spotlight>
+      <div class="dev-copy reveal-group">
         <p class="m m-accent dev-eyebrow reveal-line">● &nbsp; The craft</p>
         <h2 class="d dev-title reveal-line">We make it look<br/>made, not generated<span class="dot">.</span></h2>
         <p class="m dev-sub reveal-line">One frame, start to finish. Raw model output, brand-trained, hand-graded, shipped. Scroll to develop it.</p>
