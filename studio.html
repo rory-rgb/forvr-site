@@ -650,138 +650,146 @@
 </script>
 
 <main>
-  <!-- HERO — asymmetric floating tile cluster on right -->
-  <section class="hero-section studio-hero-with-tiles">
-    <div class="studio-hero-grid">
-      <div class="studio-hero-left reveal-group">
-        <p class="m m-accent reveal-line">Studio / About</p>
-        <h1 class="d studio-hero-headline reveal-line" data-type-on>The studio<br/>is the work<span class="dot">.</span></h1>
-        <p class="lede studio-hero-lede reveal-line">
-          One studio, built around bold ideas and the tools to make them. The same founder is involved at every step, from the pitch through to delivery.
-        </p>
-      </div>
-
-      <div class="studio-hero-tiles" aria-hidden="true">
-        <div class="tile tile-a" style="background-image:url('for%20placeholders/opt-studio-tile-a.jpg');"></div>
-        <div class="tile tile-b" style="background-image:url('for%20placeholders/opt-studio-tile-b.jpg');"></div>
-        <div class="tile tile-c" style="background-image:url('forvr%20docs/site-images/supplied/opt-studio%20hero..jpg');"></div>
-        <div class="tile tile-d" style="background-image:url('for%20placeholders/opt-studio-tile-d.jpg');"></div>
-        <!-- Live Studio tile-meta removed (2026-05-28) -->
-      </div>
+  <!-- HERO — a sea of the studio's work, floating in the dark. The studio IS the work. -->
+  <section class="sea" id="studioSea" aria-label="A sea of the studio's work">
+    <div class="sea-field" id="seaField" aria-hidden="true"></div>
+    <div class="sea-scrim" aria-hidden="true"></div>
+    <div class="sea-copy">
+      <p class="m m-accent sea-eyebrow">Studio / About</p>
+      <h1 class="d sea-headline">The studio<br/>is the work<span class="dot">.</span></h1>
+      <p class="sea-lede">Campaigns, films, identities, posters &mdash; years of it, one studio, one founder. Every piece made to stand out. Drift through it.</p>
     </div>
+    <span class="sea-cap m" aria-hidden="true"><span class="sea-dotpulse"></span>&nbsp;hover the work</span>
   </section>
 
   <style>
-    .studio-hero-with-tiles { padding-bottom: 32px; }
-    .studio-hero-grid { display: grid; grid-template-columns: 1fr; gap: 64px; align-items: center; }
-    @media (min-width: 980px) {
-      .studio-hero-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
+    .sea { position: relative; height: 100svh; min-height: 640px; max-height: 1080px; overflow: hidden; background: #060608; }
+    .sea-field { position: absolute; inset: -9% -5%; will-change: transform; }
+    .sea-tile { position: absolute; will-change: transform, opacity; opacity: 0; transform: translate(-50%,-50%);
+      animation: seaIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay: var(--in, 0s); }
+    .sea-tile-inner { position: relative; width: 100%; height: 100%; border-radius: 5px; overflow: hidden;
+      box-shadow: 0 20px 46px -20px rgba(0,0,0,0.85); transition: box-shadow .5s cubic-bezier(0.22,1,0.36,1);
+      animation: seaFloat var(--d, 9s) ease-in-out var(--dl, 0s) infinite alternate; will-change: transform; }
+    .sea-media { position: absolute; inset: 0; transition: transform .6s cubic-bezier(0.22,1,0.36,1); }
+    .sea-tile img { width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(.58) saturate(.9) contrast(1.02); transition: filter .5s; }
+    .sea-cap-label { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 9px 7px;
+      font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: #fff;
+      background: linear-gradient(transparent, rgba(0,0,0,.74)); opacity: 0; transform: translateY(4px);
+      transition: opacity .4s, transform .4s; pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sea-tile:hover { z-index: 40; }
+    .sea-tile:hover .sea-media { transform: scale(1.12); }
+    .sea-tile:hover img { filter: brightness(1.05) saturate(1.06) contrast(1.02); }
+    .sea-tile:hover .sea-tile-inner { box-shadow: 0 0 0 1px rgba(91,194,231,.55), 0 28px 64px -16px rgba(91,194,231,.5); }
+    .sea-tile:hover .sea-cap-label { opacity: .95; transform: translateY(0); }
+    .sea-scrim { position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(58% 56% at 50% 47%, rgba(6,6,8,.9) 0%, rgba(6,6,8,.72) 36%, rgba(6,6,8,.18) 68%, rgba(6,6,8,0) 100%); }
+    .sea-copy { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 0 24px; pointer-events: none; }
+    .sea-eyebrow { color: var(--accent); margin: 0 0 18px; }
+    .sea-headline { color: #f6f7f8; font-size: clamp(54px, 11vw, 184px); line-height: .87; letter-spacing: -0.02em;
+      margin: 0; text-shadow: 0 6px 46px rgba(0,0,0,.55); }
+    .sea-headline .dot { color: var(--accent); }
+    .sea-lede { max-width: 500px; margin: 26px 0 0; color: rgba(238,240,243,.72);
+      font-size: clamp(15px, 1.2vw, 18px); line-height: 1.55; }
+    .sea-cap { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 6;
+      display: flex; align-items: center; color: rgba(238,240,243,.5); pointer-events: none; }
+    .sea-dotpulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+      display: inline-block; box-shadow: 0 0 10px var(--accent); animation: seaPulse 2s ease-in-out infinite; }
+    @keyframes seaFloat { from { transform: translate3d(0,0,0) rotate(var(--r, 0deg)); }
+      to { transform: translate3d(var(--fx, 0px), var(--fy, -16px), 0) rotate(var(--r2, 0deg)); } }
+    @keyframes seaIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes seaPulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
+    @media (max-width: 760px) {
+      .sea { height: 86svh; min-height: 540px; }
+      .sea-field { inset: -14% -8%; }
+      .sea-headline { font-size: clamp(42px, 15vw, 92px); }
+      .sea-lede { font-size: 14px; max-width: 420px; }
     }
-    .studio-hero-left { display: grid; gap: 32px; }
-    .studio-hero-headline { font-size: clamp(56px, 8.5vw, 144px); line-height: 0.9; letter-spacing: -0.02em; }
-    .studio-hero-lede { font-size: clamp(17px, 1.4vw, 22px); line-height: 1.55; color: rgba(10,10,10,0.85); max-width: 560px; }
-    .studio-hero-tiles { position: relative; min-height: 480px; }
-    @media (min-width: 980px) { .studio-hero-tiles { min-height: 640px; } }
-    .studio-hero-tiles .tile {
-      position: absolute;
-      background-size: cover; background-position: center;
-      border: 1px solid var(--line);
-      box-shadow: 0 14px 30px -16px rgba(10,10,10,0.18);
-      transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
-      animation: tile-float 8s ease-in-out infinite;
-    }
-    .studio-hero-tiles .tile-a { top: 4%; left: 30%; width: 58%; aspect-ratio: 4/5; transform: rotate(-3deg); animation-delay: 0s; }
-    .studio-hero-tiles .tile-b { top: 32%; left: 0%; width: 42%; aspect-ratio: 1/1; transform: rotate(2deg); animation-delay: -2.5s; }
-    .studio-hero-tiles .tile-c { top: 58%; left: 36%; width: 36%; aspect-ratio: 3/4; transform: rotate(4deg); animation-delay: -5s; }
-    .studio-hero-tiles .tile-d { top: 18%; left: 72%; width: 30%; aspect-ratio: 1/1; transform: rotate(-5deg); animation-delay: -3.5s; }
-    .studio-hero-tiles .tile-meta {
-      position: absolute; top: 88%; left: 4%;
-      display: flex; gap: 16px; align-items: center;
-      background: var(--bg); padding: 10px 16px; border: 1px solid var(--line);
-      animation: tile-float 8s ease-in-out infinite;
-      animation-delay: -1s;
-    }
-    @keyframes tile-float {
-      0%, 100% { translate: 0 0; }
-      50% { translate: 0 -10px; }
-    }
-    .studio-hero-tiles .tile:hover { transform: rotate(0deg) scale(1.04); z-index: 5; }
-  </style>
-
-  <!-- BLOOM portal — a real blue poppy blooms as you scroll. The studio's growth idea:
-       a studio that makes brands open up and stand out. Replaces the old "we saw the gap" scrub. -->
-  <style>
-    .ir-sec { position: relative; height: 240vh; background: #050505; }
-    .ir-pin { position: sticky; top: 0; height: 100vh; overflow: hidden; background: #050505; }
-    .ir-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; background: #050505; }
-    .ir-vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 44%, rgba(0,0,0,0.62)); }
-    .ir-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(44vmin circle at 50% 50%, rgba(91,194,231,0.14), transparent 64%); will-change: opacity; }
-    .ir-tagline { position: absolute; left: 50%; bottom: 9%; transform: translateX(-50%); font-family: var(--display); font-weight: 900; text-transform: none; color: #f5f5f5; font-size: clamp(20px, 3vw, 40px); letter-spacing: -0.01em; white-space: nowrap; opacity: 0; text-shadow: 0 2px 22px rgba(0,0,0,0.7); z-index: 3; will-change: opacity, transform; }
-    .ir-tagline .dot { color: var(--accent); }
-    .ir-ring { position: absolute; top: 50%; left: 50%; width: 70vmin; height: 70vmin; transform: translate(-50%,-50%); pointer-events: none; will-change: transform, opacity; }
-    .ir-cap { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); color: rgba(245,245,245,0.5); z-index: 2; }
     @media (prefers-reduced-motion: reduce) {
-      .ir-sec { height: auto; } .ir-pin { position: static; height: 80vh; }
-      .ir-cap, .ir-ring { display: none; } .ir-tagline { opacity: 1; }
+      .sea-tile-inner { animation: none !important; }
+      .sea-tile { animation-duration: .01s !important; }
     }
   </style>
-  <section class="ir-sec" id="irisPortal" aria-label="A studio built to make brands bloom">
-    <div class="ir-pin">
-      <video class="ir-video" id="irVideo" src="static/portal-bloom.mp4" poster="static/portal-bloom-poster.jpg" muted playsinline preload="auto" disablepictureinpicture aria-label="A blue poppy blooming"></video>
-      <div class="ir-vignette"></div>
-      <div class="ir-glow"></div>
-      <svg class="ir-ring" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-        <circle cx="50" cy="50" r="46" stroke="rgba(91,194,231,0.45)" stroke-width="0.4" stroke-dasharray="1.6 2.6"/>
-        <circle cx="50" cy="50" r="38" stroke="rgba(91,194,231,0.22)" stroke-width="0.3"/>
-        <g stroke="rgba(91,194,231,0.55)" stroke-width="0.5">
-          <line x1="50" y1="1.5" x2="50" y2="8"/><line x1="50" y1="92" x2="50" y2="98.5"/>
-          <line x1="1.5" y1="50" x2="8" y2="50"/><line x1="92" y1="50" x2="98.5" y2="50"/>
-        </g>
-      </svg>
-      <span class="ir-tagline">Made to stand out<span class="dot">.</span></span>
-      <span class="ir-cap m">●&nbsp; keep scrolling</span>
-    </div>
-  </section>
   <script>
   (function(){
-    var sec = document.getElementById('irisPortal');
-    if (!sec) return;
-    var vid = document.getElementById('irVideo');
-    var glow = sec.querySelector('.ir-glow');
-    var ring = sec.querySelector('.ir-ring');
-    var cap = sec.querySelector('.ir-cap');
-    var tagline = sec.querySelector('.ir-tagline');
+    var field = document.getElementById('seaField');
+    var sec = document.getElementById('studioSea');
+    if (!field || !sec) return;
+    var WORK = [{s:"static/studio/thumbs/t00.jpg",l:"Poster"},{s:"static/studio/thumbs/t01.jpg",l:"Poster"},{s:"static/studio/thumbs/t02.jpg",l:"Poster"},{s:"static/studio/thumbs/t03.jpg",l:"Poster"},{s:"static/studio/thumbs/t04.jpg",l:"Poster"},{s:"static/studio/thumbs/t05.jpg",l:"Poster"},{s:"static/studio/thumbs/t06.jpg",l:"Campaign · Grit"},{s:"static/studio/thumbs/t07.jpg",l:"Campaign · Grit"},{s:"static/studio/thumbs/t08.jpg",l:"Campaign · Grit"},{s:"static/studio/thumbs/t09.jpg",l:"Campaign · Grit"},{s:"static/studio/thumbs/t10.jpg",l:"Editorial · Small Circle"},{s:"static/studio/thumbs/t11.jpg",l:"Editorial · Small Circle"},{s:"static/studio/thumbs/t12.jpg",l:"Editorial · Small Circle"},{s:"static/studio/thumbs/t13.jpg",l:"Editorial · Small Circle"},{s:"static/studio/thumbs/t14.jpg",l:"Brand · Forvr"},{s:"static/studio/thumbs/t15.jpg",l:"Brand · Forvr"},{s:"static/studio/thumbs/t16.jpg",l:"Film · Streetwear"},{s:"static/studio/thumbs/t17.jpg",l:"Film · Sp5der"},{s:"static/studio/thumbs/t18.jpg",l:"Film · Slawn"},{s:"static/studio/thumbs/t19.jpg",l:"Brand · Jewel"},{s:"static/studio/thumbs/t20.jpg",l:"R&D · Texture"},{s:"static/studio/thumbs/t21.jpg",l:"Deck · Strategy"},{s:"static/studio/thumbs/t22.jpg",l:"Deck · Campaign"},{s:"static/studio/thumbs/t23.jpg",l:"Identity"},{s:"static/studio/thumbs/t24.jpg",l:"Product"},{s:"static/studio/thumbs/t25.jpg",l:"OOH"},{s:"static/studio/thumbs/t26.jpg",l:"Editorial"},{s:"static/studio/thumbs/t27.jpg",l:"Posters"},{s:"static/studio/thumbs/t28.jpg",l:"Motion · 3D"},{s:"static/studio/thumbs/t29.jpg",l:"Film"},{s:"static/studio/thumbs/t30.jpg",l:"Direction"},{s:"static/studio/thumbs/t31.jpg",l:"Product · UI"},{s:"static/studio/thumbs/t32.jpg",l:"Render"},{s:"static/studio/thumbs/t33.jpg",l:"Portrait"}];
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var dur = 0, ready = false, lastT = -1, ticking = false;
-    function lerp(a, b, t){ return a + (b - a) * t; }
-    vid.addEventListener('loadedmetadata', function(){
-      dur = vid.duration || 5; ready = true; try { vid.pause(); } catch(e){}
-      if (reduce) { try { vid.currentTime = dur - 0.05; } catch(e){} return; }
-      apply();
-    });
-    try { vid.load(); } catch(e){}
-    function apply(){
-      ticking = false;
-      var r = sec.getBoundingClientRect(), vh = window.innerHeight;
-      var range = r.height - vh;
-      var p = range > 0 ? Math.max(0, Math.min(1, -r.top / range)) : 0;
-      if (ready && dur) {
-        var t = Math.min(dur - 0.04, p * dur);
-        if (Math.abs(t - lastT) > 0.015) { try { vid.currentTime = t; lastT = t; } catch(e){} }
-      }
-      if (glow) glow.style.opacity = (0.35 + Math.sin(Math.min(p, 1) * Math.PI) * 0.55).toFixed(3);
-      if (ring) { var e = 1 - Math.pow(1 - p, 3); ring.style.opacity = (0.5 * (1 - e) + 0.06).toFixed(3); ring.style.transform = 'translate(-50%,-50%) rotate(' + (p * 180).toFixed(1) + 'deg) scale(' + lerp(0.4, 1.2, e).toFixed(3) + ')'; }
-      if (cap) cap.style.opacity = Math.max(0, 1 - p * 2.4).toFixed(2);
-      if (tagline) { var tt = Math.max(0, Math.min(1, (p - 0.62) / 0.28)); tagline.style.opacity = tt.toFixed(3); tagline.style.transform = 'translateX(-50%) translateY(' + lerp(12, 0, tt).toFixed(1) + 'px)'; }
+    function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+    var rnd = mulberry32(20260623);
+    var cols = 7, rows = 5;
+    var ars = ['3 / 4','1 / 1','4 / 5','5 / 4','16 / 10','4 / 3'];
+    var cells = [];
+    for (var r=0;r<rows;r++){ for (var c=0;c<cols;c++){ cells.push([c,r]); } }
+    for (var i=cells.length-1;i>0;i--){ var j=Math.floor(rnd()*(i+1)); var tt=cells[i]; cells[i]=cells[j]; cells[j]=tt; }
+    var cellW = 100/cols, cellH = 100/rows;
+    var frag = document.createDocumentFragment();
+    for (var k=0;k<WORK.length;k++){
+      var w = WORK[k], cell = cells[k % cells.length], cx = cell[0], cy = cell[1];
+      var jx = (rnd()*0.6 - 0.3) * cellW, jy = (rnd()*0.6 - 0.3) * cellH;
+      var left = cx*cellW + cellW*0.5 + jx;
+      var top  = cy*cellH + cellH*0.5 + jy;
+      var centre = 1 - Math.abs((cx+0.5)/cols - 0.5)*1.5;
+      var wWidth = (8.4 + rnd()*6.4) * (1.16 - centre*0.46);
+      var ar = ars[Math.floor(rnd()*ars.length)];
+      var depth = 0.22 + rnd()*0.85;
+      var tile = document.createElement('div');
+      tile.className = 'sea-tile';
+      tile.style.left = left.toFixed(2)+'%';
+      tile.style.top = top.toFixed(2)+'%';
+      tile.style.width = wWidth.toFixed(2)+'%';
+      tile.style.setProperty('--depth', depth.toFixed(3));
+      tile.style.setProperty('--in', (0.04*k).toFixed(2)+'s');
+      var inner = document.createElement('div');
+      inner.className = 'sea-tile-inner';
+      inner.style.aspectRatio = ar;
+      inner.style.setProperty('--d', (7 + rnd()*6).toFixed(2)+'s');
+      inner.style.setProperty('--dl', (-rnd()*8).toFixed(2)+'s');
+      inner.style.setProperty('--fx', (rnd()*22 - 11).toFixed(0)+'px');
+      inner.style.setProperty('--fy', (-(8 + rnd()*18)).toFixed(0)+'px');
+      var rot = (rnd()*5 - 2.5);
+      inner.style.setProperty('--r', rot.toFixed(2)+'deg');
+      inner.style.setProperty('--r2', (rot + (rnd()*3 - 1.5)).toFixed(2)+'deg');
+      var media = document.createElement('div'); media.className = 'sea-media';
+      var img = document.createElement('img');
+      img.src = w.s; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+      media.appendChild(img);
+      var lab = document.createElement('span'); lab.className = 'sea-cap-label'; lab.textContent = w.l;
+      inner.appendChild(media); inner.appendChild(lab);
+      tile.appendChild(inner);
+      frag.appendChild(tile);
     }
-    function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(apply); } }
-    if (!reduce) {
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-      apply();
+    field.appendChild(frag);
+
+    // Pointer parallax (fine-pointer only) — depth gives the sea its 3D drift.
+    if (!reduce && window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      var tiles = field.querySelectorAll('.sea-tile');
+      var mx = 0, my = 0, raf = 0;
+      function applyP(){
+        raf = 0;
+        for (var i=0;i<tiles.length;i++){
+          var d = parseFloat(tiles[i].style.getPropertyValue('--depth')) || 0.5;
+          var tx = (-mx * d * 26).toFixed(1), ty = (-my * d * 26).toFixed(1);
+          tiles[i].style.transform = 'translate(calc(-50% + '+tx+'px), calc(-50% + '+ty+'px))';
+        }
+      }
+      sec.addEventListener('pointermove', function(e){
+        var rect = sec.getBoundingClientRect();
+        mx = (e.clientX - rect.left)/rect.width - 0.5;
+        my = (e.clientY - rect.top)/rect.height - 0.5;
+        if (!raf) raf = requestAnimationFrame(applyP);
+      }, { passive: true });
+      sec.addEventListener('pointerleave', function(){
+        for (var i=0;i<tiles.length;i++){ tiles[i].style.transform = 'translate(-50%,-50%)'; }
+      });
     }
   })();
   </script>
+
+  <!-- (BLOOM portal moved to the About page hero — 2026-06-23) -->
 
   <!-- ADJUSTMENT G — single centred statement screen (merged pivot + divider) -->
   <section class="pivot-line">
@@ -814,7 +822,7 @@
 
     <div class="tenants-grid">
       <article class="tn-tile" data-i="0">
-        <img class="bg" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20(Nano%20Banana%20Pro)-2026-01-25%20at%2018.40.57.jpg" alt="Forvr Studios streetwear campaign — brand-trained model output" />
+        <img class="bg" src="static/studio/tenant-trained.jpg" alt="A single cyan thread woven into a precise lattice — models trained to one brand" />
         <div class="overlay">
           <span class="num">01</span>
           <div class="text">
@@ -824,7 +832,7 @@
         </div>
       </article>
       <article class="tn-tile" data-i="1">
-        <img class="bg" src="forvr%20docs/images/grit-project/opt-rwhypervail_Moody_boxing_gym_silhouette_of_a_Black_male_athle_a8c43333-bcb7-4806-84f9-de2baa946afa_0.jpg" alt="Forvr Studios editorial campaign — boxing gym portrait" />
+        <img class="bg" src="static/studio/tenant-stacked.jpg" alt="Six panes of cyan glass stacked into one — six disciplines, one studio" />
         <div class="overlay">
           <span class="num">02</span>
           <div class="text">
@@ -834,7 +842,7 @@
         </div>
       </article>
       <article class="tn-tile" data-i="2">
-        <img class="bg" src="forvr%20docs/images/posters/opt-tom%20forvr.jpg" alt="Forvr Studios editorial poster — hand-finished campaign still" />
+        <img class="bg" src="static/studio/tenant-editorial.jpg" alt="Hand-finished paper with a cyan brushstroke and gold leaf — editorial craft" />
         <div class="overlay">
           <span class="num">03</span>
           <div class="text">
@@ -844,7 +852,7 @@
         </div>
       </article>
       <article class="tn-tile" data-i="3">
-        <img class="bg" src="forvr%20docs/images/grit-project/opt-rwhypervail_Indoor_plate-lift_portrait_of_a_Latino_male_athle_e30ec554-b34a-49d0-9c5d-d1cdd4ccb8a6_0.jpg" alt="Forvr Studios performance campaign — athlete portrait" />
+        <img class="bg" src="static/studio/tenant-performance.jpg" alt="A cyan arrow surging upward through a surface — creative built for performance" />
         <div class="overlay">
           <span class="num">04</span>
           <div class="text">
