@@ -2235,9 +2235,16 @@ window.buildTetrisReveal = function(opts) {
   }
 
   const imgNatural = { w: 0, h: 0 };
+  let armed = false, relayoutQueued = false;
+  // Keep the panel a clean black square until the slice image has DECODED *and*
+  // the grid has real dimensions. Without this gate, pre-placed tiles paint with a
+  // stale/zero background-size and show a broken half-crop on first load that only
+  // self-heals on a later scroll/resize. We reveal ("arm") once layout is valid.
+  grid.style.visibility = 'hidden';
+
   function layoutTiles() {
     const pw = grid.clientWidth, ph = grid.clientHeight;
-    if (!pw || !ph || !imgNatural.w || !imgNatural.h) return;
+    if (!pw || !ph || !imgNatural.w || !imgNatural.h) return false;
     const scale = Math.max(pw / imgNatural.w, ph / imgNatural.h);
     const dispW = imgNatural.w * scale, dispH = imgNatural.h * scale;
     const offX = (pw - dispW) / 2, offY = (ph - dispH) / 2;
@@ -2256,13 +2263,45 @@ window.buildTetrisReveal = function(opts) {
       t.style.backgroundSize = dispW + 'px ' + dispH + 'px';
       t.style.backgroundPosition = (offX - tl) + 'px ' + (offY - tt) + 'px';
     }
+    return true;
   }
+
+  // Recompute layout (and, once it's valid, arm + sync scroll state) on every
+  // size/decode change — this is what keeps the crops correct as the sticky panel
+  // settles its real size (fonts, late layout, viewport changes).
+  function relayout() {
+    relayoutQueued = false;
+    if (layoutTiles()) {
+      compute();
+      if (!armed) { armed = true; grid.style.visibility = 'visible'; }
+    }
+  }
+  function queueRelayout() {
+    if (relayoutQueued) return;
+    relayoutQueued = true;
+    requestAnimationFrame(relayout);
+  }
+
   if (IMG) {
     const _im = new Image();
-    _im.onload = function () { imgNatural.w = _im.naturalWidth; imgNatural.h = _im.naturalHeight; layoutTiles(); };
+    _im.decoding = 'async';
+    const onReady = function () {
+      imgNatural.w = _im.naturalWidth || imgNatural.w;
+      imgNatural.h = _im.naturalHeight || imgNatural.h;
+      queueRelayout();
+    };
+    _im.onload = onReady;
+    _im.onerror = function () {
+      // Never let the panel stick on black if the slice source fails — fall back to
+      // a sane aspect so tiles still lay out and reveal on scroll.
+      imgNatural.w = imgNatural.w || 1600; imgNatural.h = imgNatural.h || 1000;
+      queueRelayout();
+    };
     _im.src = IMG;
+    if (_im.decode) { _im.decode().then(onReady).catch(function(){}); }
+  } else {
+    armed = true; grid.style.visibility = 'visible';
   }
-  layoutTiles();
 
   let ticking = false;
   function compute() {
@@ -2287,6 +2326,12 @@ window.buildTetrisReveal = function(opts) {
     }
   }
   function onScroll() { if (!ticking) { requestAnimationFrame(compute); ticking = true; } }
+  // ResizeObserver fires an initial callback once the grid has a real box, then on
+  // every resize — the definitive fix for the first-load half-fill race.
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(queueRelayout).observe(grid); } catch (e) {}
+  }
+  window.addEventListener('load', queueRelayout);
   compute();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
