@@ -829,7 +829,7 @@
 
     <div class="tenants-grid">
       <article class="tn-tile" data-i="0">
-        <img class="bg" src="static/studio/tenant-trained.jpg" alt="A single cyan thread woven into a precise lattice — models trained to one brand" />
+        <video class="bg" src="static/studio/tenant-trained.mp4" muted playsinline preload="metadata" disablepictureinpicture data-build aria-label="A single cyan thread woven into a precise lattice — models trained to one brand"></video>
         <div class="overlay">
           <span class="num">01</span>
           <div class="text">
@@ -839,7 +839,7 @@
         </div>
       </article>
       <article class="tn-tile" data-i="1">
-        <img class="bg" src="static/studio/tenant-stacked.jpg" alt="Six panes of cyan glass stacked into one — six disciplines, one studio" />
+        <video class="bg" src="static/studio/tenant-stacked.mp4" muted playsinline preload="metadata" disablepictureinpicture data-build aria-label="Six panes of cyan glass stacked into one — six disciplines, one studio"></video>
         <div class="overlay">
           <span class="num">02</span>
           <div class="text">
@@ -849,7 +849,7 @@
         </div>
       </article>
       <article class="tn-tile" data-i="2">
-        <img class="bg" src="static/studio/tenant-editorial.jpg" alt="Hand-finished paper with a cyan brushstroke and gold leaf — editorial craft" />
+        <video class="bg" src="static/studio/tenant-editorial.mp4" muted playsinline preload="metadata" disablepictureinpicture data-build aria-label="Hand-finished paper with a cyan brushstroke and gold leaf — editorial craft"></video>
         <div class="overlay">
           <span class="num">03</span>
           <div class="text">
@@ -859,7 +859,7 @@
         </div>
       </article>
       <article class="tn-tile" data-i="3">
-        <img class="bg" src="static/studio/tenant-performance.jpg" alt="A cyan arrow surging upward through a surface — creative built for performance" />
+        <video class="bg" src="static/studio/tenant-performance.mp4" muted playsinline preload="metadata" disablepictureinpicture data-build aria-label="A cyan arrow surging upward through a surface — creative built for performance"></video>
         <div class="overlay">
           <span class="num">04</span>
           <div class="text">
@@ -870,6 +870,30 @@
       </article>
     </div>
   </section>
+
+  <script>
+  // Four-things tiles build in: each clip plays from its empty start frame into the
+  // finished image when the tile scrolls into view, then holds on the final frame.
+  (function(){
+    var vids = document.querySelectorAll('.tenants-grid video[data-build]');
+    if (!vids.length) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce){
+      vids.forEach(function(v){ v.addEventListener('loadedmetadata', function(){ try { v.currentTime = Math.max(0, (v.duration || 5) - 0.05); } catch(e){} }); });
+      return;
+    }
+    vids.forEach(function(v){ v.muted = true; });
+    if (!('IntersectionObserver' in window)){ vids.forEach(function(v){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); }); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var v = e.target;
+        if (e.isIntersecting){ try { v.currentTime = 0; } catch(err){} var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+        else { try { v.pause(); } catch(err){} }
+      });
+    }, { threshold: 0.4 });
+    vids.forEach(function(v){ io.observe(v); });
+  })();
+  </script>
 
   <style>
     /* Tenants grid — 2×2 image tiles, title + subtitle overlaid */
