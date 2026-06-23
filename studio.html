@@ -711,11 +711,10 @@
   (function(){
     var host = document.getElementById('seaLanes');
     if (!host) return;
-    var WORK = [{s:"static/studio/river/warm-stilllife.jpg",l:"Still life"},{s:"static/studio/river/warm-packaging.jpg",l:"Packaging"},{s:"static/studio/river/warm-table.jpg",l:"Set design"},{s:"static/studio/river/warm-materials.jpg",l:"Direction"},{s:"static/studio/river/warm-landscape.jpg",l:"Location"},{s:"static/studio/river/warm-fashion-field.jpg",l:"Fashion"},{s:"static/studio/river/warm-fashion-jetty.jpg",l:"Fashion"},{s:"static/studio/river/warm-tailoring.jpg",l:"Tailoring"},{s:"static/studio/river/warm-fashion-duo.jpg",l:"Fashion"},{s:"static/studio/river/warm-collection.jpg",l:"Collection"},{s:"static/studio/river/warm-deck-1.jpg",l:"Deck"},{s:"static/studio/river/warm-brandbook.jpg",l:"Brand book"},{s:"static/studio/river/warm-deck-2.jpg",l:"Deck"},{s:"static/studio/river/warm-lookbook.jpg",l:"Lookbook"},{s:"static/studio/river/warm-ooh.jpg",l:"OOH"},{s:"static/studio/river/warm-identity.jpg",l:"Identity"},{s:"static/studio/river/warm-lifestyle-1.jpg",l:"Lifestyle"},{s:"static/studio/river/warm-lifestyle-2.jpg",l:"Lifestyle"},{s:"static/studio/river/ex-sc-1.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-3.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-7.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-11.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-15.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-18.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-poster-tomford.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-dn.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-pas.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-untitled.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-kms.jpg",l:"Poster"},{s:"static/studio/river/ex-track-1.jpg",l:"Brand · Forvr"},{s:"static/studio/river/ex-track-2.jpg",l:"Brand · Forvr"},{s:"static/studio/river/ex-jewel.jpg",l:"Brand · Jewel"},{s:"static/studio/river/ex-gucci.jpg",l:"Film · Streetwear"},{s:"static/studio/river/ex-sp5der.jpg",l:"Film · Sp5der"},{s:"static/studio/river/ex-slawn.jpg",l:"Film · Slawn"},{s:"static/studio/river/ex-grit-1.jpg",l:"Campaign · Grit"},{s:"static/studio/river/ex-grit-2.jpg",l:"Campaign · Grit"}];
+    var WORK = [{s:"static/studio/river/ex-poster-untitled.jpg",l:"Poster"},{s:"static/studio/river/warm-collection.jpg",l:"Collection"},{s:"static/studio/river/ex-poster-kms.jpg",l:"Poster"},{s:"static/studio/river/mix-product.jpg",l:"Product"},{s:"static/studio/river/ex-grit-1.jpg",l:"Campaign · Grit"},{s:"static/studio/river/ex-slawn.jpg",l:"Film · Slawn"},{s:"static/studio/river/warm-tailoring.jpg",l:"Tailoring"},{s:"static/studio/river/ex-track-1.jpg",l:"Brand · Forvr"},{s:"static/studio/river/ex-sc-11.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/warm-fashion-jetty.jpg",l:"Fashion"},{s:"static/studio/river/mix-colour.jpg",l:"Campaign"},{s:"static/studio/river/ex-track-2.jpg",l:"Brand · Forvr"},{s:"static/studio/river/ex-jewel.jpg",l:"Brand · Jewel"},{s:"static/studio/river/ex-sc-3.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/warm-lifestyle-1.jpg",l:"Lifestyle"},{s:"static/studio/river/ex-sc-15.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/mix-nightlife.jpg",l:"Film"},{s:"static/studio/river/ex-moncler.jpg",l:"Film · Moncler"},{s:"static/studio/river/warm-brandbook.jpg",l:"Brand book"},{s:"static/studio/river/ex-poster-tomford.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-funk.jpg",l:"Poster"},{s:"static/studio/river/ex-grit-3.jpg",l:"Campaign · Grit"},{s:"static/studio/river/warm-fashion-field.jpg",l:"Fashion"},{s:"static/studio/river/ex-sc-7.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/mix-fashion-cool.jpg",l:"Fashion"},{s:"static/studio/river/ex-sp5der.jpg",l:"Film · Sp5der"},{s:"static/studio/river/warm-lookbook.jpg",l:"Lookbook"},{s:"static/studio/river/ex-tex-glass.jpg",l:"R&D · Texture"},{s:"static/studio/river/ex-poster-pas.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-dn.jpg",l:"Poster"},{s:"static/studio/river/warm-deck-1.jpg",l:"Deck"},{s:"static/studio/river/mix-poster.jpg",l:"Poster"},{s:"static/studio/river/ex-tex-silk.jpg",l:"R&D · Texture"},{s:"static/studio/river/ex-gucci-1.jpg",l:"Film · Streetwear"},{s:"static/studio/river/warm-fashion-duo.jpg",l:"Fashion"},{s:"static/studio/river/ex-tex-mercury.jpg",l:"R&D · Texture"},{s:"static/studio/river/ex-sc-1.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/mix-bw.jpg",l:"Portrait"},{s:"static/studio/river/ex-poster-dn2.jpg",l:"Poster"},{s:"static/studio/river/warm-lifestyle-2.jpg",l:"Lifestyle"},{s:"static/studio/river/ex-grit-2.jpg",l:"Campaign · Grit"}];
     function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
     var rnd = mulberry32(20260623);
     var items = WORK.slice();
-    for (var i=items.length-1;i>0;i--){ var j=Math.floor(rnd()*(i+1)); var t=items[i]; items[i]=items[j]; items[j]=t; }
     var ars = ['3 / 4','1 / 1','4 / 3','5 / 4','16 / 10','4 / 5'];
     items.forEach(function(it){ it.ar = ars[Math.floor(rnd()*ars.length)]; });
     var LANES = 4;
@@ -752,6 +751,52 @@
   </script>
 
   <!-- (BLOOM portal moved to the About page hero — 2026-06-23) -->
+
+  <!-- WE SAW THE GAP — the three broken answers the market offered. Static story section
+       (re-added 2026-06-23 so the page reads as a full narrative). -->
+  <section class="block gap-story">
+    <div class="gap-story-head reveal-group">
+      <p class="m m-accent reveal-line">●&nbsp; Why this&nbsp; /&nbsp; The three gaps</p>
+      <h2 class="d gap-story-title reveal-line">We saw the gap<span class="dot">.</span></h2>
+      <p class="gap-story-intro reveal-line">Brands need content that converts. The market offered three broken answers.</p>
+    </div>
+    <div class="gap-story-grid reveal-group">
+      <article class="gap-card reveal-line" data-i="0">
+        <span class="gc-num">01</span>
+        <span class="gc-eyebrow">Broken answer one</span>
+        <h3 class="gc-title d">Comms agencies<span class="dot">.</span></h3>
+        <p class="gc-body">Slow, expensive production cycles. Built for a media landscape that doesn&rsquo;t exist anymore.</p>
+      </article>
+      <article class="gap-card reveal-line" data-i="1">
+        <span class="gc-num">02</span>
+        <span class="gc-eyebrow">Broken answer two</span>
+        <h3 class="gc-title d">Influencer shops<span class="dot">.</span></h3>
+        <p class="gc-body">No production craft. Inflated rates. Zero accountability for what the content actually does.</p>
+      </article>
+      <article class="gap-card reveal-line" data-i="2">
+        <span class="gc-num">03</span>
+        <span class="gc-eyebrow">Broken answer three</span>
+        <h3 class="gc-title d">Generic AI shops<span class="dot">.</span></h3>
+        <p class="gc-body">Prompt-and-pray with off-the-shelf models. Output that looks like every other deck.</p>
+      </article>
+    </div>
+  </section>
+  <style>
+    .gap-story { padding: clamp(72px, 12vh, 150px) 24px; border-top: 1px solid var(--line); }
+    @media (min-width: 768px) { .gap-story { padding-left: 40px; padding-right: 40px; } }
+    .gap-story-head { max-width: 1180px; margin: 0 auto clamp(48px, 7vh, 80px); }
+    .gap-story-title { font-size: clamp(52px, 9vw, 150px); line-height: 0.9; letter-spacing: -0.02em; margin: 16px 0 0; }
+    .gap-story-intro { font-size: clamp(18px, 1.7vw, 26px); line-height: 1.45; color: rgba(10,10,10,0.66); max-width: 26ch; margin: 26px 0 0; }
+    .gap-story-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    @media (min-width: 820px) { .gap-story-grid { grid-template-columns: repeat(3, 1fr); } }
+    .gap-card { background: var(--bg); padding: 38px 30px 46px; display: flex; flex-direction: column; gap: 13px; transition: background 0.4s, transform 0.4s; }
+    .gap-card:hover { background: #ffffff; }
+    .gc-num { font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; color: var(--accent); }
+    .gc-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(10,10,10,0.45); }
+    .gc-title { font-size: clamp(28px, 3vw, 44px); line-height: 0.96; margin: 6px 0 2px; letter-spacing: -0.01em; }
+    .gc-title .dot { color: var(--accent); }
+    .gc-body { font-size: 15px; line-height: 1.6; color: rgba(10,10,10,0.68); }
+  </style>
 
   <!-- ADJUSTMENT G — single centred statement screen (merged pivot + divider) -->
   <section class="pivot-line">
