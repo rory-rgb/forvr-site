@@ -650,141 +650,103 @@
 </script>
 
 <main>
-  <!-- HERO — a sea of the studio's work, floating in the dark. The studio IS the work. -->
-  <section class="sea" id="studioSea" aria-label="A sea of the studio's work">
-    <div class="sea-field" id="seaField" aria-hidden="true"></div>
+  <!-- HERO — a flowing river of the studio's work: continuous horizontal marquee on warm white. -->
+  <section class="sea" id="studioSea" aria-label="A river of the studio's work">
+    <div class="sea-lanes" id="seaLanes" aria-hidden="true"></div>
     <div class="sea-scrim" aria-hidden="true"></div>
     <div class="sea-copy">
       <p class="m m-accent sea-eyebrow">Studio / About</p>
       <h1 class="d sea-headline">The studio<br/>is the work<span class="dot">.</span></h1>
-      <p class="sea-lede">Campaigns, films, identities, posters &mdash; years of it, one studio, one founder. Every piece made to stand out. Drift through it.</p>
+      <p class="sea-lede">Campaigns, films, identities, posters &mdash; a working studio, one founder, every piece made to stand out.</p>
     </div>
-    <span class="sea-cap m" aria-hidden="true"><span class="sea-dotpulse"></span>&nbsp;hover the work</span>
+    <span class="sea-cap m" aria-hidden="true"><span class="sea-dotpulse"></span>&nbsp;hover to pause</span>
   </section>
-
   <style>
-    .sea { position: relative; height: 100svh; min-height: 640px; max-height: 1080px; overflow: hidden; background: #060608; }
-    .sea-field { position: absolute; inset: -9% -5%; will-change: transform; }
-    .sea-tile { position: absolute; will-change: transform, opacity; opacity: 0; transform: translate(-50%,-50%);
-      animation: seaIn 0.9s cubic-bezier(0.22,1,0.36,1) forwards; animation-delay: var(--in, 0s); }
-    .sea-tile-inner { position: relative; width: 100%; height: 100%; border-radius: 5px; overflow: hidden;
-      box-shadow: 0 20px 46px -20px rgba(0,0,0,0.85); transition: box-shadow .5s cubic-bezier(0.22,1,0.36,1);
-      animation: seaFloat var(--d, 9s) ease-in-out var(--dl, 0s) infinite alternate; will-change: transform; }
-    .sea-media { position: absolute; inset: 0; transition: transform .6s cubic-bezier(0.22,1,0.36,1); }
-    .sea-tile img { width: 100%; height: 100%; object-fit: cover; display: block;
-      filter: brightness(.58) saturate(.9) contrast(1.02); transition: filter .5s; }
-    .sea-cap-label { position: absolute; left: 0; right: 0; bottom: 0; padding: 20px 9px 7px;
-      font-family: var(--mono); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: #fff;
-      background: linear-gradient(transparent, rgba(0,0,0,.74)); opacity: 0; transform: translateY(4px);
+    .sea { position: relative; height: 100svh; min-height: 640px; max-height: 1120px; overflow: hidden; background: #f6f3ee; }
+    .sea-lanes { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: clamp(10px, 1.6vh, 20px); padding: 3vh 0; }
+    .rv-lane { position: relative; height: var(--laneH, 21vh); overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
+    .rv-track { position: absolute; top: 0; left: 0; height: 100%; display: flex; gap: clamp(10px, 1.1vw, 18px);
+      will-change: transform; animation: rv-flow var(--dur, 64s) linear infinite; animation-direction: var(--dir, normal); }
+    .rv-lane:hover .rv-track { animation-play-state: paused; }
+    .rv-tile { position: relative; height: 100%; aspect-ratio: var(--ar, 4 / 3); flex: 0 0 auto;
+      border-radius: 6px; overflow: hidden; background: #e8e2d8;
+      box-shadow: 0 10px 26px -14px rgba(60,40,20,0.42);
+      transition: transform .5s cubic-bezier(0.22,1,0.36,1), box-shadow .5s; }
+    .rv-tile img { width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .6s cubic-bezier(0.22,1,0.36,1); }
+    .rv-label { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 10px 7px;
+      font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: #fff;
+      background: linear-gradient(transparent, rgba(28,18,10,.74)); opacity: 0; transform: translateY(4px);
       transition: opacity .4s, transform .4s; pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .sea-tile:hover { z-index: 40; }
-    .sea-tile:hover .sea-media { transform: scale(1.12); }
-    .sea-tile:hover img { filter: brightness(1.05) saturate(1.06) contrast(1.02); }
-    .sea-tile:hover .sea-tile-inner { box-shadow: 0 0 0 1px rgba(91,194,231,.55), 0 28px 64px -16px rgba(91,194,231,.5); }
-    .sea-tile:hover .sea-cap-label { opacity: .95; transform: translateY(0); }
+    .rv-tile:hover { transform: translateY(-6px) scale(1.05); z-index: 5; box-shadow: 0 22px 50px -16px rgba(60,40,20,0.5); }
+    .rv-tile:hover img { transform: scale(1.06); }
+    .rv-tile:hover .rv-label { opacity: 1; transform: translateY(0); }
     .sea-scrim { position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(58% 56% at 50% 47%, rgba(6,6,8,.9) 0%, rgba(6,6,8,.72) 36%, rgba(6,6,8,.18) 68%, rgba(6,6,8,0) 100%); }
-    .sea-copy { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column;
+      background: radial-gradient(60% 54% at 50% 48%, rgba(246,243,238,.97) 0%, rgba(246,243,238,.85) 32%, rgba(246,243,238,.34) 64%, rgba(246,243,238,0) 100%); }
+    .sea-copy { position: absolute; inset: 0; z-index: 6; display: flex; flex-direction: column;
       align-items: center; justify-content: center; text-align: center; padding: 0 24px; pointer-events: none; }
     .sea-eyebrow { color: var(--accent); margin: 0 0 18px; }
-    .sea-headline { color: #f6f7f8; font-size: clamp(54px, 11vw, 184px); line-height: .87; letter-spacing: -0.02em;
-      margin: 0; text-shadow: 0 6px 46px rgba(0,0,0,.55); }
+    .sea-headline { color: #18130f; font-size: clamp(54px, 11vw, 184px); line-height: .87; letter-spacing: -0.02em;
+      margin: 0; text-shadow: 0 4px 30px rgba(246,243,238,.6); }
     .sea-headline .dot { color: var(--accent); }
-    .sea-lede { max-width: 500px; margin: 26px 0 0; color: rgba(238,240,243,.72);
+    .sea-lede { max-width: 500px; margin: 24px 0 0; color: rgba(40,30,22,.72);
       font-size: clamp(15px, 1.2vw, 18px); line-height: 1.55; }
-    .sea-cap { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 6;
-      display: flex; align-items: center; color: rgba(238,240,243,.5); pointer-events: none; }
+    .sea-cap { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 7;
+      display: flex; align-items: center; color: rgba(40,30,22,.5); pointer-events: none; }
     .sea-dotpulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
       display: inline-block; box-shadow: 0 0 10px var(--accent); animation: seaPulse 2s ease-in-out infinite; }
-    @keyframes seaFloat { from { transform: translate3d(0,0,0) rotate(var(--r, 0deg)); }
-      to { transform: translate3d(var(--fx, 0px), var(--fy, -16px), 0) rotate(var(--r2, 0deg)); } }
-    @keyframes seaIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes rv-flow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes seaPulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
     @media (max-width: 760px) {
       .sea { height: 86svh; min-height: 540px; }
-      .sea-field { inset: -14% -8%; }
+      .rv-lane { --laneH: 17vh; }
       .sea-headline { font-size: clamp(42px, 15vw, 92px); }
       .sea-lede { font-size: 14px; max-width: 420px; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      .sea-tile-inner { animation: none !important; }
-      .sea-tile { animation-duration: .01s !important; }
-    }
+    @media (prefers-reduced-motion: reduce) { .rv-track { animation: none !important; } }
   </style>
   <script>
   (function(){
-    var field = document.getElementById('seaField');
-    var sec = document.getElementById('studioSea');
-    if (!field || !sec) return;
-    var WORK = [{s:"static/studio/thumbs/t00.jpg",l:"Poster"},{s:"static/studio/thumbs/t01.jpg",l:"Poster"},{s:"static/studio/thumbs/t02.jpg",l:"Poster"},{s:"static/studio/thumbs/t03.jpg",l:"Poster"},{s:"static/studio/thumbs/t04.jpg",l:"Poster"},{s:"static/studio/thumbs/t05.jpg",l:"Poster"},{s:"static/studio/thumbs/t06.jpg",l:"Campaign · Grit"},{s:"static/studio/thumbs/t07.jpg",l:"Campaign · Grit"},{s:"static/studio/thumbs/t08.jpg",l:"Campaign · Grit"},{s:"static/studio/thumbs/t09.jpg",l:"Campaign · Grit"},{s:"static/studio/thumbs/t10.jpg",l:"Editorial · Small Circle"},{s:"static/studio/thumbs/t11.jpg",l:"Editorial · Small Circle"},{s:"static/studio/thumbs/t12.jpg",l:"Editorial · Small Circle"},{s:"static/studio/thumbs/t13.jpg",l:"Editorial · Small Circle"},{s:"static/studio/thumbs/t14.jpg",l:"Brand · Forvr"},{s:"static/studio/thumbs/t15.jpg",l:"Brand · Forvr"},{s:"static/studio/thumbs/t16.jpg",l:"Film · Streetwear"},{s:"static/studio/thumbs/t17.jpg",l:"Film · Sp5der"},{s:"static/studio/thumbs/t18.jpg",l:"Film · Slawn"},{s:"static/studio/thumbs/t19.jpg",l:"Brand · Jewel"},{s:"static/studio/thumbs/t20.jpg",l:"R&D · Texture"},{s:"static/studio/thumbs/t21.jpg",l:"Deck · Strategy"},{s:"static/studio/thumbs/t22.jpg",l:"Deck · Campaign"},{s:"static/studio/thumbs/t23.jpg",l:"Identity"},{s:"static/studio/thumbs/t24.jpg",l:"Product"},{s:"static/studio/thumbs/t25.jpg",l:"OOH"},{s:"static/studio/thumbs/t26.jpg",l:"Editorial"},{s:"static/studio/thumbs/t27.jpg",l:"Posters"},{s:"static/studio/thumbs/t28.jpg",l:"Motion · 3D"},{s:"static/studio/thumbs/t29.jpg",l:"Film"},{s:"static/studio/thumbs/t30.jpg",l:"Direction"},{s:"static/studio/thumbs/t31.jpg",l:"Product · UI"},{s:"static/studio/thumbs/t32.jpg",l:"Render"},{s:"static/studio/thumbs/t33.jpg",l:"Portrait"}];
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var host = document.getElementById('seaLanes');
+    if (!host) return;
+    var WORK = [{s:"static/studio/river/warm-stilllife.jpg",l:"Still life"},{s:"static/studio/river/warm-packaging.jpg",l:"Packaging"},{s:"static/studio/river/warm-table.jpg",l:"Set design"},{s:"static/studio/river/warm-materials.jpg",l:"Direction"},{s:"static/studio/river/warm-landscape.jpg",l:"Location"},{s:"static/studio/river/warm-fashion-field.jpg",l:"Fashion"},{s:"static/studio/river/warm-fashion-jetty.jpg",l:"Fashion"},{s:"static/studio/river/warm-tailoring.jpg",l:"Tailoring"},{s:"static/studio/river/warm-fashion-duo.jpg",l:"Fashion"},{s:"static/studio/river/warm-collection.jpg",l:"Collection"},{s:"static/studio/river/warm-deck-1.jpg",l:"Deck"},{s:"static/studio/river/warm-brandbook.jpg",l:"Brand book"},{s:"static/studio/river/warm-deck-2.jpg",l:"Deck"},{s:"static/studio/river/warm-lookbook.jpg",l:"Lookbook"},{s:"static/studio/river/warm-ooh.jpg",l:"OOH"},{s:"static/studio/river/warm-identity.jpg",l:"Identity"},{s:"static/studio/river/warm-lifestyle-1.jpg",l:"Lifestyle"},{s:"static/studio/river/warm-lifestyle-2.jpg",l:"Lifestyle"},{s:"static/studio/river/ex-sc-1.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-3.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-7.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-11.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-15.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-sc-18.jpg",l:"Editorial · Small Circle"},{s:"static/studio/river/ex-poster-tomford.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-dn.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-pas.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-untitled.jpg",l:"Poster"},{s:"static/studio/river/ex-poster-kms.jpg",l:"Poster"},{s:"static/studio/river/ex-track-1.jpg",l:"Brand · Forvr"},{s:"static/studio/river/ex-track-2.jpg",l:"Brand · Forvr"},{s:"static/studio/river/ex-jewel.jpg",l:"Brand · Jewel"},{s:"static/studio/river/ex-gucci.jpg",l:"Film · Streetwear"},{s:"static/studio/river/ex-sp5der.jpg",l:"Film · Sp5der"},{s:"static/studio/river/ex-slawn.jpg",l:"Film · Slawn"},{s:"static/studio/river/ex-grit-1.jpg",l:"Campaign · Grit"},{s:"static/studio/river/ex-grit-2.jpg",l:"Campaign · Grit"}];
     function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
     var rnd = mulberry32(20260623);
-    var cols = 7, rows = 5;
-    var ars = ['3 / 4','1 / 1','4 / 5','5 / 4','16 / 10','4 / 3'];
-    var cells = [];
-    for (var r=0;r<rows;r++){ for (var c=0;c<cols;c++){ cells.push([c,r]); } }
-    for (var i=cells.length-1;i>0;i--){ var j=Math.floor(rnd()*(i+1)); var tt=cells[i]; cells[i]=cells[j]; cells[j]=tt; }
-    var cellW = 100/cols, cellH = 100/rows;
-    var frag = document.createDocumentFragment();
-    for (var k=0;k<WORK.length;k++){
-      var w = WORK[k], cell = cells[k % cells.length], cx = cell[0], cy = cell[1];
-      var jx = (rnd()*0.6 - 0.3) * cellW, jy = (rnd()*0.6 - 0.3) * cellH;
-      var left = cx*cellW + cellW*0.5 + jx;
-      var top  = cy*cellH + cellH*0.5 + jy;
-      var centre = 1 - Math.abs((cx+0.5)/cols - 0.5)*1.5;
-      var wWidth = (8.4 + rnd()*6.4) * (1.16 - centre*0.46);
-      var ar = ars[Math.floor(rnd()*ars.length)];
-      var depth = 0.22 + rnd()*0.85;
-      var tile = document.createElement('div');
-      tile.className = 'sea-tile';
-      tile.style.left = left.toFixed(2)+'%';
-      tile.style.top = top.toFixed(2)+'%';
-      tile.style.width = wWidth.toFixed(2)+'%';
-      tile.style.setProperty('--depth', depth.toFixed(3));
-      tile.style.setProperty('--in', (0.04*k).toFixed(2)+'s');
-      var inner = document.createElement('div');
-      inner.className = 'sea-tile-inner';
-      inner.style.aspectRatio = ar;
-      inner.style.setProperty('--d', (7 + rnd()*6).toFixed(2)+'s');
-      inner.style.setProperty('--dl', (-rnd()*8).toFixed(2)+'s');
-      inner.style.setProperty('--fx', (rnd()*22 - 11).toFixed(0)+'px');
-      inner.style.setProperty('--fy', (-(8 + rnd()*18)).toFixed(0)+'px');
-      var rot = (rnd()*5 - 2.5);
-      inner.style.setProperty('--r', rot.toFixed(2)+'deg');
-      inner.style.setProperty('--r2', (rot + (rnd()*3 - 1.5)).toFixed(2)+'deg');
-      var media = document.createElement('div'); media.className = 'sea-media';
+    var items = WORK.slice();
+    for (var i=items.length-1;i>0;i--){ var j=Math.floor(rnd()*(i+1)); var t=items[i]; items[i]=items[j]; items[j]=t; }
+    var ars = ['3 / 4','1 / 1','4 / 3','5 / 4','16 / 10','4 / 5'];
+    items.forEach(function(it){ it.ar = ars[Math.floor(rnd()*ars.length)]; });
+    var LANES = 4;
+    var lanes = []; for (var L=0; L<LANES; L++) lanes.push([]);
+    for (var k=0;k<items.length;k++){ lanes[k % LANES].push(items[k]); }
+    var durations = [66, 84, 58, 74];
+    var dirs = ['normal','reverse','normal','reverse'];
+    function buildTile(w){
+      var d = document.createElement('div');
+      d.className = 'rv-tile';
+      d.style.setProperty('--ar', w.ar);
       var img = document.createElement('img');
       img.src = w.s; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
-      media.appendChild(img);
-      var lab = document.createElement('span'); lab.className = 'sea-cap-label'; lab.textContent = w.l;
-      inner.appendChild(media); inner.appendChild(lab);
-      tile.appendChild(inner);
-      frag.appendChild(tile);
+      var lab = document.createElement('span'); lab.className = 'rv-label'; lab.textContent = w.l;
+      d.appendChild(img); d.appendChild(lab);
+      return d;
     }
-    field.appendChild(frag);
-
-    // Pointer parallax (fine-pointer only) — depth gives the sea its 3D drift.
-    if (!reduce && window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      var tiles = field.querySelectorAll('.sea-tile');
-      var mx = 0, my = 0, raf = 0;
-      function applyP(){
-        raf = 0;
-        for (var i=0;i<tiles.length;i++){
-          var d = parseFloat(tiles[i].style.getPropertyValue('--depth')) || 0.5;
-          var tx = (-mx * d * 26).toFixed(1), ty = (-my * d * 26).toFixed(1);
-          tiles[i].style.transform = 'translate(calc(-50% + '+tx+'px), calc(-50% + '+ty+'px))';
-        }
+    for (var L=0; L<LANES; L++){
+      var laneEl = document.createElement('div');
+      laneEl.className = 'rv-lane';
+      var track = document.createElement('div');
+      track.className = 'rv-track';
+      track.style.setProperty('--dur', durations[L % durations.length] + 's');
+      track.style.setProperty('--dir', dirs[L % dirs.length]);
+      var laneItems = lanes[L];
+      // duplicate the set twice so translateX(-50%) loops seamlessly
+      for (var dup=0; dup<2; dup++){
+        for (var m=0;m<laneItems.length;m++){ track.appendChild(buildTile(laneItems[m])); }
       }
-      sec.addEventListener('pointermove', function(e){
-        var rect = sec.getBoundingClientRect();
-        mx = (e.clientX - rect.left)/rect.width - 0.5;
-        my = (e.clientY - rect.top)/rect.height - 0.5;
-        if (!raf) raf = requestAnimationFrame(applyP);
-      }, { passive: true });
-      sec.addEventListener('pointerleave', function(){
-        for (var i=0;i<tiles.length;i++){ tiles[i].style.transform = 'translate(-50%,-50%)'; }
-      });
+      laneEl.appendChild(track);
+      host.appendChild(laneEl);
     }
   })();
   </script>
