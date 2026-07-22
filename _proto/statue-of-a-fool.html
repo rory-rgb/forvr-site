@@ -36,6 +36,26 @@
   }
   /* on narrow screens the subject sits off the right edge, so bias back */
   @media (max-width: 767px) { .case-hero img { object-position: 72% 50%; } }
+  /* 01 Direction sits on the concrete the collection was shot on, not on black */
+  .direction { background: #EDE7DD; }
+  .direction .pole { border-top: 1px solid rgba(10,10,10,.16); }
+  .sw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); margin-top: var(--s4); }
+  @media (min-width: 768px) { .sw-grid { grid-template-columns: repeat(6, 1fr); } }
+  .sw-chip { height: 110px; border-radius: 2px; border: 1px solid rgba(10,10,10,.10); }
+  .sw-name { font-family: var(--mono); font-size: var(--t-label); letter-spacing: .08em; text-transform: uppercase; margin-top: var(--s2); }
+  .sw-hex { font-family: var(--mono); font-size: var(--t-label); color: var(--muted); }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .rv .sw-card { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+    .js .rv.in .sw-card { opacity: 1; transform: none; }
+    .js .rv.in .sw-card:nth-child(2) { transition-delay: .07s; }
+    .js .rv.in .sw-card:nth-child(3) { transition-delay: .14s; }
+    .js .rv.in .sw-card:nth-child(4) { transition-delay: .21s; }
+    .js .rv.in .sw-card:nth-child(5) { transition-delay: .28s; }
+    .js .rv.in .sw-card:nth-child(6) { transition-delay: .35s; }
+    .gal figure { overflow: hidden; }
+    .gal img { transition: transform .9s cubic-bezier(.2, .6, .2, 1); }
+    .gal figure:hover img { transform: scale(1.035); }
+  }
   .facts { display: grid; gap: var(--s5); grid-template-columns: repeat(2, 1fr); margin-top: var(--s6); }
   .fact dt { font-family: var(--mono); font-size: var(--t-label); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
   .fact dd { font-size: var(--t-small); margin-top: var(--s1); }
@@ -89,8 +109,8 @@
   </dl>
 </section>
 
-<!-- 01 DIRECTION -->
-<section class="section dark">
+<!-- 01 DIRECTION : sits on concrete, like every product shot -->
+<section class="section direction">
   <div class="wrap">
     <div class="head rv">
       <h2 class="label">01 Direction</h2>
@@ -104,36 +124,40 @@
     </p>
 
     <div class="poles">
-      <div class="pole rv" style="border-color:rgba(255,255,255,.14)">
+      <div class="pole rv">
         <p class="label" style="color:var(--accent)">Pole one, street truth</p>
-        <p class="small" style="margin-top:var(--s3); color:rgba(255,255,255,.8)">
-          Direct on-camera flash, hard shadow, deep black falloff. Car parks,
-          dressing rooms, breeze-block walls. Off-guard and unbothered.
+        <p class="small" style="margin-top:var(--s3)">
+          Direct on-camera flash, hard shadow, deep black falloff. Chicken
+          shops, laundrettes, wet pavement at night. Off-guard and unbothered.
         </p>
       </div>
-      <div class="pole rv" style="border-color:rgba(255,255,255,.14)">
+      <div class="pole rv">
         <p class="label" style="color:var(--accent)">Pole two, elevated myth</p>
-        <p class="small" style="margin-top:var(--s3); color:rgba(255,255,255,.8)">
+        <p class="small" style="margin-top:var(--s3)">
           Chiaroscuro, subject emerging from black, marble and classical
           statuary. Monumental stillness, face half hidden.
         </p>
       </div>
     </div>
 
-    <p class="small rv" style="margin-top:var(--s7); color:rgba(255,255,255,.55); max-width:var(--c-narrow)">
+    <p class="small muted rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
       Both poles have to be present or it reads as a clean render instead of a
       real campaign. The swing between them is the whole idea.
     </p>
 
-    <div class="rv" style="margin-top:var(--s6)">
-      <p class="label" style="margin-bottom:var(--s3)">Palette</p>
-      <div class="swatches">
-        <span class="sw" style="background:#100E0C" title="Onyx"></span>
-        <span class="sw" style="background:#E7E0D2" title="Marble bone"></span>
-        <span class="sw" style="background:#B4A892" title="Greige putty"></span>
-        <span class="sw" style="background:#9A9690" title="Concrete grey"></span>
-        <span class="sw" style="background:#473C30" title="Umber shadow"></span>
-        <span class="sw" style="background:#B8312A" title="Accent red"></span>
+    <div class="rv" style="margin-top:var(--s7)">
+      <p class="label" style="margin-bottom:var(--s2)">Palette</p>
+      <p class="small muted" style="max-width:var(--c-narrow)">
+        Sampled from the finished garments and the streets they were shot in,
+        not picked from swatches.
+      </p>
+      <div class="sw-grid">
+        <div class="sw-card"><div class="sw-chip" style="background:#161616"></div><p class="sw-name">Onyx</p><p class="sw-hex">#161616 · the wash</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#E7DCD1"></div><p class="sw-name">Bone</p><p class="sw-hex">#E7DCD1 · the type</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#634D6E"></div><p class="sw-name">Violet</p><p class="sw-hex">#634D6E · the print</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#21212C"></div><p class="sw-name">Slate</p><p class="sw-hex">#21212C · colourway two</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#D1C6BB"></div><p class="sw-name">Concrete</p><p class="sw-hex">#D1C6BB · the backdrop</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#8C6B4F"></div><p class="sw-name">Brick</p><p class="sw-hex">#8C6B4F · the estates</p></div>
       </div>
     </div>
   </div>

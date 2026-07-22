@@ -767,11 +767,6 @@
             <div class="media">
               <div class="ph ph-outline" id="vph"></div>
               <span class="mark">forvr<span class="dot">.</span></span>
-              <!-- Version/res tags removed (2026-05-28) — unnecessary text on image -->
-              <div class="meta-top" style="display:none;" aria-hidden="true">
-                <p class="m m-accent" id="vVersion">DNA 0.1</p>
-                <p class="m" id="vRes">Audit</p>
-              </div>
             </div>
             <div class="prompt-box"><p><span class="pb-label">prompt</span><span class="pb-text" id="vPrompt"></span><span class="pb-caret" aria-hidden="true"></span></p></div>
           </div>
@@ -998,8 +993,6 @@
   // Preload step images so the sticky card swap (and mobile inline images) are instant.
   steps.forEach(function(s){ if (s.dataset.image){ var pi = new Image(); pi.src = s.dataset.image; } });
   const vph = document.getElementById('vph');
-  const vVersion = document.getElementById('vVersion');
-  const vRes = document.getElementById('vRes');
   const ticks = document.querySelectorAll('.step-counter .tick');
   const counterLabel = document.getElementById('counterLabel');
   const vcard = document.getElementById('vcard');
@@ -1050,8 +1043,6 @@
       vph.style.backgroundImage = img ? `url("${img}"), linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717)` : '';
       vph.style.backgroundSize = 'cover';
       vph.style.backgroundPosition = 'center';
-      vVersion.textContent = step.dataset.version;
-      vRes.textContent = step.dataset.res;
       vcard.style.opacity = '1';
       vcard.style.transform = 'translateY(0)';
       typePrompt(step.dataset.prompt);
