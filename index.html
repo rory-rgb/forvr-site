@@ -137,6 +137,23 @@
   /* scale(1.16) crops the light-blue frame baked into the source video out past
      the overflow:hidden hero box, so only the eye shows - no border. */
   .hero-video { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; transform: scale(1.16); transform-origin: center; will-change: transform; }
+  /* Concept 1 hero: plate-to-final crossfade. Slow, once per ~9s, alternating. */
+  .hero-xfade { position: absolute; inset: 0; }
+  .hero-xfade .hx { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: center 28%; }
+  .hero-xfade .hx-final { opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-xfade .hx-final { animation: heroXfade 9s ease-in-out infinite alternate; }
+  }
+  @keyframes heroXfade { 0%, 18% { opacity: 0; } 82%, 100% { opacity: 1; } }
+  .hero-line {
+    font-family: var(--display, inherit);
+    font-size: clamp(40px, 7.2vw, 108px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 0.6s both;
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-line { animation: none; } }
   .hero-vignette {
     position: absolute; inset: 0; pointer-events: none;
     background:
@@ -1081,15 +1098,19 @@
 </script>
 
 <!-- HERO -->
-<section class="hero" id="heroBox" style="cursor:pointer;">
-  <video poster="static/opt-hero-a.poster.jpg" class="hero-video" id="heroVideo" src="static/opt-hero-a.mp4" autoplay muted loop playsinline preload="metadata"></video>
+<section class="hero" id="heroBox">
+  <!-- The same campaign photograph twice: the plain plate, then the finished
+       garment. The crossfade IS the argument the headline makes. -->
+  <div class="hero-xfade" aria-hidden="true">
+    <img class="hx" src="forvr%20docs/site-images/web/hero-plate.jpg" alt=""/>
+    <img class="hx hx-final" src="forvr%20docs/site-images/web/hero-final.jpg" alt=""/>
+  </div>
   <div class="hero-vignette"></div>
   <div class="hero-text">
-    <h1 class="hero-wordmark" aria-label="Forvr">forvr<span class="dot">.</span></h1>
+    <h1 class="hero-line">AI is the tool<span class="dot">.</span><br/>Taste is the work<span class="dot">.</span></h1>
     <span class="hero-kicker m">Creative studio · Reading · Vol. 01 / 2026</span>
     <a href="work.html" class="hero-cta">See the work <span class="dot">→</span></a>
   </div>
-  <div class="audio-cue m" id="audioCue" style="position:absolute;top:50%;right:24px;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;z-index:10;font-size:10px;letter-spacing:0.18em;color:rgba(245, 245, 245, 0.7);pointer-events:none;">Sound off · click to unmute</div>
   <div class="scroll-cue m">Scroll</div>
 </section>
 <script>
@@ -1896,7 +1917,7 @@
       <span class="oc-num">01</span>
       <h3 class="oc-title">Ship in weeks, not months<span class="dot">.</span></h3>
     </article>
-    <article class="oc-card" data-i="1" style="background-image: url('forvr%20docs/site-images/web/12-aesthetic-glass-refraction.jpg');">
+    <article class="oc-card" data-i="1" style="background-image: url('forvr%20docs/site-images/web/sof-doorway-card.jpg');">
       <span class="oc-num">02</span>
       <h3 class="oc-title">A fraction of traditional production cost<span class="dot">.</span></h3>
     </article>
