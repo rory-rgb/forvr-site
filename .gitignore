@@ -1,1 +1,7 @@
 .DS_Store
+.claude/
+.agents/
+_lab/
+skills-lock.json
+_proto/assets/_unused/
+_proto/_picks/

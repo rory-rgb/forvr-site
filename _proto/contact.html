@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Contact · Forvr Studios</title>
+<meta name="description" content="Start a project with Forvr Studios. Campaigns, branding and content for fashion and streetwear brands. Reading, England."/>
+<link rel="stylesheet" href="forvr.css"/>
+<script>
+  if ('IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js');
+  }
+</script>
+<style>
+  /* page-only: form furniture */
+  .form-grid { display: grid; gap: var(--s4); margin-top: var(--s7); }
+  .field { display: block; }
+  .field span {
+    display: block; margin-bottom: var(--s2);
+    font-family: var(--mono); font-size: var(--t-label);
+    letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    font-family: var(--body);
+    font-size: var(--t-body);          /* 16px, stops iOS zooming on focus */
+    color: var(--fg);
+    background: transparent;
+    border: 0; border-bottom: 1px solid var(--line);
+    padding: var(--s3) 0;
+    border-radius: 0;                   /* kills iOS default rounding */
+    -webkit-appearance: none; appearance: none;
+    transition: border-color var(--dur) var(--ease);
+  }
+  .field textarea { resize: vertical; min-height: 120px; }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    outline: none; border-bottom-color: var(--accent);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: #b4b4b4; }
+  .field select { cursor: pointer; }
+  .hp { position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px; }
+  .form-note { margin-top: var(--s5); }
+  .form-status { margin-top: var(--s4); display: none; }
+  .form-status.show { display: block; }
+  @media (min-width: 768px) {
+    .form-grid { grid-template-columns: 1fr 1fr; }
+    .field-full { grid-column: 1 / -1; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html">Forvr<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="work.html">Work</a>
+    <a href="services.html">Services</a>
+    <a href="studio.html">Studio</a>
+    <a href="process.html">Process</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<header class="phero wrap">
+  <p class="label rv">Contact</p>
+  <h1 class="rv" style="margin-top:var(--s3)">Start a project<span class="dot">.</span></h1>
+  <p class="lead muted rv" style="margin-top:var(--s5); max-width:var(--c-narrow)">
+    Tell me what you are making and roughly when it needs to land. If it is a
+    fit I will come back with how I would approach it. If it is not, I will say
+    so and point you somewhere better.
+  </p>
+</header>
+
+<section class="section-tight wrap">
+  <!-- endpoint and field names preserved from the live site so submissions
+       keep arriving in the same place -->
+  <form id="contactForm" action="https://formspree.io/f/mdajrlge" method="POST">
+    <!-- honeypot, hidden from people, catches bots -->
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+
+    <div class="form-grid">
+      <label class="field rv">
+        <span>Your name</span>
+        <input type="text" name="name" required placeholder="Name" autocomplete="name"/>
+      </label>
+
+      <label class="field rv">
+        <span>Email</span>
+        <input type="email" name="email" required placeholder="you@brand.com" autocomplete="email"/>
+      </label>
+
+      <label class="field rv">
+        <span>Brand</span>
+        <input type="text" name="brand" placeholder="Optional" autocomplete="organization"/>
+      </label>
+
+      <label class="field rv">
+        <span>Budget</span>
+        <!-- native select rather than the old custom listbox: fewer moving
+             parts, keyboard and screen reader support for free -->
+        <select name="budget">
+          <option value="">Skip</option>
+          <option value="Under £1k">Under £1k</option>
+          <option value="£3k – £5k">£3k to £5k</option>
+          <option value="£10k+">£10k+</option>
+          <option value="Not sure yet">Not sure yet</option>
+        </select>
+      </label>
+
+      <label class="field field-full rv">
+        <span>What are you making</span>
+        <textarea name="message" rows="6" placeholder="A collection, a campaign, a launch. Rough is fine."></textarea>
+      </label>
+    </div>
+
+    <div class="form-note rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); align-items:center; margin-top:var(--s7)">
+      <button type="submit" class="cta">Send it <span class="pip"></span></button>
+      <span class="label">Usually a reply within a day</span>
+    </div>
+
+    <p class="form-status small" id="formStatus" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+<section class="section dark">
+  <div class="wrap split">
+    <div>
+      <p class="label rv" style="color:var(--accent)">Or just email</p>
+      <p class="display rv" style="font-size:var(--t-h1); margin-top:var(--s5)">
+        hello@<br/>forvr<span class="dot">.</span>org
+      </p>
+    </div>
+    <div class="rv">
+      <p class="lead">
+        No brief needed. A reference, a screenshot, a half-formed idea is enough
+        to start a conversation.
+      </p>
+      <p class="small" style="margin-top:var(--s5); color:rgba(255,255,255,.55)">
+        Based in Reading and Henley-on-Thames, working with brands anywhere.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
+    <span class="label">Prototype build</span>
+  </div>
+</footer>
+
+<script src="forvr.js"></script>
+<script>
+// submit without leaving the page, so a send does not throw away the form
+(function () {
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  if (!form || !status) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var btn = form.querySelector('button[type=submit]');
+    if (btn) { btn.disabled = true; btn.style.opacity = '.5'; }
+    status.className = 'form-status small show muted';
+    status.textContent = 'Sending.';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' }
+    }).then(function (r) {
+      if (r.ok) {
+        form.reset();
+        status.textContent = 'Sent. I will come back to you shortly.';
+      } else {
+        status.textContent = 'That did not send. Email hello@forvr.org instead.';
+      }
+    }).catch(function () {
+      status.textContent = 'That did not send. Email hello@forvr.org instead.';
+    }).finally(function () {
+      if (btn) { btn.disabled = false; btn.style.opacity = ''; }
+    });
+  });
+})();
+</script>
+</body>
+</html>

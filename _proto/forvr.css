@@ -1,0 +1,251 @@
+/* ============================================================
+   FORVR — shared stylesheet
+   One file. Previously this block was duplicated byte-identical
+   across all 7 pages, so a token change was a 7-file edit.
+
+   System derived from the Shovel corpus (199 reels):
+   - 4px base unit                        (A24 563k, Marcello 19k)
+   - body min 14px, 16px legibility floor (Domino's 32k, Gap 18k)
+   - one display family, weight carries hierarchy (Prada 435k)
+   - one display moment per page          (Denim Tears 37k)
+   - 1-2 step animation ceiling           (Post Archive Faction 67k)
+   - "massive gaps between the core elements, then little to
+      nothing when they actually meet"   (Homer 793k)
+   ============================================================ */
+
+@font-face {
+  font-family: "BringBold Nineties";
+  src: url("../static/fonts/BringBold-Nineties.woff2") format("woff2");
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+:root {
+  /* colour — 6 tokens. was 13 near-blacks plus strays. */
+  --bg:     #fafafa;
+  --fg:     #0a0a0a;
+  --ink:    #121212;   /* the single near-black for dark sections */
+  --muted:  #6a6a6a;
+  --line:   #e5e5e5;
+  --accent: #5BC2E7;
+
+  /* families */
+  --display: "BringBold Nineties", "Anton", Impact, "Arial Black", sans-serif;
+  --body:    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  --mono:    ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* type scale — 8 steps. was 96 sizes including 8.5px and 14.5px. */
+  --t-label: 12px;
+  --t-small: 14px;
+  --t-body:  16px;
+  --t-lead:  20px;
+  --t-h3:    24px;
+  --t-h2:    32px;
+  --t-h1:    clamp(40px, 6vw, 72px);
+  --t-hero:  clamp(48px, 11vw, 168px);
+
+  /* spacing — every value a multiple of 4 */
+  --s1: 4px;  --s2: 8px;   --s3: 12px;  --s4: 16px;
+  --s5: 24px; --s6: 32px;  --s7: 48px;  --s8: 64px;
+  --s9: 96px; --s10: 128px; --s11: 160px;
+
+  /* containers — 3. was 25. */
+  --c-narrow: 720px;
+  --c-mid:   1100px;
+  --c-wide:  1440px;
+
+  /* motion — one curve */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur:  0.6s;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img, video { display: block; max-width: 100%; }
+::selection { background: var(--accent); color: #000; }
+
+/* ---------- primitives ---------- */
+.wrap   { width: 100%; max-width: var(--c-mid);    margin-inline: auto; padding-inline: var(--s5); }
+.wrap-w { width: 100%; max-width: var(--c-wide);   margin-inline: auto; padding-inline: var(--s5); }
+.wrap-n { width: 100%; max-width: var(--c-narrow); margin-inline: auto; padding-inline: var(--s5); }
+
+.section      { padding-block: var(--s11); }
+.section-tight{ padding-block: var(--s9); }
+.dark { background: var(--ink); color: #fff; }
+.dark .label { color: rgba(255,255,255,.5); }
+.dark .rule  { border-color: rgba(255,255,255,.14); }
+
+.label {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.dot { color: var(--accent); }
+
+.display {
+  font-family: var(--display);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.15; }
+.lead { font-size: var(--t-lead); line-height: 1.5; }
+.small{ font-size: var(--t-small); }
+.muted{ color: var(--muted); }
+
+/* THE SIGNATURE DEVICE — one idea, run system-wide.
+   pupil / period / list marker / hover state. */
+.pip {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+/* section header: label left, link right, rule under */
+.head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--s5); flex-wrap: wrap;
+  padding-bottom: var(--s5);
+  border-bottom: 1px solid var(--line);
+}
+.rule { border-bottom: 1px solid var(--line); }
+
+/* ---------- nav ---------- */
+.nav {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--s4) var(--s5);
+  mix-blend-mode: difference;
+}
+.nav a {
+  font-family: var(--mono); font-size: var(--t-label);
+  letter-spacing: 0.1em; text-transform: uppercase; color: #fff;
+}
+.nav-links { display: flex; gap: var(--s5); }
+
+/* ---------- buttons ----------
+   solid = primary ("solid black gets more clicks", Prada 435k)
+   never more than two key actions in a view (TextFlow 6k) */
+.cta {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  font-family: var(--mono); font-size: var(--t-label);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; background: var(--fg);
+  padding: var(--s3) var(--s5);
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+.cta:hover { background: var(--accent); color: #000; }
+.cta-light { color: #000; background: #fff; }
+.cta-light:hover { background: var(--accent); }
+
+/* ---------- page hero (non-home) ---------- */
+.phero { padding-block: var(--s10) var(--s9); }
+.phero h1 { font-size: var(--t-h1); letter-spacing: -0.02em; }
+.phero .display { font-size: var(--t-h1); }
+
+/* ---------- index rows (work list, service list) ---------- */
+.row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: var(--s4);
+  padding-block: var(--s5);
+  border-bottom: 1px solid var(--line);
+  transition: padding-left var(--dur) var(--ease);
+}
+.row:hover { padding-left: var(--s3); }
+.row-idx  { font-family: var(--mono); font-size: var(--t-label); color: var(--muted); }
+.row-name { font-size: var(--t-h3); letter-spacing: -0.01em; }
+.row-meta { font-family: var(--mono); font-size: var(--t-label); color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.row .pip { opacity: 0; transition: opacity var(--dur) var(--ease); }
+.row:hover .pip { opacity: 1; }
+
+/* hover-peek image — the one interactive flourish */
+.peek {
+  position: fixed; top: 0; left: 0;
+  width: 300px; height: 380px;
+  object-fit: cover;
+  pointer-events: none; opacity: 0; z-index: 40;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.35s var(--ease);
+}
+.peek.on { opacity: 1; }
+
+/* ---------- step grid (process) ---------- */
+.steps { display: grid; gap: var(--s5); grid-template-columns: 1fr; margin-top: var(--s7); }
+.step img { width: 100%; aspect-ratio: 4/5; object-fit: cover; background: var(--line); }
+.step-meta { display: flex; align-items: center; gap: var(--s2); margin-top: var(--s3); }
+.step h3 { font-size: var(--t-body); margin-top: var(--s1); }
+.step p  { font-size: var(--t-small); color: var(--muted); margin-top: var(--s1); }
+
+/* ---------- campaign gallery ----------
+   deliberately uneven. one full-bleed anchor, then mixed spans and
+   ratios, so the page reads as a shoot rather than a product grid.
+   "vary card treatments, mixed aspect ratios, a hero" */
+.gal { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s3); }
+.gal figure { margin: 0; }
+.gal img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gal figcaption { margin-top: var(--s3); }
+.gal .g-wide { grid-column: 1 / -1; }
+/* the wide anchor is a portrait composition, so keep it tall enough that the
+   figure survives the crop and bias the frame downward to where they stand */
+.gal .g-wide img { aspect-ratio: 3/2; object-position: 50% 62%; }
+.gal .g-tall img { aspect-ratio: 3/4; }
+.gal .g-sq img   { aspect-ratio: 1/1; }
+
+@media (min-width: 768px) {
+  .gal { grid-template-columns: repeat(6, 1fr); gap: var(--s4); }
+  .gal .g-wide { grid-column: span 6; }
+  .gal .g-2    { grid-column: span 2; }
+  .gal .g-3    { grid-column: span 3; }
+  .gal .g-4    { grid-column: span 4; }
+}
+
+/* ---------- swatches ---------- */
+.swatches { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.sw { width: 40px; height: 40px; flex: none; }
+
+/* ---------- split ---------- */
+.split { display: grid; gap: var(--s8); align-items: center; }
+
+/* ---------- footer ---------- */
+.foot { border-top: 1px solid var(--line); padding-block: var(--s6); }
+.foot-row { display: flex; justify-content: space-between; gap: var(--s4); flex-wrap: wrap; }
+
+/* ---------- reveals ----------
+   visible by default; only hidden once JS confirms it can reveal them,
+   so a JS failure degrades to a static page rather than a blank one. */
+.js .rv { opacity: 0; transform: translateY(12px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.js .rv.in { opacity: 1; transform: none; }
+
+/* ---------- breakpoint: one. was 16. ---------- */
+@media (min-width: 768px) {
+  .wrap, .wrap-w, .wrap-n { padding-inline: var(--s7); }
+  .nav   { padding: var(--s5) var(--s7); }
+  .steps { grid-template-columns: repeat(4, 1fr); }
+  .split { grid-template-columns: 1fr 1fr; }
+  .row   { grid-template-columns: 40px 1fr 1fr auto; }
+  .row-name { font-size: var(--t-h2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .js .rv { opacity: 1; transform: none; }
+  .peek { display: none; }
+}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Forvr Studios · creative studio for fashion and streetwear</title>
+<meta name="description" content="A creative studio making AI-led campaigns for fashion and streetwear brands. Reading, England."/>
+<link rel="stylesheet" href="forvr.css"/>
+<script>
+  // set before paint so reveal-hiding never applies without a working observer
+  if ('IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js');
+  }
+</script>
+<style>
+  /* page-only: the hero. everything else comes from forvr.css */
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--ink); }
+  .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0;
+    /* darken behind display text , A24, 264k */
+    background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.15) 40%, rgba(0,0,0,.75) 100%);
+  }
+  .hero-inner {
+    position: relative; z-index: 2; height: 100%;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-bottom: var(--s8);
+  }
+  .hero h1 { font-size: var(--t-hero); color: #fff; }
+  .hero-sub { margin-top: var(--s5); max-width: 640px; }
+  .hero-sub p { color: rgba(255,255,255,.75); font-size: var(--t-small); }
+  @media (min-width: 768px) { .hero-inner { padding-bottom: var(--s9); } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html">Forvr<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="work.html">Work</a>
+    <a href="services.html">Services</a>
+    <a href="studio.html">Studio</a>
+    <a href="process.html">Process</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO : five words. seven-word ceiling. one action. -->
+<header class="hero" id="top">
+  <video src="../static/opt-hero-a.mp4" poster="../static/opt-hero-a.poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  <div class="hero-inner wrap-w">
+    <h1 class="display rv">We build brands<br/>worth noticing<span class="dot">.</span></h1>
+    <div class="hero-sub rv">
+      <p>A creative studio making AI-led campaigns for fashion and streetwear brands.</p>
+    </div>
+    <div class="hero-sub rv">
+      <!-- work sits directly below, so the hero action is the one thing
+           the page can't do for you -->
+      <a class="cta cta-light" href="contact.html">Book a call <span class="pip"></span></a>
+    </div>
+  </div>
+</header>
+
+<!-- WORK : immediately below the hero. only 20% of viewing happens
+     below the fold (Miu Miu, 39k). -->
+<section class="section wrap" id="work">
+  <div class="head rv">
+    <h2 class="label">Selected work</h2>
+    <span class="label">Six projects</span>
+  </div>
+
+  <div data-peek-list>
+    <a class="row rv" href="statue-of-a-fool.html" data-img="assets/sof-04-campaign.jpg">
+      <span class="row-idx">01</span>
+      <span class="row-name">Statue of a Fool</span>
+      <span class="row-meta">Concept collection</span>
+      <span class="pip"></span>
+    </a>
+    <a class="row rv" href="../grit.html" data-img="../forvr%20docs/images/grit-project/opt-rwhypervail_Close-cropped_strength_detail_of_a_South_Asian_ma_c19826c6-a846-428d-9095-ef490b7a9e48_3.jpg">
+      <span class="row-idx">02</span>
+      <span class="row-name">Grit</span>
+      <span class="row-meta">Studio campaign</span>
+      <span class="pip"></span>
+    </a>
+    <a class="row rv" href="../small-circle.html" data-img="../forvr%20docs/small%20circle/Studio-Shoot/opt-1.jpg">
+      <span class="row-idx">03</span>
+      <span class="row-name">Small Circle</span>
+      <span class="row-meta">Varsity collab</span>
+      <span class="pip"></span>
+    </a>
+    <a class="row rv" href="../forvr-collection.html" data-img="../forvr%20docs/images/forvr/jewel/opt-hf_20260206_103516_1f2c38f0-e68e-4e8d-992b-70bdf491a830.jpg">
+      <span class="row-idx">04</span>
+      <span class="row-name">Forvr Collection</span>
+      <span class="row-meta">Own brand</span>
+      <span class="pip"></span>
+    </a>
+    <a class="row rv" href="../fashion-films.html" data-img="../forvr%20docs/videos/streetwear/sp5der/opt-0113.poster.jpg">
+      <span class="row-idx">05</span>
+      <span class="row-name">Fashion Films</span>
+      <span class="row-meta">Streetwear reel</span>
+      <span class="pip"></span>
+    </a>
+    <a class="row rv" href="../posters.html" data-img="../forvr%20docs/images/posters/opt-dn.jpg">
+      <span class="row-idx">06</span>
+      <span class="row-name">Posters</span>
+      <span class="row-meta">Graphic series</span>
+      <span class="pip"></span>
+    </a>
+  </div>
+
+  <!-- the reframe: same fact, stated as intent instead of apology -->
+  <p class="rv muted small" style="margin-top:var(--s6); max-width:var(--c-narrow)">
+    All of this is self-initiated. We pick brands we want to work with and make
+    the campaign anyway, so you can see the thinking and the execution before
+    you commission anything.
+  </p>
+</section>
+
+<img class="peek" alt="" aria-hidden="true"/>
+
+<!-- POSITION : the single display moment on the page -->
+<section class="section dark">
+  <div class="wrap split">
+    <div>
+      <p class="label rv" style="color:var(--accent)">Why this works</p>
+      <p class="display rv" style="font-size:var(--t-h1); margin-top:var(--s5)">
+        AI is the tool<span class="dot">.</span><br/>
+        <span style="color:rgba(255,255,255,.45)">Taste is the work</span><span class="dot">.</span>
+      </p>
+    </div>
+    <div class="rv">
+      <p class="lead">
+        Anyone can generate an image now. The difference is knowing which one
+        is right, and why, and what to do with it once you have it.
+      </p>
+      <p class="small" style="margin-top:var(--s5); color:rgba(255,255,255,.55)">
+        Every project starts with reference and direction, not a prompt. The
+        model gets trained on the brand, not the other way round.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS : one subject, carried through. this is the proof. -->
+<section class="section wrap" id="process">
+  <div class="head rv">
+    <h2 class="label">How the work gets made</h2>
+    <a class="label" href="statue-of-a-fool.html">Statue of a Fool, start to finish <span class="dot">→</span></a>
+  </div>
+
+  <div class="steps">
+    <div class="step rv">
+      <!-- reference stage shown as our own written direction, not a grid of
+           other people's press photography -->
+      <div style="aspect-ratio:4/5; background:var(--ink); padding:var(--s5); display:flex; flex-direction:column; justify-content:space-between">
+        <p class="label" style="color:rgba(255,255,255,.5)">Dirty luxury</p>
+        <div>
+          <p class="small" style="color:#fff; line-height:1.45">
+            Luxury always undercut by the mundane. Never fully clean, never
+            complete glam. Identity half hidden.
+          </p>
+          <div class="swatches" style="margin-top:var(--s4)">
+            <span class="sw" style="background:#100E0C"></span>
+            <span class="sw" style="background:#E7E0D2"></span>
+            <span class="sw" style="background:#B4A892"></span>
+            <span class="sw" style="background:#473C30"></span>
+            <span class="sw" style="background:#B8312A"></span>
+          </div>
+        </div>
+      </div>
+      <div class="step-meta"><span class="pip"></span><span class="label">01 Direction</span></div>
+      <h3>Write the world first</h3>
+      <p>A codex fixing palette, light and wardrobe before anything is made.</p>
+    </div>
+
+    <div class="step rv">
+      <img src="assets/sof-02-graphic.jpg" alt="Statue of a Fool graphic artwork, knockout type over a classical statue"/>
+      <div class="step-meta"><span class="pip"></span><span class="label">02 Graphic</span></div>
+      <h3>Build the artwork</h3>
+      <p>The statement graphic, drawn from the world the codex describes.</p>
+    </div>
+
+    <div class="step rv">
+      <img src="assets/sof-03-garment.jpg" alt="Distressed black hooded sweatshirt carrying the Statue of a Fool print"/>
+      <div class="step-meta"><span class="pip"></span><span class="label">03 Garment</span></div>
+      <h3>Put it on a product</h3>
+      <p>Washed black hood, studded cuffs, print placed and distressed.</p>
+    </div>
+
+    <div class="step rv">
+      <img src="assets/sof-model-marble.jpg" alt="Campaign frame: the model wearing the Statue of a Fool hood in a hall of marble statues"/>
+      <div class="step-meta"><span class="pip"></span><span class="label">04 Campaign</span></div>
+      <h3>Shoot the myth</h3>
+      <p>One world, held across a cast of faces and a dozen locations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT : two actions maximum -->
+<section class="section wrap">
+  <h2 class="display rv" style="font-size:var(--t-h1)">Got something<br/>to make<span class="dot">?</span></h2>
+  <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
+    <a class="cta" href="contact.html">Book a call <span class="pip"></span></a>
+    <a class="label" href="mailto:hello@forvr.org">hello@forvr.org</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
+    <span class="label">Prototype build</span>
+  </div>
+</footer>
+
+<script src="forvr.js"></script>
+</body>
+</html>

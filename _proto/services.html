@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Services · Forvr Studios</title>
+<meta name="description" content="Film, imagery, branding, paid ads creative, social content and document design for fashion and streetwear brands. Reading, England."/>
+<link rel="stylesheet" href="forvr.css"/>
+<script>
+  // set before paint so reveal-hiding never applies without a working observer
+  if ('IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js');
+  }
+</script>
+<style>
+  /* page-only: a second line inside the row name cell, so the grid stays 4 columns */
+  .row-desc {
+    display: block;
+    font-family: var(--body);
+    font-size: var(--t-small);
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--muted);
+    margin-top: var(--s2);
+    max-width: 52ch;
+  }
+  /* these rows are not links, so the hover shift would be a lie */
+  .lane { cursor: default; }
+  .lane:hover { padding-left: 0; }
+  .lane .pip { opacity: 1; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html">Forvr<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="work.html">Work</a>
+    <a href="services.html">Services</a>
+    <a href="studio.html">Studio</a>
+    <a href="process.html">Process</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<header class="phero wrap" id="top">
+  <p class="label rv">Services</p>
+  <h1 class="display rv" style="margin-top:var(--s5)">Six things we make<br/>for brands<span class="dot">.</span></h1>
+  <p class="lead rv muted" style="margin-top:var(--s5); max-width:var(--c-narrow)">
+    One studio, one point of contact, and work that comes back finished rather
+    than in pieces. Take a single lane or the whole set, and the brand looks
+    like one brand either way.
+  </p>
+</header>
+
+<!-- LANES -->
+<section class="section wrap" id="lanes" style="padding-top:0">
+  <div class="head rv">
+    <h2 class="label">What we do</h2>
+    <span class="label">Six lanes<span class="dot">.</span></span>
+  </div>
+
+  <div>
+    <div class="row lane rv">
+      <span class="row-idx">01</span>
+      <span class="row-name">Films that move product
+        <span class="row-desc">Campaign films, product cutdowns and short-form edits, taken from the idea through to a graded master. You get the hero cut plus the versions each platform actually needs.</span>
+      </span>
+      <span class="row-meta">Video</span>
+      <span class="pip"></span>
+    </div>
+
+    <div class="row lane rv">
+      <span class="row-idx">02</span>
+      <span class="row-name">Stills that carry a campaign
+        <span class="row-desc">Images for campaigns, lookbooks, product pages and ads, art directed against a fixed brand world so a whole set reads as one shoot instead of a folder of nice pictures.</span>
+      </span>
+      <span class="row-meta">Imagery</span>
+      <span class="pip"></span>
+    </div>
+
+    <div class="row lane rv">
+      <span class="row-idx">03</span>
+      <span class="row-name">Identity that holds up everywhere
+        <span class="row-desc">Name, mark, type, colour and the rules that keep them together, written down clearly enough that the brand still looks like itself when someone else builds with it.</span>
+      </span>
+      <span class="row-meta">Branding</span>
+      <span class="pip"></span>
+    </div>
+
+    <div class="row lane rv">
+      <span class="row-idx">04</span>
+      <span class="row-name">Ad creative built to be tested
+        <span class="row-desc">Hooks, cutdowns and static frames delivered as real variants rather than one hero asset, sized for every placement so the media budget has something to learn from.</span>
+      </span>
+      <span class="row-meta">Paid ads</span>
+      <span class="pip"></span>
+    </div>
+
+    <div class="row lane rv">
+      <span class="row-idx">05</span>
+      <span class="row-name">Social that builds a look
+        <span class="row-desc">A month of posts, reels and stories planned together and shot together, so the grid accumulates into something recognisable instead of restarting every week.</span>
+      </span>
+      <span class="row-meta">Social</span>
+      <span class="pip"></span>
+    </div>
+
+    <div class="row lane rv">
+      <span class="row-idx">06</span>
+      <span class="row-name">Documents people finish reading
+        <span class="row-desc">Pitch decks, reports and proposals rebuilt so the argument is easy to follow on a screen or in a room. You keep a template your team can carry on using.</span>
+      </span>
+      <span class="row-meta">Documents</span>
+      <span class="pip"></span>
+    </div>
+  </div>
+
+  <p class="rv muted small" style="margin-top:var(--s6); max-width:var(--c-narrow)">
+    Everything is run by one person, so briefs go straight to the work with
+    nothing lost between departments. That keeps timelines short and it also
+    means the studio only takes on what it can finish properly.
+  </p>
+</section>
+
+<!-- POSITION : the single display moment on the page -->
+<section class="section dark">
+  <div class="wrap split">
+    <div>
+      <p class="label rv" style="color:var(--accent)">How we work</p>
+      <p class="display rv" style="font-size:var(--t-h1); margin-top:var(--s5)">
+        Direction first<span class="dot">.</span><br/>
+        <span style="color:rgba(255,255,255,.45)">Output second</span><span class="dot">.</span>
+      </p>
+    </div>
+    <div class="rv">
+      <p class="lead">
+        Every engagement opens with written direction: the palette, the light,
+        the wardrobe, the tone of voice. Once that is agreed, the making part
+        is fast and the results stay consistent.
+      </p>
+      <p class="small" style="margin-top:var(--s5); color:rgba(255,255,255,.55)">
+        If a lane does not suit your brand we will say so rather than sell it,
+        and the work on the site shows the standard you can hold us to.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT : two actions maximum -->
+<section class="section wrap">
+  <h2 class="display rv" style="font-size:var(--t-h1)">Start with<br/>a call<span class="dot">.</span></h2>
+  <p class="rv muted" style="margin-top:var(--s5); max-width:var(--c-narrow)">
+    Bring the brief, or bring the problem and we will shape the brief together.
+  </p>
+  <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
+    <a class="cta" href="contact.html">Book a call <span class="pip"></span></a>
+    <a class="label" href="work.html">See the work <span class="dot">→</span></a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
+    <span class="label">Prototype build</span>
+  </div>
+</footer>
+
+<script src="forvr.js"></script>
+</body>
+</html>
