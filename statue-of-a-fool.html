@@ -72,16 +72,67 @@
 </head>
 <body>
 
-<nav class="nav">
-  <a href="index.html">Forvr<span class="dot">.</span></a>
-  <div class="nav-links">
-    <a href="work.html">Portfolio</a>
-    <a href="services.html">Services</a>
-    <a href="studio.html">Studio</a>
-    <a href="process.html">Process</a>
-    <a href="contact.html">Contact</a>
-  </div>
-</nav>
+<a href="index.html" class="top-brand" aria-label="Forvr">
+  <img class="brand-logo" src="static/forvr-logo.svg" alt="Forvr" width="36" height="26" style="display:block;height:26px;width:auto;" loading="lazy" decoding="async">
+  <span class="brand-name">Forvr<span class="dot">.</span></span>
+</a>
+<style>
+  /* live-site chrome: brand mark + floating navigation, shared with every page */
+  .top-brand { position: fixed; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 10px; pointer-events: auto; }
+  @media (min-width: 768px) { .top-brand { top: 28px; left: 40px; } }
+  .top-brand .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; color: #fff; mix-blend-mode: difference; }
+  .floating-nav { position: fixed; bottom: 24px; right: 24px; z-index: 60; }
+  @media (min-width: 768px) { .floating-nav { bottom: 28px; right: 40px; } }
+  .nav-toggle { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(245,245,245,0.85); transition: all 0.35s; overflow: hidden; }
+  .nav-toggle::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: 999px; pointer-events: none; }
+  .nav-toggle:hover, .floating-nav.open .nav-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35), inset 0 0 18px rgba(91,194,231,0.08); }
+  .nav-toggle .icon { display: inline-block; width: 9px; height: 9px; position: relative; z-index: 1; }
+  .nav-toggle .icon::before, .nav-toggle .icon::after { content: ""; position: absolute; background: currentColor; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+  .nav-toggle .icon::before { top: 4px; left: 0; right: 0; height: 1.5px; }
+  .nav-toggle .icon::after { top: 0; bottom: 0; left: 4px; width: 1.5px; }
+  .floating-nav.open .nav-toggle .icon::after { transform: rotate(90deg); }
+  .nav-toggle > span:first-child { position: relative; z-index: 1; }
+  .nav-menu { position: absolute; bottom: calc(100% + 8px); right: 0; display: flex; flex-direction: column-reverse; gap: 6px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
+  .floating-nav.open .nav-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  @keyframes nav-wave-in {
+    0% { opacity: 0; transform: translateY(20px) scale(0.7); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+    45% { opacity: 1; transform: translateY(-2px) scale(1.04); background: rgba(91,194,231,0.45); border-color: var(--accent); box-shadow: 0 0 36px rgba(91,194,231,0.55), inset 0 0 18px rgba(91,194,231,0.25); }
+    100% { opacity: 1; transform: translateY(0) scale(1); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
+  }
+  @keyframes nav-genie-out {
+    0% { opacity: 1; transform: translate(0, 0) scale(1, 1) skewX(0deg); border-radius: 999px; filter: blur(0px); }
+    40% { opacity: 0.85; transform: translate(20px, 14px) scale(0.55, 0.6) skewX(-6deg); border-radius: 16px; filter: blur(0.4px); }
+    80% { opacity: 0.35; transform: translate(38px, 30px) scale(0.18, 0.22) skewX(-12deg); border-radius: 50%; filter: blur(1.5px); }
+    100% { opacity: 0; transform: translate(50px, 38px) scale(0.02, 0.04) skewX(-16deg); border-radius: 50%; filter: blur(3px); }
+  }
+  .nav-item { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border: 1px solid rgba(91,194,231,0.20); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; transform-origin: bottom right; opacity: 0; transform: translateY(20px) scale(0.7); white-space: nowrap; overflow: hidden; transition: border-color 0.35s, box-shadow 0.35s; }
+  .nav-item::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: inherit; pointer-events: none; }
+  .nav-item:hover { border-color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.4), inset 0 0 18px rgba(91,194,231,0.10); transform: translateY(0) translateX(-4px) scale(1); transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s; }
+  .floating-nav.open .nav-item { animation: nav-wave-in 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .floating-nav.open .nav-item:nth-child(1) { animation-delay: 0.28s; }
+  .floating-nav.open .nav-item:nth-child(2) { animation-delay: 0.22s; }
+  .floating-nav.open .nav-item:nth-child(3) { animation-delay: 0.16s; }
+  .floating-nav.open .nav-item:nth-child(4) { animation-delay: 0.10s; }
+  .floating-nav.open .nav-item:nth-child(5) { animation-delay: 0.04s; }
+  .floating-nav.open .nav-item:nth-child(6) { animation-delay: 0.00s; }
+  .floating-nav.open .nav-item:nth-child(7) { animation-delay: 0.00s; }
+  .floating-nav.closing .nav-item { animation: nav-genie-out 0.55s cubic-bezier(0.7, 0, 0.84, 0) forwards !important; transform-origin: bottom right; opacity: 1; transform: translateY(0) scale(1); }
+  .floating-nav.closing .nav-item:nth-child(1) { animation-delay: 0.00s !important; }
+  .floating-nav.closing .nav-item:nth-child(2) { animation-delay: 0.05s !important; }
+  .floating-nav.closing .nav-item:nth-child(3) { animation-delay: 0.10s !important; }
+  .floating-nav.closing .nav-item:nth-child(4) { animation-delay: 0.15s !important; }
+  .floating-nav.closing .nav-item:nth-child(5) { animation-delay: 0.20s !important; }
+  .floating-nav.closing .nav-item:nth-child(6) { animation-delay: 0.25s !important; }
+  .floating-nav.closing .nav-item:nth-child(7) { animation-delay: 0.30s !important; }
+  .floating-nav.closing .nav-menu { pointer-events: none; }
+  .nav-item .num { position: relative; z-index: 1; font-family: var(--mono); font-size: 9px; color: var(--accent); letter-spacing: 0.10em; }
+  .nav-item .title { position: relative; z-index: 1; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; line-height: 1; color: rgba(245,245,245,0.9); transition: color 0.35s; }
+  .nav-item:hover .title { color: var(--accent); }
+  .nav-item .caption { display: none; }
+  .nav-item.active { border-color: var(--accent); box-shadow: 0 0 14px rgba(91,194,231,0.30); }
+  .nav-item.active .title { color: var(--accent); }
+</style>
+
 
 <header class="case-hero">
   <img src="_proto/assets/sof-01-hero.jpg" alt="The Statue of a Fool hood worn on a London Georgian terrace, black iron railings behind"/>
@@ -337,5 +388,44 @@
 </footer>
 
 <script src="_proto/forvr.js"></script>
+<!-- Floating navigation -->
+<div class="floating-nav" id="floatingNav">
+  <div class="nav-menu" aria-label="Site navigation">
+    <a class="nav-item" href="index.html"><span class="num">00</span><span class="title">Home</span></a>
+    <a class="nav-item active" href="work.html"><span class="num">01</span><span class="title">Portfolio</span></a>
+    <a class="nav-item" href="services.html"><span class="num">02</span><span class="title">Services</span></a>
+    <a class="nav-item" href="studio.html"><span class="num">03</span><span class="title">Studio</span></a>
+    <a class="nav-item" href="process.html"><span class="num">04</span><span class="title">Process</span></a>
+    <a class="nav-item" href="contact.html"><span class="num">05</span><span class="title">Contact</span></a>
+    <a class="nav-item" href="about.html"><span class="num">06</span><span class="title">About</span></a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu">
+    <span>Navigation</span>
+    <span class="icon" aria-hidden="true"></span>
+  </button>
+</div>
+<script>
+(function () {
+  var floatingNav = document.getElementById('floatingNav');
+  var navToggle = document.getElementById('navToggle');
+  if (!floatingNav || !navToggle) return;
+  function close() {
+    floatingNav.classList.add('closing');
+    floatingNav.classList.remove('open');
+    setTimeout(function () { floatingNav.classList.remove('closing'); }, 850);
+  }
+  navToggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (floatingNav.classList.contains('open')) close();
+    else floatingNav.classList.add('open');
+  });
+  document.addEventListener('click', function (e) {
+    if (!floatingNav.contains(e.target) && floatingNav.classList.contains('open')) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && floatingNav.classList.contains('open')) close();
+  });
+})();
+</script>
 </body>
 </html>
