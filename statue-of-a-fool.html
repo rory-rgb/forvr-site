@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Statue of a Fool · concept collection · Forvr Studios</title>
+<meta name="description" content="A self-initiated concept collection: written direction, statement graphic, garment and campaign, made end to end."/>
+<link rel="stylesheet" href="_proto/forvr.css"/>
+<script>
+  if ('IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js');
+  }
+</script>
+<style>
+  /* page-only */
+  /* hero frame is shot landscape with the subject held right and the left
+     third left empty, so the display type lands on pavement, not on him. */
+  .case-hero { position: relative; height: 82svh; min-height: 520px; overflow: hidden; background: var(--ink); }
+  .case-hero img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: 62% 50%;
+  }
+  .case-hero::after {
+    content: ""; position: absolute; inset: 0;
+    /* top scrim carries the nav, which otherwise sits on pale stucco;
+       left scrim carries the display type; bottom just seats the frame. */
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 18%, rgba(0,0,0,0) 34%, rgba(0,0,0,.55) 100%),
+      linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,0) 70%);
+  }
+  .case-hero-inner {
+    position: relative; z-index: 2; height: 100%;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-bottom: var(--s8); color: #fff;
+  }
+  /* on narrow screens the subject sits off the right edge, so bias back */
+  @media (max-width: 767px) { .case-hero img { object-position: 72% 50%; } }
+  /* 01 Direction sits on the concrete the collection was shot on, not on black */
+  .direction { background: #EDE7DD; }
+  .direction .pole { border-top: 1px solid rgba(10,10,10,.16); }
+  .sw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); margin-top: var(--s4); }
+  @media (min-width: 768px) { .sw-grid { grid-template-columns: repeat(6, 1fr); } }
+  .sw-chip { height: 110px; border-radius: 2px; border: 1px solid rgba(10,10,10,.10); }
+  .sw-name { font-family: var(--mono); font-size: var(--t-label); letter-spacing: .08em; text-transform: uppercase; margin-top: var(--s2); }
+  .sw-hex { font-family: var(--mono); font-size: var(--t-label); color: var(--muted); }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .rv .sw-card { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+    .js .rv.in .sw-card { opacity: 1; transform: none; }
+    .js .rv.in .sw-card:nth-child(2) { transition-delay: .07s; }
+    .js .rv.in .sw-card:nth-child(3) { transition-delay: .14s; }
+    .js .rv.in .sw-card:nth-child(4) { transition-delay: .21s; }
+    .js .rv.in .sw-card:nth-child(5) { transition-delay: .28s; }
+    .js .rv.in .sw-card:nth-child(6) { transition-delay: .35s; }
+    .gal figure { overflow: hidden; }
+    .gal img { transition: transform .9s cubic-bezier(.2, .6, .2, 1); }
+    .gal figure:hover img { transform: scale(1.035); }
+  }
+  .facts { display: grid; gap: var(--s5); grid-template-columns: repeat(2, 1fr); margin-top: var(--s6); }
+  .fact dt { font-family: var(--mono); font-size: var(--t-label); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .fact dd { font-size: var(--t-small); margin-top: var(--s1); }
+  .poles { display: grid; gap: var(--s5); grid-template-columns: 1fr; margin-top: var(--s6); }
+  .pole { border-top: 1px solid var(--line); padding-top: var(--s4); }
+  .full img { width: 100%; height: auto; }
+  .pair { display: grid; gap: var(--s4); grid-template-columns: 1fr; }
+  @media (min-width: 768px) {
+    .facts { grid-template-columns: repeat(4, 1fr); }
+    .poles { grid-template-columns: 1fr 1fr; gap: var(--s8); }
+    .pair  { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html">Forvr<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="work.html">Portfolio</a>
+    <a href="services.html">Services</a>
+    <a href="studio.html">Studio</a>
+    <a href="process.html">Process</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<header class="case-hero">
+  <img src="_proto/assets/sof-01-hero.jpg" alt="The Statue of a Fool hood worn on a London Georgian terrace, black iron railings behind"/>
+  <div class="case-hero-inner wrap-w">
+    <p class="label rv" style="color:rgba(255,255,255,.6)">Concept collection</p>
+    <h1 class="display rv" style="font-size:var(--t-h1); margin-top:var(--s3)">
+      Statue of a Fool<span class="dot">.</span>
+    </h1>
+  </div>
+</header>
+
+<!-- what it is, said plainly and up front -->
+<section class="section-tight wrap">
+  <p class="lead rv" style="max-width:var(--c-narrow)">
+    A self-initiated collection built end to end, from written direction through
+    to a finished campaign. Nobody commissioned it. We made it to show how the
+    studio works when it has full control of the brief.
+  </p>
+
+  <dl class="facts rv">
+    <div class="fact"><dt>Type</dt><dd>Concept collection</dd></div>
+    <div class="fact"><dt>Scope</dt><dd>Direction, graphic, garment, campaign</dd></div>
+    <div class="fact"><dt>Pieces</dt><dd>Hood, tee, jersey, shorts, jorts, longsleeve</dd></div>
+    <div class="fact"><dt>Status</dt><dd>Self-initiated, unreleased</dd></div>
+  </dl>
+</section>
+
+<!-- 01 DIRECTION : sits on concrete, like every product shot -->
+<section class="section direction">
+  <div class="wrap">
+    <div class="head rv">
+      <h2 class="label">01 Direction</h2>
+      <span class="label">Written before anything was made</span>
+    </div>
+
+    <p class="lead rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
+      The collection starts as a written codex, not a prompt. It fixes the
+      palette, the light, the settings and the wardrobe, so every frame made
+      afterwards has something to be judged against.
+    </p>
+
+    <div class="poles">
+      <div class="pole rv">
+        <p class="label" style="color:var(--accent)">Pole one, street truth</p>
+        <p class="small" style="margin-top:var(--s3)">
+          Direct on-camera flash, hard shadow, deep black falloff. Chicken
+          shops, laundrettes, wet pavement at night. Off-guard and unbothered.
+        </p>
+      </div>
+      <div class="pole rv">
+        <p class="label" style="color:var(--accent)">Pole two, elevated myth</p>
+        <p class="small" style="margin-top:var(--s3)">
+          Chiaroscuro, subject emerging from black, marble and classical
+          statuary. Monumental stillness, face half hidden.
+        </p>
+      </div>
+    </div>
+
+    <p class="small muted rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
+      Both poles have to be present or it reads as a clean render instead of a
+      real campaign. The swing between them is the whole idea.
+    </p>
+
+    <div class="rv" style="margin-top:var(--s7)">
+      <p class="label" style="margin-bottom:var(--s2)">Palette</p>
+      <p class="small muted" style="max-width:var(--c-narrow)">
+        Sampled from the finished garments and the streets they were shot in,
+        not picked from swatches.
+      </p>
+      <div class="sw-grid">
+        <div class="sw-card"><div class="sw-chip" style="background:#161616"></div><p class="sw-name">Onyx</p><p class="sw-hex">#161616 · the wash</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#E7DCD1"></div><p class="sw-name">Bone</p><p class="sw-hex">#E7DCD1 · the type</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#634D6E"></div><p class="sw-name">Violet</p><p class="sw-hex">#634D6E · the print</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#21212C"></div><p class="sw-name">Slate</p><p class="sw-hex">#21212C · colourway two</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#D1C6BB"></div><p class="sw-name">Concrete</p><p class="sw-hex">#D1C6BB · the backdrop</p></div>
+        <div class="sw-card"><div class="sw-chip" style="background:#8C6B4F"></div><p class="sw-name">Brick</p><p class="sw-hex">#8C6B4F · the estates</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 GRAPHIC -->
+<section class="section wrap">
+  <div class="head rv">
+    <h2 class="label">02 Graphic</h2>
+    <span class="label">The statement artwork</span>
+  </div>
+  <div class="split" style="margin-top:var(--s7)">
+    <div class="rv full">
+      <img src="_proto/assets/sof-02-graphic.jpg" alt="Statue of a Fool artwork: a veiled marble figure standing inside display type filled with banknotes"/>
+    </div>
+    <div class="rv">
+      <h3 style="font-size:var(--t-h3)">A fool cast in marble</h3>
+      <p class="small muted" style="margin-top:var(--s4)">
+        The type is filled with money and the statue stands in front of it, so
+        the monument and the currency occupy the same space. It reads as a
+        shrine and a joke at once, which is the tension the codex asked for.
+      </p>
+      <p class="small muted" style="margin-top:var(--s4)">
+        Everything downstream, the print placement, the wash, the campaign
+        setting, is decided by this one piece of artwork.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 GARMENT -->
+<section class="section wrap">
+  <div class="head rv">
+    <h2 class="label">03 Garment</h2>
+    <span class="label">Print on product</span>
+  </div>
+  <div class="split" style="margin-top:var(--s7)">
+    <div class="rv">
+      <h3 style="font-size:var(--t-h3)">Washed black, studded, distressed</h3>
+      <p class="small muted" style="margin-top:var(--s4)">
+        A heavyweight hood in washed black and washed navy, with studded cuffs
+        and shoulders and deliberate distressing through the body. The print is
+        set deliberately low, so the pocket cuts the last word and the lockup
+        has to be completed by the person reading it.
+      </p>
+      <p class="small muted" style="margin-top:var(--s4)">
+        The collection extends to tees, shorts and a navy mesh jersey that
+        carries the lockup arched across the back over a cracked number zero.
+        Then the quieter pieces: black denim jorts stitched in bone with a
+        struck coin badge at the back waistband, and a thermal longsleeve that
+        runs engraved filigree down both sleeves, made in washed black and bone.
+      </p>
+    </div>
+    <div class="rv pair">
+      <img src="_proto/assets/sof-03-garment.jpg" alt="Washed black hooded sweatshirt with studded cuffs carrying the Statue of a Fool print"/>
+      <img src="_proto/assets/sof-03-garment-navy.jpg" alt="The same hood in washed navy, studded and distressed"/>
+    </div>
+  </div>
+
+  <div class="pair rv" style="margin-top:var(--s6)">
+    <img src="_proto/assets/sof-14-longsleeve.jpg" alt="Washed black thermal longsleeve, engraved filigree down both sleeves, small arched Lost City wordmark on the chest"/>
+    <img src="_proto/assets/sof-14-longsleeve-white.jpg" alt="The same longsleeve in bone cream, the filigree printed in dark ink"/>
+  </div>
+  <div class="pair rv" style="margin-top:var(--s4)">
+    <img src="_proto/assets/sof-15-jorts.jpg" alt="Black denim jorts with bone contrast stitching, a curved arc stitch across each thigh"/>
+    <img src="_proto/assets/sof-detail-longsleeve.jpg" alt="Macro detail of the sleeve filigree, ink cracked and sunk into the waffle knit"/>
+  </div>
+
+  <div class="pair rv" style="margin-top:var(--s6)">
+    <img src="_proto/assets/sof-detail.jpg" alt="Macro detail of the print showing texture and distressing"/>
+    <div style="display:flex; align-items:flex-end">
+      <p class="small muted">
+        Detail shots are made at the same time as the campaign, not after. A
+        product nobody can see up close is a product nobody trusts.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 CAMPAIGN -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="head rv">
+      <h2 class="label">04 Campaign</h2>
+      <span class="label">One character, every frame</span>
+    </div>
+    <!-- the codex above argues for two poles, so the campaign has to show
+         them rather than assert them. mixed spans and distances on purpose. -->
+    <div class="gal rv" style="margin-top:var(--s7)">
+      <figure class="g-wide">
+        <img src="_proto/assets/sof-20-estate.jpg" alt="Three of the cast in an estate courtyard: the hood centre, the bone longsleeve crouched, the tee in profile"/>
+        <figcaption class="label">Estate courtyard <span class="dot">·</span> hood, longsleeve, tee</figcaption>
+      </figure>
+
+      <figure class="g-3 g-tall">
+        <img src="_proto/assets/sof-21-rooftop.jpg" alt="Both longsleeve colourways back to back on a rooftop car park, the City skyline behind"/>
+        <figcaption class="label">Rooftop <span class="dot">·</span> longsleeve, both colourways</figcaption>
+      </figure>
+      <figure class="g-3 g-tall">
+        <img src="_proto/assets/sof-22-jersey.jpg" alt="The jersey from behind at the Southbank undercroft, a skater blurred beyond"/>
+        <figcaption class="label">Southbank <span class="dot">·</span> jersey, from behind</figcaption>
+      </figure>
+
+      <figure class="g-2 g-sq">
+        <img src="_proto/assets/sof-25-chickenshop.jpg" alt="Chicken shop at night: the hood leant on the counter, the jersey holding a wing box"/>
+        <figcaption class="label">Chicken shop <span class="dot">·</span> hood, jersey</figcaption>
+      </figure>
+      <figure class="g-2 g-sq">
+        <img src="_proto/assets/sof-24-bollard.jpg" alt="Cans outside the off-licence: the tee and jorts sat on a bollard, the hood laughing beside"/>
+        <figcaption class="label">Cans <span class="dot">·</span> tee, jorts, hood</figcaption>
+      </figure>
+      <figure class="g-2 g-sq">
+        <img src="_proto/assets/sof-23-huddle.jpg" alt="Three of the cast round one food box under flash outside a takeaway"/>
+        <figcaption class="label">Takeaway <span class="dot">·</span> the huddle</figcaption>
+      </figure>
+
+      <figure class="g-2 g-sq">
+        <img src="_proto/assets/sof-26-offlicence.jpg" alt="The drinks aisle: navy hood crouched at the fridge, the black longsleeve leaning over"/>
+        <figcaption class="label">Off-licence <span class="dot">·</span> hood navy, longsleeve</figcaption>
+      </figure>
+      <figure class="g-2 g-sq">
+        <img src="_proto/assets/sof-27-busstop.jpg" alt="The navy hood slouched across a bus stop bench at night under flash"/>
+        <figcaption class="label">Night bus <span class="dot">·</span> hood, navy</figcaption>
+      </figure>
+      <figure class="g-2 g-sq">
+        <img src="_proto/assets/sof-28-kerb.jpg" alt="The black longsleeve sat on the kerb over an open food box, flash against the wet road"/>
+        <figcaption class="label">Kerb <span class="dot">·</span> longsleeve</figcaption>
+      </figure>
+
+      <figure class="g-2 g-sq">
+        <img src="_proto/assets/sof-29-doorway.jpg" alt="The hood eating chips in a shop doorway under sodium light"/>
+        <figcaption class="label">Doorway <span class="dot">·</span> hood</figcaption>
+      </figure>
+      <figure class="g-2 g-sq">
+        <img src="_proto/assets/sof-30-corner.jpg" alt="Two of the cast cracking up past a shuttered corner, the bone longsleeve and the hood"/>
+        <figcaption class="label">Corner <span class="dot">·</span> hood, longsleeve bone</figcaption>
+      </figure>
+      <figure class="g-2 g-sq">
+        <img src="_proto/assets/sof-31-laundrette.jpg" alt="The laundrette: tee and jorts sat on a washer, the black longsleeve mid-story"/>
+        <figcaption class="label">Laundrette <span class="dot">·</span> tee, jorts, longsleeve</figcaption>
+      </figure>
+
+      <figure class="g-wide">
+        <img src="_proto/assets/sof-32-market.jpg" alt="Both hoodie colourways walking through a street market mid-conversation"/>
+        <figcaption class="label">Market <span class="dot">·</span> hood, both colourways</figcaption>
+      </figure>
+    </div>
+
+    <p class="lead rv" style="margin-top:var(--s8); max-width:var(--c-narrow)">
+      One world, a cast of faces. Thirteen frames, five garments, and the piece
+      is in every single one, exact to the flat product each time. Holding a
+      look steady across different people and a dozen locations is the hard
+      part of this kind of work, and it is what separates a campaign from a
+      folder of nice images.
+    </p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section wrap">
+  <h2 class="display rv" style="font-size:var(--t-h1)">Want one<br/>of these<span class="dot">?</span></h2>
+  <p class="small muted rv" style="margin-top:var(--s5); max-width:var(--c-narrow)">
+    This is what a full campaign looks like when the studio runs it end to end.
+    If you want the same for your brand, the first conversation is free.
+  </p>
+  <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
+    <a class="cta" href="contact.html">Book a call <span class="pip"></span></a>
+    <a class="label" href="work.html">See the rest of the work <span class="dot">→</span></a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
+    <span class="label">Case study · 2026</span>
+  </div>
+</footer>
+
+<script src="_proto/forvr.js"></script>
+</body>
+</html>
