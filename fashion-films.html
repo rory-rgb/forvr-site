@@ -273,5 +273,22 @@
   });
 })();
 </script>
+<style>
+  @media (max-width: 767px) {
+    .top-brand { transition: opacity 0.35s, visibility 0.35s; }
+    .top-brand.tb-hide { opacity: 0; visibility: hidden; }
+  }
+</style>
+<script>
+(function () {
+  var b = document.querySelector('.top-brand');
+  if (!b) return;
+  var hidden = false;
+  window.addEventListener('scroll', function () {
+    var h = window.scrollY > 64;
+    if (h !== hidden) { hidden = h; b.classList.toggle('tb-hide', h); }
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
