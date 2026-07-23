@@ -429,8 +429,8 @@
       "@type": "WebPage",
       "@id": "https://forvr.org/about#webpage",
       "url": "https://forvr.org/about",
-      "name": "Contact | Start a project with Forvr Studios | Creative studio UK",
-      "description": "Start a creative project with Forvr Studios. A small, founder-led creative agency in Reading, UK. Reply within 48 hours. A brief, a sketch, or just a feeling. hello@forvr.org.",
+      "name": "About | The founder behind Forvr Studios | Creative studio UK",
+      "description": "Forvr Studios is founded and run by Rory: one person taking every project from first idea to finished delivery, in Reading, UK.",
       "isPartOf": {
         "@id": "https://forvr.org/#website"
       },
@@ -452,14 +452,14 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Contact",
+          "name": "About",
           "item": "https://forvr.org/about"
         }
       ]
     },
     {
-      "@type": "ContactPage",
-      "name": "Contact Forvr Studios",
+      "@type": "AboutPage",
+      "name": "About Forvr Studios",
       "url": "https://forvr.org/about",
       "mainEntity": {
         "@id": "https://forvr.org/#organization"
@@ -487,26 +487,64 @@
 </div>
 
 <main><style>
-.about-hero{min-height:100svh;display:flex;align-items:center;padding:140px 40px 90px;background:#0a0a0a;}
+.about-hero{min-height:88svh;display:flex;align-items:center;padding:140px 40px 80px;background:#0a0a0a;}
 .about-wrap{max-width:1040px;margin:0 auto;width:100%;}
 .about-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin:0 0 30px;}
-.about-head{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(40px,7vw,104px);line-height:0.92;letter-spacing:-0.01em;margin:0 0 44px;color:#f5f5f5;}
-.about-quote{margin:0;border:0;padding:0;max-width:780px;}
-.about-quote p{font-size:clamp(17px,1.7vw,22px);line-height:1.6;color:rgba(245,245,245,0.9);margin:0 0 22px;}
+.about-head{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(40px,7vw,104px);line-height:0.92;letter-spacing:-0.01em;margin:0 0 34px;color:#f5f5f5;}
+.about-intro{max-width:680px;font-size:clamp(17px,1.7vw,22px);line-height:1.6;color:rgba(245,245,245,0.9);margin:0 0 40px;}
+.about-quote{margin:0;border-left:1px solid rgba(245,245,245,0.18);padding:6px 0 6px 26px;max-width:760px;}
+.about-quote p{font-size:clamp(15px,1.4vw,19px);line-height:1.65;color:rgba(245,245,245,0.78);margin:0 0 20px;}
 .about-quote p:last-child{margin-bottom:0;}
-.about-cta{display:inline-flex;align-items:center;gap:10px;margin-top:52px;font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#0a0a0a;background:var(--accent);padding:16px 28px;border-radius:999px;text-decoration:none;transition:transform .35s,box-shadow .35s;}
+.about-facts{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 24px;max-width:1040px;margin:56px auto 0;padding-top:32px;border-top:1px solid rgba(245,245,245,0.14);}
+@media(min-width:768px){.about-facts{grid-template-columns:repeat(4,1fr);}}
+.about-facts dt{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,245,245,0.5);}
+.about-facts dd{margin:6px 0 0;font-size:14px;line-height:1.5;color:rgba(245,245,245,0.85);}
+.about-cta{display:inline-flex;align-items:center;gap:10px;margin-top:48px;font-family:var(--mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#0a0a0a;background:var(--accent);padding:16px 28px;border-radius:999px;text-decoration:none;transition:transform .35s,box-shadow .35s;}
 .about-cta:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(91,194,231,0.45);}
-@media(max-width:600px){.about-hero{padding:118px 22px 70px;}.about-head{font-size:clamp(34px,11vw,58px);margin-bottom:34px;}.about-eyebrow{margin-bottom:22px;}}
+.about-proof{padding:96px 40px;background:var(--bg);}
+.about-proof-wrap{max-width:1040px;margin:0 auto;display:grid;gap:40px;align-items:center;}
+@media(min-width:900px){.about-proof-wrap{grid-template-columns:1fr 1.1fr;gap:64px;}}
+.about-proof img{width:100%;height:auto;display:block;border:1px solid var(--line);}
+.about-proof-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin:0 0 22px;}
+.about-proof h2{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(30px,4vw,60px);line-height:0.95;margin:0 0 22px;}
+.about-proof p{max-width:52ch;font-size:clamp(15px,1.3vw,18px);line-height:1.6;color:rgba(10,10,10,0.8);margin:0 0 14px;}
+.about-proof .cap{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-top:10px;}
+.about-proof a.link{font-family:var(--mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--fg);border-bottom:1px solid var(--line);padding-bottom:3px;}
+.about-proof a.link:hover{color:var(--accent);border-color:var(--accent);}
+@media(max-width:600px){.about-hero{padding:118px 22px 60px;}.about-head{font-size:clamp(34px,11vw,58px);}.about-proof{padding:72px 22px;}}
 </style>
 <section class="about-hero reveal-group" id="about">
   <div class="about-wrap">
-    <p class="reveal-line about-eyebrow">Founder</p>
-    <h1 class="reveal-line about-head">Founded and run by Rory<span class="dot">:</span></h1>
+    <p class="reveal-line about-eyebrow">About / The founder</p>
+    <h1 class="reveal-line about-head">Founded and run<br/>by Rory<span class="dot">.</span></h1>
+    <p class="reveal-line about-intro">Forvr is a studio of one, run from Reading. Every frame, film and page on this site was made by the same pair of hands, from the first written idea to the finished delivery.</p>
     <blockquote class="reveal-line about-quote">
       <p>&ldquo;Before this I spent time working inside one of the leading AI marketing agencies. I saw how good work actually gets made, and where most of it falls apart. I&#39;ve always wanted to build things that mean something and leave a mark, not just fill a feed. Forvr is me doing that on my own terms, real creative direction and the tools working together, finished to a standard I&#39;d put my name on.&rdquo;</p>
       <p>&ldquo;It&#39;s new, and we&#39;re honest about that. New is the edge, not the excuse. Every brief gets the attention most studios can&#39;t give, finished to a standard we won&#39;t compromise.&rdquo;</p>
     </blockquote>
+    <dl class="about-facts reveal-line">
+      <div><dt>Based</dt><dd>Reading, UK</dd></div>
+      <div><dt>Background</dt><dd>Inside a leading AI marketing agency</dd></div>
+      <div><dt>The studio</dt><dd>Six lanes, all in house</dd></div>
+      <div><dt>Right now</dt><dd>Founding case-study slots open</dd></div>
+    </dl>
     <a href="contact.html" class="about-cta reveal-line">Have a chat with me <span aria-hidden="true">&rarr;</span></a>
+  </div>
+</section>
+
+<!-- the proof: judge the work, not the words -->
+<section class="about-proof">
+  <div class="about-proof-wrap">
+    <figure style="margin:0">
+      <img src="_proto/assets/final/opt-final_20_canal.jpg" alt="Statue of a Fool campaign: the canal in daylight, longsleeve and jorts" loading="lazy"/>
+      <figcaption class="cap">From Statue of a Fool, a concept campaign made end to end in house<span class="dot">.</span></figcaption>
+    </figure>
+    <div>
+      <p class="about-proof-eyebrow">The proof</p>
+      <h2>Judge the work,<br/>not the words<span class="dot">.</span></h2>
+      <p>Six self-initiated projects sit on this site, every stage done in house: written direction, graphics, garments, campaigns, films. That is the standard a commissioned brief gets held to.</p>
+      <p><a class="link" href="work.html">See the portfolio &rarr;</a></p>
+    </div>
   </div>
 </section>
 </main>
