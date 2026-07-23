@@ -854,17 +854,17 @@
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="en_GB" />
 <meta property="og:site_name" content="Forvr Studios" />
-<meta property="og:title" content="Forvr Studios | Creative studio UK | Fast, affordable, AI-native" />
-<meta property="og:description" content="Brand-trained models. Hand-finished output. Six lanes in one studio. Founder-led, ships in weeks." />
+<meta property="og:title" content="Forvr Studios · Creative agency, Reading" />
+<meta property="og:description" content="We build brands their complete identity. Film, imagery and design from first idea to finished delivery, all in house." />
 <meta property="og:url" content="https://forvr.org/" />
-<meta property="og:image" content="https://forvr.org/static/forvr-og.jpg" />
+<meta property="og:image" content="https://forvr.org/static/og-card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="Forvr Studios, creative studio UK" />
+<meta property="og:image:alt" content="The Statue of a Fool campaign cast, with the Forvr wordmark" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Forvr Studios | Creative studio UK | Fast, affordable, AI-native" />
-<meta name="twitter:description" content="Brand-trained models. Hand-finished output. Six lanes in one studio. Founder-led, ships in weeks." />
-<meta name="twitter:image" content="https://forvr.org/static/forvr-og.jpg" />
+<meta name="twitter:title" content="Forvr Studios · Creative agency, Reading" />
+<meta name="twitter:description" content="We build brands their complete identity. Film, imagery and design from first idea to finished delivery, all in house." />
+<meta name="twitter:image" content="https://forvr.org/static/og-card.jpg" />
 <meta name="theme-color" content="#0a0a0a" />
 <meta name="apple-mobile-web-app-title" content="Forvr Studios" />
 <meta name="application-name" content="Forvr Studios" />
@@ -890,7 +890,7 @@
         "width": 200,
         "height": 200
       },
-      "image": "https://forvr.org/static/forvr-og.jpg",
+      "image": "https://forvr.org/static/og-card.jpg",
       "description": "Creative studio in Reading, UK. AI-native, founder-led, six in-house lanes. Video, image, creative direction, graphic design, website design, brand identity. Fast turnaround, hand-finished output. Built for fashion, streetwear and lifestyle brands.",
       "address": {
         "@type": "PostalAddress",
@@ -1100,10 +1100,9 @@
 </script>
 
 <!-- HERO -->
-<section class="hero" id="heroBox" style="cursor:pointer;">
+<section class="hero" id="heroBox">
   <video poster="static/opt-hero-a.poster.jpg" class="hero-video" id="heroVideo" src="static/opt-hero-a.mp4" autoplay muted loop playsinline preload="metadata"></video>
   <div class="hero-vignette"></div>
-  <div class="audio-cue m" id="audioCue" style="position:absolute;top:50%;right:24px;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;z-index:10;font-size:10px;letter-spacing:0.18em;color:rgba(245, 245, 245, 0.7);pointer-events:none;">Sound off · click to unmute</div>
   <div class="hero-text">
     <h1 class="hero-wordmark" aria-label="Forvr">forvr<span class="dot">.</span></h1>
     <span class="hero-kicker m">Creative studio · Reading · Vol. 01 / 2026</span>
@@ -1114,17 +1113,6 @@
   <div class="scroll-cue m">Scroll</div>
 </section>
 <script>
-(function(){
-  const box = document.getElementById('heroBox');
-  const vid = document.getElementById('heroVideo');
-  const cue = document.getElementById('audioCue');
-  if (!box || !vid) return;
-  box.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A') return;
-    vid.muted = !vid.muted;
-    if (cue) cue.textContent = vid.muted ? 'Sound off · click to unmute' : 'Sound on · click to mute';
-  });
-})();
 // Fit-to-width guard: shrink the forvr wordmark if it would ever overflow its
 // column, so the trailing accent dot can never be clipped by the hero edge —
 // regardless of viewport width, browser zoom, or how wide the display font renders.
