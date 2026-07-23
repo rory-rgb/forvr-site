@@ -26,6 +26,33 @@
     margin-top: var(--s2);
     max-width: 46ch;
   }
+  /* per-project metadata, second line of the meta cell. dated-index
+     convention (Adoratorio, Maison Meta). every count is the number of
+     pieces actually published on that project page, nothing estimated. */
+  .row-facts { display: block; margin-top: var(--s1); color: var(--fg); }
+
+  /* the tally: hard numbers instead of a fourth two-line dark split.
+     every figure is the sum of the index above it, so the page proves
+     itself rather than asserting anything. */
+  .tally {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: var(--s7) var(--s5); margin-top: var(--s8);
+  }
+  .tally-n {
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(56px, 11vw, 132px); line-height: 0.82;
+    letter-spacing: -0.02em; color: #fff;
+  }
+  .tally-k { margin-top: var(--s4); color: rgba(255,255,255,.5); }
+  @media (min-width: 768px) { .tally { grid-template-columns: repeat(4, 1fr); } }
+
+  /* contact sheet: mixed ratios on purpose, so it reads as frames pulled
+     from a shoot rather than a product grid */
+  .gal figure .rv-img { display: block; width: 100%; }
+  .gal .g-3 .rv-img { aspect-ratio: 3/2; }
+  .gal .g-2 .rv-img { aspect-ratio: 3/4; }
+  .gal .g-4 .rv-img { aspect-ratio: 16/9; }
+  .gal .rv-img img { width: 100%; height: 100%; object-fit: cover; }
 </style>
 </head>
 <body>
@@ -41,18 +68,20 @@
   </div>
 </nav>
 
-<!-- PAGE HERO : six words, one idea -->
+<!-- PAGE HERO : statement, then two lines. no hero paragraph. -->
 <header class="phero wrap" id="top">
   <p class="label rv">Work</p>
-  <h1 class="display rv" style="margin-top:var(--s5)">Work we made<br/>without being asked<span class="dot">.</span></h1>
+  <h1 class="display rv-lines" style="margin-top:var(--s5)">
+    <span class="ln"><span>Work I made</span></span>
+    <span class="ln"><span>without being asked<span class="dot">.</span></span></span>
+  </h1>
   <p class="lead rv muted" style="margin-top:var(--s5); max-width:var(--c-narrow)">
-    Six projects, all self-initiated. We choose the brands and the briefs
-    ourselves and build the campaign anyway, so the thinking and the execution
-    are both on the table before anyone commissions anything.
+    Six projects, none of them commissioned. I pick the brand and make the
+    campaign anyway.
   </p>
 </header>
 
-<!-- INDEX : same row pattern as the homepage -->
+<!-- INDEX : same row pattern as the homepage, plus real per-project counts -->
 <section class="section wrap" id="work" style="padding-top:0">
   <div class="head rv">
     <h2 class="label">Projects</h2>
@@ -60,103 +89,163 @@
   </div>
 
   <div data-peek-list>
-    <a class="row rv" href="statue-of-a-fool.html" data-img="assets/sof-04-campaign.jpg">
+    <a class="row rv" href="statue-of-a-fool.html" data-img="assets/sof-20-estate.jpg">
       <span class="row-idx">01</span>
       <span class="row-name">Statue of a Fool
         <span class="row-desc">A collection built out of a written world, carried from graphic to garment to campaign with one character in every frame.</span>
       </span>
-      <span class="row-meta">Concept collection</span>
+      <span class="row-meta">Concept collection
+        <span class="row-facts">22 stills</span>
+      </span>
       <span class="pip"></span>
+      <img class="row-thumb" src="assets/sof-20-estate.jpg" alt="" loading="lazy"/>
     </a>
     <a class="row rv" href="../grit.html" data-img="../forvr%20docs/images/grit-project/opt-rwhypervail_Close-cropped_strength_detail_of_a_South_Asian_ma_c19826c6-a846-428d-9095-ef490b7a9e48_3.jpg">
       <span class="row-idx">02</span>
       <span class="row-name">Grit
         <span class="row-desc">A campaign study in texture, shot close on skin, sweat and worn fabric and lit hard enough to show every mark.</span>
       </span>
-      <span class="row-meta">Studio campaign</span>
+      <span class="row-meta">Studio campaign
+        <span class="row-facts">16 stills</span>
+      </span>
       <span class="pip"></span>
+      <img class="row-thumb" src="../forvr%20docs/images/grit-project/opt-rwhypervail_Close-cropped_strength_detail_of_a_South_Asian_ma_c19826c6-a846-428d-9095-ef490b7a9e48_3.jpg" alt="" loading="lazy"/>
     </a>
     <a class="row rv" href="../small-circle.html" data-img="../forvr%20docs/small%20circle/Studio-Shoot/opt-1.jpg">
       <span class="row-idx">03</span>
       <span class="row-name">Small Circle
         <span class="row-desc">A varsity capsule taken from studio shoot through to lookbook, treated as a real collaboration rather than a mockup.</span>
       </span>
-      <span class="row-meta">Varsity collab</span>
+      <span class="row-meta">Varsity collab
+        <span class="row-facts">19 stills, 1 film</span>
+      </span>
       <span class="pip"></span>
+      <img class="row-thumb" src="../forvr%20docs/small%20circle/Studio-Shoot/opt-1.jpg" alt="" loading="lazy"/>
     </a>
     <a class="row rv" href="../forvr-collection.html" data-img="../forvr%20docs/images/forvr/jewel/opt-hf_20260206_103516_1f2c38f0-e68e-4e8d-992b-70bdf491a830.jpg">
       <span class="row-idx">04</span>
       <span class="row-name">Forvr Collection
-        <span class="row-desc">Our own line, used to find out how far a brand world can be pushed before it stops reading as one thing.</span>
+        <span class="row-desc">My own line, used to find out how far a brand world can be pushed before it stops reading as one thing.</span>
       </span>
-      <span class="row-meta">Own brand</span>
+      <span class="row-meta">Own brand
+        <span class="row-facts">10 stills, 5 films</span>
+      </span>
       <span class="pip"></span>
+      <img class="row-thumb" src="../forvr%20docs/images/forvr/jewel/opt-hf_20260206_103516_1f2c38f0-e68e-4e8d-992b-70bdf491a830.jpg" alt="" loading="lazy"/>
     </a>
     <a class="row rv" href="../fashion-films.html" data-img="../forvr%20docs/videos/streetwear/sp5der/opt-0113.poster.jpg">
       <span class="row-idx">05</span>
       <span class="row-name">Fashion Films
         <span class="row-desc">Short films for streetwear silhouettes, cut for the feed and built to hold attention with the sound off.</span>
       </span>
-      <span class="row-meta">Streetwear reel</span>
+      <span class="row-meta">Streetwear reel
+        <span class="row-facts">14 films</span>
+      </span>
       <span class="pip"></span>
+      <img class="row-thumb" src="../forvr%20docs/videos/streetwear/sp5der/opt-0113.poster.jpg" alt="" loading="lazy"/>
     </a>
     <a class="row rv" href="../posters.html" data-img="../forvr%20docs/images/posters/opt-dn.jpg">
       <span class="row-idx">06</span>
       <span class="row-name">Posters
         <span class="row-desc">A running series of print-scale graphics, made to test type, composition and how much can be taken away.</span>
       </span>
-      <span class="row-meta">Graphic series</span>
+      <span class="row-meta">Graphic series
+        <span class="row-facts">16 posters</span>
+      </span>
       <span class="pip"></span>
+      <img class="row-thumb" src="../forvr%20docs/images/posters/opt-dn.jpg" alt="" loading="lazy"/>
     </a>
   </div>
 
-  <p class="rv muted small" style="margin-top:var(--s6); max-width:var(--c-narrow)">
-    Nothing here was made to a client brief, and that is deliberate. Concept
-    work is the fastest way to show taste and range without waiting for
-    permission, so every project below is finished to the standard a real
-    campaign would need.
-  </p>
+  <div class="rv" style="margin-top:var(--s6); max-width:var(--c-narrow)">
+    <p class="muted small">
+      None of this was made to a client brief, and that is deliberate. Concept
+      work is the fastest way to show taste and range without waiting for
+      permission, so every project above is finished to the standard a paid
+      campaign would need.
+    </p>
+    <p class="label" style="margin-top:var(--s4)">Rory · Founder</p>
+  </div>
 </section>
 
 <img class="peek" alt="" aria-hidden="true"/>
 
-<!-- POSITION : the single display moment -->
+<!-- TALLY : the proof artefact. hard numbers, all of them the sum of the
+     index above, so nothing here needs taking on trust. replaces the
+     fourth identical two-line dark split. -->
 <section class="section dark">
-  <div class="wrap split">
-    <div>
-      <p class="label rv" style="color:var(--accent)">How to read this</p>
-      <p class="display rv" style="font-size:var(--t-h1); margin-top:var(--s5)">
-        No brief<span class="dot">.</span><br/>
-        <span style="color:rgba(255,255,255,.45)">No excuses either</span><span class="dot">.</span>
-      </p>
+  <div class="wrap">
+    <div class="head rv" style="border-color:rgba(255,255,255,.14)">
+      <h2 class="label" style="color:var(--accent)">Everything above, counted</h2>
+      <span class="label">Nothing commissioned<span class="dot">.</span></span>
     </div>
-    <div class="rv">
-      <p class="lead">
-        Self-initiated work has one advantage: there is nobody to blame for a
-        weak idea, so the standard has to come from inside the studio.
-      </p>
-      <p class="small" style="margin-top:var(--s5); color:rgba(255,255,255,.55)">
-        Each project starts with written direction, then a graphic, then a
-        product, then the campaign around it. You are looking at the same
-        process a commissioned job would get.
-      </p>
+    <div class="tally">
+      <div class="rv">
+        <p class="tally-n" data-count="6">6</p>
+        <p class="label tally-k">Projects</p>
+      </div>
+      <div class="rv">
+        <p class="tally-n" data-count="83">83</p>
+        <p class="label tally-k">Stills published</p>
+      </div>
+      <div class="rv">
+        <p class="tally-n" data-count="20">20</p>
+        <p class="label tally-k">Films published</p>
+      </div>
+      <div class="rv">
+        <p class="tally-n" data-count="1">1</p>
+        <p class="label tally-k">Person</p>
+      </div>
     </div>
+    <p class="rv small" style="margin-top:var(--s8); max-width:var(--c-narrow); color:rgba(255,255,255,.55)">
+      Count them. Every figure is what is actually on this site, made in-house,
+      direction through to delivery. No borrowed logos and no numbers you cannot
+      check yourself.
+    </p>
   </div>
 </section>
 
-<!-- CONTACT : two actions maximum -->
+<!-- CONTACT SHEET : a sample of the frames the tally counts, pulled from
+     across all six projects. the numbers above claim range; this shows it. -->
 <section class="section wrap">
-  <h2 class="display rv" style="font-size:var(--t-h1)">Want this for<br/>your brand<span class="dot">?</span></h2>
+  <div class="head rv">
+    <h2 class="label">A sample of the frames</h2>
+    <span class="label">Across all six projects</span>
+  </div>
+  <div class="gal" style="margin-top:var(--s7)">
+    <figure class="g-3"><div class="rv-img"><img src="assets/sof-25-chickenshop.jpg" alt="Chicken shop at night, the hood leant on the counter under flash" loading="lazy"/></div><figcaption class="gcap">Statue of a Fool</figcaption></figure>
+    <figure class="g-3"><div class="rv-img"><img src="../forvr%20docs/images/grit-project/opt-rwhypervail_Industrial_gym_squat_silhouette_athlete_in_side_p_70453dec-2567-406f-a182-f7756b501252_0.jpg" alt="Grit: industrial gym squat silhouette in side profile" loading="lazy"/></div><figcaption class="gcap">Grit</figcaption></figure>
+    <figure class="g-2"><div class="rv-img"><img src="../forvr%20docs/small%20circle/Studio-Shoot/opt-10.jpg" alt="Small Circle varsity capsule, studio frame" loading="lazy"/></div><figcaption class="gcap">Small Circle</figcaption></figure>
+    <figure class="g-2"><div class="rv-img"><img src="../forvr%20docs/images/posters/opt-dn2.jpg" alt="A poster from the ongoing print-scale graphic series" loading="lazy"/></div><figcaption class="gcap">Posters</figcaption></figure>
+    <figure class="g-2"><div class="rv-img"><img src="assets/sof-21-rooftop.jpg" alt="Both longsleeve colourways on a rooftop car park, the City skyline behind" loading="lazy"/></div><figcaption class="gcap">Statue of a Fool</figcaption></figure>
+    <figure class="g-4"><div class="rv-img"><img src="../forvr%20docs/videos/forvr/opt-forvr-jewel-final.poster.jpg" alt="Frame from a Forvr Collection film" loading="lazy"/></div><figcaption class="gcap">Forvr Collection</figcaption></figure>
+    <figure class="g-2"><div class="rv-img"><img src="../forvr%20docs/images/grit-project/opt-rwhypervail_Minimal_studio_strength_portrait_of_a_Middle_East_128ff9f6-f75a-42b4-8379-7b61b5954e8d_0.jpg" alt="Grit: minimal studio strength portrait" loading="lazy"/></div><figcaption class="gcap">Grit</figcaption></figure>
+  </div>
+  <p class="rv muted small" style="margin-top:var(--s6); max-width:var(--c-narrow)">
+    Seven of 103. The rest sit on the project pages above.
+  </p>
+</section>
+
+<!-- CONTACT : two actions maximum -->
+<section class="section wrap" style="padding-top:0">
+  <h2 class="display rv-lines" style="font-size:var(--t-h1)">
+    <span class="ln"><span>Want this for</span></span>
+    <span class="ln"><span>your brand<span class="dot">?</span></span></span>
+  </h2>
   <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
     <a class="cta" href="contact.html">Book a call <span class="pip"></span></a>
-    <a class="label" href="services.html">See what we make <span class="dot">→</span></a>
+    <a class="label" href="services.html">See what I make <span class="dot">→</span></a>
   </div>
 </section>
 
 <footer class="foot">
   <div class="wrap foot-row">
-    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
-    <span class="label">Prototype build</span>
+    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England <span id="foot-clock"></span></span>
+    <span class="label" style="display:inline-flex; gap:var(--s5); flex-wrap:wrap">
+      <a href="mailto:hello@forvr.org">hello@forvr.org</a>
+      <a href="https://www.instagram.com/forvr.studio/" target="_blank" rel="noopener">@forvr.studio</a>
+      <span>Prototype build</span>
+    </span>
   </div>
 </footer>
 

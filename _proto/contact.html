@@ -40,6 +40,9 @@
   .field input::placeholder, .field textarea::placeholder { color: #b4b4b4; }
   .field select { cursor: pointer; }
   .hp { position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px; }
+  .email-big { display: block; color: #fff; transition: color 0.4s var(--ease); }
+  .email-big:hover { color: var(--accent); }
+  .email-big:hover .dot { color: #fff; }
   .form-note { margin-top: var(--s5); }
   .form-status { margin-top: var(--s4); display: none; }
   .form-status.show { display: block; }
@@ -71,6 +74,27 @@
     so and point you somewhere better.
   </p>
 </header>
+
+<!-- BAND : the studio's own film, running, before the form. gives the
+     page a reason to exist beyond six input fields. -->
+<section class="band">
+  <div class="band-media">
+    <video data-para="7" src="../forvr%20docs/site-images/supplied/opt-contact.mp4"
+           poster="../forvr%20docs/site-images/supplied/opt-contact.poster.jpg"
+           muted loop playsinline autoplay preload="none"></video>
+  </div>
+  <div class="band-inner wrap-w">
+    <p class="label rv">What happens next</p>
+    <p class="display rv-lines" style="font-size:var(--t-h1); margin-top:var(--s5); max-width:14ch">
+      <span class="ln"><span>One call<span class="dot">,</span></span></span>
+      <span class="ln"><span>then a brief<span class="dot">.</span></span></span>
+    </p>
+    <p class="rv small" style="margin-top:var(--s6); max-width:44ch; color:rgba(255,255,255,.7)">
+      Discovery is a single conversation and you leave it with a one-page brief,
+      whether or not we carry on.
+    </p>
+  </div>
+</section>
 
 <section class="section-tight wrap">
   <!-- endpoint and field names preserved from the live site so submissions
@@ -127,8 +151,12 @@
   <div class="wrap split">
     <div>
       <p class="label rv" style="color:var(--accent)">Or just email</p>
-      <p class="display rv" style="font-size:var(--t-h1); margin-top:var(--s5)">
-        hello@<br/>forvr<span class="dot">.</span>org
+      <p class="display rv-lines" style="font-size:var(--t-h1); margin-top:var(--s5)">
+        <!-- the address is the headline, so the headline is the link -->
+        <a class="email-big" href="mailto:hello@forvr.org">
+          <span class="ln"><span>hello@</span></span>
+          <span class="ln"><span>forvr<span class="dot">.</span>org</span></span>
+        </a>
       </p>
     </div>
     <div class="rv">
@@ -145,8 +173,12 @@
 
 <footer class="foot">
   <div class="wrap foot-row">
-    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
-    <span class="label">Prototype build</span>
+    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England <span id="foot-clock"></span></span>
+    <span class="label" style="display:inline-flex; gap:var(--s5); flex-wrap:wrap">
+      <a href="mailto:hello@forvr.org">hello@forvr.org</a>
+      <a href="https://www.instagram.com/forvr.studio/" target="_blank" rel="noopener">@forvr.studio</a>
+      <span>Prototype build</span>
+    </span>
   </div>
 </footer>
 

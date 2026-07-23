@@ -13,6 +13,30 @@
     document.documentElement.classList.add('js');
   }
 </script>
+<style>
+  /* page-only: the rules list. the numeral is the graphic here, so the
+     rules read as a worldview rather than a bulleted value list. */
+  .rules { margin-top: var(--s8); }
+  .rule-item {
+    display: grid; grid-template-columns: 1fr; gap: var(--s3);
+    padding-block: var(--s6);
+    border-top: 1px solid var(--line);
+  }
+  .rule-item:last-child { border-bottom: 1px solid var(--line); }
+  .rule-item h3 { font-size: var(--t-h3); letter-spacing: -0.01em; }
+  /* :not(.rule-n) so this does not out-specify .bignum on the numeral */
+  .rule-item p:not(.rule-n) { font-size: var(--t-small); color: var(--muted); max-width: 52ch; }
+  .rule-n { line-height: 0.8; transition: color 0.4s var(--ease); }
+  .rule-item:hover .rule-n { color: #bdbdbd; }
+
+  /* six thumbnails under the origin note, one per project */
+  .proj-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); margin-top: var(--s9); }
+  @media (min-width: 768px) { .proj-strip { grid-template-columns: repeat(6, 1fr); } }
+  @media (min-width: 768px) {
+    .rule-item { grid-template-columns: 200px 1fr 1fr; gap: var(--s7); align-items: start; }
+    .rule-item p:not(.rule-n) { margin-top: 0; }
+  }
+</style>
 </head>
 <body>
 
@@ -37,52 +61,57 @@
   </p>
 </header>
 
-<!-- WHAT THIS IS -->
+<!-- WHAT THIS IS : text against a piece of the work, so the claim about
+     one pair of hands sits next to what those hands made -->
 <section class="section-tight wrap">
   <div class="head rv">
     <h2 class="label">What this is</h2>
     <span class="label">Solo studio</span>
   </div>
 
-  <div class="split" style="margin-top:var(--s7)">
-    <div class="rv">
-      <p class="lead">
+  <div class="feature feature-wide" style="margin-top:var(--s8)">
+    <div class="feature-media card-media rv-img" style="aspect-ratio:4/5">
+      <img src="assets/sof-31-laundrette.jpg" alt="The laundrette: two of the cast sat on a washer, a third mid-story" loading="lazy"/>
+    </div>
+    <div>
+      <p class="lead rv">
         One person taking a project from the first written note to the finished
         campaign, without the work changing hands four times on the way.
       </p>
-      <p class="small muted" style="margin-top:var(--s5)">
+      <p class="small muted rv" style="margin-top:var(--s5)">
         Direction, graphics, garment work, imagery and delivery all sit with me.
         That keeps the idea intact. It also means I take on few projects at once,
         which is the honest trade.
       </p>
-    </div>
-    <div class="rv">
-      <p class="label">Who it suits</p>
-      <p style="margin-top:var(--s3)">
-        Small fashion and streetwear labels, people launching a first collection,
-        and brands that already have a product but no visual world around it.
-        If you know what you want to say and need it made properly, that is the
-        job I want.
-      </p>
-      <p class="small muted" style="margin-top:var(--s5)">
-        If you want volume content at speed, I am the wrong studio for you, and
-        I would rather say so now.
-      </p>
+      <div class="rv" style="margin-top:var(--s8); padding-top:var(--s6); border-top:1px solid var(--line)">
+        <p class="label">Who it suits</p>
+        <p style="margin-top:var(--s3)">
+          Small fashion and streetwear labels, people launching a first collection,
+          and brands that already have a product but no visual world around it.
+          If you know what you want to say and need it made properly, that is the
+          job I want.
+        </p>
+        <p class="small muted" style="margin-top:var(--s5)">
+          If you want volume content at speed, I am the wrong studio for you, and
+          I would rather say so now.
+        </p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ORIGIN : the one display moment on this page -->
+<!-- ORIGIN : the one display moment on this page. "judge the work
+     directly" hands you the six projects to judge, right here. -->
 <section class="section dark">
   <div class="wrap split">
-    <div>
-      <p class="label rv" style="color:var(--accent)">Where this is up to</p>
-      <p class="display rv" style="font-size:var(--t-h1); margin-top:var(--s5)">
-        The work is<br/>
-        <span style="color:rgba(255,255,255,.45)">the argument</span><span class="dot">.</span>
+    <div class="rv-l">
+      <p class="label" style="color:var(--accent)">Where this is up to</p>
+      <p class="display rv-lines" style="font-size:var(--t-h1); margin-top:var(--s5)">
+        <span class="ln"><span>The work is</span></span>
+        <span class="ln"><span style="color:rgba(255,255,255,.45)">the argument<span class="dot" style="color:var(--accent)">.</span></span></span>
       </p>
     </div>
-    <div class="rv">
+    <div class="rv-r">
       <p class="lead">
         The studio is new, and this site does not pretend otherwise. No borrowed
         logos, no invented numbers, no case studies padded with someone else's
@@ -97,6 +126,34 @@
       </p>
     </div>
   </div>
+  <div class="wrap">
+    <div class="proj-strip rv-stag">
+      <a href="statue-of-a-fool.html">
+        <div class="card-media" style="aspect-ratio:4/5"><img src="assets/sof-10-stride.jpg" alt="Statue of a Fool: the hood mid-stride" loading="lazy"/></div>
+        <span class="label" style="display:block; margin-top:var(--s2)">Statue of a Fool</span>
+      </a>
+      <a href="../grit.html">
+        <div class="card-media" style="aspect-ratio:4/5"><img src="../forvr%20docs/images/grit-project/opt-rwhypervail_Close-cropped_strength_detail_of_a_South_Asian_ma_c19826c6-a846-428d-9095-ef490b7a9e48_3.jpg" alt="Grit: close-cropped strength detail" loading="lazy"/></div>
+        <span class="label" style="display:block; margin-top:var(--s2)">Grit</span>
+      </a>
+      <a href="../small-circle.html">
+        <div class="card-media" style="aspect-ratio:4/5"><img src="../forvr%20docs/small%20circle/Studio-Shoot/opt-1.jpg" alt="Small Circle: varsity capsule studio frame" loading="lazy"/></div>
+        <span class="label" style="display:block; margin-top:var(--s2)">Small Circle</span>
+      </a>
+      <a href="../forvr-collection.html">
+        <div class="card-media" style="aspect-ratio:4/5"><img src="../forvr%20docs/images/forvr/jewel/opt-hf_20260206_103516_1f2c38f0-e68e-4e8d-992b-70bdf491a830.jpg" alt="Forvr Collection: jewel campaign frame" loading="lazy"/></div>
+        <span class="label" style="display:block; margin-top:var(--s2)">Forvr Collection</span>
+      </a>
+      <a href="../fashion-films.html">
+        <div class="card-media" style="aspect-ratio:4/5"><img src="../forvr%20docs/videos/streetwear/sp5der/opt-0113.poster.jpg" alt="Fashion Films: streetwear film frame" loading="lazy"/></div>
+        <span class="label" style="display:block; margin-top:var(--s2)">Fashion Films</span>
+      </a>
+      <a href="../posters.html">
+        <div class="card-media" style="aspect-ratio:4/5"><img src="../forvr%20docs/images/posters/opt-dn.jpg" alt="Posters: print-scale graphic" loading="lazy"/></div>
+        <span class="label" style="display:block; margin-top:var(--s2)">Posters</span>
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- PRINCIPLES : a worldview, not a value list -->
@@ -106,42 +163,36 @@
     <span class="label">Six rules</span>
   </div>
 
-  <div style="margin-top:var(--s6)">
-    <div class="row rv">
-      <span class="row-idx">01</span>
-      <span class="row-name">Decide in writing</span>
-      <span class="small muted">Spoken direction evaporates. A written one can be argued with, and held to.</span>
-      <span class="pip"></span>
+  <div class="rules">
+    <div class="rule-item rv">
+      <p class="bignum rule-n">01</p>
+      <h3>Decide in writing</h3>
+      <p>Spoken direction evaporates. A written one can be argued with, and held to.</p>
     </div>
-    <div class="row rv">
-      <span class="row-idx">02</span>
-      <span class="row-name">The generator opens last</span>
-      <span class="small muted">Palette, light and wardrobe are settled long before a single frame exists.</span>
-      <span class="pip"></span>
+    <div class="rule-item rv">
+      <p class="bignum rule-n">02</p>
+      <h3>The generator opens last</h3>
+      <p>Palette, light and wardrobe are settled long before a single frame exists.</p>
     </div>
-    <div class="row rv">
-      <span class="row-idx">03</span>
-      <span class="row-name">Judge it small</span>
-      <span class="small muted">Most people meet the work on a phone, mid-scroll. If it fails there, it fails.</span>
-      <span class="pip"></span>
+    <div class="rule-item rv">
+      <p class="bignum rule-n">03</p>
+      <h3>Judge it small</h3>
+      <p>Most people meet the work on a phone, mid-scroll. If it fails there, it fails.</p>
     </div>
-    <div class="row rv">
-      <span class="row-idx">04</span>
-      <span class="row-name">Kill the second direction early</span>
-      <span class="small muted">Two ideas running side by side tend to produce one diluted result.</span>
-      <span class="pip"></span>
+    <div class="rule-item rv">
+      <p class="bignum rule-n">04</p>
+      <h3>Kill the second direction early</h3>
+      <p>Two ideas running side by side tend to produce one diluted result.</p>
     </div>
-    <div class="row rv">
-      <span class="row-idx">05</span>
-      <span class="row-name">Leave the seams visible</span>
-      <span class="small muted">Work sanded perfectly smooth stops looking like a person made it.</span>
-      <span class="pip"></span>
+    <div class="rule-item rv">
+      <p class="bignum rule-n">05</p>
+      <h3>Leave the seams visible</h3>
+      <p>Work sanded perfectly smooth stops looking like a person made it.</p>
     </div>
-    <div class="row rv">
-      <span class="row-idx">06</span>
-      <span class="row-name">Finish the last ten percent</span>
-      <span class="small muted">Projects collapse where attention runs out: the crop, the export, the file name.</span>
-      <span class="pip"></span>
+    <div class="rule-item rv">
+      <p class="bignum rule-n">06</p>
+      <h3>Finish the last ten percent</h3>
+      <p>Projects collapse where attention runs out: the crop, the export, the file name.</p>
     </div>
   </div>
 
@@ -151,24 +202,36 @@
   </p>
 </section>
 
-<!-- CONTACT : two actions maximum -->
-<section class="section-tight wrap">
-  <div class="rule" style="padding-bottom:var(--s6)">
-    <p class="lead rv" style="max-width:var(--c-narrow)">
+<!-- BAND : the studio's own output, at scale, before the ask -->
+<section class="band">
+  <div class="band-media">
+    <img data-para="8" style="object-position:60% 40%" src="assets/sof-32-market.jpg" alt="Both hoodie colourways walking through a street market mid-conversation" loading="lazy"/>
+  </div>
+  <div class="band-inner wrap-w">
+    <p class="label rv">Reading and Henley-on-Thames</p>
+    <p class="display rv-lines" style="font-size:var(--t-h1); margin-top:var(--s5); max-width:16ch">
+      <span class="ln"><span>Few projects<span class="dot">.</span></span></span>
+      <span class="ln"><span>Finished properly<span class="dot">.</span></span></span>
+    </p>
+    <p class="rv small" style="margin-top:var(--s6); max-width:44ch; color:rgba(255,255,255,.7)">
       If you have a collection, a launch or a campaign coming up, send me the
       rough version. I would rather see it early.
     </p>
-  </div>
-  <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
-    <a class="cta" href="contact.html">Book a call <span class="pip"></span></a>
-    <a class="label" href="mailto:hello@forvr.org">hello@forvr.org</a>
+    <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
+      <a class="cta cta-light" href="contact.html">Book a call <span class="pip"></span></a>
+      <a class="label" href="mailto:hello@forvr.org" style="color:rgba(255,255,255,.7)">hello@forvr.org</a>
+    </div>
   </div>
 </section>
 
 <footer class="foot">
   <div class="wrap foot-row">
-    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
-    <span class="label">Prototype build</span>
+    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England <span id="foot-clock"></span></span>
+    <span class="label" style="display:inline-flex; gap:var(--s5); flex-wrap:wrap">
+      <a href="mailto:hello@forvr.org">hello@forvr.org</a>
+      <a href="https://www.instagram.com/forvr.studio/" target="_blank" rel="noopener">@forvr.studio</a>
+      <span>Prototype build</span>
+    </span>
   </div>
 </footer>
 

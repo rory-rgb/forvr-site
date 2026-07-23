@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Process · Forvr Studios</title>
-<meta name="description" content="Six stages from written direction to delivery, told against Statue of a Fool, a self-initiated concept collection."/>
+<meta name="description" content="How a project runs: five stages of working together, and the six stages of making, shown against Statue of a Fool, a self-initiated concept collection."/>
 <link rel="stylesheet" href="forvr.css"/>
 <script>
   // set before paint so reveal-hiding never applies without a working observer
@@ -13,6 +13,18 @@
     document.documentElement.classList.add('js');
   }
 </script>
+<style>
+  /* the engagement grid (.way-*) is shared, it lives in forvr.css.
+
+     page-only: deliverable line under each making stage. the bar the benchmark sets
+     (Exact names deliverables per phase); ours did not, now it does. */
+  .stage-out {
+    font-family: var(--mono); font-size: var(--t-label);
+    letter-spacing: .06em; text-transform: uppercase;
+    margin-top: var(--s5); padding-top: var(--s3);
+    border-top: 1px solid var(--line);
+  }
+</style>
 </head>
 <body>
 
@@ -30,24 +42,76 @@
 <!-- HERO : plain h1. the display moment is held back for the close. -->
 <header class="phero wrap" id="top">
   <p class="label rv">Process</p>
-  <h1 class="rv" style="margin-top:var(--s5)">Six stages, one collection<span class="dot">.</span></h1>
+  <h1 class="rv" style="margin-top:var(--s5)">How a project runs<span class="dot">.</span></h1>
   <p class="lead rv" style="margin-top:var(--s5); max-width:var(--c-narrow)">
-    Every project runs the same six stages. Rather than describe them in the
-    abstract, here they are against Statue of a Fool, a concept collection I
-    made start to finish with nobody commissioning it.
+    Two things worth separating: how working together goes, and how the making
+    itself goes. Both are below, and the second one is shown rather than
+    described.
   </p>
 </header>
 
-<!-- STAGES -->
-<section class="section-tight wrap">
+<!-- PART ONE : the engagement baseline. same five stages as the homepage,
+     deliverable named per stage. this is the client-facing half. -->
+<section class="section-tight wrap" id="working">
   <div class="head rv">
-    <h2 class="label">Statue of a Fool</h2>
-    <span class="label">Self-initiated</span>
+    <h2 class="label">Part one · Working together</h2>
+    <span class="label">Five stages, every job</span>
   </div>
+  <div class="way-grid rv-stag">
+    <div class="way-step">
+      <p class="label"><span class="pip"></span> 01 Discovery</p>
+      <h3>One call</h3>
+      <p>What you want, what the business needs, what done looks like.</p>
+      <p class="way-out">Out: a one-page brief</p>
+    </div>
+    <div class="way-step">
+      <p class="label"><span class="pip"></span> 02 Research</p>
+      <h3>Line it up</h3>
+      <p>References, competitors, the brand itself, read against the objectives.</p>
+      <p class="way-out">Out: the direction</p>
+    </div>
+    <div class="way-step">
+      <p class="label"><span class="pip"></span> 03 System</p>
+      <h3>Build the world</h3>
+      <p>A visual system tailored to the client, nothing off the shelf.</p>
+      <p class="way-out">Out: the system, signed off</p>
+    </div>
+    <div class="way-step">
+      <p class="label"><span class="pip"></span> 04 Production</p>
+      <h3>Make the work</h3>
+      <p>Film, stills, identity, documents, whichever the job calls for.</p>
+      <p class="way-out">Out: rounds you react to</p>
+    </div>
+    <div class="way-step">
+      <p class="label"><span class="pip"></span> 05 Delivery</p>
+      <h3>Hand it over</h3>
+      <p>Every asset in every format it needs to live in.</p>
+      <p class="way-out">Out: the files and a debrief</p>
+    </div>
+  </div>
+  <p class="rv muted small" style="margin-top:var(--s6); max-width:var(--c-narrow)">
+    The weight of each stage shifts with the job. A film leans on 04, an
+    identity on 03. None of them skip 01.
+  </p>
+</section>
+
+<!-- PART TWO : the making, shown. this is the wedge. stage 04 Production
+     above opens out into the six stages below. -->
+<section class="section-tight wrap" id="making">
+  <div class="head rv">
+    <h2 class="label">Part two · Inside the making</h2>
+    <a class="label" href="statue-of-a-fool.html">Statue of a Fool, in full <span class="dot">→</span></a>
+  </div>
+
+  <p class="lead rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
+    Stage 04 above is where most studios go quiet. Here is what actually
+    happens inside it, run against Statue of a Fool, a collection I made with
+    nobody commissioning it.
+  </p>
 
   <!-- 01 DIRECTION -->
   <div class="split rv" style="margin-top:var(--s8)">
-    <div style="aspect-ratio:4/5; background:var(--ink); padding:var(--s5); display:flex; flex-direction:column; justify-content:space-between">
+    <div class="rv-img" style="aspect-ratio:4/5; background:var(--ink); padding:var(--s5); display:flex; flex-direction:column; justify-content:space-between">
       <p class="label" style="color:rgba(255,255,255,.5)">Codex, page one</p>
       <div>
         <p class="small" style="color:#fff; line-height:1.45">
@@ -77,35 +141,37 @@
         The codex is short and specific enough to settle arguments later. Every
         stage below is checked against it.
       </p>
+      <p class="stage-out">Out: the codex, palette and wardrobe fixed</p>
     </div>
   </div>
 
   <!-- 02 GRAPHIC -->
   <div class="rule" style="margin-top:var(--s9)"></div>
   <div class="split rv" style="margin-top:var(--s9)">
-    <div class="step">
-      <img src="assets/sof-02-graphic.jpg" alt="Statue of a Fool artwork, heavy type set over a classical statue"/>
+    <div class="step rv-img">
+      <img src="assets/sof-02-graphic.jpg" alt="Statue of a Fool artwork: a veiled marble figure standing inside display type filled with banknotes"/>
     </div>
     <div>
       <div class="step-meta"><span class="pip"></span><span class="label">02 Graphic</span></div>
       <h3 style="font-size:var(--t-h3); margin-top:var(--s3)">Build the statement artwork</h3>
       <p style="margin-top:var(--s4)">
         The collection needed one piece of artwork strong enough to carry the
-        whole thing. Statue, type, and the red pulled straight from the codex
-        palette. I worked it until it read at thumbnail size, because that is
-        where most people will meet it.
+        whole thing: a veiled marble figure standing inside display type filled
+        with banknotes. Both poles of the codex in one image. I worked it until
+        it read at thumbnail size, because that is where most people meet it.
       </p>
       <p class="small muted" style="margin-top:var(--s4)">
         Everything after this point is downstream of the graphic.
       </p>
+      <p class="stage-out">Out: master artwork, print-ready</p>
     </div>
   </div>
 
   <!-- 03 GARMENT -->
   <div class="rule" style="margin-top:var(--s9)"></div>
   <div class="split rv" style="margin-top:var(--s9)">
-    <div class="step">
-      <img src="assets/sof-03-garment.jpg" alt="Washed black hooded sweatshirt carrying the Statue of a Fool print, with studded cuffs"/>
+    <div class="step rv-img">
+      <img src="assets/sof-03-garment.jpg" alt="Washed black hooded sweatshirt with studded cuffs carrying the Statue of a Fool print"/>
     </div>
     <div>
       <div class="step-meta"><span class="pip"></span><span class="label">03 Garment</span></div>
@@ -120,66 +186,60 @@
         This is usually where a nice graphic turns out to be the wrong graphic.
         Better to find that now.
       </p>
+      <p class="stage-out">Out: the lead piece, front and back</p>
     </div>
   </div>
 
   <!-- 04 COLLECTION -->
   <div class="rule" style="margin-top:var(--s9)"></div>
   <div class="split rv" style="margin-top:var(--s9)">
-    <div style="aspect-ratio:4/5; background:var(--ink); padding:var(--s5); display:flex; flex-direction:column; justify-content:space-between">
-      <p class="label" style="color:rgba(255,255,255,.5)">Four pieces</p>
-      <div>
-        <p class="small" style="color:#fff; line-height:1.45">
-          Hooded sweatshirt<br/>
-          Tee<br/>
-          Longsleeve<br/>
-          Shorts
-        </p>
-        <p class="small" style="color:rgba(255,255,255,.45); margin-top:var(--s4)">
-          One graphic, four placements, one wash.
-        </p>
-      </div>
+    <div class="step rv-img">
+      <img src="assets/sof-14-longsleeve.jpg" alt="Washed black thermal longsleeve, engraved filigree down both sleeves, small arched wordmark on the chest"/>
     </div>
     <div>
       <div class="step-meta"><span class="pip"></span><span class="label">04 Collection</span></div>
       <h3 style="font-size:var(--t-h3); margin-top:var(--s3)">Extend without diluting</h3>
       <p style="margin-top:var(--s4)">
-        The hood becomes a small collection: tees, longsleeves and shorts. Each
-        piece takes the graphic at a different scale and crop so the range reads
-        as one thing rather than four printed with the same file.
+        The hood becomes a small collection: a thermal longsleeve with engraved
+        filigree, a jersey, denim jorts with contrast stitching, each in two
+        colourways. Different pieces, one world, held together by the wash and
+        the palette rather than by repeating the same print.
       </p>
       <p class="small muted" style="margin-top:var(--s4)">
         Restraint matters more than range. Four pieces that agree with each
         other beat twelve that do not.
       </p>
+      <p class="stage-out">Out: the range, colourways locked</p>
     </div>
   </div>
 
   <!-- 05 CAMPAIGN -->
   <div class="rule" style="margin-top:var(--s9)"></div>
   <div class="split rv" style="margin-top:var(--s9)">
-    <div class="step">
-      <img src="assets/sof-04-campaign.jpg" alt="Campaign frame of a model standing among classical marble statues"/>
+    <div class="step rv-img">
+      <img src="assets/sof-23-huddle.jpg" alt="Three of the cast round one food box under flash outside a takeaway at night"/>
     </div>
     <div>
       <div class="step-meta"><span class="pip"></span><span class="label">05 Campaign</span></div>
-      <h3 style="font-size:var(--t-h3); margin-top:var(--s3)">Shoot one character</h3>
+      <h3 style="font-size:var(--t-h3); margin-top:var(--s3)">Shoot the myth</h3>
       <p style="margin-top:var(--s4)">
-        The campaign follows a single figure through a marble hall. Same person,
-        same light, same grade across every frame, so the images stack into a
-        story instead of sitting as a folder of unrelated pictures.
+        The campaign puts the collection on a cast of faces across London after
+        dark: estate courtyards, a chicken shop counter, the off-licence fridge,
+        a laundrette, a bus stop bench. Hard flash, wet roads, sodium light. The
+        marble stays in the graphic, never in the photography.
       </p>
       <p class="small muted" style="margin-top:var(--s4)">
-        Consistency is the hard part of AI-led imagery, and it is the part I
-        spend the most time on.
+        Holding one cast, one light and one grade across a dozen locations is
+        the hard part of AI-led imagery. It is where most of the time goes.
       </p>
+      <p class="stage-out">Out: the campaign set, one grade across every frame</p>
     </div>
   </div>
 
   <!-- 06 DELIVERY -->
   <div class="rule" style="margin-top:var(--s9)"></div>
   <div class="split rv" style="margin-top:var(--s9)">
-    <div class="step">
+    <div class="step rv-img">
       <img src="assets/sof-detail.jpg" alt="Macro detail of the Statue of a Fool print showing texture and distressing"/>
     </div>
     <div>
@@ -194,6 +254,7 @@
         The codex goes with the files. If you take the brand elsewhere later,
         the direction travels with it.
       </p>
+      <p class="stage-out">Out: every asset, every crop, plus the codex</p>
     </div>
   </div>
 </section>
@@ -201,14 +262,14 @@
 <!-- CLOSE : the single display moment on the page -->
 <section class="section dark">
   <div class="wrap split">
-    <div>
-      <p class="label rv" style="color:var(--accent)">Next</p>
-      <p class="display rv" style="font-size:var(--t-h1); margin-top:var(--s5)">
-        Same six stages<span class="dot">.</span><br/>
-        <span style="color:rgba(255,255,255,.45)">Your brand</span><span class="dot">.</span>
+    <div class="rv-l">
+      <p class="label" style="color:var(--accent)">Next</p>
+      <p class="display rv-lines" style="font-size:var(--t-h1); margin-top:var(--s5)">
+        <span class="ln"><span>Same six stages<span class="dot">.</span></span></span>
+        <span class="ln"><span style="color:rgba(255,255,255,.45)">Your brand<span class="dot" style="color:var(--accent)">.</span></span></span>
       </p>
     </div>
-    <div class="rv">
+    <div class="rv-r">
       <p class="lead">
         Statue of a Fool was made with nobody paying for it, which is exactly why
         it is a fair test of the process.
@@ -217,14 +278,26 @@
         <a class="cta cta-light" href="contact.html">Book a call <span class="pip"></span></a>
         <a class="label" href="mailto:hello@forvr.org" style="color:rgba(255,255,255,.55)">hello@forvr.org</a>
       </div>
+      <!-- three more frames from stage 05, so the promise sits next to
+           the evidence -->
+      <div class="rv-stag" style="display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s3); margin-top:var(--s7)">
+        <div class="card-media" style="aspect-ratio:4/5"><img src="assets/sof-26-offlicence.jpg" alt="The drinks aisle: navy hood crouched at the fridge" loading="lazy"/></div>
+        <div class="card-media" style="aspect-ratio:4/5"><img src="assets/sof-27-busstop.jpg" alt="The navy hood slouched across a bus stop bench at night" loading="lazy"/></div>
+        <div class="card-media" style="aspect-ratio:4/5"><img src="assets/sof-29-doorway.jpg" alt="The hood eating chips in a shop doorway under sodium light" loading="lazy"/></div>
+      </div>
+      <p class="label" style="margin-top:var(--s3); color:rgba(255,255,255,.5)">Stage 05, three more frames</p>
     </div>
   </div>
 </section>
 
 <footer class="foot">
   <div class="wrap foot-row">
-    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
-    <span class="label">Prototype build</span>
+    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England <span id="foot-clock"></span></span>
+    <span class="label" style="display:inline-flex; gap:var(--s5); flex-wrap:wrap">
+      <a href="mailto:hello@forvr.org">hello@forvr.org</a>
+      <a href="https://www.instagram.com/forvr.studio/" target="_blank" rel="noopener">@forvr.studio</a>
+      <span>Prototype build</span>
+    </span>
   </div>
 </footer>
 

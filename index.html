@@ -145,8 +145,10 @@
   }
   .hero-meta-top { position: absolute; top: 96px; right: 24px; z-index: 10; text-align: right; }
   @media (min-width: 768px) { .hero-meta-top { right: 40px; } }
-  .hero-text { position: absolute; bottom: 40px; left: 24px; right: 24px; z-index: 10; }
-  @media (min-width: 768px) { .hero-text { bottom: 56px; left: 40px; right: 40px; } }
+  /* bottom offsets clear the fixed Ask AI pill (bottom 24/28 + pill height),
+     which the CTA collided with when the two shared the bottom-left corner */
+  .hero-text { position: absolute; bottom: 88px; left: 24px; right: 24px; z-index: 10; }
+  @media (min-width: 768px) { .hero-text { bottom: 96px; left: 40px; right: 40px; } }
   .hero-headline { font-size: clamp(64px, 13vw, 220px); }
   .hero-sub { margin-top: 24px; display: flex; align-items: end; justify-content: space-between; gap: 32px; }
   @media (min-width: 768px) { .hero-sub { margin-top: 32px; } }
@@ -172,6 +174,23 @@
   /* Hero brand lockup - the eye "opens" to reveal the wordmark */
   .hero-text { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 100%; container-type: inline-size; }
   .hero-kicker { margin-top: 4px; color: rgba(245,245,245,0.78); animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.25s both; }
+  /* the statement: who this is and what it makes, said before anyone
+     has to scroll. copy drawn from the "What is Forvr Studios?" FAQ. */
+  .hero-statement {
+    margin-top: 8px; max-width: 620px;
+    font-size: clamp(16px, 1.6vw, 22px); line-height: 1.45;
+    color: rgba(245,245,245,0.92);
+    text-shadow: 0 1px 12px rgba(0,0,0,0.35);
+    animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.35s both;
+  }
+  .hero-statement strong { font-weight: 600; color: #fff; }
+  .hero-statement-sub {
+    margin-top: 6px; max-width: 560px;
+    font-size: clamp(13px, 1.1vw, 15px); line-height: 1.55;
+    color: rgba(245,245,245,0.65);
+    text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+    animation: heroKick 0.9s cubic-bezier(0.22,1,0.36,1) 1.45s both;
+  }
   .hero-wordmark {
     /* padding-top + matching negative margin give the glyph tops headroom so the
        resting clip-path: inset(0) never shaves the top of the letters. */
@@ -1088,6 +1107,8 @@
   <div class="hero-text">
     <h1 class="hero-wordmark" aria-label="Forvr">forvr<span class="dot">.</span></h1>
     <span class="hero-kicker m">Creative studio · Reading · Vol. 01 / 2026</span>
+    <p class="hero-statement"><strong>Forvr is a creative agency that builds brands their complete identity.</strong></p>
+    <p class="hero-statement-sub">We take film, imagery and design from first idea to finished delivery in house, using a range of AI tools directed by one founder.</p>
     <a href="work.html" class="hero-cta">See the work <span class="dot">→</span></a>
   </div>
   <div class="scroll-cue m">Scroll</div>
@@ -1505,8 +1526,8 @@
           <p class="mission-ix reveal-line"><span class="bar"></span> 02</p>
           <h2 class="d mission-h reveal-line">Why forvr<span class="dot">.</span></h2>
           <div class="mission-paras">
-            <p class="mission-p reveal-line">Forvr ships brand-trained, hand-finished creative in a fraction of the time and cost of traditional agencies. The model trains on your brand from the first brief, then adapts every frame to fit the work.</p>
-            <p class="mission-p reveal-line">The work goes out recognisable as yours, not the model's default.</p>
+            <p class="mission-p reveal-line">Most AI content looks like the model that made it. Ours trains on your brand before a single frame is made, so the work goes out recognisable as yours, not the model's default.</p>
+            <p class="mission-p reveal-line">The speed and the cost follow from the workflows. The recognisability is the point.</p>
           </div>
           <div class="mission-cta-row reveal-line">
             <a class="mission-btn" href="work.html">See the work</a>
@@ -1892,15 +1913,15 @@
   </div>
 
   <div class="outcomes-row">
-    <article class="oc-card" data-i="0" style="background-image: url('forvr%20docs/site-images/web/16-aesthetic-silk.jpg');">
+    <article class="oc-card" data-i="0" style="background-image: url('forvr%20docs/videos/streetwear/sp5der/opt-f81fa3ee-1fdb-413f-a643-7d3c6d206f40%20(1).jpg');">
       <span class="oc-num">01</span>
       <h3 class="oc-title">Ship in weeks, not months<span class="dot">.</span></h3>
     </article>
-    <article class="oc-card" data-i="1" style="background-image: url('forvr%20docs/site-images/web/sof-doorway-card.jpg');">
+    <article class="oc-card" data-i="1" style="background-image: url('_proto/assets/sof-20-estate.jpg');">
       <span class="oc-num">02</span>
       <h3 class="oc-title">A fraction of traditional production cost<span class="dot">.</span></h3>
     </article>
-    <article class="oc-card" data-i="2" style="background-image: url('forvr%20docs/site-images/web/14-aesthetic-mercury.jpg');">
+    <article class="oc-card" data-i="2" style="background-image: url('_proto/assets/sof-21-rooftop.jpg');">
       <span class="oc-num">03</span>
       <h3 class="oc-title">Every format, one brand voice<span class="dot">.</span></h3>
     </article>
@@ -2694,7 +2715,7 @@ window.buildTetrisReveal({
     </a>
     <a class="nav-item" href="work.html">
       <span class="num">01</span>
-      <span class="title">Work</span>
+      <span class="title">Portfolio</span>
       <span class="caption">Selected portfolio</span>
     </a>
     <a class="nav-item" href="services.html">

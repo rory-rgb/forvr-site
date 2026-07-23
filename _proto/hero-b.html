@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero variation B · the calm cut · Forvr proto</title>
+<meta name="robots" content="noindex"/>
+<link rel="stylesheet" href="forvr.css"/>
+<script>
+  if ('IntersectionObserver' in window &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js');
+  }
+</script>
+<style>
+  /* Variation B — the hero series, calm cut.
+     5 beats x 3s: release, ferrofluid, unfurl, chrysalis, ember.
+     Test page: hero only, remote CDN loops, winners get downloaded and
+     optimised before anything real. */
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--ink); }
+  .mont, .mont-layer { position: absolute; inset: 0; }
+  .mont-layer { opacity: 0; }
+  .mont-layer:first-child { opacity: 1; }
+  .mont-layer video { width: 100%; height: 100%; object-fit: cover; }
+  @keyframes mont-cut {
+    0% { opacity: 1; } 20% { opacity: 1; }
+    20.01% { opacity: 0; } 100% { opacity: 0; }
+  }
+  .js .mont-layer { animation: mont-cut 15s infinite; }
+  .js .mont-layer:nth-child(1) { animation-delay: 0s; }
+  .js .mont-layer:nth-child(2) { animation-delay: 3s; }
+  .js .mont-layer:nth-child(3) { animation-delay: 6s; }
+  .js .mont-layer:nth-child(4) { animation-delay: 9s; }
+  .js .mont-layer:nth-child(5) { animation-delay: 12s; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.1) 38%, rgba(0,0,0,.72) 100%);
+  }
+  .hero-inner { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; }
+  .hero-top { display: flex; justify-content: space-between; gap: var(--s2) var(--s4); flex-wrap: wrap; padding-top: 88px; }
+  .hero-top .label { color: rgba(255,255,255,.7); }
+  .hero-mid { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: var(--s8); }
+  .hero h1 { font-size: clamp(44px, 8.5vw, 132px); color: #fff; }
+  .hero h1 > span { display: block; }
+  .hero-sub { margin-top: var(--s5); max-width: 560px; color: rgba(255,255,255,.75); font-size: var(--t-small); }
+  .hero-cta-row { margin-top: var(--s6); }
+  .var-bar { display: flex; gap: var(--s5); padding: var(--s4) var(--s5); border-bottom: 1px solid var(--line); }
+  @media (min-width: 768px) { .hero-top { padding-top: 104px; } .hero-mid { padding-bottom: var(--s9); } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html">Forvr<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="hero-a.html">Var A</a>
+    <a href="hero-b.html">Var B</a>
+    <a href="hero-c.html">Var C</a>
+    <a href="index.html">Current</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="mont" aria-hidden="true">
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_134932_9ded5599-652c-4cce-a4ea-e0c8a52d4518.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_135028_93929649-d7c3-448f-a6c1-5efb2a42affb.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_134803_c3224426-9e3c-44bd-ae83-7d334be3845b.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_134954_f2aa7a5b-ca46-4e69-ae0f-e1ca1d189f66.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_134857_27561cae-918c-4356-9e6f-0cbfaf5dfd7d.mp4" autoplay muted loop playsinline preload="auto"></video></div>
+  </div>
+  <div class="hero-inner wrap-w">
+    <div class="hero-top">
+      <p class="label">Creative studio for fashion and streetwear</p>
+      <p class="label">Reading, England</p>
+    </div>
+    <div class="hero-mid">
+      <h1 class="display">
+        <span>We create</span>
+        <span>the whole</span>
+        <span>campaign<span class="dot">.</span></span>
+      </h1>
+      <p class="hero-sub">The world, the garments, the film, the stills. All of it made in-house by one founder.</p>
+      <div class="hero-cta-row">
+        <a class="cta cta-light" href="index.html#work">See the work <span class="pip"></span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="var-bar">
+  <span class="label">Variation B · the calm cut · release, ferrofluid, unfurl, chrysalis, ember · 3s beats</span>
+</div>
+
+</body>
+</html>

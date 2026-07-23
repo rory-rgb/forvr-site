@@ -14,22 +14,33 @@
   }
 </script>
 <style>
-  /* page-only: a second line inside the row name cell, so the grid stays 4 columns */
-  .row-desc {
-    display: block;
-    font-family: var(--body);
-    font-size: var(--t-small);
-    line-height: 1.5;
-    letter-spacing: 0;
-    text-transform: none;
-    color: var(--muted);
-    margin-top: var(--s2);
-    max-width: 52ch;
+  /* page-only: the lane grid. two columns, deliberately uneven ratios so
+     it reads as a contact sheet rather than a product grid. every image
+     is our own work, shown as an example of the lane it sits under. */
+  .lanes { display: grid; grid-template-columns: 1fr; gap: var(--s8) var(--s5); margin-top: var(--s8); }
+  .lane-card { display: block; }
+  .lane-card .card-media { aspect-ratio: 4/5; }
+  .lane-card:nth-child(2) .card-media,
+  .lane-card:nth-child(3) .card-media { aspect-ratio: 1/1; }
+  .lane-card:nth-child(6) .card-media { aspect-ratio: 5/4; }
+  .lane-head { display: flex; align-items: baseline; gap: var(--s3); margin-top: var(--s4); }
+  .lane-card h3 { font-size: var(--t-h3); letter-spacing: -0.01em; margin-top: var(--s2); }
+  .lane-card p { font-size: var(--t-small); color: var(--muted); margin-top: var(--s3); max-width: 46ch; }
+  /* the sixth lane has no photograph to show, so it gets a type panel
+     rather than a borrowed picture */
+  .type-panel {
+    height: 100%; background: var(--ink); color: #fff; padding: var(--s6);
+    display: flex; flex-direction: column; justify-content: space-between;
   }
-  /* these rows are not links, so the hover shift would be a lie */
-  .lane { cursor: default; }
-  .lane:hover { padding-left: 0; }
-  .lane .pip { opacity: 1; }
+  .type-panel .rule-row { border-top: 1px solid rgba(255,255,255,.16); padding-top: var(--s2); margin-top: var(--s2); }
+  /* the shared card-media hover keys off anchors; these cards are divs */
+  .lane-card:hover .card-media img,
+  .lane-card:hover .card-media video { transform: scale(1.05); }
+  @media (min-width: 768px) {
+    .lanes { grid-template-columns: 1fr 1fr; gap: var(--s10) var(--s7); }
+    /* nudge the right column down so the two never march in lockstep */
+    .lane-card:nth-child(even) { margin-top: var(--s9); }
+  }
 </style>
 </head>
 <body>
@@ -48,113 +59,179 @@
 <!-- PAGE HERO -->
 <header class="phero wrap" id="top">
   <p class="label rv">Services</p>
-  <h1 class="display rv" style="margin-top:var(--s5)">Six things we make<br/>for brands<span class="dot">.</span></h1>
+  <h1 class="display rv-lines" style="margin-top:var(--s5)">
+    <span class="ln"><span>Six things I make</span></span>
+    <span class="ln"><span>for brands<span class="dot">.</span></span></span>
+  </h1>
   <p class="lead rv muted" style="margin-top:var(--s5); max-width:var(--c-narrow)">
-    One studio, one point of contact, and work that comes back finished rather
-    than in pieces. Take a single lane or the whole set, and the brand looks
-    like one brand either way.
+    Take one lane or the whole set. Either way it comes back finished, and the
+    brand still looks like one brand.
   </p>
 </header>
 
-<!-- LANES -->
-<section class="section wrap" id="lanes" style="padding-top:0">
+<!-- TICKER : the six lanes named, moving. -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Films <span class="pip"></span></span>
+    <span>Campaign stills <span class="pip"></span></span>
+    <span>Identity <span class="pip"></span></span>
+    <span>Ad creative <span class="pip"></span></span>
+    <span>Social <span class="pip"></span></span>
+    <span>Documents <span class="pip"></span></span>
+    <span>Films <span class="pip"></span></span>
+    <span>Campaign stills <span class="pip"></span></span>
+    <span>Identity <span class="pip"></span></span>
+    <span>Ad creative <span class="pip"></span></span>
+    <span>Social <span class="pip"></span></span>
+    <span>Documents <span class="pip"></span></span>
+  </div>
+</div>
+<p class="sr-only">Six lanes: films, campaign stills, identity, ad creative, social, documents.</p>
+
+<!-- LANES : each one shown with a piece of our own work in that lane -->
+<section class="section wrap" id="lanes">
   <div class="head rv">
-    <h2 class="label">What we do</h2>
-    <span class="label">Six lanes<span class="dot">.</span></span>
+    <h2 class="label">What I do</h2>
+    <a class="label" href="process.html">How a job runs <span class="dot">→</span></a>
   </div>
 
-  <div>
-    <div class="row lane rv">
-      <span class="row-idx">01</span>
-      <span class="row-name">Films that move product
-        <span class="row-desc">Campaign films, product cutdowns and short-form edits, taken from the idea through to a graded master. You get the hero cut plus the versions each platform actually needs.</span>
-      </span>
-      <span class="row-meta">Video</span>
-      <span class="pip"></span>
+  <div class="lanes">
+    <div class="lane-card">
+      <div class="card-media rv-img">
+        <video src="../forvr%20docs/videos/streetwear/sp5der/opt-0113.mp4" poster="../forvr%20docs/videos/streetwear/sp5der/opt-0113.poster.jpg" muted loop playsinline autoplay preload="none"></video>
+      </div>
+      <div class="rv">
+        <div class="lane-head"><span class="row-idx">01</span><span class="label">Video</span></div>
+        <h3>Films that move product</h3>
+        <p>Campaign films, product cutdowns and short-form edits, taken from the
+          idea through to a graded master. You get the hero cut plus the
+          versions each platform actually needs.</p>
+      </div>
     </div>
 
-    <div class="row lane rv">
-      <span class="row-idx">02</span>
-      <span class="row-name">Stills that carry a campaign
-        <span class="row-desc">Images for campaigns, lookbooks, product pages and ads, art directed against a fixed brand world so a whole set reads as one shoot instead of a folder of nice pictures.</span>
-      </span>
-      <span class="row-meta">Imagery</span>
-      <span class="pip"></span>
+    <div class="lane-card">
+      <div class="card-media rv-img">
+        <img src="assets/sof-20-estate.jpg" alt="Three of the cast in an estate courtyard, shot under flash" loading="lazy"/>
+      </div>
+      <div class="rv">
+        <div class="lane-head"><span class="row-idx">02</span><span class="label">Imagery</span></div>
+        <h3>Stills that carry a campaign</h3>
+        <p>Images for campaigns, lookbooks, product pages and ads, art directed
+          against a fixed brand world so a whole set reads as one shoot instead
+          of a folder of nice pictures.</p>
+      </div>
     </div>
 
-    <div class="row lane rv">
-      <span class="row-idx">03</span>
-      <span class="row-name">Identity that holds up everywhere
-        <span class="row-desc">Name, mark, type, colour and the rules that keep them together, written down clearly enough that the brand still looks like itself when someone else builds with it.</span>
-      </span>
-      <span class="row-meta">Branding</span>
-      <span class="pip"></span>
+    <div class="lane-card">
+      <div class="card-media rv-img">
+        <img src="assets/sof-02-graphic.jpg" alt="Statue of a Fool artwork: a veiled marble figure inside display type filled with banknotes" loading="lazy"/>
+      </div>
+      <div class="rv">
+        <div class="lane-head"><span class="row-idx">03</span><span class="label">Branding</span></div>
+        <h3>Identity that holds up everywhere</h3>
+        <p>Name, mark, type, colour and the rules that keep them together,
+          written down clearly enough that the brand still looks like itself
+          when someone else builds with it.</p>
+      </div>
     </div>
 
-    <div class="row lane rv">
-      <span class="row-idx">04</span>
-      <span class="row-name">Ad creative built to be tested
-        <span class="row-desc">Hooks, cutdowns and static frames delivered as real variants rather than one hero asset, sized for every placement so the media budget has something to learn from.</span>
-      </span>
-      <span class="row-meta">Paid ads</span>
-      <span class="pip"></span>
+    <div class="lane-card">
+      <div class="card-media rv-img">
+        <img src="../forvr%20docs/images/posters/opt-dn.jpg" alt="A print-scale poster graphic from the ongoing series" loading="lazy"/>
+      </div>
+      <div class="rv">
+        <div class="lane-head"><span class="row-idx">04</span><span class="label">Paid ads</span></div>
+        <h3>Ad creative built to be tested</h3>
+        <p>Hooks, cutdowns and static frames delivered as real variants rather
+          than one hero asset, sized for every placement so the media budget has
+          something to learn from.</p>
+      </div>
     </div>
 
-    <div class="row lane rv">
-      <span class="row-idx">05</span>
-      <span class="row-name">Social that builds a look
-        <span class="row-desc">A month of posts, reels and stories planned together and shot together, so the grid accumulates into something recognisable instead of restarting every week.</span>
-      </span>
-      <span class="row-meta">Social</span>
-      <span class="pip"></span>
+    <div class="lane-card">
+      <div class="card-media rv-img">
+        <img src="../forvr%20docs/small%20circle/Studio-Shoot/opt-1.jpg" alt="Small Circle varsity capsule, studio shoot frame" loading="lazy"/>
+      </div>
+      <div class="rv">
+        <div class="lane-head"><span class="row-idx">05</span><span class="label">Social</span></div>
+        <h3>Social that builds a look</h3>
+        <p>A month of posts, reels and stories planned together and shot
+          together, so the grid accumulates into something recognisable instead
+          of restarting every week.</p>
+      </div>
     </div>
 
-    <div class="row lane rv">
-      <span class="row-idx">06</span>
-      <span class="row-name">Documents people finish reading
-        <span class="row-desc">Pitch decks, reports and proposals rebuilt so the argument is easy to follow on a screen or in a room. You keep a template your team can carry on using.</span>
-      </span>
-      <span class="row-meta">Documents</span>
-      <span class="pip"></span>
+    <div class="lane-card">
+      <div class="card-media rv-img">
+        <div class="type-panel">
+          <p class="label" style="color:rgba(255,255,255,.5)">Contents</p>
+          <div>
+            <p class="small rule-row">01 &nbsp; The problem</p>
+            <p class="small rule-row">02 &nbsp; What we know</p>
+            <p class="small rule-row">03 &nbsp; The argument</p>
+            <p class="small rule-row">04 &nbsp; The numbers</p>
+            <p class="small rule-row">05 &nbsp; The ask</p>
+            <p class="small" style="color:rgba(255,255,255,.45); margin-top:var(--s5)">
+              One idea per page, in the order a reader needs it.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="lane-head"><span class="row-idx">06</span><span class="label">Documents</span></div>
+        <h3>Documents people finish reading</h3>
+        <p>Pitch decks, reports and proposals rebuilt so the argument is easy to
+          follow on a screen or in a room. You keep a template your team can
+          carry on using.</p>
+      </div>
     </div>
   </div>
 
-  <p class="rv muted small" style="margin-top:var(--s6); max-width:var(--c-narrow)">
-    Everything is run by one person, so briefs go straight to the work with
-    nothing lost between departments. That keeps timelines short and it also
-    means the studio only takes on what it can finish properly.
+  <p class="rv muted small" style="margin-top:var(--s9); max-width:var(--c-narrow)">
+    All six are run by me, so a brief goes straight to the work with nothing
+    lost between departments. That keeps timelines short. It also means I only
+    take on what I can finish properly, which is the honest trade.
   </p>
 </section>
 
-<!-- POSITION : the single display moment on the page -->
+<!-- POSITION : the single display moment on the page. the frame beside it
+     was made for exactly this argument on the live site: a face built out
+     of three decided colours, nothing left to the generator's mood. -->
 <section class="section dark">
   <div class="wrap split">
-    <div>
-      <p class="label rv" style="color:var(--accent)">How we work</p>
-      <p class="display rv" style="font-size:var(--t-h1); margin-top:var(--s5)">
-        Direction first<span class="dot">.</span><br/>
-        <span style="color:rgba(255,255,255,.45)">Output second</span><span class="dot">.</span>
+    <div class="rv-l">
+      <p class="label" style="color:var(--accent)">How I work</p>
+      <p class="display rv-lines" style="font-size:var(--t-h1); margin-top:var(--s5)">
+        <span class="ln"><span>Direction first<span class="dot">.</span></span></span>
+        <span class="ln"><span style="color:rgba(255,255,255,.45)">Output second<span class="dot" style="color:var(--accent)">.</span></span></span>
       </p>
-    </div>
-    <div class="rv">
-      <p class="lead">
-        Every engagement opens with written direction: the palette, the light,
-        the wardrobe, the tone of voice. Once that is agreed, the making part
-        is fast and the results stay consistent.
+      <p class="lead" style="margin-top:var(--s6)">
+        Every job opens with written direction: the palette, the light, the
+        wardrobe, the tone of voice. Once that is agreed the making is fast and
+        the results stay consistent.
       </p>
       <p class="small" style="margin-top:var(--s5); color:rgba(255,255,255,.55)">
-        If a lane does not suit your brand we will say so rather than sell it,
-        and the work on the site shows the standard you can hold us to.
+        If a lane does not suit your brand I will say so rather than sell it.
+        The work on this site is the standard you can hold me to.
       </p>
+    </div>
+    <div>
+      <div class="rv-img" style="aspect-ratio:4/5">
+        <img src="../forvr%20docs/site-images/supplied/opt-no-prompt-and-pray.jpg" alt="Campaign portrait: red rimless sunglasses inside a sky blue fur hood, the street reflected in the lenses" loading="lazy"/>
+      </div>
+      <p class="label rv" style="margin-top:var(--s3)">Sky fur, red lens, decided on paper first<span class="dot">.</span></p>
     </div>
   </div>
 </section>
 
 <!-- CONTACT : two actions maximum -->
 <section class="section wrap">
-  <h2 class="display rv" style="font-size:var(--t-h1)">Start with<br/>a call<span class="dot">.</span></h2>
+  <h2 class="display rv-lines" style="font-size:var(--t-h1)">
+    <span class="ln"><span>Start with</span></span>
+    <span class="ln"><span>a call<span class="dot">.</span></span></span>
+  </h2>
   <p class="rv muted" style="margin-top:var(--s5); max-width:var(--c-narrow)">
-    Bring the brief, or bring the problem and we will shape the brief together.
+    Bring the brief, or bring the problem and we shape the brief together.
   </p>
   <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
     <a class="cta" href="contact.html">Book a call <span class="pip"></span></a>
@@ -164,8 +241,12 @@
 
 <footer class="foot">
   <div class="wrap foot-row">
-    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
-    <span class="label">Prototype build</span>
+    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England <span id="foot-clock"></span></span>
+    <span class="label" style="display:inline-flex; gap:var(--s5); flex-wrap:wrap">
+      <a href="mailto:hello@forvr.org">hello@forvr.org</a>
+      <a href="https://www.instagram.com/forvr.studio/" target="_blank" rel="noopener">@forvr.studio</a>
+      <span>Prototype build</span>
+    </span>
   </div>
 </footer>
 

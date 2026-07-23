@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Hero variation C · the rush and the touch · Forvr proto</title>
+<meta name="robots" content="noindex"/>
+<link rel="stylesheet" href="forvr.css"/>
+<style>
+  /* Variation C v2 — the rush and the touch, with a narrative.
+     Eleven beats: a drop falls, it lands, light splits, matter rises,
+     structure grows, material flows, life opens, it releases, everything
+     lights, a drop falls, a glimpse of the world early, the rush builds, the drop lands, and it touches the lake (a mountain lake, the
+     only shot outside the void). Faster start, progressive slowdown,
+     the lake held slow, fade to black, repeat. */
+  .hero { position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: #000; }
+  .mont, .mont-layer { position: absolute; inset: 0; }
+  .mont-layer { opacity: 0; }
+  /* no-JS fallback: first frame stays visible. once the scheduler marks
+     the montage live, the black beat must actually be black */
+  .mont-layer:first-child { opacity: 1; }
+  .mont.live .mont-layer:first-child:not(.on) { opacity: 0; }
+  .mont-layer.on { opacity: 1; }
+  .mont-layer.fading { transition: opacity .6s ease; opacity: 0; }
+  /* scale-crop hides Soul's film-edge markings without regenerating.
+     the real fix for final picks is a clean rerun of the affected stills */
+  .mont-layer video { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,.08) 38%, rgba(0,0,0,.7) 100%);
+  }
+  .hero-inner { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; }
+  .hero-top { display: flex; justify-content: space-between; gap: var(--s2) var(--s4); flex-wrap: wrap; padding-top: 88px; }
+  .hero-top .label { color: rgba(255,255,255,.7); }
+  .hero-mid { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: var(--s8); }
+  .hero h1 { font-size: clamp(44px, 8.5vw, 132px); color: #fff; }
+  .hero h1 > span { display: block; }
+  .hero-sub { margin-top: var(--s5); max-width: 560px; color: rgba(255,255,255,.75); font-size: var(--t-small); }
+  .hero-cta-row { margin-top: var(--s6); }
+  .var-bar { display: flex; gap: var(--s5); padding: var(--s4) var(--s5); border-bottom: 1px solid var(--line); }
+  @media (min-width: 768px) { .hero-top { padding-top: 104px; } .hero-mid { padding-bottom: var(--s9); } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html">Forvr<span class="dot">.</span></a>
+  <div class="nav-links">
+    <a href="hero-a.html">Var A</a>
+    <a href="hero-b.html">Var B</a>
+    <a href="hero-c.html">Var C</a>
+    <a href="index.html">Current</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="mont" id="mont" aria-hidden="true">
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140812_bd66baaf-0056-493e-8431-461aca66ba0c.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140550_cd80e826-4cb1-463c-989c-b13c707e63c3.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_142151_3c3b6369-469d-403a-896a-bcb85a60cbda.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_142038_4bae34f1-bb27-410c-97d6-dea0c35f7c6f.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140825_1407fd4c-5437-46ba-9b60-f8402ef18965.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140555_4aeec099-fec6-468b-a251-0040cc2787ca.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140832_51ec28b5-a3c8-44bc-bad1-7898832be036.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140605_2774351e-d3a1-4ad3-a238-c3a3b9894440.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_142157_8d8e2568-630f-44a8-9f0a-590311011916.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_142041_79e47c6e-f4d6-481c-8681-62fc86254132.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140838_823d6d4e-1507-4b9b-8a80-125e4ccd6a66.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140610_2710bcd2-c753-4f05-a34c-f0627acfc562.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140819_687bfa16-691f-4cd9-9d36-23e9b001d4fc.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140600_ab5c86d1-6c43-4d50-98bf-5b8e725b7d45.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140842_3f3b8895-eb8e-4a21-b17b-98acc06a4610.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140615_5996e1d3-ee17-4c67-ae74-142136b9c374.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140849_b65fcb36-2b34-4a8c-ab30-1759d69bf03e.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_140632_ed452df3-a4f5-45e6-b12c-8f9ca815b76c.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_142840_5bf95802-7126-41bc-a36b-31fcb6c4673f.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_142735_97dc4c03-55d1-442c-91cc-736e233655b9.png" muted loop playsinline preload="auto"></video></div>
+    <div class="mont-layer"><video src="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_142208_53906bf7-69ce-434b-b0e3-f8e8d88095a3.mp4" poster="https://d8j0ntlcm91z4.cloudfront.net/user_389cOPwvt1nMw3N8bah5CX2wscz/hf_20260722_142049_8fd3266f-4bc2-4701-85bf-86000b803009.png" muted loop playsinline preload="auto"></video></div>
+  </div>
+  <div class="hero-inner wrap-w">
+    <div class="hero-top">
+      <p class="label">Creative studio for fashion and streetwear</p>
+      <p class="label">Reading, England</p>
+    </div>
+    <div class="hero-mid">
+      <h1 class="display">
+        <span>We create</span>
+        <span>the whole</span>
+        <span>campaign<span class="dot">.</span></span>
+      </h1>
+      <p class="hero-sub">The world, the garments, the film, the stills. All of it made in-house by one founder.</p>
+      <div class="hero-cta-row">
+        <a class="cta cta-light" href="index.html#work">See the work <span class="pip"></span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="var-bar">
+  <span class="label">Variation C v2 · a drop falls, it lands, light splits, matter rises, structure grows, material flows, life opens, it releases, everything lights, a drop falls, a glimpse of the world early, the rush builds, the drop lands, and it touches the lake</span>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var layers = Array.prototype.slice.call(document.querySelectorAll('#mont .mont-layer'));
+  if (!layers.length) return;
+  document.getElementById('mont').classList.add('live');
+
+  /* the rhythm: fast open, progressive slowdown, the lake held slow,
+     then true black, then again */
+  var beats = [
+    { i: 0,  d: 500 },   /* ink — a drop falls */
+    { i: 2,  d: 550 },   /* prism — light splits */
+    { i: 9,  d: 650 },   /* grass — a glimpse of the world */
+    { i: 3,  d: 700 },   /* ferrofluid — matter rises */
+    { i: 4,  d: 750 },   /* crystal — structure grows */
+    { i: 5,  d: 850 },   /* silk — material flows */
+    { i: 6,  d: 950 },   /* orchid — life opens */
+    { i: 7,  d: 1050 },  /* dandelion — it releases */
+    { i: 8,  d: 1200 },  /* constellation — everything lights */
+    { i: 1,  d: 1450 },  /* coronet — the drop lands */
+    { i: 10, d: 5200, rate: 0.6, fade: true },  /* the lake — it touches the world */
+    { i: -1, d: 1000 }   /* black, then again */
+  ];
+  var b = 0;
+
+  function step() {
+    layers.forEach(function (l) { l.classList.remove('on', 'fading'); });
+    var beat = beats[b];
+    if (beat.i >= 0) {
+      var layer = layers[beat.i];
+      var v = layer.querySelector('video');
+      try { v.currentTime = 0; v.playbackRate = beat.rate || 1; v.play(); } catch (e) {}
+      layer.classList.add('on');
+      if (beat.fade) {
+        setTimeout(function () { layer.classList.add('fading'); }, beat.d - 600);
+      }
+    }
+    b = (b + 1) % beats.length;
+    setTimeout(step, beat.d);
+  }
+  step();
+})();
+</script>
+
+</body>
+</html>

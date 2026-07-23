@@ -139,6 +139,17 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.15; }
 }
 .nav-links { display: flex; gap: var(--s5); }
 
+/* below the breakpoint the five links overran the viewport and the last
+   one (Contact) was clipped off-screen entirely, so it could not be
+   tapped. tightened rather than collapsed into a burger: five items is
+   few enough to keep visible, and a menu button would hide the one link
+   that matters most. */
+@media (max-width: 767px) {
+  .nav { padding-inline: var(--s4); gap: var(--s3); }
+  .nav a { font-size: 11px; letter-spacing: 0.06em; }
+  .nav-links { gap: var(--s3); }
+}
+
 /* ---------- buttons ----------
    solid = primary ("solid black gets more clicks", Prada 435k)
    never more than two key actions in a view (TextFlow 6k) */
@@ -176,6 +187,12 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.15; }
 .row .pip { opacity: 0; transition: opacity var(--dur) var(--ease); }
 .row:hover .pip { opacity: 1; }
 
+/* a row that is not a link. the hover shift promises navigation, so on a
+   static list it is a lie. used by the services lanes and the studio rules. */
+.lane { cursor: default; }
+.lane:hover { padding-left: 0; }
+.lane .pip { opacity: 1; }
+
 /* hover-peek image — the one interactive flourish */
 .peek {
   position: fixed; top: 0; left: 0;
@@ -186,6 +203,29 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.15; }
   transition: opacity 0.35s var(--ease);
 }
 .peek.on { opacity: 1; }
+
+/* hovering one row drops the rest back, so the list reads as a focus
+   rather than a menu. pointer devices only, JS adds the classes. */
+[data-peek-list] .row { transition: padding-left var(--dur) var(--ease), opacity 0.4s var(--ease); }
+[data-peek-list].dimmed .row { opacity: 0.3; }
+[data-peek-list].dimmed .row.lit { opacity: 1; }
+
+/* ---------- full-bleed image band ----------
+   one large picture running the full width, type sat on top, the frame
+   drifting against the scroll. the moment of scale the light pages
+   otherwise never get. */
+.band { position: relative; overflow: hidden; background: var(--ink); isolation: isolate; }
+.band-media { position: absolute; inset: 0; z-index: 0; }
+.band-media img, .band-media video { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+.band::after {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,.1) 100%);
+}
+.band-inner { position: relative; z-index: 2; padding-block: var(--s11); color: #fff; }
+.band-inner .label { color: rgba(255,255,255,.6); }
+@media (max-width: 767px) {
+  .band::after { background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.75) 100%); }
+}
 
 /* ---------- step grid (process) ---------- */
 .steps { display: grid; gap: var(--s5); grid-template-columns: 1fr; margin-top: var(--s7); }
@@ -217,6 +257,20 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.15; }
   .gal .g-4    { grid-column: span 4; }
 }
 
+/* ---------- engagement baseline grid ----------
+   the five stages of working together. used twice: summarised on the
+   homepage, and as part one of the process page. one definition so the
+   two cannot drift apart. deliverable named per stage is the bar the
+   benchmark sets (Exact's pipeline section). */
+.way-grid { display: grid; gap: var(--s5); grid-template-columns: 1fr; margin-top: var(--s7); }
+/* flex column so the deliverable is pushed to the bottom of every card and
+   the five OUT: lines sit on one baseline regardless of copy length */
+.way-step { border-top: 1px solid var(--line); padding-top: var(--s4); display: flex; flex-direction: column; }
+.way-step .label { display: inline-flex; align-items: center; gap: var(--s2); }
+.way-step h3 { font-size: var(--t-body); margin-top: var(--s2); }
+.way-step p:not(.label):not(.way-out) { font-size: var(--t-small); color: var(--muted); margin-top: var(--s2); }
+.way-out { font-family: var(--mono); font-size: var(--t-label); letter-spacing: .06em; text-transform: uppercase; margin-top: auto; padding-top: var(--s4); }
+
 /* ---------- swatches ---------- */
 .swatches { display: flex; flex-wrap: wrap; gap: var(--s2); }
 .sw { width: 40px; height: 40px; flex: none; }
@@ -234,6 +288,175 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.15; }
 .js .rv { opacity: 0; transform: translateY(12px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
 .js .rv.in { opacity: 1; transform: none; }
 
+/* ============================================================
+   MOTION AND LAYOUT KIT
+   Added deliberately above the original two-effect ceiling. The
+   ceiling was there to stop decorative motion; everything below is
+   structural (it reveals type and imagery in reading order) and
+   every piece degrades to a static page without JS or under
+   prefers-reduced-motion.
+   ============================================================ */
+
+/* --- line mask reveal. display type rises out of a mask, one line at a
+   time. the craft-tier signature (Locomotive, Obys). needs the extra
+   markup: .ln wrapper per line, inner span carries the transform. --- */
+/* the mask itself is standalone, so the hero can drive it with a load
+   animation while everything else drives it from the scroll observer */
+.ln { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.js .rv-lines .ln > span { display: block; transform: translateY(110%); transition: transform 0.95s var(--ease); }
+.js .rv-lines.in .ln > span { transform: none; }
+.js .rv-lines .ln:nth-child(2) > span { transition-delay: 0.07s; }
+.js .rv-lines .ln:nth-child(3) > span { transition-delay: 0.14s; }
+.js .rv-lines .ln:nth-child(4) > span { transition-delay: 0.21s; }
+
+/* --- image reveal. the frame opens upward and the picture settles back
+   from a slight push-in. wrapper clips, image scales. --- */
+.rv-img { overflow: hidden; }
+.js .rv-img { clip-path: inset(0 0 100% 0); transition: clip-path 1.1s var(--ease); }
+.js .rv-img.in { clip-path: inset(0 0 0 0); }
+.js .rv-img > img, .js .rv-img > video { transform: scale(1.12); transition: transform 1.6s var(--ease); }
+.js .rv-img.in > img, .js .rv-img.in > video { transform: none; }
+/* when a frame is also parallaxed, JS owns the transform, so hold the
+   overscale permanently and let the reveal be the clip alone */
+.js .rv-img > [data-para] { transform: none; transition: none; }
+
+/* --- stagger. children of a .rv-stag reveal in sequence. --- */
+.js .rv-stag > * { opacity: 0; transform: translateY(16px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.js .rv-stag.in > * { opacity: 1; transform: none; }
+.js .rv-stag.in > *:nth-child(1) { transition-delay: 0s; }
+.js .rv-stag.in > *:nth-child(2) { transition-delay: 0.07s; }
+.js .rv-stag.in > *:nth-child(3) { transition-delay: 0.14s; }
+.js .rv-stag.in > *:nth-child(4) { transition-delay: 0.21s; }
+.js .rv-stag.in > *:nth-child(5) { transition-delay: 0.28s; }
+.js .rv-stag.in > *:nth-child(6) { transition-delay: 0.35s; }
+
+/* --- marquee. a running line of hard facts. benchmark differentiator
+   (Rejouice's ticker). track is duplicated in the markup so -50%
+   lands seamlessly. --- */
+.marquee { overflow: hidden; border-block: 1px solid var(--line); padding-block: var(--s5); }
+.dark .marquee { border-color: rgba(255,255,255,.14); }
+.marquee-track { display: flex; width: max-content; gap: var(--s7); align-items: center; }
+.js .marquee-track { animation: marq 44s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track > span {
+  display: inline-flex; align-items: center; gap: var(--s4); white-space: nowrap;
+  font-family: var(--mono); font-size: var(--t-label);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+@keyframes marq { to { transform: translateX(calc(-50% - var(--s7) / 2)); } }
+
+/* --- feature block. one image, one column of text, alternating side.
+   this is what breaks the five-identical-pages skeleton. --- */
+.feature { display: grid; gap: var(--s6); align-items: center; }
+.feature-media { position: relative; }
+.feature-media img, .feature-media video { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- oversized index numeral, used as a graphic element --- */
+.bignum {
+  font-family: var(--display); font-weight: 900;
+  font-size: clamp(56px, 10vw, 150px); line-height: 0.8;
+  letter-spacing: -0.02em; color: var(--line);
+}
+.dark .bignum { color: rgba(255,255,255,.13); }
+
+/* --- sticky section label, holds position while its column scrolls --- */
+.sticky-l { position: sticky; top: 96px; align-self: start; }
+
+/* --- second line of the meta cell: the real count of pieces published
+   on that project page. dated-index convention (Adoratorio). --- */
+.row-facts { display: block; margin-top: var(--s1); color: var(--fg); }
+.dark .row-facts { color: #fff; }
+
+/* --- a row that carries its own thumbnail. this is the work index on
+   mobile, where the cursor peek cannot exist and the list would
+   otherwise be six lines of text. --- */
+.row-thumb {
+  display: block; grid-column: 1 / -1;
+  width: 100%; aspect-ratio: 16/10; object-fit: cover;
+  background: var(--line); margin-top: var(--s4);
+}
+
+/* --- available to assistive tech, never painted --- */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---------- hover kit ----------
+   every interactive element answers the cursor. all colour or transform
+   transitions, nothing layout-shifting. */
+
+/* nav: a hairline draws in under the link */
+.nav-links a { position: relative; }
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: -4px;
+  height: 1px; background: #fff;
+  transition: right 0.35s var(--ease);
+}
+.nav-links a:hover::after { right: 0; }
+
+/* label links: colour lifts, the arrow steps forward */
+a.label { transition: color 0.3s var(--ease); }
+a.label:hover { color: var(--fg); }
+.dark a.label:hover, .band a.label:hover { color: #fff; }
+a.label .dot { display: inline-block; transition: transform 0.3s var(--ease); }
+a.label:hover .dot { transform: translateX(4px); }
+
+/* index rows: the numeral takes the accent while the row slides */
+.row-idx { transition: color 0.3s var(--ease); }
+.row:hover .row-idx { color: var(--accent); }
+
+/* footer */
+.foot a { transition: color 0.3s var(--ease); }
+.foot a:hover { color: var(--fg); }
+
+/* engagement stages: the rule above the stage takes the accent */
+.way-step { transition: border-color 0.4s var(--ease); }
+.way-step:hover { border-top-color: var(--accent); }
+
+/* ---------- directional reveals ----------
+   rv-l / rv-r slide in from the side. used on split columns so the two
+   halves of a section arrive toward each other. */
+.js .rv-l { opacity: 0; transform: translateX(-24px); transition: opacity 0.7s var(--ease), transform 0.8s var(--ease); }
+.js .rv-r { opacity: 0; transform: translateX(24px);  transition: opacity 0.7s var(--ease), transform 0.8s var(--ease); }
+.js .rv-l.in, .js .rv-r.in { opacity: 1; transform: none; }
+
+/* ---------- gallery: stagger and hover captions ----------
+   frames arrive in sequence, and each carries its project name on hover
+   (always visible on touch, where there is no hover). */
+.js .gal figure:nth-child(3n+2) .rv-img,
+.js .gal figure:nth-child(3n+2) .rv-img > img { transition-delay: 0.08s; }
+.js .gal figure:nth-child(3n) .rv-img,
+.js .gal figure:nth-child(3n) .rv-img > img { transition-delay: 0.16s; }
+.gal figure { position: relative; overflow: hidden; }
+.gal figure img { transition: transform 1.2s var(--ease); }
+.gal figure:hover img { transform: scale(1.05); }
+.gcap {
+  position: absolute; left: var(--s3); bottom: var(--s3); z-index: 2;
+  font-family: var(--mono); font-size: var(--t-label);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; background: rgba(10,10,10,.66);
+  padding: var(--s1) var(--s3);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+  pointer-events: none;
+}
+.gal figure:hover .gcap { opacity: 1; transform: none; }
+@media (hover: none) { .gcap { opacity: 1; transform: none; } }
+
+/* --- media card, used for the service lanes and studio --- */
+.card-media { overflow: hidden; background: var(--line); }
+.card-media img, .card-media video { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+a:hover > .card-media img, a:hover > .card-media video,
+.card:hover .card-media img, .card:hover .card-media video { transform: scale(1.05); }
+
+@media (min-width: 768px) {
+  .feature { grid-template-columns: 1fr 1fr; gap: var(--s9); }
+  .feature-wide { grid-template-columns: 5fr 4fr; }
+  .feature.flip .feature-media { order: 2; }
+  .row-thumb { display: none; }
+}
+
 /* ---------- breakpoint: one. was 16. ---------- */
 @media (min-width: 768px) {
   .wrap, .wrap-w, .wrap-n { padding-inline: var(--s7); }
@@ -242,6 +465,7 @@ h1, h2, h3, h4 { font-weight: 400; line-height: 1.15; }
   .split { grid-template-columns: 1fr 1fr; }
   .row   { grid-template-columns: 40px 1fr 1fr auto; }
   .row-name { font-size: var(--t-h2); }
+  .way-grid { grid-template-columns: repeat(5, 1fr); gap: var(--s4); }
 }
 
 @media (prefers-reduced-motion: reduce) {

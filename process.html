@@ -114,6 +114,13 @@
   .vcard .prompt-box .pb-label { color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-right: 8px; }
   .vcard .prompt-box .pb-text { white-space: pre-wrap; }
   .vcard .prompt-box .pb-caret { display: inline-block; width: 6px; height: 13px; background: var(--accent); margin-left: 3px; transform: translateY(2px); animation: pbBlink 1.05s steps(1) infinite; }
+  /* the sticky card must fit the viewport WITH its prompt box, or the
+     prompt types below the fold and is never seen while scrolling. cap
+     the media so image + prompt + counter always clear the screen. */
+  @media (min-width: 1024px) {
+    .vcard .media { aspect-ratio: auto; height: min(52vh, 520px); }
+    .vcard .prompt-box { min-height: 128px; }
+  }
   @keyframes pbBlink { 50% { opacity: 0; } }
   .vcard .ph { position: absolute; inset: 0; background-size: cover; background-position: center; transition: opacity 0.55s; }
   .vcard .ph-image { background: linear-gradient(135deg, #1f1f1f, #0e0e0e, #171717); }
@@ -758,6 +765,16 @@
 
   <div class="divider"><div class="rule"></div></div>
 
+  <style>
+    /* deliverable line per step — what the client walks away with */
+    .step .step-out {
+      margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--line);
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(10,10,10,0.72);
+    }
+    .step .step-out .acc { color: var(--accent); font-size: 8px; vertical-align: 2px; margin-right: 6px; }
+  </style>
+
   <!-- Sticky VISION card + steps -->
   <section class="sticky-block">
     <div class="row">
@@ -791,6 +808,7 @@
               <div class="head-text"><h3 class="d">Extract</h3></div>
             </div>
             <p class="desc">Brand colours, references, tone, and mood. Your visual fingerprint, captured before we make anything.</p>
+            <p class="step-out"><span class="acc">●</span> Out: the reference stack and palette, written down</p>
           </div>
         </div>
 
@@ -802,6 +820,7 @@
               <div class="head-text"><h3 class="d">Translate</h3></div>
             </div>
             <p class="desc">Reference imagery, palette, and treatment rules locked into a single moodboard. The brief becomes a build.</p>
+            <p class="step-out"><span class="acc">●</span> Out: the moodboard, signed off before anything is built</p>
           </div>
         </div>
 
@@ -813,6 +832,7 @@
               <div class="head-text"><h3 class="d">Train</h3></div>
             </div>
             <p class="desc">Your visual DNA fed into models tuned specifically to your brand. No generic prompts on generic engines.</p>
+            <p class="step-out"><span class="acc">●</span> Out: a model that only knows your brand</p>
           </div>
         </div>
 
@@ -824,6 +844,7 @@
               <div class="head-text"><h3 class="d">Produce</h3></div>
             </div>
             <p class="desc">Brand-specific assets generated at scale. Dozens of variations across formats, compositions, and styles in one delivery window.</p>
+            <p class="step-out"><span class="acc">●</span> Out: rounds of options you react to</p>
           </div>
         </div>
 
@@ -835,6 +856,7 @@
               <div class="head-text"><h3 class="d">Post-Production</h3></div>
             </div>
             <p class="desc">Manual retouching in Photoshop, colour grading, and finishing touches. Hand-finished, not shipped raw.</p>
+            <p class="step-out"><span class="acc">●</span> Out: hand-finished masters</p>
           </div>
         </div>
 
@@ -846,11 +868,70 @@
               <div class="head-text"><h3 class="d">Deliver<span class="dot">.</span></h3></div>
             </div>
             <p class="desc">Final assets packaged and handed over, ready for deployment. Master files plus platform-ready variations.</p>
+            <p class="step-out"><span class="acc">●</span> Out: every asset, in every format it needs to live in</p>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+
+  <!-- HOW A JOB RUNS — the engagement around the six moves. the moves are
+       the making; this is what working together looks like, deliverable
+       named per stage. -->
+  <section class="sticky-block" style="padding-top: 0;">
+    <div class="grid" style="margin-bottom: 16px;">
+      <p class="m m-accent col-span-12 md-col-2">Around the moves / Working together</p>
+      <div class="col-span-12 md-col-10">
+        <h3 class="d" style="font-size: clamp(32px, 4.5vw, 72px); line-height: 0.95;">How a job runs<span class="dot">.</span></h3>
+        <p style="margin-top: 20px; max-width: 560px; color: rgba(10,10,10,0.8); line-height: 1.6;">The six moves are the making. Around them, every job runs the same five stages, and each one ends with something in your hands.</p>
+      </div>
+    </div>
+    <div class="wt-grid">
+      <div class="wt-step">
+        <p class="wt-eyebrow"><span class="acc">●</span> 01 Discovery</p>
+        <h4>One call</h4>
+        <p>What you want, what the business needs, what done looks like.</p>
+        <p class="wt-out">Out: a one-page brief</p>
+      </div>
+      <div class="wt-step">
+        <p class="wt-eyebrow"><span class="acc">●</span> 02 Research</p>
+        <h4>Line it up</h4>
+        <p>References, competitors, the brand itself, read against the objectives.</p>
+        <p class="wt-out">Out: the direction</p>
+      </div>
+      <div class="wt-step">
+        <p class="wt-eyebrow"><span class="acc">●</span> 03 System</p>
+        <h4>Build the world</h4>
+        <p>A visual system tailored to the brand, nothing off the shelf.</p>
+        <p class="wt-out">Out: the system, signed off</p>
+      </div>
+      <div class="wt-step">
+        <p class="wt-eyebrow"><span class="acc">●</span> 04 Production</p>
+        <h4>The six moves</h4>
+        <p>Everything above on this page happens inside this stage.</p>
+        <p class="wt-out">Out: rounds you react to</p>
+      </div>
+      <div class="wt-step">
+        <p class="wt-eyebrow"><span class="acc">●</span> 05 Delivery</p>
+        <h4>Hand it over</h4>
+        <p>Every asset in every format, plus the direction so it travels.</p>
+        <p class="wt-out">Out: the files and a debrief</p>
+      </div>
+    </div>
+    <p style="margin-top: 32px; max-width: 640px; font-size: 14px; color: rgba(10,10,10,0.6); line-height: 1.6;">The weight shifts with the job. A film leans on production, an identity on the system. None of them skip discovery.</p>
+  </section>
+  <style>
+    .wt-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 40px; max-width: 1440px; }
+    @media (min-width: 900px) { .wt-grid { grid-template-columns: repeat(5, 1fr); gap: 20px; } }
+    .wt-step { border-top: 1px solid var(--line); padding-top: 16px; display: flex; flex-direction: column; transition: border-color 0.4s; }
+    .wt-step:hover { border-top-color: var(--accent); }
+    .wt-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(10,10,10,0.72); }
+    .wt-eyebrow .acc { color: var(--accent); font-size: 8px; vertical-align: 2px; margin-right: 4px; }
+    .wt-step h4 { font-family: var(--body); font-weight: 600; font-size: 16px; margin-top: 10px; }
+    .wt-step p:not(.wt-eyebrow):not(.wt-out) { margin-top: 8px; font-size: 14px; line-height: 1.55; color: rgba(10,10,10,0.65); }
+    .wt-out { margin-top: auto; padding-top: 14px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(10,10,10,0.72); }
+  </style>
 
   <!-- Position stat: ZERO generic prompts -->
   <section class="stat-block" data-stat>
@@ -890,7 +971,7 @@
     </a>
     <a class="nav-item" href="work.html">
       <span class="num">01</span>
-      <span class="title">Work</span>
+      <span class="title">Portfolio</span>
       <span class="caption">Selected portfolio</span>
     </a>
     <a class="nav-item" href="services.html">

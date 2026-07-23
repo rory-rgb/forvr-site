@@ -650,750 +650,199 @@
 </script>
 
 <main>
-  <!-- HERO — asymmetric floating tile cluster on right -->
-  <section class="hero-section studio-hero-with-tiles">
-    <div class="studio-hero-grid">
-      <div class="studio-hero-left reveal-group">
-        <p class="m m-accent reveal-line">Studio / About</p>
-        <h1 class="d studio-hero-headline reveal-line" data-type-on>The studio<br/>is the work<span class="dot">.</span></h1>
-        <p class="lede studio-hero-lede reveal-line">
-          One studio, built around bold ideas and the tools to make them. The same founder is involved at every step, from the pitch through to delivery.
-        </p>
-      </div>
-
-      <div class="studio-hero-tiles" aria-hidden="true">
-        <div class="tile tile-a" style="background-image:url('for%20placeholders/opt-studio-tile-a.jpg');"></div>
-        <div class="tile tile-b" style="background-image:url('for%20placeholders/opt-studio-tile-b.jpg');"></div>
-        <div class="tile tile-c" style="background-image:url('forvr%20docs/site-images/supplied/opt-studio%20hero..jpg');"></div>
-        <div class="tile tile-d" style="background-image:url('for%20placeholders/opt-studio-tile-d.jpg');"></div>
-        <!-- Live Studio tile-meta removed (2026-05-28) -->
+  <!-- HERO — the studio-scrub film, full bleed. brand-blue light on
+       black, type over it, consistent with the homepage's film opener. -->
+  <section class="st-hero-band">
+    <video src="forvr%20docs/site-images/supplied/opt-studio-scrub.mp4" poster="forvr%20docs/site-images/supplied/opt-studio-scrub.poster.jpg" muted loop playsinline autoplay preload="metadata"></video>
+    <div class="st-hero-scrim" aria-hidden="true"></div>
+    <div class="st-hero-inner">
+      <p class="m" style="color: var(--accent);">Studio / About</p>
+      <h1 class="d" data-type-on style="font-size: clamp(44px, 6.5vw, 104px); line-height: 0.92; margin-top: 18px; color: #fff;">The studio<br/>is the work<span class="dot">.</span></h1>
+      <p style="margin-top: 22px; max-width: 520px; font-size: clamp(16px, 1.3vw, 20px); line-height: 1.6; color: rgba(245,245,245,0.82);">
+        One studio, built around bold ideas and the tools to make them. The
+        same founder is involved at every step, from the pitch through to
+        delivery.
+      </p>
+      <div class="st-hero-meta">
+        <span class="m"><span style="color: var(--accent);">●</span> Reading, UK</span>
+        <span class="m"><span style="color: var(--accent);">●</span> Founder-led</span>
+        <span class="m"><span style="color: var(--accent);">●</span> Six lanes in house</span>
       </div>
     </div>
   </section>
-
   <style>
-    .studio-hero-with-tiles { padding-bottom: 32px; }
-    .studio-hero-grid { display: grid; grid-template-columns: 1fr; gap: 64px; align-items: center; }
-    @media (min-width: 980px) {
-      .studio-hero-grid { grid-template-columns: 1fr 1fr; gap: 48px; }
+    .st-hero-band { position: relative; min-height: 82vh; display: flex; align-items: flex-end; overflow: hidden; background: #000; }
+    .st-hero-band video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .st-hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.72) 100%); }
+    .st-hero-inner { position: relative; z-index: 2; width: 100%; max-width: 1520px; margin: 0 auto; padding: 140px 24px 56px; }
+    @media (min-width: 768px) { .st-hero-inner { padding: 160px 40px 72px; } }
+    .st-hero-inner .m { color: rgba(245,245,245,0.7); }
+    .st-hero-meta { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 30px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.18); max-width: 520px; }
+
+    /* ---------- interactive information rows ----------
+       number + name always visible; the line opens on click and the row
+       answers the cursor. first row of each group starts open. */
+    .st-rows { margin-top: 40px; max-width: 1440px; }
+    .st-row { border-top: 1px solid var(--line); transition: border-color 0.4s; }
+    .st-rows .st-row:last-child { border-bottom: 1px solid var(--line); }
+    .st-row:hover { border-top-color: var(--accent); }
+    .st-row-head {
+      position: relative; overflow: hidden;
+      display: grid; grid-template-columns: 48px 1fr 24px; align-items: center; gap: 16px;
+      width: 100%; padding: 22px 0; background: none; border: 0; cursor: pointer;
+      font: inherit; color: inherit; text-align: left;
+      transition: padding-left 0.45s cubic-bezier(0.22,1,0.36,1);
     }
-    .studio-hero-left { display: grid; gap: 32px; }
-    .studio-hero-headline { font-size: clamp(56px, 8.5vw, 144px); line-height: 0.9; letter-spacing: -0.02em; }
-    .studio-hero-lede { font-size: clamp(17px, 1.4vw, 22px); line-height: 1.55; color: rgba(10,10,10,0.85); max-width: 560px; }
-    .studio-hero-tiles { position: relative; min-height: 480px; }
-    @media (min-width: 980px) { .studio-hero-tiles { min-height: 640px; } }
-    .studio-hero-tiles .tile {
-      position: absolute;
-      background-size: cover; background-position: center;
-      border: 1px solid var(--line);
-      box-shadow: 0 14px 30px -16px rgba(10,10,10,0.18);
-      transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
-      animation: tile-float 8s ease-in-out infinite;
+    /* the sweep: a wash of the accent runs across the row as it opens */
+    .st-row.open .st-row-head::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(91,194,231,0.20) 45%, rgba(91,194,231,0.05) 55%, transparent 100%);
+      animation: stSweep 0.55s cubic-bezier(0.22,1,0.36,1);
     }
-    .studio-hero-tiles .tile-a { top: 4%; left: 30%; width: 58%; aspect-ratio: 4/5; transform: rotate(-3deg); animation-delay: 0s; }
-    .studio-hero-tiles .tile-b { top: 32%; left: 0%; width: 42%; aspect-ratio: 1/1; transform: rotate(2deg); animation-delay: -2.5s; }
-    .studio-hero-tiles .tile-c { top: 58%; left: 36%; width: 36%; aspect-ratio: 3/4; transform: rotate(4deg); animation-delay: -5s; }
-    .studio-hero-tiles .tile-d { top: 18%; left: 72%; width: 30%; aspect-ratio: 1/1; transform: rotate(-5deg); animation-delay: -3.5s; }
-    .studio-hero-tiles .tile-meta {
-      position: absolute; top: 88%; left: 4%;
-      display: flex; gap: 16px; align-items: center;
-      background: var(--bg); padding: 10px 16px; border: 1px solid var(--line);
-      animation: tile-float 8s ease-in-out infinite;
-      animation-delay: -1s;
+    @keyframes stSweep {
+      from { transform: translateX(-100%); opacity: 1; }
+      to   { transform: translateX(100%); opacity: 1; }
     }
-    @keyframes tile-float {
-      0%, 100% { translate: 0 0; }
-      50% { translate: 0 -10px; }
+    .st-row.open { border-top-color: var(--accent); }
+    /* the revealed line settles in just behind the sweep */
+    .st-row-inner p { opacity: 0; transform: translateY(-6px); transition: opacity 0.4s 0.12s, transform 0.4s 0.12s; }
+    .st-row.open .st-row-inner p { opacity: 1; transform: none; }
+    @media (min-width: 768px) { .st-row-head { grid-template-columns: 64px 1fr 24px; } }
+    .st-row-head:hover { padding-left: 10px; }
+    .st-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; color: var(--muted); transition: color 0.3s; }
+    .st-row-head:hover .st-num, .st-row.open .st-num { color: var(--accent); }
+    .st-name { font-weight: 600; font-size: clamp(17px, 1.6vw, 22px); }
+    /* the toggle reads as a button: a circled plus that fills with the
+       accent on hover and flips to a minus when the row is open */
+    .st-plus {
+      position: relative; width: 34px; height: 34px; justify-self: end;
+      border: 1px solid var(--line); border-radius: 999px;
+      transition: border-color 0.3s, background 0.3s, transform 0.45s cubic-bezier(0.22,1,0.36,1);
     }
-    .studio-hero-tiles .tile:hover { transform: rotate(0deg) scale(1.04); z-index: 5; }
+    .st-plus::before, .st-plus::after {
+      content: ""; position: absolute; background: var(--fg); transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), background 0.3s;
+    }
+    .st-plus::before { left: 10px; right: 10px; top: 16px; height: 2px; }
+    .st-plus::after { top: 10px; bottom: 10px; left: 16px; width: 2px; }
+    .st-row-head:hover .st-plus { border-color: var(--accent); background: var(--accent); transform: scale(1.08); }
+    .st-row-head:hover .st-plus::before, .st-row-head:hover .st-plus::after { background: #fff; }
+    .st-row.open .st-plus { border-color: var(--accent); }
+    .st-row.open .st-plus::after { transform: scaleY(0); }
+    .st-row.open .st-plus::before { background: var(--accent); }
+    .st-row.open .st-row-head:hover .st-plus::before { background: #fff; }
+    .st-row-body {
+      display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.55s cubic-bezier(0.22,1,0.36,1);
+    }
+    .st-row.open .st-row-body { grid-template-rows: 1fr; }
+    .st-row-inner { overflow: hidden; }
+    .st-row-inner p {
+      margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: rgba(10,10,10,0.65); max-width: 60ch;
+    }
+    @media (min-width: 768px) { .st-row-inner p { margin-left: 80px; } }
   </style>
 
-  <!-- WE SAW THE GAP — full-bleed scroll-scrubbed studio video, three corner reveals -->
-  <section id="gapScrub" class="gap-scrub">
-    <div class="gap-scrub-pin">
-      <div class="gap-scrub-video-wrap">
-        <video poster="forvr%20docs/site-images/supplied/opt-studio-scrub.poster.jpg" id="gapScrubVideo" src="forvr%20docs/site-images/supplied/opt-studio-scrub.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
-        <div class="gap-scrub-vignette" aria-hidden="true"></div>
-        <div class="gap-scrub-grain" aria-hidden="true"></div>
+  <!-- WHY THIS EXISTS — the gap, stated in rows rather than headlines -->
+  <section class="block" style="padding-top: 72px;">
+    <div class="grid">
+      <p class="m m-accent col-12 md-c2">Why this exists</p>
+      <div class="col-12 md-c10">
+        <p style="max-width: 620px; font-size: clamp(17px, 1.5vw, 24px); line-height: 1.5;">Brands need content that converts. The market offered three broken answers, so we built the studio we could not find.</p>
       </div>
-
-      <div class="gap-scrub-overlay">
-        <div class="gap-scrub-head reveal-group">
-          <p class="m gap-scrub-eyebrow reveal-line">● &nbsp; Why this &nbsp;/&nbsp; The three gaps</p>
-          <h2 class="d gap-scrub-title reveal-line">We saw<br/>the gap<span class="dot">.</span></h2>
-          <p class="gap-scrub-intro reveal-line">Brands need content that converts. The market offered three broken answers.</p>
-        </div>
-
-        <div class="gap-scrub-stage">
-          <article class="gap-scrub-item" data-i="0">
-            <span class="g-num">01</span>
-            <span class="g-eyebrow">Broken answer one</span>
-            <h3 class="g-title">Comms agencies<span class="dot">.</span></h3>
-            <p class="g-body">Slow, expensive production cycles. Built for a media landscape that doesn&rsquo;t exist anymore.</p>
-          </article>
-
-          <article class="gap-scrub-item" data-i="1">
-            <span class="g-num">02</span>
-            <span class="g-eyebrow">Broken answer two</span>
-            <h3 class="g-title">Influencer shops<span class="dot">.</span></h3>
-            <p class="g-body">No production craft. Inflated rates. Zero accountability for what the content actually does.</p>
-          </article>
-
-          <article class="gap-scrub-item" data-i="2">
-            <span class="g-num">03</span>
-            <span class="g-eyebrow">Broken answer three</span>
-            <h3 class="g-title">Generic AI shops<span class="dot">.</span></h3>
-            <p class="g-body">Prompt-and-pray with off-the-shelf models. Output that looks like every other deck.</p>
-          </article>
-        </div>
-
-        <div class="gap-scrub-progress" aria-hidden="true">
-          <span class="g-pip" data-i="0"></span>
-          <span class="g-pip" data-i="1"></span>
-          <span class="g-pip" data-i="2"></span>
-        </div>
-
-        <div class="gap-scrub-hint">scroll ↓</div>
+    </div>
+    <div class="st-rows">
+      <div class="st-row open" data-acc>
+        <button class="st-row-head" type="button" aria-expanded="true">
+          <span class="st-num">01</span>
+          <span class="st-name">Comms agencies</span>
+          <span class="st-plus" aria-hidden="true"></span>
+        </button>
+        <div class="st-row-body"><div class="st-row-inner"><p>Slow, expensive production cycles. Built for a media landscape that doesn&rsquo;t exist anymore.</p></div></div>
+      </div>
+      <div class="st-row" data-acc>
+        <button class="st-row-head" type="button" aria-expanded="false">
+          <span class="st-num">02</span>
+          <span class="st-name">Influencer shops</span>
+          <span class="st-plus" aria-hidden="true"></span>
+        </button>
+        <div class="st-row-body"><div class="st-row-inner"><p>No production craft. Inflated rates. Zero accountability for what the content actually does.</p></div></div>
+      </div>
+      <div class="st-row" data-acc>
+        <button class="st-row-head" type="button" aria-expanded="false">
+          <span class="st-num">03</span>
+          <span class="st-name">Generic AI shops</span>
+          <span class="st-plus" aria-hidden="true"></span>
+        </button>
+        <div class="st-row-body"><div class="st-row-inner"><p>Prompt-and-pray with off-the-shelf models. Output that looks like every other deck.</p></div></div>
       </div>
     </div>
   </section>
 
-  <!-- ADJUSTMENT G — centred pivot line -->
-  <section class="pivot-line">
-    <div class="pivot-mark">
-      <img src="static/forvr-logo.svg" alt="Forvr Studios logo" />
+  <!-- THE FOUR TENETS — same quiet rows, no image tiles -->
+  <section class="block" style="padding-top: 72px;">
+    <div class="grid">
+      <p class="m m-accent col-12 md-c2">The four tenets</p>
+      <div class="col-12 md-c10">
+        <p style="max-width: 620px; font-size: clamp(17px, 1.5vw, 24px); line-height: 1.5;">So we built something different. Four principles hold it together.</p>
+      </div>
     </div>
-    <h2 class="d pivot-text scroll-drift" data-drift-dir="1" data-type-on>So we built<br/>something different<span class="dot">.</span></h2>
-  </section>
-
-  <!-- ADJUSTMENT G — grey divider headline -->
-  <section class="divider-sentence">
-    <p class="d divider-line" data-type-on>Media that actually moves<span class="dot">.</span></p>
-  </section>
-
-  <style>
-    /* GAP SCRUB — full-bleed scroll-scrubbed studio video, three reveals at corner positions.
-       Same pattern as the homepage Pillars section, three stages instead of four. */
-    .gap-scrub {
-      position: relative;
-      /* 3 items × 100vh + 50vh tail = 350vh of scrollable space */
-      height: 350vh;
-      background: #000;
-    }
-    .gap-scrub-pin {
-      position: sticky; top: 0;
-      width: 100%; height: 100vh;
-      overflow: hidden;
-    }
-    .gap-scrub-video-wrap { position: absolute; inset: 0; z-index: 1; }
-    #gapScrubVideo {
-      width: 100%; height: 100%; object-fit: cover;
-      display: block;
-      will-change: transform;
-      transform: translateZ(0);
-    }
-    .gap-scrub-vignette {
-      position: absolute; inset: 0; z-index: 2;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 30%, rgba(0,0,0,0.15) 70%, rgba(0,0,0,0.7) 100%),
-        linear-gradient(90deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.25) 100%);
-      pointer-events: none;
-    }
-    .gap-scrub-grain {
-      position: absolute; inset: 0; z-index: 3;
-      background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,0.025) 2px 3px);
-      mix-blend-mode: overlay;
-      pointer-events: none;
-    }
-
-    .gap-scrub-overlay {
-      position: absolute; inset: 0; z-index: 4;
-      padding: 56px 32px 56px;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      color: #fafafa;
-    }
-    @media (max-width: 760px) { .gap-scrub-overlay { padding: 48px 20px; } }
-
-    .gap-scrub-head {
-      display: grid; gap: 14px;
-      max-width: 720px;
-      transition: opacity 0.45s;
-    }
-    .gap-scrub-overlay.intro-faded .gap-scrub-head { opacity: 0.18; }
-    .gap-scrub-eyebrow {
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--accent);
-    }
-    .gap-scrub-title {
-      font-family: var(--display);
-      font-size: clamp(56px, 8vw, 144px);
-      line-height: 0.9; letter-spacing: -0.02em;
-      color: #fafafa;
-      max-width: 12ch;
-      text-shadow: 0 2px 24px rgba(0,0,0,0.45);
-    }
-    .gap-scrub-title .dot { color: var(--accent); }
-    .gap-scrub-intro {
-      font-size: clamp(15px, 1.2vw, 19px); line-height: 1.55;
-      color: rgba(250,250,250,0.78);
-      max-width: 460px;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.45);
-    }
-
-    /* Stage fills the full pin so each gap item can anchor to its own corner */
-    .gap-scrub-stage {
-      position: absolute;
-      inset: 56px 32px 80px;
-      pointer-events: none;
-    }
-    @media (max-width: 760px) { .gap-scrub-stage { inset: 48px 20px 80px; } }
-
-    .gap-scrub-item {
-      position: absolute;
-      width: min(440px, 92%);
-      display: grid; gap: 14px;
-      opacity: 0;
-      transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
-      pointer-events: none;
-    }
-    .gap-scrub-item.is-active { opacity: 1; pointer-events: auto; }
-
-    /* 01 — top right */
-    .gap-scrub-item[data-i="0"] {
-      right: 0; top: clamp(180px, 24vh, 280px);
-      text-align: right; justify-items: end;
-      transform: translate(24px, -28px);
-    }
-    .gap-scrub-item[data-i="0"].is-active { transform: translate(0, 0); }
-
-    /* 02 — bottom left */
-    .gap-scrub-item[data-i="1"] {
-      left: 0; bottom: 0;
-      text-align: left; justify-items: start;
-      transform: translate(-24px, 28px);
-    }
-    .gap-scrub-item[data-i="1"].is-active { transform: translate(0, 0); }
-
-    /* 03 — bottom right */
-    .gap-scrub-item[data-i="2"] {
-      right: 0; bottom: 0;
-      text-align: right; justify-items: end;
-      transform: translate(24px, 28px);
-    }
-    .gap-scrub-item[data-i="2"].is-active { transform: translate(0, 0); }
-
-    @media (max-width: 760px) {
-      .gap-scrub-item, .gap-scrub-item[data-i] {
-        width: 100%; left: 0; right: 0; top: auto; bottom: 0;
-        text-align: left; justify-items: start;
-        transform: translateY(28px);
-      }
-      .gap-scrub-item.is-active { transform: translateY(0); }
-    }
-
-    .gap-scrub-item .g-num {
-      font-family: var(--display);
-      font-size: 48px; line-height: 0.9;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-    }
-    .gap-scrub-item .g-eyebrow {
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      color: rgba(250,250,250,0.65);
-    }
-    .gap-scrub-item .g-title {
-      font-family: var(--display);
-      font-size: clamp(40px, 5.4vw, 80px);
-      line-height: 0.96; letter-spacing: -0.01em;
-      color: #fafafa;
-      text-shadow: 0 2px 18px rgba(0,0,0,0.4);
-    }
-    .gap-scrub-item .g-title .dot { color: var(--accent); }
-    .gap-scrub-item .g-body {
-      font-family: var(--body);
-      font-size: 15.5px; line-height: 1.65;
-      color: rgba(250,250,250,0.86);
-      max-width: 460px;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.45);
-    }
-
-    /* Progress strip — bottom right */
-    .gap-scrub-progress {
-      align-self: end; justify-self: end;
-      display: flex; gap: 8px;
-      padding: 8px 12px;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(91,194,231,0.22);
-    }
-    .gap-scrub-progress .g-pip {
-      width: 20px; height: 4px;
-      background: rgba(250,250,250,0.25);
-      transition: background 0.3s, width 0.3s;
-    }
-    .gap-scrub-progress .g-pip.is-active { background: var(--accent); width: 36px; }
-    .gap-scrub-progress .g-pip.is-past { background: rgba(91,194,231,0.55); }
-    /* Phone + tablet: gap copy is bottom-anchored, so pin the progress strip to
-       the top-right corner to stop it overlapping the number/title. Desktop
-       keeps the bottom-right placement. */
-    @media (max-width: 900px) {
-      .gap-scrub-progress {
-        position: absolute; top: 14px; right: 14px;
-        align-self: auto; justify-self: auto; z-index: 6;
-      }
-    }
-
-    .gap-scrub-hint {
-      position: absolute; bottom: 22px; left: 50%;
-      transform: translateX(-50%);
-      z-index: 5;
-      font-family: var(--mono); font-size: 10px;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: rgba(250,250,250,0.5);
-      pointer-events: none;
-      transition: opacity 0.5s;
-    }
-    .gap-scrub-pin.has-progressed .gap-scrub-hint { opacity: 0; }
-
-    @media (max-width: 760px) {
-      .gap-scrub-overlay { grid-template-rows: auto auto auto; }
-      .gap-scrub-item .g-title { font-size: clamp(36px, 9vw, 56px); }
-      .gap-scrub-item .g-num { font-size: 36px; }
-      .gap-scrub-progress { justify-self: start; }
-    }
-
-    /* Centred pivot line — logo + huge centred sentence */
-    .pivot-line { padding: 48px 24px 48px; text-align: center; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    @media (min-width: 768px) { .pivot-line { padding: 64px 24px 64px; } }
-    .pivot-mark { display: flex; justify-content: center; margin-bottom: 56px; }
-    .pivot-mark img { width: 88px; height: auto; }
-    .pivot-text { font-size: clamp(56px, 9vw, 168px); line-height: 0.92; letter-spacing: -0.02em; }
-
-    /* Grey divider sentence — large type as architecture */
-    .divider-sentence { padding: 40px 24px; background: #f2f2f2; text-align: left; border-bottom: 1px solid var(--line); overflow: hidden; }
-    @media (min-width: 768px) { .divider-sentence { padding: 56px 64px; } }
-    .divider-line { font-size: clamp(64px, 13vw, 240px); line-height: 0.88; letter-spacing: -0.03em; color: var(--accent); }
-  </style>
-
-  <script>
-  (function gapScrubScroll() {
-    const wrap = document.getElementById('gapScrub');
-    const pin = wrap && wrap.querySelector('.gap-scrub-pin');
-    const overlay = wrap && wrap.querySelector('.gap-scrub-overlay');
-    const video = document.getElementById('gapScrubVideo');
-    const items = wrap && wrap.querySelectorAll('.gap-scrub-item');
-    const pips = wrap && wrap.querySelectorAll('.g-pip');
-    if (!wrap || !pin || !video || !items.length) return;
-  var touchPlay = window.matchMedia && window.matchMedia('(hover: none)').matches;
-  if (touchPlay) { try { video.loop = true; video.muted = true; var _vp = video.play(); if (_vp && _vp.catch) _vp.catch(function(){}); } catch(e){} }
-
-    let videoDuration = 0;
-    let lastSeek = -1;
-    let ticking = false;
-
-    video.addEventListener('loadedmetadata', () => {
-      videoDuration = video.duration || 7;
-    });
-
-    const setActive = (idx) => {
-      items.forEach((el, i) => el.classList.toggle('is-active', i === idx));
-      pips.forEach((p, i) => {
-        p.classList.toggle('is-active', i === idx);
-        p.classList.toggle('is-past', i < idx);
-      });
-      // Headline fades to 0.18 the moment GAP 01 reveals (idx >= 0 after intro)
-      overlay.classList.toggle('intro-faded', idx >= 0);
-    };
-
-    const compute = () => {
-      const rect = wrap.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const total = rect.height - vh;
-      const progress = Math.max(0, Math.min(1, (-rect.top) / total));
-
-      // Map progress → video time. Only seek when delta is meaningful — saves work.
-      if (!touchPlay && videoDuration > 0) {
-        const target = progress * videoDuration;
-        if (Math.abs(target - lastSeek) > 0.02) {
-          try { video.currentTime = target; lastSeek = target; } catch (e) {}
-        }
-      }
-
-      // Intro phase: 0 — 0.18 progress. Headline lives alone, no gap active.
-      // Then three gap thresholds across the remaining 0.82 of scroll.
-      if (progress < 0.18) {
-        items.forEach((el) => el.classList.remove('is-active'));
-        pips.forEach((p) => { p.classList.remove('is-active'); p.classList.remove('is-past'); });
-        overlay.classList.remove('intro-faded');
-      } else {
-        const post = (progress - 0.18) / 0.82; // 0–1 across the three gaps
-        const idx = Math.min(2, Math.floor(post * 3));
-        setActive(idx);
-      }
-
-      if (progress > 0.04) pin.classList.add('has-progressed');
-      else pin.classList.remove('has-progressed');
-
-      ticking = false;
-    };
-
-    const onScroll = () => {
-      if (!ticking) { requestAnimationFrame(compute); ticking = true; }
-    };
-
-    compute();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-  })();
-  </script>
-
-  <!-- TENANTS GRID — 2×2 image tiles with overlaid title + subtitle -->
-  <section class="block tenants-block">
-    <div class="grid usp-header reveal-group">
-      <p class="m m-accent col-12 md-c2 reveal-line">The four<br/>tenants</p>
-      <h2 class="d md-c10 reveal-line">Made of four things<span class="dot">.</span></h2>
+    <div class="st-rows">
+      <div class="st-row open" data-acc>
+        <button class="st-row-head" type="button" aria-expanded="true">
+          <span class="st-num">01</span>
+          <span class="st-name">Advanced</span>
+          <span class="st-plus" aria-hidden="true"></span>
+        </button>
+        <div class="st-row-body"><div class="st-row-inner"><p>Creative workflows built for this era of production, not retrofitted onto an old agency model.</p></div></div>
+      </div>
+      <div class="st-row" data-acc>
+        <button class="st-row-head" type="button" aria-expanded="false">
+          <span class="st-num">02</span>
+          <span class="st-name">Multi-tool</span>
+          <span class="st-plus" aria-hidden="true"></span>
+        </button>
+        <div class="st-row-body"><div class="st-row-inner"><p>One production pipeline across many tools, so the right one is always in hand for the job.</p></div></div>
+      </div>
+      <div class="st-row" data-acc>
+        <button class="st-row-head" type="button" aria-expanded="false">
+          <span class="st-num">03</span>
+          <span class="st-name">Studio quality</span>
+          <span class="st-plus" aria-hidden="true"></span>
+        </button>
+        <div class="st-row-body"><div class="st-row-inner"><p>Visual production standards held to what a shoot would deliver, never shipped raw.</p></div></div>
+      </div>
+      <div class="st-row" data-acc>
+        <button class="st-row-head" type="button" aria-expanded="false">
+          <span class="st-num">04</span>
+          <span class="st-name">Built for performance</span>
+          <span class="st-plus" aria-hidden="true"></span>
+        </button>
+        <div class="st-row-body"><div class="st-row-inner"><p>Creative made to work as advertising, judged on what it does, not how it looks in a deck.</p></div></div>
+      </div>
     </div>
-
-    <div class="tenants-grid">
-      <article class="tn-tile" data-i="0">
-        <img class="bg" src="forvr%20docs/site-images/supplied/opt-tenant-advanced.jpg" alt="Forvr Studios campaign image" />
-        <div class="overlay">
-          <span class="num">01</span>
-          <div class="text">
-            <h3 class="name">Advanced<span class="dot">.</span></h3>
-            <p class="sub">Creative workflows</p>
-          </div>
-        </div>
-      </article>
-      <article class="tn-tile" data-i="1">
-        <img class="bg" src="forvr%20docs/site-images/supplied/opt-tenant-multi-tool.jpg" alt="Forvr Studios campaign image" />
-        <div class="overlay">
-          <span class="num">02</span>
-          <div class="text">
-            <h3 class="name">Multi-Tool<span class="dot">.</span></h3>
-            <p class="sub">Production pipeline</p>
-          </div>
-        </div>
-      </article>
-      <article class="tn-tile" data-i="2">
-        <img class="bg" src="forvr%20docs/site-images/supplied/opt-tenant-studio-quality.jpg" alt="Forvr Studios campaign image" />
-        <div class="overlay">
-          <span class="num">03</span>
-          <div class="text">
-            <h3 class="name">Studio Quality<span class="dot">.</span></h3>
-            <p class="sub">Visual production standards</p>
-          </div>
-        </div>
-      </article>
-      <article class="tn-tile" data-i="3">
-        <img class="bg" src="forvr%20docs/site-images/supplied/opt-tenant-built-for.jpg" alt="Forvr Studios campaign image" />
-        <div class="overlay">
-          <span class="num">04</span>
-          <div class="text">
-            <h3 class="name">Built For<span class="dot">.</span></h3>
-            <p class="sub">Performance creatives</p>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <p class="tenants-founder-line reveal-line">
+    <p style="max-width: 720px; margin-top: 32px; font-size: 15px; line-height: 1.6; color: rgba(10,10,10,0.7);">
       Built by an AI creative specialist with experience working inside a leading AI content studio, developing professional workflows for high-quality ad and product visuals<span class="dot">.</span>
     </p>
   </section>
 
-  <style>
-    /* Tenants grid — 2×2 image tiles, title + subtitle overlaid */
-    .tenants-block { padding-top: 32px !important; padding-bottom: 40px !important; }
-    @media (min-width: 768px) { .tenants-block { padding-top: 40px !important; padding-bottom: 48px !important; } }
-
-    .tenants-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 56vh);
-      gap: 12px;
-      margin-top: 24px;
-      max-width: 1440px; margin-left: auto; margin-right: auto;
-    }
-    @media (min-width: 768px) {
-      .tenants-grid { grid-template-rows: repeat(2, 64vh); gap: 16px; margin-top: 32px; }
-    }
-    @media (max-width: 640px) {
-      .tenants-grid { grid-template-columns: 1fr; grid-template-rows: repeat(4, 48vh); gap: 8px; }
-    }
-
-    .tn-tile {
-      position: relative;
-      overflow: hidden;
-      background: #0a0a0a;
-      color: #fafafa;
-      transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
-    }
-    .tn-tile .bg {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      filter: brightness(0.78) contrast(1.05);
-      transition: transform 0.8s cubic-bezier(0.22,1,0.36,1), filter 0.55s;
-      /* Constant motion — slow ken-burns pan + scale loop plus a filter pulse
-         so each tile feels alive. The underlying pixels are still static
-         (these are JPGs); for true intra-image motion the four tenants need
-         video files. Stagger per tile via animation-delay so they don't sync. */
-      animation: tn-tile-drift 11s ease-in-out infinite;
-      will-change: transform, filter;
-    }
-    .tn-tile[data-i="0"] .bg { animation-delay: 0s;     animation-duration: 11s; }
-    .tn-tile[data-i="1"] .bg { animation-delay: -2.7s;  animation-duration: 12s; }
-    .tn-tile[data-i="2"] .bg { animation-delay: -5.5s;  animation-duration: 10s; }
-    .tn-tile[data-i="3"] .bg { animation-delay: -8.3s;  animation-duration: 13s; }
-    @keyframes tn-tile-drift {
-      0%   { transform: scale(1.10) translate(0%, 0%);     filter: brightness(0.78) contrast(1.05) saturate(1.00); }
-      20%  { transform: scale(1.15) translate(-2.4%, 1.6%); filter: brightness(0.86) contrast(1.10) saturate(1.06); }
-      45%  { transform: scale(1.12) translate(2.0%, -1.8%); filter: brightness(0.82) contrast(1.08) saturate(1.04); }
-      65%  { transform: scale(1.16) translate(-1.6%, -1.0%); filter: brightness(0.88) contrast(1.06) saturate(1.08); }
-      85%  { transform: scale(1.13) translate(2.2%, 1.2%); filter: brightness(0.80) contrast(1.09) saturate(1.03); }
-      100% { transform: scale(1.10) translate(0%, 0%);     filter: brightness(0.78) contrast(1.05) saturate(1.00); }
-    }
-    /* Hover briefly takes over the animation for emphasis */
-    .tn-tile:hover .bg {
-      animation-play-state: paused;
-      transform: scale(1.1) translate(0%, 0%);
-      filter: brightness(0.92) contrast(1.06);
-    }
-    .tn-tile::after {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.30) 38%, rgba(0,0,0,0.0) 70%);
-      transition: background 0.55s;
-    }
-    .tn-tile .overlay {
-      position: absolute; inset: 0;
-      padding: 24px;
-      display: flex; flex-direction: column; justify-content: space-between;
-      z-index: 2;
-    }
-    .tn-tile .num {
-      font-family: var(--mono); font-size: 11px;
-      letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--accent);
-      align-self: flex-start;
-    }
-    .tn-tile .text { display: grid; gap: 10px; }
-    .tn-tile .name {
-      font-family: var(--display); font-weight: 900;
-      font-size: clamp(36px, 4.4vw, 72px);
-      line-height: 0.96; letter-spacing: -0.015em;
-      text-transform: uppercase; color: #fafafa;
-      text-shadow: 0 2px 18px rgba(0,0,0,0.4);
-      transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
-    }
-    .tn-tile .name .dot { color: var(--accent); }
-    .tn-tile .sub {
-      font-family: var(--mono);
-      font-size: 14px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: rgba(250,250,250,0.82);
-      line-height: 1.35;
-    }
-    .tn-tile:hover { transform: translateY(-4px); }
-    .tn-tile:hover .bg { transform: scale(1.04); filter: brightness(0.9) contrast(1.05); }
-    .tn-tile:hover::after { background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0.15) 75%); }
-    .tn-tile:hover .name { transform: translateY(-4px); }
-
-    .tenants-founder-line {
-      max-width: 720px;
-      margin-top: 32px;
-      font-family: var(--body);
-      font-size: 15px; line-height: 1.6;
-      color: rgba(10,10,10,0.7);
-    }
-    @media (min-width: 768px) { .tenants-founder-line { margin-top: 40px; } }
-
-    @media (max-width: 640px) {
-      .tn-tile .overlay { padding: 20px; }
-      .tn-tile .sub { font-size: 13px; letter-spacing: 0.22em; }
-    }
-  </style>
-
-    <!-- Desktop — orbital wheel of four cards -->
-    <div class="usp-wheel-stage reveal" id="uspWheelStage">
-      <div class="usp-wheel" id="uspWheel">
-
-      <div class="usp-orbit" data-base="0">
-        <div class="ucard size-md" data-flippable>
-          <div class="ucard-inner">
-            <div class="face front">
-              <div class="dot-pulse"></div>
-              <div class="card-graphic style-a" id="myceliumStage">
-                <canvas id="myceliumCanvas"></canvas>
-                <div class="frame">
-                  <div class="meta"><span class="ver">PIPELINE v2.1</span><span class="res" id="laneCounter">06 lanes · 12 active</span></div>
-                  <div class="body"></div>
-                  <p class="prompt">Concept → ship<span class="dot">.</span> <span id="laneStage">Capture</span> running<span class="dot">.</span></p>
-                </div>
-              </div>
-              <div><h3 class="d">Stacked</h3><p class="sub">Full pipeline</p></div>
-              <div class="plus">+</div>
-            </div>
-            <div class="face back"><p class="sub">Full pipeline</p><h4>Stacked</h4><p>Concept to ship without leaving the studio. Six lanes, multiple custom workflows. No outsourcing, no agency handoffs.</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="usp-orbit" data-base="90">
-        <div class="ucard size-md" data-flippable>
-          <div class="ucard-inner">
-            <div class="face front">
-              <div class="dot-pulse"></div>
-              <div class="card-graphic style-b" id="neuralStage">
-                <canvas id="neuralCanvas"></canvas>
-                <div class="frame">
-                  <div class="meta"><span class="ver">MODEL 1.4</span><span class="res">Fine-tune</span></div>
-                  <div class="body"></div>
-                  <p class="prompt">Brand-trained model. Live inference.</p>
-                </div>
-              </div>
-              <div><h3 class="d">Trained</h3><p class="sub">Models per brand</p></div>
-              <div class="plus">+</div>
-            </div>
-            <div class="face back"><p class="sub">Models per brand</p><h4>Trained</h4><p>Every project uses models fine-tuned to your specific aesthetic. Brand-accurate output. Not generic prompts on generic engines.</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="usp-orbit" data-base="180">
-        <div class="ucard size-md" data-flippable>
-          <div class="ucard-inner">
-            <div class="face front">
-              <div class="dot-pulse"></div>
-              <div class="card-graphic style-c" id="gradeStage">
-                <canvas id="grainFieldCanvas"></canvas>
-                <div class="frame">
-                  <div class="meta"><span class="ver">GRADE v4.0</span><span class="res" id="grainGrade">Warm 01</span></div>
-                  <div class="body"></div>
-                  <p class="prompt">Hand finish<span class="dot">.</span> <span id="gradeName">Warm shadows</span> engaged<span class="dot">.</span></p>
-                </div>
-              </div>
-              <div><h3 class="d">Editorial</h3><p class="sub">Studio standards</p></div>
-              <div class="plus">+</div>
-            </div>
-            <div class="face back"><p class="sub">Studio standards</p><h4>Editorial</h4><p>Hand-finished, not shipped raw. Manual retouching, colour grading, final polish. AI does the heavy lifting. Taste does the rest.</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="usp-orbit" data-base="270">
-        <div class="ucard size-md" data-flippable>
-          <div class="ucard-inner">
-            <div class="face front">
-              <div class="dot-pulse"></div>
-              <div class="card-graphic style-d" id="radarStage">
-                <canvas id="convergenceCanvas"></canvas>
-                <div class="frame">
-                  <div class="meta"><span class="ver">FUNNEL v1.3</span><span class="res" id="signalReading">Signal 94.2</span></div>
-                  <div class="body"></div>
-                  <p class="prompt">Strategy in the room<span class="dot">.</span> <span id="funnelStage">Converting</span><span class="dot">.</span></p>
-                </div>
-              </div>
-              <div><h3 class="d">Built For</h3><p class="sub">Performance</p></div>
-              <div class="plus">+</div>
-            </div>
-            <div class="face back"><p class="sub">Performance</p><h4>Built For</h4><p>Creative that converts because the concept is right. Strategy with taste, not strategy alone.</p></div>
-          </div>
-        </div>
-      </div>
-      </div><!-- /.usp-wheel -->
-      <div class="usp-wheel-backdrop" id="uspWheelBackdrop" aria-hidden="true"></div>
-    </div><!-- /.usp-wheel-stage -->
-
-    <p class="m usp-wheel-hint" style="margin-top: 48px; color: rgba(10,10,10,0.5); max-width: 32rem;">Hover any card to bring it forward<span class="dot">.</span> It flips after a beat to show its detail<span class="dot">.</span> Move your cursor away and it slips back into the wheel<span class="dot">.</span></p>
-  </div><!-- /legacy hidden wrapper -->
-
-  <style>
-    /* Hide the legacy formation grid rules — we now use .usp-wheel */
-    .usp-wheel-stage { position: relative; width: 100%; max-width: 760px; margin: 0 auto; aspect-ratio: 1/1; display: none; }
-    @media (min-width: 768px) { .usp-wheel-stage { display: block; } .usp-formation { display: none !important; } }
-
-    .usp-wheel { position: absolute; inset: 0; }
-    .usp-orbit { position: absolute; top: 50%; left: 50%; width: 240px; height: 320px; margin: -160px 0 0 -120px; transition: transform 0.85s cubic-bezier(0.22,1,0.36,1), opacity 0.6s; cursor: pointer; will-change: transform; }
-    .usp-orbit .ucard { width: 100%; height: 100%; cursor: pointer; }
-
-    /* HOVER state — hovered card enlarges in place (no centre translate, no flicker), others fade slightly */
-    .usp-wheel.has-open .usp-orbit:not(.is-open) { opacity: 0.4; transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(0.82) !important; transition: opacity 0.5s, transform 0.85s cubic-bezier(0.22,1,0.36,1); }
-    .usp-wheel .usp-orbit.is-open { transform: translate(var(--ox, 0px), var(--oy, 0px)) scale(1.45) !important; z-index: 40; }
-    .usp-wheel .usp-orbit.is-open .ucard { box-shadow: 0 60px 80px -20px rgba(10,10,10,0.42), 0 12px 24px rgba(10,10,10,0.18); }
-    /* Auto-flipped state once hover holds */
-    .usp-wheel .usp-orbit.is-open .ucard.flipped .ucard-inner { transform: rotateY(180deg); }
-
-    /* Soft backdrop while hovering */
-    .usp-wheel-backdrop { position: fixed; inset: 0; background: rgba(10,10,10,0); pointer-events: none; opacity: 0; transition: opacity 0.5s, background 0.5s; z-index: 39; }
-    .usp-wheel-stage.has-open .usp-wheel-backdrop { background: rgba(10,10,10,0.04); opacity: 1; }
-
-    .usp-wheel-hint { text-align: center; }
-  </style>
-
-  <div class="divider"><div class="rule"></div></div>
-
-  <!-- PULL QUOTE — viewport-scale moment -->
-  <section class="pull-quote pull-quote-large">
-    <blockquote class="grid reveal" data-type-on data-spotlight>
-      <p class="d pull-line" style="grid-column: span 12;">Strategy without<br/>taste is just <span class="pull-grey">logic</span><span class="dot">.</span></p>
+  <!-- PULL QUOTE — the one display moment the page keeps -->
+  <section class="pull-quote" style="padding: 112px 24px;">
+    <blockquote class="grid" style="margin: 0; border: 0; padding: 0;">
+      <p class="d" style="grid-column: span 12; font-size: clamp(40px, 6.5vw, 104px); line-height: 0.92; letter-spacing: -0.02em;">Strategy without<br/>taste is just <span style="color: var(--accent);">logic</span><span class="dot">.</span></p>
     </blockquote>
   </section>
 
-  <style>
-    .pull-quote-large { padding: 56px 24px; }
-    @media (min-width: 768px) { .pull-quote-large { padding: 320px 40px; } }
-    .pull-line { font-size: clamp(72px, 14vw, 260px) !important; line-height: 0.86; letter-spacing: -0.03em; }
-    .pull-grey { color: var(--accent); }
-  </style>
-
   <div class="divider"><div class="rule"></div></div>
 
-  <!-- VALUE MOMENT 1: Product-first -->
-  <section class="block">
-    <div class="value-row">
-      <div class="text-col reveal">
-        <p class="m m-accent" style="margin-bottom: 24px;">Value / 01</p>
-        <h3 class="d">The product is<br/>the hero<span class="dot">.</span></h3>
-        <p class="body">Every visual is engineered around what you sell. Composition, light, surface. The shot doesn't exist to be pretty. It exists to make the product land.</p>
-      </div>
-      <div class="media-col reveal">
-        <div class="value-media">
-          <div class="bg"></div>
-          <span class="mark">forvr<span class="dot">.</span></span>
-          <!-- Version/product label removed (2026-05-28) — unnecessary text on image -->
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"><div class="rule"></div></div>
-
-  <!-- VALUE MOMENT 2: ∞ -->
-  <section class="stat-block" data-stat>
-    <div class="row">
-      <p class="m m-accent eyebrow">Value / 02</p>
-      <p class="big">∞</p>
-      <div class="caption-row">
-        <h3 class="d">Variations limited only by ambition<span class="dot">.</span></h3>
-        <p>In traditional production, every variation costs extra time and budget. Here, a single brief produces dozens of variations in one delivery window.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- VALUE MOMENT 3: Founder credibility (imageless) -->
+  <!-- THE FOUNDER -->
   <section class="block" id="about">
     <div class="grid">
-      <p class="m m-accent col-12 md-c2">Value / 03</p>
-      <div class="col-12 md-c10 reveal">
-        <h3 class="d" style="font-size: clamp(40px, 6vw, 100px); line-height: 0.92;">Involved at every step.<br/>That&#39;s the point<span class="dot">.</span></h3>
-        <div style="margin-top: 48px; max-width: 720px; font-size: clamp(16px, 1.3vw, 20px); color: rgba(10,10,10,0.85); line-height: 1.6;">
+      <p class="m m-accent col-12 md-c2">The founder</p>
+      <div class="col-12 md-c10">
+        <h3 class="d" style="font-size: clamp(28px, 3.6vw, 56px); line-height: 0.95;">Involved at every step.<br/>That&#39;s the point<span class="dot">.</span></h3>
+        <div style="margin-top: 40px; max-width: 720px; font-size: clamp(16px, 1.3vw, 19px); color: rgba(10,10,10,0.85); line-height: 1.6;">
           <p style="margin-bottom: 28px;">Most agencies put layers of account managers between the brief and the work. Forvr runs the other way. The founder stays close to every step, from first concept through direction, design, and final delivery, so the work keeps one voice and stays on brand the whole way through.</p>
-          <p style="font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(20px, 2vw, 28px); letter-spacing: -0.01em; line-height: 1; margin: 44px 0 22px; color: #0a0a0a;">Founded and run by Rory<span class="dot">:</span></p>
-          <blockquote style="margin: 0; border: 0; padding: 0;">
+          <p style="font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; margin: 36px 0 18px; color: rgba(10,10,10,0.72);"><span style="color: var(--accent);">●</span> Founded and run by Rory</p>
+          <blockquote style="margin: 0; border-left: 1px solid var(--line); padding: 4px 0 4px 24px;">
             <p style="margin-bottom: 20px;">&ldquo;Before this I spent time working inside one of the leading AI marketing agencies. I saw how good work actually gets made, and where most of it falls apart. I&#39;ve always wanted to build things that mean something and leave a mark, not just fill a feed. Forvr is me doing that on my own terms, real creative direction and the tools working together, finished to a standard I&#39;d put my name on.&rdquo;</p>
             <p style="margin: 0;">&ldquo;It&#39;s new, and we&#39;re honest about that. New is the edge, not the excuse. Every brief gets the attention most studios can&#39;t give, finished to a standard we won&#39;t compromise.&rdquo;</p>
           </blockquote>
@@ -1566,7 +1015,7 @@
     </a>
     <a class="nav-item" href="work.html">
       <span class="num">01</span>
-      <span class="title">Work</span>
+      <span class="title">Portfolio</span>
       <span class="caption">Selected portfolio</span>
     </a>
     <a class="nav-item" href="services.html">
@@ -2173,6 +1622,22 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
 })();
+</script>
+<script>
+  // information-row accordions: click toggles, one open per group
+  document.querySelectorAll('.st-rows').forEach(function (group) {
+    group.querySelectorAll('[data-acc] .st-row-head').forEach(function (head) {
+      head.addEventListener('click', function () {
+        var row = head.parentElement;
+        var isOpen = row.classList.contains('open');
+        group.querySelectorAll('[data-acc].open').forEach(function (r) {
+          r.classList.remove('open');
+          r.querySelector('.st-row-head').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) { row.classList.add('open'); head.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+  });
 </script>
 </body>
 </html>
