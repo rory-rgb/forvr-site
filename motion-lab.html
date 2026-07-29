@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="robots" content="noindex, nofollow" />
-<title>Motion lab — forvr.</title>
+<title>Motion lab v2 — forvr.</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
 <link rel="stylesheet" href="static/forvr-system.css" />
 <script src="static/forvr-scroll.js" defer></script>
@@ -21,8 +21,8 @@
     --mono: ui-monospace, "SF Mono", Menlo, monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--fg); font-family: var(--body); -webkit-font-smoothing: antialiased; }
-  a { color: inherit; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
   .d { font-family: var(--display); font-weight: 900; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.02em; }
   .m { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 
@@ -33,83 +33,68 @@
   .lab-sec .ed { text-align: center; }
   .lab-tag { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
   .lab-tag::before { content: ''; width: 7px; height: 7px; background: var(--accent); }
-  .lab-src { font-size: 13px; color: rgba(10,10,10,0.55); max-width: 58ch; margin: 14px auto 34px; line-height: 1.6; }
+  .lab-src { font-size: 13px; color: rgba(10,10,10,0.55); max-width: 58ch; margin: 14px auto 0; line-height: 1.6; }
   .lab-replay {
-    display: inline-flex; margin-top: 34px; padding: 10px 20px; gap: 8px;
+    display: inline-flex; margin-top: 30px; padding: 10px 20px; gap: 8px;
     border: 1px solid var(--accent); color: var(--accent); background: none; cursor: pointer;
     font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
   }
   .lab-replay:hover { background: var(--accent); color: #050505; }
 
   /* =================================================================
-     01 RESOLVE — our answer to Keenfolk's per-character arrival.
-     Theirs collapses letter-spacing. Ours resolves the render: each
-     character starts as an unresolved blur, and sharpens in a wave,
-     the way a diffusion render or a develop pass resolves. Ties to
-     "raw model output, hand-graded, shipped."
+     05 PEEK — hover a work row, a film-frame preview follows the cursor.
      ================================================================= */
-  .resolve { font-size: clamp(34px, 5vw, 76px); max-width: 18ch; margin-inline: auto; }
-  .resolve .rc {
-    display: inline-block; white-space: pre;
-    filter: blur(0); opacity: 1; transform: none;
-    transition: filter 0.5s var(--ease), opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  .peek-list { max-width: 820px; margin-inline: auto; text-align: left; border-bottom: 1px solid var(--line); }
+  .peek-row { display: flex; align-items: baseline; gap: 26px; padding: 24px 8px; border-top: 1px solid var(--line); cursor: pointer; transition: background 0.3s ease; }
+  .peek-row:hover { background: rgba(91,194,231,0.05); }
+  .peek-row .n { font-family: var(--mono); font-size: 12px; color: var(--muted); flex: 0 0 34px; }
+  .peek-row h3 { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(24px, 3vw, 40px); line-height: 1; transition: color 0.3s; }
+  .peek-row:hover h3 { color: var(--accent); }
+  .peek-row .meta { margin-left: auto; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  #peekCard {
+    position: fixed; z-index: 90; width: 240px; pointer-events: none;
+    opacity: 0; transform: scale(0.9);
+    transition: opacity 0.28s var(--ease), transform 0.28s var(--ease);
+    will-change: left, top;
   }
-  .resolve.is-armed .rc { filter: blur(7px); opacity: 0.15; transform: translateY(0.08em) scale(1.04); }
-  @media (prefers-reduced-motion: reduce) { .resolve .rc, .resolve.is-armed .rc { filter: none; opacity: 1; transform: none; transition: none; } }
+  #peekCard.on { opacity: 1; transform: scale(1); }
+  #peekCard img { display: block; width: 100%; height: 300px; object-fit: cover; }
+  #peekCard .chip {
+    position: absolute; bottom: 10px; left: 10px;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: rgba(245,245,245,0.9); background: rgba(0,0,0,0.6); padding: 4px 8px;
+  }
+  @media (hover: none) { #peekCard { display: none; } }
 
   /* =================================================================
-     02 REGISTRATION — our answer to the riso mis-registration gap.
-     Not decoration: the cyan ghost is the model's first pass, offset
-     off-brand; it converges onto the true black layer as the row
-     lands. "Brand-trained" as a motion.
+     06 FRAME COUNT — stats roll up like a frame counter.
      ================================================================= */
-  .reg-row { border-top: 1px solid var(--line); padding: 26px 0; display: flex; align-items: baseline; gap: 28px; text-align: left; max-width: 820px; margin-inline: auto; }
-  .reg-row:last-of-type { border-bottom: 1px solid var(--line); }
-  .reg { position: relative; display: inline-block; font-family: var(--display); font-weight: 900; text-transform: uppercase; }
-  .reg-num { font-size: 15px; color: var(--fg); flex: 0 0 44px; }
-  .reg-word { font-size: clamp(24px, 3vw, 44px); line-height: 1; }
-  .reg::before {
-    content: attr(data-text);
-    position: absolute; inset: 0; color: var(--accent); z-index: -1;
-    transform: translate(0, 0);
-    transition: transform 0.45s cubic-bezier(0.2, 1.3, 0.3, 1), opacity 0.3s ease;
-    transition-delay: calc(var(--i, 0) * 110ms);
-    opacity: 0.9;
-  }
-  .reg-body { font-size: 14.5px; line-height: 1.6; color: rgba(10,10,10,0.62); max-width: 44ch; margin-left: auto; text-align: left; }
-  .lab-armed .reg::before { transform: translate(-0.14em, 0.1em) rotate(-0.6deg); }
-  .lab-live .reg::before { transform: translate(0, 0) rotate(0deg); }
-  @media (prefers-reduced-motion: reduce) { .reg::before { transform: none !important; transition: none; } }
+  .fc-row { display: flex; justify-content: center; gap: clamp(40px, 7vw, 100px); flex-wrap: wrap; margin-top: 10px; }
+  .fc { text-align: center; }
+  .fc .digits { display: flex; justify-content: center; font-family: var(--display); font-weight: 900; font-size: clamp(56px, 7vw, 110px); line-height: 1; }
+  .fc .digit { position: relative; height: 1em; overflow: hidden; }
+  .fc .digit .col { display: flex; flex-direction: column; transform: translateY(0); }
+  .fc .digit .col span { height: 1em; display: block; }
+  .fc .lbl { margin-top: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 
   /* =================================================================
-     03 SCAN WIPE — our answer to Obys' one-curve image discipline.
-     One reveal for every image on the site: a wipe on the house curve
-     with a hairline of accent travelling at the exposure edge, like a
-     scan head passing. Same duration pair everywhere, no exceptions.
+     07 THE PASS — the scan wipe at page scale.
      ================================================================= */
-  .scan { position: relative; max-width: 640px; margin-inline: auto; overflow: hidden; }
-  .scan img { display: block; width: 100%; height: auto; clip-path: inset(0 0 0 0); transition: clip-path 0.8s var(--ease); }
-  .scan.is-armed img { clip-path: inset(0 100% 0 0); transition: none; }
-  .scan::after {
-    content: ''; position: absolute; top: 0; bottom: 0; width: 2px; left: 0;
-    background: var(--accent); opacity: 0; pointer-events: none;
-  }
-  .scan.is-live::after { animation: scanEdge 0.8s var(--ease) forwards; }
-  @keyframes scanEdge {
-    0% { left: 0; opacity: 1; }
-    92% { opacity: 1; }
-    100% { left: calc(100% - 2px); opacity: 0; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .scan img, .scan.is-armed img { clip-path: none; transition: none; }
-    .scan.is-live::after { animation: none; }
-  }
+  #passOverlay { position: fixed; inset: 0; z-index: 200; pointer-events: none; visibility: hidden; }
+  #passOverlay .sheet { position: absolute; inset: 0; background: var(--bg); transform: translateX(-101%); }
+  #passOverlay .edge { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--accent); left: 0; opacity: 0; }
+  #passOverlay .mark { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--display); font-weight: 900; font-size: 30px; text-transform: uppercase; opacity: 0; }
+  #passOverlay .mark i { color: var(--accent); font-style: normal; }
 
   /* =================================================================
-     04 GENIE — already live on /services and the Ask AI pill.
-     Here: the same primitive on a FAQ row, the answer unfurling out
-     of the + and sucked back into it.
+     08 DRIFT — images travel slower than the page inside their frames.
      ================================================================= */
+  .drift-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 760px; margin-inline: auto; }
+  .drift-frame { overflow: hidden; height: 420px; }
+  .drift-frame img { display: block; width: 100%; height: 130%; object-fit: cover; will-change: transform; }
+  @media (max-width: 700px) { .drift-pair { grid-template-columns: 1fr; } .drift-frame { height: 300px; } }
+
+  /* 04 genie — restyled after feedback: page-coloured, one accent rule, no box */
   .gfaq { max-width: 720px; margin-inline: auto; text-align: left; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .gfaq-q { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; cursor: pointer; background: none; border: 0; width: 100%; text-align: left; }
   .gfaq-q h3 { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(19px, 2vw, 27px); }
@@ -117,9 +102,10 @@
   .gfaq.open .gfaq-q .plus { transform: rotate(45deg); }
   .gfaq-a {
     position: relative; overflow: hidden;
-    background: #0a0a0a; color: rgba(245,245,245,0.88);
-    padding: 22px 24px; margin-bottom: 22px; border-radius: 2px;
-    font-size: 15px; line-height: 1.65; max-width: 64ch;
+    background: var(--bg); color: rgba(10,10,10,0.75);
+    border-left: 2px solid var(--accent);
+    padding: 4px 0 22px 20px; margin-bottom: 8px;
+    font-size: 15px; line-height: 1.65; max-width: 60ch;
     visibility: hidden; display: none;
   }
   .gfaq.open .gfaq-a { display: block; }
@@ -130,63 +116,69 @@
 <body>
 
 <div class="lab-head">
-  <p class="m" style="margin-bottom: 16px;">Motion lab · not linked from the site · four primitives</p>
-  <h1>One grammar, four moves<span style="color:var(--accent)">.</span></h1>
-  <p>The rule the reference sites share is one system applied everywhere, not many effects. Proposal: the whole site animates with exactly these four primitives, each ours rather than lifted. 01 for statements, 02 for structure, 03 for every image, 04 for every overlay. Scroll each into view, or hit replay.</p>
+  <p class="m" style="margin-bottom: 16px;">Motion lab · round two</p>
+  <h1>Round two<span style="color:var(--accent)">.</span></h1>
+  <p>Round one verdicts applied: Resolve and Registration are dead. The scan wipe is approved and is now LIVE on every case-study image and the about portrait. The genie is restyled at the bottom — no more black box. In between, four new ideas.</p>
 </div>
 
-<!-- 01 RESOLVE -->
+<!-- 05 PEEK -->
 <section class="lab-sec">
   <div class="ed">
-    <span class="lab-tag">01 · Resolve — for the big statements</span>
-    <h2 class="d resolve" id="resolveDemo">Creative that reads made, not generated<span style="color:var(--accent)">.</span></h2>
-    <p class="lab-src">Keenfolk (built by Obys) lands its statements one glyph at a time by collapsing letter-spacing. Ours resolves instead: every character starts as an unresolved blur and sharpens in a wave — a render resolving, a develop pass. Same premium arrival, but it says what the studio does.</p>
-    <button class="lab-replay" data-replay="resolve">Replay ↺</button>
-  </div>
-</section>
-
-<!-- 02 REGISTRATION -->
-<section class="lab-sec">
-  <div class="ed">
-    <span class="lab-tag">02 · Registration — for lists and numbers</span>
-    <div id="regDemo">
-      <div class="reg-row">
-        <span class="reg reg-num" data-text="01" style="--i:0">01</span>
-        <span class="reg reg-word" data-text="Comms agencies" style="--i:0">Comms agencies</span>
-        <span class="reg-body">Slow, expensive production cycles, built for a media landscape that is gone.</span>
+    <span class="lab-tag">05 · Peek — the work index shows you the work</span>
+    <div class="peek-list" id="peekList">
+      <div class="peek-row" data-img="forvr%20docs/images/grit-project/opt-rwhypervail_Front-facing_portrait_of_a_mixed-race_male_athlet_afeb9d85-857f-4d77-89d2-d09a9552d2a9_0%20(1).jpg" data-chip="16 stills · 2026">
+        <span class="n">02</span><h3>Grit</h3><span class="meta">Studio campaign</span>
       </div>
-      <div class="reg-row">
-        <span class="reg reg-num" data-text="02" style="--i:1">02</span>
-        <span class="reg reg-word" data-text="Influencer shops" style="--i:1">Influencer shops</span>
-        <span class="reg-body">No production craft, inflated rates, zero accountability for results.</span>
+      <div class="peek-row" data-img="forvr%20docs/small%20circle/Studio-Shoot/opt-14.jpg" data-chip="19 stills, 1 film · 2026">
+        <span class="n">03</span><h3>Small Circle</h3><span class="meta">Varsity collab</span>
       </div>
-      <div class="reg-row">
-        <span class="reg reg-num" data-text="03" style="--i:2">03</span>
-        <span class="reg reg-word" data-text="Generic AI shops" style="--i:2">Generic AI shops</span>
-        <span class="reg-body">Prompt-and-pray on stock models. Output that looks like every other deck.</span>
+      <div class="peek-row" data-img="forvr%20docs/images/posters/opt-p1.jpg" data-chip="16 posters · 2026">
+        <span class="n">06</span><h3>Posters</h3><span class="meta">Graphic series</span>
       </div>
     </div>
-    <p class="lab-src">From the unowned-territory list in the motion-sites teardown: print mis-registration. Ours carries the pitch — the cyan layer is the model's first pass sitting off-brand, and it snaps into register on the black as each row lands. Brand-trained, as a motion. For the studio lists, the work index numbers, the tenets.</p>
-    <button class="lab-replay" data-replay="reg">Replay ↺</button>
+    <p class="lab-src">Hover a row: a film frame from that project follows the cursor down the list, stills count on a chip. The Bang teases each case with a hover panel; ours makes the index itself show the work, so the list stops being blind text. For /work, maybe the six lanes on home. Touch devices just get the list.</p>
   </div>
 </section>
 
-<!-- 03 SCAN WIPE -->
+<!-- 06 FRAME COUNT -->
 <section class="lab-sec">
   <div class="ed">
-    <span class="lab-tag">03 · Scan wipe — for every image, one curve</span>
-    <div class="scan" id="scanDemo">
-      <img src="forvr%20docs/small%20circle/Studio-Shoot/opt-13.jpg" alt="Small Circle studio shoot frame" loading="eager" />
+    <span class="lab-tag">06 · Frame count — numbers arrive like a counter</span>
+    <div class="fc-row" id="fcDemo">
+      <div class="fc" data-value="14"><div class="digits"></div><div class="lbl">Days to first cut</div></div>
+      <div class="fc" data-value="6"><div class="digits"></div><div class="lbl">Lanes in house</div></div>
+      <div class="fc" data-value="83"><div class="digits"></div><div class="lbl">Frames this quarter</div></div>
     </div>
-    <p class="lab-src">Obys runs all 38 of its images on exactly one clip-wipe and one curve — the most disciplined easing in the reference library. Ours keeps that discipline and signs it: a hairline of accent travels at the exposure edge as the image wipes in, like a scan head passing. Every image site-wide, same 0.8s, same curve, no exceptions.</p>
-    <button class="lab-replay" data-replay="scan">Replay ↺</button>
+    <p class="lab-src">Stats roll up on digit drums, like the FRAME counter already in your status strip, and land on the real number. Four reference agencies run stat rows; none make the number arrive like footage. For outcomes on home, the contact promise block, case-page facts.</p>
+    <button class="lab-replay" data-replay="fc">Replay ↺</button>
   </div>
 </section>
 
-<!-- 04 GENIE -->
+<!-- 07 THE PASS -->
 <section class="lab-sec">
   <div class="ed">
-    <span class="lab-tag">04 · Genie — for every overlay</span>
+    <span class="lab-tag">07 · The pass — pages change like one surface</span>
+    <p class="lab-src" style="margin-bottom: 6px;">The approved scan wipe at page scale: click an internal link and the hairline sweeps across, a clean sheet follows it, the wordmark holds a beat, and the next page is there when it clears. The site stops being seven documents and becomes one surface — the "everything connected" you asked for at the start. Obys and Keenfolk both run page transitions; neither does it as an exposure pass.</p>
+    <button class="lab-replay" data-replay="pass">Play the pass ↺</button>
+  </div>
+</section>
+
+<!-- 08 DRIFT -->
+<section class="lab-sec">
+  <div class="ed">
+    <span class="lab-tag">08 · Drift — images sit deeper than the page</span>
+    <div class="drift-pair">
+      <div class="drift-frame"><img data-drift src="forvr%20docs/small%20circle/Studio-Shoot/opt-11.jpg" alt="Small Circle frame" /></div>
+      <div class="drift-frame"><img data-drift src="forvr%20docs/images/grit-project/opt-rwhypervail_Minimal_studio_strength_portrait_of_a_Middle_East_128ff9f6-f75a-42b4-8379-7b61b5954e8d_0.jpg" alt="Grit frame" /></div>
+    </div>
+    <p class="lab-src">Scroll past: the images travel a beat slower than the page, sitting deeper in their frames. Capped at a few percent, transform only — the catalogue rule is subtle parallax reads premium, heavy reads cheap. For case-study grids and the big media moments. Pairs with the scan wipe: wipe in, then drift.</p>
+  </div>
+</section>
+
+<!-- 04 GENIE restyled -->
+<section class="lab-sec">
+  <div class="ed">
+    <span class="lab-tag">04 · Genie — restyled, no more box</span>
     <div class="gfaq" id="gfaqDemo">
       <button class="gfaq-q" type="button" aria-expanded="false">
         <h3>Is the work AI or human<span style="color:var(--accent)">?</span></h3>
@@ -194,7 +186,7 @@
       </button>
       <div class="gfaq-a">Both. Brand-trained AI does the volume, human direction does the concept and the finishing. The founder is on every frame from the pitch through to delivery, and nothing ships that has not been hand-graded.</div>
     </div>
-    <p class="lab-src">Already live on the services tiles and the Ask AI pill. Here it is on a FAQ row: the answer unfurls out of the +, and is sucked back into it. Rolled out, this becomes the one way every overlay on the site opens — FAQ answers, the navigation popup, the contact form's sent-state.</p>
+    <p class="lab-src">Same genie, but the answer is now page-coloured with one accent rule — text unfurling on the page, not a box arriving. If this reads right it rolls to the home FAQ and the nav popup.</p>
   </div>
 </section>
 
@@ -202,100 +194,133 @@
   <p class="m">forvr. motion lab · <a href="index.html" style="color: var(--accent);">back to the site</a></p>
 </div>
 
+<div id="passOverlay" aria-hidden="true">
+  <div class="sheet"></div>
+  <div class="edge"></div>
+  <div class="mark">forvr<i>.</i></div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
-  /* 01 Resolve: split chars, arm (blurred), release in a wave on view/replay */
-  var res = document.getElementById('resolveDemo');
-  (function splitChars(el) {
-    // Chars are inline-block, so they must be grouped into nowrap word spans
-    // or the line breaks mid-word ("READS M / ADE" happened).
-    var walk = function (node) {
-      if (node.nodeType === 3) {
-        var frag = document.createDocumentFragment();
-        node.textContent.split(/(\s+)/).forEach(function (part) {
-          if (!part) return;
-          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
-          var w = document.createElement('span');
-          w.style.whiteSpace = 'nowrap'; w.style.display = 'inline-block';
-          part.split('').forEach(function (ch) {
-            var s = document.createElement('span');
-            s.className = 'rc'; s.textContent = ch;
-            w.appendChild(s);
-          });
-          frag.appendChild(w);
-        });
-        node.parentNode.replaceChild(frag, node);
-      } else if (node.nodeType === 1) {
-        [].slice.call(node.childNodes).forEach(walk);
-      }
-    };
-    walk(el);
-  })(res);
-  var chars = res.querySelectorAll('.rc');
-  chars.forEach(function (c, i) { c.style.transitionDelay = (i * 16) + 'ms'; });
-  function playResolve() {
-    if (reduce) return;
-    res.classList.add('is-armed');
-    void res.offsetWidth;
-    requestAnimationFrame(function () { requestAnimationFrame(function () { res.classList.remove('is-armed'); }); });
-  }
-
-  /* 02 Registration: arm rows off-register, snap on view/replay */
-  var reg = document.getElementById('regDemo');
-  function playReg() {
-    if (reduce) return;
-    reg.classList.remove('lab-live');
-    reg.classList.add('lab-armed');
-    void reg.offsetWidth;
-    setTimeout(function () { reg.classList.add('lab-live'); reg.classList.remove('lab-armed'); }, 60);
-  }
-
-  /* 03 Scan wipe */
-  var scan = document.getElementById('scanDemo');
-  function playScan() {
-    if (reduce) return;
-    scan.classList.remove('is-live');
-    scan.classList.add('is-armed');
-    void scan.offsetWidth;
-    requestAnimationFrame(function () { requestAnimationFrame(function () {
-      scan.classList.remove('is-armed');
-      scan.classList.add('is-live');
-    }); });
-  }
-
-  /* Fire each once when it enters view, refire fully off-screen (site rule) */
-  var fires = { resolve: playResolve, reg: playReg, scan: playScan };
-  var seen = {};
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      var k = e.target.getAttribute('data-lab');
-      if (e.isIntersecting && !seen[k]) { seen[k] = true; fires[k](); }
-      else if (!e.isIntersecting) {
-        var r = e.boundingClientRect;
-        if (r.bottom < 0 || r.top > innerHeight) seen[k] = false;
-      }
+  /* 05 PEEK — a film-frame card lerps after the cursor over the rows */
+  (function () {
+    if (!window.matchMedia('(hover: hover)').matches) return;
+    var list = document.getElementById('peekList');
+    var card = document.createElement('div');
+    card.id = 'peekCard';
+    card.innerHTML = '<img alt="" /><span class="chip"></span>';
+    document.body.appendChild(card);
+    var img = card.querySelector('img'), chip = card.querySelector('.chip');
+    var tx = 0, ty = 0, x = 0, y = 0, raf = 0, on = false;
+    function loop() {
+      x += (tx - x) * 0.18; y += (ty - y) * 0.18;
+      card.style.left = (x + 24) + 'px';
+      card.style.top = (y - 150) + 'px';
+      raf = (on || Math.abs(tx - x) > 0.5) ? requestAnimationFrame(loop) : 0;
+    }
+    list.addEventListener('mousemove', function (e) {
+      tx = e.clientX; ty = e.clientY;
+      if (!raf) { x = tx; y = ty; raf = requestAnimationFrame(loop); }
     });
-  }, { rootMargin: '-60px 0px' });
-  res.setAttribute('data-lab', 'resolve'); io.observe(res);
-  reg.setAttribute('data-lab', 'reg'); io.observe(reg);
-  scan.setAttribute('data-lab', 'scan'); io.observe(scan);
+    list.querySelectorAll('.peek-row').forEach(function (row) {
+      row.addEventListener('mouseenter', function () {
+        img.src = row.getAttribute('data-img');
+        chip.textContent = row.getAttribute('data-chip');
+        on = true; card.classList.add('on');
+      });
+    });
+    list.addEventListener('mouseleave', function () { on = false; card.classList.remove('on'); });
+  })();
 
+  /* 06 FRAME COUNT — odometer drums */
+  var fcs = [].slice.call(document.querySelectorAll('.fc'));
+  fcs.forEach(function (fc) {
+    var val = fc.getAttribute('data-value');
+    var digits = fc.querySelector('.digits');
+    val.split('').forEach(function (d) {
+      var wrap = document.createElement('span'); wrap.className = 'digit';
+      var col = document.createElement('span'); col.className = 'col';
+      // one full revolution, then land on the digit
+      var seq = '0123456789'.split('').concat(String(d));
+      seq.forEach(function (n) { var s = document.createElement('span'); s.textContent = n; col.appendChild(s); });
+      wrap.appendChild(col); digits.appendChild(wrap);
+    });
+  });
+  function playFc() {
+    fcs.forEach(function (fc, fi) {
+      fc.querySelectorAll('.digit .col').forEach(function (col, di) {
+        var steps = col.children.length - 1;
+        if (reduce) { col.style.transform = 'translateY(-' + steps + 'em)'; return; }
+        col.style.transition = 'none';
+        col.style.transform = 'translateY(0)';
+        void col.offsetHeight;
+        col.style.transition = 'transform ' + (0.9 + fi * 0.12 + di * 0.08) + 's ' + EASE;
+        col.style.transform = 'translateY(-' + steps + 'em)';
+      });
+    });
+  }
+
+  /* 07 THE PASS — page-transition preview */
+  var ov = document.getElementById('passOverlay');
+  var sheet = ov.querySelector('.sheet'), edge = ov.querySelector('.edge'), mark = ov.querySelector('.mark');
+  function playPass() {
+    if (reduce) return;
+    ov.style.visibility = 'visible';
+    var IN = 'cubic-bezier(0.65,0,0.35,1)';
+    sheet.animate([{ transform: 'translateX(-101%)' }, { transform: 'translateX(0)' }], { duration: 480, easing: IN, fill: 'forwards' });
+    edge.animate([{ left: '0%', opacity: 1 }, { left: '100%', opacity: 1 }], { duration: 480, easing: IN, fill: 'forwards' });
+    mark.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, delay: 380, fill: 'forwards' });
+    setTimeout(function () {
+      // in rollout the next page paints here; in the demo we sweep out again
+      sheet.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(101%)' }], { duration: 480, easing: IN, fill: 'forwards' });
+      edge.animate([{ left: '0%', opacity: 1 }, { left: '100%', opacity: 0 }], { duration: 480, easing: IN, fill: 'forwards' });
+      mark.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: 'forwards' });
+      setTimeout(function () { ov.style.visibility = 'hidden'; }, 520);
+    }, 1000);
+  }
+
+  /* 08 DRIFT — capped parallax, transform only */
+  (function () {
+    if (reduce) return;
+    var imgs = [].slice.call(document.querySelectorAll('[data-drift]'));
+    if (!imgs.length) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      imgs.forEach(function (im) {
+        var r = im.parentElement.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        var p = (r.top + r.height / 2 - innerHeight / 2) / (innerHeight / 2);
+        im.style.transform = 'translateY(' + (p * -10).toFixed(2) + '%)';
+      });
+    }
+    addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  })();
+
+  /* fire-on-view + replays */
+  var fires = { fc: playFc, pass: playPass };
+  var seen = false;
+  new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (e.isIntersecting && !seen) { seen = true; playFc(); }
+      else if (!e.isIntersecting) { var r = e.boundingClientRect; if (r.bottom < 0 || r.top > innerHeight) seen = false; }
+    });
+  }, { rootMargin: '-60px 0px' }).observe(document.getElementById('fcDemo'));
   document.querySelectorAll('.lab-replay').forEach(function (b) {
     b.addEventListener('click', function () { fires[b.getAttribute('data-replay')](); });
   });
 
-  /* 04 FAQ genie */
+  /* 04 genie FAQ */
   var gf = document.getElementById('gfaqDemo');
-  var q = gf.querySelector('.gfaq-q');
-  var a = gf.querySelector('.gfaq-a');
-  var plus = gf.querySelector('.plus');
+  var q = gf.querySelector('.gfaq-q'), a = gf.querySelector('.gfaq-a'), plus = gf.querySelector('.plus');
   q.addEventListener('click', function () {
     var open = gf.classList.contains('open');
     if (!open) {
-      gf.classList.add('open');
-      q.setAttribute('aria-expanded', 'true');
+      gf.classList.add('open'); q.setAttribute('aria-expanded', 'true');
       a.style.visibility = 'visible';
       if (window.forvrGenie) window.forvrGenie(a, plus, true);
     } else {

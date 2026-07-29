@@ -427,6 +427,31 @@ body.page-axis .stat-block > * {
 }
 [data-reveal="pop"].is-revealed { opacity: 1; transform: none; }
 
+/* scan — THE image reveal, approved by Rory off the motion lab and applied
+   site-wide: the image wipes in on the house curve with an accent hairline
+   travelling at the exposure edge, like a scan head passing. One duration,
+   one curve, every image, no exceptions (Obys discipline, our signature). */
+[data-reveal="scan"] {
+  position: relative; overflow: hidden;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.8s var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--rs, 60ms));
+}
+[data-reveal="scan"].is-revealed { clip-path: inset(0 0 0 0); }
+[data-reveal="scan"]::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 2px;
+  background: var(--accent, #5BC2E7); opacity: 0; pointer-events: none;
+}
+[data-reveal="scan"].is-revealed::after {
+  animation: scanEdge 0.8s var(--ease) forwards;
+  animation-delay: calc(var(--i, 0) * var(--rs, 60ms));
+}
+@keyframes scanEdge {
+  0% { left: 0; opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: calc(100% - 2px); opacity: 0; }
+}
+
 /* wipe — a panel uncovering itself. For images and media cards. Direction
    set with data-from. */
 [data-reveal="wipe"] {
@@ -467,6 +492,7 @@ body.page-axis .stat-block > * {
     clip-path: none !important;
     transition: none !important;
   }
+  [data-reveal="scan"]::after { animation: none !important; opacity: 0 !important; }
 }
 
 /* ---------------------------------------------------------------------
