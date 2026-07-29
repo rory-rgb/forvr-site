@@ -404,11 +404,6 @@ body.page-axis .stat-block > * {
 }
 [data-reveal="up"].is-revealed { opacity: 1; transform: none; }
 
-/* seq — an observer hook with no visual of its own. For containers that only
-   need the .is-revealed class so their children's sequence can run, without
-   the container itself also fading or moving. */
-[data-reveal="seq"] { transition: none; }
-
 /* mask — a line of type wiped upward behind its own edge. The premium
    headline move on both reference sites. */
 [data-reveal="mask"] {
@@ -474,89 +469,20 @@ body.page-axis .stat-block > * {
   }
 }
 
-/* =====================================================================
-   SEQUENCED BLOCKS
-   Two treatments for the list-shaped content that was arriving as plain
-   rows. Both are built out of the same idea the reference sites use: the
-   structure draws itself before the content lands, so a list reads as
-   assembled rather than dumped.
-
-   Deliberately only two, and both pure CSS on the existing observer. The
-   brief was "nicer and more premium, don't overcomplicate."
-   ===================================================================== */
-
-/* --- seq-rows: a stacked list ---------------------------------------
-   The rule above each row draws in from the left in the accent, then
-   settles to the normal hairline once it has arrived. Row content rises
-   behind it. Put .seq-rows on the container and data-reveal on each row.
-   -------------------------------------------------------------------- */
-.seq-rows > * { position: relative; border-top-color: transparent !important; }
-.seq-rows > *::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: var(--accent, #5BC2E7);
-  transform: scaleX(0); transform-origin: 0 50%;
-  transition:
-    transform 0.55s var(--ease),
-    background-color 0.5s ease 0.55s;      /* settles only after it lands */
-  transition-delay: calc(var(--i, 0) * 90ms);
-  pointer-events: none;
+/* ---------------------------------------------------------------------
+   Genie surfaces. The panel keeps opacity 1 and lets the clip do the
+   reveal, otherwise the old opacity transition fights the animation.
+   Closed state hides via visibility, which JS holds 'visible' while the
+   close animation plays out.
+   --------------------------------------------------------------------- */
+.ask-fab-panel {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  clip-path: polygon(0 100%, 0 100%, 0 100%);
+  visibility: hidden;
 }
-.seq-rows > *.is-revealed::after {
-  transform: scaleX(1);
-  background-color: var(--line, #e5e5e5);
-}
-/* The row's own number leads the content in. */
-.seq-rows .fq-num,
-.seq-rows .ch-fact-n {
-  display: inline-block;
-  transition: transform 0.5s var(--ease), opacity 0.5s var(--ease);
-  transition-delay: calc(var(--i, 0) * 90ms + 0.18s);
-}
-.seq-rows > :not(.is-revealed) .fq-num,
-.seq-rows > :not(.is-revealed) .ch-fact-n { opacity: 0; transform: translateY(6px); }
-
-/* --- seq-track: a row of stages on a drawn line ----------------------
-   One line draws the full width, then each stage drops a marker onto it
-   and its copy rises. This is the "how a job runs" shape.
-   -------------------------------------------------------------------- */
-.seq-track { position: relative; }
-.seq-track::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: var(--line, #e5e5e5);
-  transform: scaleX(0); transform-origin: 0 50%;
-  transition: transform 0.9s var(--ease);
-}
-.seq-track.is-revealed::before { transform: scaleX(1); }
-
-.seq-track > * { position: relative; border-top-color: transparent !important; }
-/* the marker that lands on the line */
-.seq-track > *::before {
-  content: '';
-  position: absolute; top: -3px; left: 0;
-  width: 7px; height: 7px; background: var(--accent, #5BC2E7);
-  opacity: 0; transform: translateY(-8px);
-  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
-  /* offset past the line's own draw so the markers land ON it, not before */
-  transition-delay: calc(0.35s + var(--i, 0) * 110ms);
-}
-.seq-track.is-revealed > *::before { opacity: 1; transform: none; }
-
-.seq-track > * > * {
-  opacity: 0; transform: translateY(12px);
-  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
-  transition-delay: calc(0.45s + var(--i, 0) * 110ms);
-}
-.seq-track.is-revealed > * > * { opacity: 1; transform: none; }
-
+.ask-fab.open .ask-fab-panel { visibility: visible; }
 @media (prefers-reduced-motion: reduce) {
-  .seq-rows > *::after,
-  .seq-track::before,
-  .seq-track > *::before,
-  .seq-track > * > * {
-    transform: none !important; opacity: 1 !important; transition: none !important;
-  }
-  .seq-rows > *::after { background-color: var(--line, #e5e5e5); }
-  .seq-rows .fq-num, .seq-rows .ch-fact-n { opacity: 1 !important; transform: none !important; }
+  .ask-fab-panel { clip-path: none; }
 }

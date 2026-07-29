@@ -936,19 +936,35 @@
       padding: 28px;
       display: flex; flex-direction: column; justify-content: center;
       z-index: 4;
-      opacity: 0;
-      transform: translateY(24px);
+      /* Revealed by the genie clip, not by opacity — a fade on top of the
+         clip animation reads as two effects. */
+      visibility: hidden;
+      clip-path: polygon(0 100%, 0 100%, 0 100%);
       pointer-events: none;
-      transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1), transform 0.55s cubic-bezier(0.22,1,0.36,1);
       overflow-y: auto;
     }
-    .svc-tile.is-revealed .svc-reveal {
-      opacity: 1;
-      transform: translateY(0);
+    .svc-tile.is-open .svc-reveal {
+      visibility: visible;
       pointer-events: auto;
     }
-    .svc-tile.is-revealed .overlay { opacity: 0; pointer-events: none; }
-    .svc-tile.is-revealed .bg { transform: scale(1.06); filter: brightness(0.45) contrast(1.05); }
+    /* The inner copy rises once the panel has unfurled. */
+    .svc-tile .svc-reveal .reveal-inner {
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .svc-tile.is-open .svc-reveal .reveal-inner {
+      opacity: 1; transform: none;
+      transition: opacity 0.35s ease 0.3s, transform 0.35s cubic-bezier(0.22,1,0.36,1) 0.3s;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .svc-tile .svc-reveal { clip-path: none; }
+      /* Must match the .is-open rule's specificity or its 0.3s transition
+         delay still applies and the text arrives late. */
+      .svc-tile .svc-reveal .reveal-inner,
+      .svc-tile.is-open .svc-reveal .reveal-inner { opacity: 1; transform: none; transition: none; }
+    }
+    .svc-tile.is-open .overlay { opacity: 0; pointer-events: none; }
+    .svc-tile.is-open .bg { transform: scale(1.06); filter: brightness(0.45) contrast(1.05); }
 
     .svc-tile .svc-reveal .svc-close {
       position: absolute;
@@ -971,7 +987,7 @@
       transform: translateY(16px);
       transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1) 0.1s, transform 0.55s cubic-bezier(0.22,1,0.36,1) 0.1s;
     }
-    .svc-tile.is-revealed .svc-reveal .reveal-inner {
+    .svc-tile.is-open .svc-reveal .reveal-inner {
       opacity: 1; transform: translateY(0);
     }
     .svc-tile .svc-reveal .num {
@@ -1141,7 +1157,9 @@
     const closeAll = (except) => {
       tiles.forEach((t) => {
         if (t !== except) {
-          t.classList.remove('is-revealed');
+          t.classList.remove('is-open');
+          const r = t.querySelector('.svc-reveal');
+          if (r) { r.style.visibility = ''; r.style.clipPath = ''; }
           const btn = t.querySelector('.svc-toggle');
           if (btn) btn.setAttribute('aria-expanded', 'false');
           const reveal = t.querySelector('.svc-reveal');
@@ -1154,34 +1172,47 @@
       const toggle = tile.querySelector('.svc-toggle');
       const close = tile.querySelector('.svc-close');
       const reveal = tile.querySelector('.svc-reveal');
+      const genieOpen = () => {
+        closeAll(tile);
+        tile.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        reveal.setAttribute('aria-hidden', 'false');
+        reveal.style.visibility = 'visible';
+        if (window.forvrGenie) window.forvrGenie(reveal, toggle, true);
+      };
+      const genieClose = () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        reveal.setAttribute('aria-hidden', 'true');
+        // Suck the panel back into the Read button, then drop the state class.
+        reveal.style.visibility = 'visible';
+        const finish = () => { reveal.style.visibility = ''; tile.classList.remove('is-open'); };
+        if (window.forvrGenie) window.forvrGenie(reveal, toggle, false, finish); else finish();
+      };
+      tile.__genieClose = genieClose;
       if (toggle) {
         toggle.addEventListener('click', (e) => {
           e.stopPropagation();
-          const wasOpen = tile.classList.contains('is-revealed');
-          closeAll(wasOpen ? null : tile);
-          tile.classList.toggle('is-revealed', !wasOpen);
-          toggle.setAttribute('aria-expanded', String(!wasOpen));
-          if (reveal) reveal.setAttribute('aria-hidden', String(wasOpen));
+          tile.classList.contains('is-open') ? genieClose() : genieOpen();
         });
       }
       if (close) {
-        close.addEventListener('click', (e) => {
-          e.stopPropagation();
-          tile.classList.remove('is-revealed');
-          if (toggle) toggle.setAttribute('aria-expanded', 'false');
-          if (reveal) reveal.setAttribute('aria-hidden', 'true');
-        });
+        // The x also genies the panel back into the Read button.
+        close.addEventListener('click', (e) => { e.stopPropagation(); genieClose(); });
       }
     });
 
+    const closeOpenAnimated = () => {
+      const openTile = document.querySelector('.svc-tile.is-open');
+      if (openTile && openTile.__genieClose) openTile.__genieClose();
+    };
     // Click outside any tile closes the active one
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.svc-tile')) closeAll(null);
+      if (!e.target.closest('.svc-tile')) closeOpenAnimated();
     });
 
     // Escape key closes the active one
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeAll(null);
+      if (e.key === 'Escape') closeOpenAnimated();
     });
   })();
 
@@ -1193,7 +1224,7 @@
       var tile = document.getElementById(h);
       if(!tile) return;
       document.querySelectorAll('.svc-tile').forEach(function(t){
-        if(t!==tile){ t.classList.remove('is-revealed'); }
+        if(t!==tile){ t.classList.remove('is-open'); }
       });
       tile.classList.add('is-revealed');
       var tg = tile.querySelector('.svc-toggle'); if(tg) tg.setAttribute('aria-expanded','true');

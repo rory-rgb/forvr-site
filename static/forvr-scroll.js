@@ -46,16 +46,6 @@
       }
     });
 
-    // Sequenced blocks index ALL their children, not just kit ones, because
-    // the row rule and the stage marker are pseudo-elements on children that
-    // carry no data-reveal of their own.
-    [].forEach.call(document.querySelectorAll('.seq-rows, .seq-track'), function (group) {
-      var kids = group.children;
-      for (var i = 0; i < kids.length; i++) {
-        if (!kids[i].style.getPropertyValue('--i')) kids[i].style.setProperty('--i', i);
-      }
-    });
-
     // Split short headlines into characters. Long strings are left alone:
     // per-character motion on a full sentence reads as noise, and it would
     // also mean hundreds of extra spans.
@@ -89,9 +79,114 @@
     nodes.forEach(function (n) { io.observe(n); });
   }
 
+  /* ---------------- Genie ----------------
+     The macOS minimise move: a panel is sucked out of (or back into) a
+     button, sides bowing toward the neck while it travels. Rory asked for
+     it by name on the services tiles and the same primitive drives the
+     Ask AI popup, so it lives here rather than per page.
+
+     Pure clip-path polygon on rAF, no libraries. The panel must be
+     position:absolute/fixed with its final box already laid out; this
+     only animates the clip, so layout never thrashes. Reduced motion
+     gets an instant cut. */
+  window.forvrGenie = function (panel, anchor, open, done) {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (panel.__genieRaf) { cancelAnimationFrame(panel.__genieRaf); panel.__genieRaf = 0; }
+    if (reduce) {
+      panel.style.clipPath = open ? 'none' : 'polygon(0 100%, 0 100%, 0 100%)';
+      if (done) done();
+      return;
+    }
+    var pr = panel.getBoundingClientRect();
+    var ar = anchor.getBoundingClientRect();
+    if (!pr.width || !pr.height) { if (done) done(); return; }
+    // Neck: the anchor button's x-range projected onto the panel's nearest
+    // horizontal edge (bottom if the button sits below the panel's centre).
+    var n0 = Math.max(0, Math.min(96, ((ar.left - pr.left) / pr.width) * 100));
+    var n1 = Math.max(n0 + 4, Math.min(100, ((ar.right - pr.left) / pr.width) * 100));
+    var fromBottom = (ar.top + ar.height / 2) > (pr.top + pr.height / 2);
+    var DUR = open ? 520 : 400;
+    var t0 = performance.now();
+    var K = 7; // samples per curved side
+
+    function poly(p) {
+      // p: 0 = fully in the button, 1 = full panel
+      var topY = 100 * (1 - p);
+      var TL = n0 * (1 - p);
+      var TR = n1 + (100 - n1) * p;
+      var q = Math.max(0, Math.min(1, (p - 0.55) / 0.45)); // neck releases late
+      var BL = n0 * (1 - q);
+      var BR = n1 + (100 - n1) * q;
+      var bow = (1 - p); // how hard the sides hug the neck
+      var pts = [];
+      // left side, bottom -> top, quadratic bezier bowed toward the neck
+      for (var i = 0; i <= K; i++) {
+        var t = i / K;
+        var cx = TL + (BL - TL) * bow * 0.85;   // control pulled toward the neck
+        var x = (1 - t) * (1 - t) * BL + 2 * (1 - t) * t * cx + t * t * TL;
+        var y = 100 + (topY - 100) * t;
+        pts.push(x.toFixed(2) + '% ' + y.toFixed(2) + '%');
+      }
+      // top edge
+      pts.push(TR.toFixed(2) + '% ' + topY.toFixed(2) + '%');
+      // right side, top -> bottom
+      for (var j = K; j >= 0; j--) {
+        var t2 = j / K;
+        var cx2 = TR + (BR - TR) * bow * 0.85;
+        var x2 = (1 - t2) * (1 - t2) * BR + 2 * (1 - t2) * t2 * cx2 + t2 * t2 * TR;
+        var y2 = 100 + (topY - 100) * t2;
+        pts.push(x2.toFixed(2) + '% ' + y2.toFixed(2) + '%');
+      }
+      if (!fromBottom) {
+        // Mirror vertically for a panel that opens downward from its anchor.
+        pts = pts.map(function (pt) {
+          var m = pt.split(' ');
+          return m[0] + ' ' + (100 - parseFloat(m[1])).toFixed(2) + '%';
+        });
+      }
+      return 'polygon(' + pts.join(', ') + ')';
+    }
+
+    function frame(now) {
+      var raw = Math.max(0, Math.min(1, (now - t0) / DUR));
+      var e = open ? (1 - Math.pow(1 - raw, 4))        // fast out of the button, soft landing
+                   : Math.pow(1 - raw, 3);             // eases back in and accelerates home
+      panel.style.clipPath = poly(open ? e : e);
+      if (raw < 1) { panel.__genieRaf = requestAnimationFrame(frame); return; }
+      panel.__genieRaf = 0;
+      if (open) panel.style.clipPath = 'none';
+      if (done) done();
+    }
+    panel.style.clipPath = poly(open ? 0 : 1);
+    panel.__genieRaf = requestAnimationFrame(frame);
+  };
+
   /* ---------------- Rail and progress ---------------- */
   document.addEventListener('DOMContentLoaded', function () {
     initRevealKit();
+
+    // Ask AI popup rides the genie. The FAB's own inline script just toggles
+    // .open; we watch that class and run the clip animation around it, so the
+    // seven per-page copies of that script stay untouched.
+    (function genieFab() {
+      var fab = document.getElementById('askFab');
+      var panel = document.getElementById('askFabPanel');
+      var btn = document.getElementById('askFabToggle');
+      if (!fab || !panel || !btn || !window.forvrGenie) return;
+      var was = fab.classList.contains('open');
+      new MutationObserver(function () {
+        var is = fab.classList.contains('open');
+        if (is === was) return;
+        was = is;
+        if (is) {
+          panel.style.visibility = 'visible';
+          window.forvrGenie(panel, btn, true);
+        } else {
+          panel.style.visibility = 'visible';
+          window.forvrGenie(panel, btn, false, function () { panel.style.visibility = ''; });
+        }
+      }).observe(fab, { attributes: true, attributeFilter: ['class'] });
+    })();
 
     var chapters = [].slice.call(document.querySelectorAll('[data-chapter]'));
 
