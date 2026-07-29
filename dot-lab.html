@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>The dot — hero prototype · forvr.</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+<style>
+  @font-face {
+    font-family: "BringBold Nineties";
+    src: url("static/fonts/BringBold-Nineties.woff2") format("woff2");
+    font-display: swap;
+  }
+  :root {
+    --bg: #fafafa; --fg: #0a0a0a; --muted: #6a6a6a; --line: #e5e5e5; --accent: #5BC2E7;
+    --display: "BringBold Nineties", "Anton", sans-serif;
+    --body: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  .d { font-family: var(--display); font-weight: 900; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.02em; }
+  .m { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+  /* =================================================================
+     THE DOT — Forvr's answer to Droppable's travelling chess piece.
+     Their persistent object is their logo (a chess piece). Ours is the
+     accent full stop that already ends every Forvr statement. One dot
+     lives on the page: it opens as a huge soft sphere behind the hero
+     wordmark, shrinks and travels down the page docking into each
+     chapter marker, and finally lands as the literal full stop of the
+     closing line. The page ends when the sentence does.
+     ================================================================= */
+  #theDot {
+    position: fixed; left: 0; top: 0; z-index: 30;
+    width: 100px; height: 100px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 32% 30%, #d6f1fb 0%, #8fd8f2 28%, #5BC2E7 62%, #2f96c4 100%);
+    box-shadow:
+      inset -14px -18px 34px rgba(10, 60, 84, 0.25),
+      0 18px 60px rgba(91, 194, 231, 0.35);
+    pointer-events: none;
+    will-change: transform;
+  }
+  /* Anchors the dot flies between. Sized boxes in the text flow, so the
+     dot can dock EXACTLY where a full stop would sit. */
+  .dot-stop { display: inline-block; position: relative; }
+  /* Reduced motion: no travelling dot; every stop renders its own static dot. */
+  @media (prefers-reduced-motion: reduce) {
+    #theDot { display: none; }
+    .dot-stop::after {
+      content: ''; position: absolute; inset: 12%; border-radius: 50%;
+      background: var(--accent);
+    }
+  }
+
+  .sec { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 96px 24px; border-top: 1px solid var(--line); text-align: center; position: relative; }
+
+  /* hero */
+  .hero { background: #070707; color: #f5f5f5; border-top: 0; }
+  .hero .wordmark { font-size: clamp(96px, 17vw, 260px); position: relative; z-index: 40; }
+  .hero .kicker { margin-top: 26px; color: rgba(245,245,245,0.72); z-index: 40; position: relative; }
+  .hero .statement { margin-top: 14px; font-size: clamp(17px, 1.6vw, 24px); max-width: 34ch; color: rgba(245,245,245,0.92); z-index: 40; position: relative; }
+  /* the hero stop sits flush after the wordmark's final r */
+  .hero .dot-stop { width: 0.16em; height: 0.16em; vertical-align: baseline; margin-left: 0.03em; }
+
+  .chapter-mark { display: inline-flex; align-items: center; gap: 12px; }
+  .chapter-mark .dot-stop { width: 12px; height: 12px; }
+  .sec h2 { font-size: clamp(40px, 6vw, 96px); max-width: 16ch; margin-top: 22px; }
+  .sec p.body { margin-top: 24px; max-width: 56ch; color: rgba(10,10,10,0.66); line-height: 1.7; }
+
+  .band { min-height: 60vh; background: #070707; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .band img { width: min(760px, 86vw); display: block; }
+
+  /* the end: the dot lands as the full stop of the line */
+  .fin h2 { font-size: clamp(56px, 9vw, 150px); }
+  .fin .dot-stop { width: 0.13em; height: 0.13em; margin-left: 0.04em; }
+  .fin .sub { margin-top: 26px; }
+
+  .note { padding: 64px 24px 96px; text-align: center; border-top: 1px solid var(--line); }
+  .note p { max-width: 62ch; margin: 0 auto; font-size: 13px; color: rgba(10,10,10,0.55); line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<div id="theDot" aria-hidden="true"></div>
+
+<section class="sec hero">
+  <h1 class="d wordmark">forvr<span class="dot-stop" data-dot data-dot-scale="hero"></span></h1>
+  <p class="m kicker">Creative studio · Reading · Vol. 01 / 2026</p>
+  <p class="statement">The dot on our name is the studio: it follows the work all the way down the page.</p>
+</section>
+
+<section class="sec">
+  <span class="chapter-mark m"><span class="dot-stop" data-dot data-dot-scale="mark"></span> 01 &nbsp;/&nbsp; The studio</span>
+  <h2 class="d">Creative that reads made, not generated</h2>
+  <p class="body">On the real homepage this is Chapter 01. The dot that was the full stop of the wordmark has shrunk and docked here as the chapter's marker. Scroll on and it moves to the next post.</p>
+</section>
+
+<section class="sec">
+  <span class="chapter-mark m"><span class="dot-stop" data-dot data-dot-scale="mark"></span> 02 &nbsp;/&nbsp; Why forvr</span>
+  <h2 class="d">Most AI content looks like the model that made it</h2>
+  <p class="body">Between chapters the dot is in flight, so the scroll reads as one continuous journey rather than separate screens. It always eases on the house curve, never teleports.</p>
+</section>
+
+<div class="band">
+  <img src="forvr%20docs/small%20circle/Studio-Shoot/opt-14.jpg" alt="Small Circle frame" />
+</div>
+
+<section class="sec fin">
+  <span class="chapter-mark m"><span class="dot-stop" data-dot data-dot-scale="mark"></span> 03 &nbsp;/&nbsp; Contact</span>
+  <h2 class="d">Create more<span class="dot-stop" data-dot data-dot-scale="fin"></span></h2>
+  <p class="m sub">The page ends when the sentence does: the dot lands as the full stop.</p>
+</section>
+
+<div class="note">
+  <p>Prototype of the travelling-dot hero for forvr.org, our version of the droppablestudio.com chess piece. Theirs is their logo in 3D; ours is the accent full stop the site already ends every sentence with. One object, four docks: wordmark → chapter markers → the final full stop of "Create more." Pure DOM, no WebGL, reduced motion gets static dots.</p>
+</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var dot = document.getElementById('theDot');
+  if (reduce || !dot) return;
+
+  var SCALES = { hero: null, mark: null, fin: null }; // resolved from stop boxes
+  var stops = [];
+
+  function measure() {
+    stops = [].map.call(document.querySelectorAll('[data-dot]'), function (el) {
+      var r = el.getBoundingClientRect();
+      return {
+        x: r.left + r.width / 2 + scrollX,
+        y: r.top + r.height / 2 + scrollY,
+        s: Math.max(8, r.width) / 100          // dot base is 100px
+      };
+    });
+    // The hero stop docks at a huge scale first: the dot OPENS as a sphere
+    // behind the wordmark, then shrinks INTO the full-stop box as you scroll.
+    if (stops.length) {
+      var hero = stops[0];
+      stops.unshift({ x: innerWidth / 2 + scrollX, y: hero.y - innerHeight * 0.06, s: Math.min(innerWidth, 900) * 0.62 / 100, intro: true });
+    }
+  }
+
+  // Scroll position at which each stop "owns" the dot: when the stop's y
+  // sits at 42% of the viewport. Clamped to the scrollable range.
+  function ownerScroll(stop) {
+    var max = document.documentElement.scrollHeight - innerHeight;
+    return Math.max(0, Math.min(max, stop.y - innerHeight * 0.42));
+  }
+
+  var cx = 0, cy = 0, cs = 1;
+  function frame() {
+    var sy = scrollY;
+    // find the segment
+    var i = 0;
+    while (i < stops.length - 1 && sy > ownerScroll(stops[i + 1])) i++;
+    var a = stops[i], b = stops[Math.min(i + 1, stops.length - 1)];
+    var sa = ownerScroll(a), sb = ownerScroll(b);
+    var t = sb > sa ? Math.max(0, Math.min(1, (sy - sa) / (sb - sa))) : 1;
+    // ease the path, and arc it slightly so travel reads as flight not slide
+    var e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    var tx = a.x + (b.x - a.x) * e;
+    var ty = a.y + (b.y - a.y) * e - Math.sin(e * Math.PI) * innerHeight * 0.05;
+    var ts = a.s + (b.s - a.s) * e;
+    // lerp toward target so fast scrolls stay silky
+    cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22; cs += (ts - cs) * 0.22;
+    dot.style.transform = 'translate(' + (cx - scrollX - 50) + 'px,' + (cy - sy - 50) + 'px) scale(' + cs + ')';
+    requestAnimationFrame(frame);
+  }
+
+  function boot() {
+    measure();
+    if (!stops.length) return;
+    cx = stops[0].x; cy = stops[0].y; cs = stops[0].s;
+    requestAnimationFrame(frame);
+  }
+  addEventListener('resize', measure);
+  if (document.readyState === 'complete') boot();
+  else addEventListener('load', boot);
+})();
+</script>
+</body>
+</html>
