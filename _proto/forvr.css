@@ -473,3 +473,41 @@ a:hover > .card-media img, a:hover > .card-media video,
   .js .rv { opacity: 1; transform: none; }
   .peek { display: none; }
 }
+
+/* =====================================================================
+   THEME LINK (2026-07-29) — the case pages read as a different site:
+   the display face never appeared below the hero (section heads were
+   12px mono labels) and nothing sat on the centred axis the rest of the
+   site uses. These overrides pull them into the family. Appended last so
+   they win on order inside this file; hero rules carry extra specificity
+   because the hero styles live inline in each page.
+   ===================================================================== */
+
+/* Section heads: mono eyebrow above, BringBold headline below, centred. */
+.head {
+  flex-direction: column-reverse;
+  align-items: center; justify-content: center;
+  text-align: center; gap: var(--s3);
+  border-bottom: 0;
+}
+.head h2.label {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(34px, 4.6vw, 72px); line-height: 0.92; letter-spacing: -0.02em;
+  color: var(--fg);
+}
+.dark .head h2.label, .band .head h2.label { color: #fff; }
+/* the eyebrow gets the site's chapter-marker square */
+.head span.label { display: inline-flex; align-items: center; gap: 10px; }
+.head span.label::before {
+  content: ''; width: 7px; height: 7px; background: var(--accent); flex: 0 0 auto;
+}
+
+/* Standing copy and fact rows sit on the axis. */
+.lead { margin-inline: auto; text-align: center; }
+.facts { text-align: center; }
+
+/* Hero: centred on the axis, headline at full display scale. */
+header.case-hero .case-hero-inner {
+  align-items: center; text-align: center;
+}
+header.case-hero h1.display { font-size: var(--t-hero); }

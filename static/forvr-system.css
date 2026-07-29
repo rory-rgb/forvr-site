@@ -534,7 +534,11 @@ img[data-drift] { will-change: transform; }
    studio rows). */
 details.faq-item .faq-body {
   border-left: 2px solid var(--accent, #5BC2E7);
-  padding-left: 18px;
+  /* The rule must end level with the last line of text. Bottom padding sits
+     INSIDE the border box, so any of it drags the rule past the copy into
+     white space — spacing below is margin, never padding. */
+  padding: 0 0 0 18px !important;
+  margin-bottom: 26px;
   overflow: hidden;
 }
 
@@ -542,8 +546,6 @@ details.faq-item .faq-body {
 #forvrPass { position: fixed; inset: 0; z-index: 300; pointer-events: none; visibility: hidden; }
 #forvrPass .sheet { position: absolute; inset: 0; background: var(--bg, #fafafa); transform: translateX(-101%); }
 #forvrPass .edge { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--accent, #5BC2E7); left: 0; opacity: 0; }
-#forvrPass .mark { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--display); font-weight: 900; font-size: 30px; text-transform: uppercase; opacity: 0; color: var(--fg, #0a0a0a); }
-#forvrPass .mark i { color: var(--accent, #5BC2E7); font-style: normal; }
 
 /* Nav popup rides the genie, same contract as the Ask AI panel. */
 .floating-nav .nav-menu {

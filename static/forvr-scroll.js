@@ -287,9 +287,9 @@
     var ov = document.createElement('div');
     ov.id = 'forvrPass';
     ov.setAttribute('aria-hidden', 'true');
-    ov.innerHTML = '<div class="sheet"></div><div class="edge"></div><div class="mark">forvr<i>.</i></div>';
+    ov.innerHTML = '<div class="sheet"></div><div class="edge"></div>';
     document.body.appendChild(ov);
-    var sheet = ov.querySelector('.sheet'), edge = ov.querySelector('.edge'), mark = ov.querySelector('.mark');
+    var sheet = ov.querySelector('.sheet'), edge = ov.querySelector('.edge');
     var EASE = 'cubic-bezier(0.65,0,0.35,1)';
     var leaving = false;
 
@@ -299,9 +299,9 @@
       ov.style.visibility = 'visible';
       sheet.style.transform = 'translateX(0)';
       requestAnimationFrame(function () {
-        sheet.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(101%)' }], { duration: 460, easing: EASE, fill: 'forwards' });
-        edge.animate([{ left: '0%', opacity: 1 }, { left: '100%', opacity: 0 }], { duration: 460, easing: EASE, fill: 'forwards' });
-        setTimeout(function () { ov.style.visibility = 'hidden'; sheet.style.transform = ''; }, 500);
+        sheet.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(101%)' }], { duration: 300, easing: EASE, fill: 'forwards' });
+        edge.animate([{ left: '0%', opacity: 1 }, { left: '100%', opacity: 0 }], { duration: 300, easing: EASE, fill: 'forwards' });
+        setTimeout(function () { ov.style.visibility = 'hidden'; sheet.style.transform = ''; }, 340);
       });
     }
 
@@ -319,10 +319,11 @@
       leaving = true;
       sessionStorage.setItem('forvrPass', '1');
       ov.style.visibility = 'visible';
-      sheet.animate([{ transform: 'translateX(-101%)' }, { transform: 'translateX(0)' }], { duration: 420, easing: EASE, fill: 'forwards' });
-      edge.animate([{ left: '0%', opacity: 1 }, { left: '100%', opacity: 1 }], { duration: 420, easing: EASE, fill: 'forwards' });
-      mark.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, delay: 320, fill: 'forwards' });
-      setTimeout(function () { location.href = a.href; }, 480);
+      // Loader-quick, per Rory: no wordmark, no held beat. Cover in ~0.24s,
+      // go, and the arriving page sweeps itself clear in ~0.3s.
+      sheet.animate([{ transform: 'translateX(-101%)' }, { transform: 'translateX(0)' }], { duration: 240, easing: EASE, fill: 'forwards' });
+      edge.animate([{ left: '0%', opacity: 1 }, { left: '100%', opacity: 1 }], { duration: 240, easing: EASE, fill: 'forwards' });
+      setTimeout(function () { location.href = a.href; }, 260);
     });
 
     // Back-forward cache restores mid-transition state; reset it.
