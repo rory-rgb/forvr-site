@@ -46,6 +46,16 @@
       }
     });
 
+    // Sequenced blocks index ALL their children, not just kit ones, because
+    // the row rule and the stage marker are pseudo-elements on children that
+    // carry no data-reveal of their own.
+    [].forEach.call(document.querySelectorAll('.seq-rows, .seq-track'), function (group) {
+      var kids = group.children;
+      for (var i = 0; i < kids.length; i++) {
+        if (!kids[i].style.getPropertyValue('--i')) kids[i].style.setProperty('--i', i);
+      }
+    });
+
     // Split short headlines into characters. Long strings are left alone:
     // per-character motion on a full sentence reads as noise, and it would
     // also mean hundreds of extra spans.
