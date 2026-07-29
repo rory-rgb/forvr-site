@@ -78,7 +78,7 @@
   /* Sticky-steps block */
   .sticky-block { padding: 0 24px; margin-bottom: 32px; }
   @media (min-width: 768px) { .sticky-block { padding: 0 40px; margin-bottom: 40px; } }
-  @media (min-width: 768px) { .sticky-block { padding: 0 40px; margin-bottom: 192px; } }
+  @media (min-width: 768px) { .sticky-block { padding: 0 40px; margin-bottom: 96px; } }
   .sticky-block .row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
   .sticky-block .card-col { grid-column: span 12; margin-bottom: 40px; }
   .sticky-block .steps-col { grid-column: span 12; }
@@ -150,8 +150,8 @@
   .reveal-line.r-img.is-in { opacity: 1; }
 
   /* Step block (right column) */
-  .step { min-height: 70vh; display: flex; align-items: center; padding: 24px 0; }
-  @media (min-width: 768px) { .step { min-height: 80vh; } }
+  .step { min-height: 46vh; display: flex; align-items: center; padding: 18px 0; }
+  @media (min-width: 768px) { .step { min-height: 52vh; } }
   .step .content { opacity: 0; transform: translateY(30px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); max-width: 520px; }
   .step.is-in .content { opacity: 1; transform: none; }
   .step .eyebrow { margin-bottom: 20px; }
@@ -553,7 +553,7 @@
   <!-- Hero — text-knockout sticky scroll: "SIX MOVES" letters punched out of a white panel,
        video behind. As you scroll, the text mask scales until the video fills the screen,
        then the body paragraph fades in. -->
-  <section class="proc-knockout-outer" aria-label="Process hero">
+  <section id="p-intro" class="proc-knockout-outer" aria-label="Process hero" data-chapter="Process">
     <div class="proc-knockout-pin">
       <video poster="forvr%20docs/site-images/supplied/opt-proccess.poster.jpg" class="proc-knockout-video"
              src="forvr%20docs/site-images/supplied/opt-proccess.mp4"
@@ -662,7 +662,7 @@
     /* === Text-knockout sticky hero ====================================== */
     .proc-knockout-outer {
       position: relative;
-      height: 320vh;            /* scroll budget: ~3 viewports of progress */
+      height: 165vh;            /* scroll budget: ~0.65vp of progress after the pin */
       background: #f5f5f5;
     }
     .proc-knockout-pin {
@@ -778,7 +778,7 @@
   </style>
 
   <!-- Sticky VISION card + steps -->
-  <section class="sticky-block">
+  <section id="p-moves" class="sticky-block" data-chapter="01 / The six moves">
     <div class="row">
       <div class="card-col">
         <div class="sticky-inner">
@@ -802,8 +802,8 @@
       </div>
 
       <div class="steps-col" data-stagger>
-        <div class="step" data-step="0" data-image="for%20placeholders/opt-rwhypervail_Subject_The_same_male_fashion_model_unchanged_sty_b00f3fde-c902-4089-8e44-5809bb7ee208_2.jpg" data-version="DNA 0.1" data-res="Audit" data-treatment="ph-outline" data-prompt="Reference stack: 24 still frames pulled from your last three campaigns plus adjacent brands you've cited. Output: palette matrix (six anchor colours plus treatment range), composition logic, tonal register. Captured before we touch a prompt.">
-          <div class="content" data-reveal="up">
+        <div class="step" data-step="0" data-image="for%20placeholders/opt-rwhypervail_Subject_The_same_male_fashion_model_unchanged_sty_b00f3fde-c902-4089-8e44-5809bb7ee208_2.jpg" data-version="DNA 0.1" data-res="Audit" data-treatment="ph-outline" data-prompt="Cinematic fashion campaign film still. A young man stands square to camera in a bare white studio, hood up, hands in his pockets, weight on one leg. Sheets of translucent polythene hang and drift across the frame, one crossing low in the foreground. A single ceiling light panel burns out behind his head. Add visible micro pores, peach fuzz and stubble to his skin, and keep the grid-check nylon and the crushed plastic reading sharp. 35mm film, fine grain, cold green cast, heavy shadow.">
+          <div class="content">
             <p class="m m-accent eyebrow" data-reveal="up">Step / 01</p>
             <div class="head">
               <span class="num">01</span>
@@ -814,8 +814,8 @@
           </div>
         </div>
 
-        <div class="step" data-step="1" data-image="for%20placeholders/opt-2.jpg" data-version="MOOD 0.3" data-res="v3" data-treatment="ph-dark" data-prompt="Moodboard v0.3: streetwear editorial crossed with interior architecture. Palette anchored cool teal, bone, oxidised copper. Lighting register: hard sunlight at low angle. Camera: 35mm prime. Grain: 400-speed analogue. Signed off before we train.">
-          <div class="content" data-reveal="up">
+        <div class="step" data-step="1" data-image="for%20placeholders/opt-2.jpg" data-version="MOOD 0.3" data-res="v3" data-treatment="ph-dark" data-prompt="Premium fashion editorial ad close-up. A woman shot from behind reaches both arms up to a washing line strung across a white wall, wrists crossed over the cord. Her hair is set in pink rollers. Two pale blue lace bras hang pegged either side of her, evenly spaced. Keep the mesh cut-outs and the lace stitch reading, and add fine skin texture and peach fuzz across her shoulders. Medium format, soft daylight, powder blue, clean white ground.">
+          <div class="content">
             <p class="m m-accent eyebrow" data-reveal="up">Step / 02</p>
             <div class="head">
               <span class="num">02</span>
@@ -826,8 +826,8 @@
           </div>
         </div>
 
-        <div class="step" data-step="2" data-image="for%20placeholders/opt-rwhypervail_A_full-body_studio_fashion_photograph_of_a_black__b8b56a8e-dda5-46e6-b653-001af4ea8db2_1.jpg" data-version="MODEL 1.4" data-res="Fine-tune" data-treatment="ph-bright" data-prompt="Fine-tune v1.4: 1,800 brand-curated frames plus 240 negative examples. Target style: editorial fashion documentary. Iteration: 12,000 steps. Inference resolution: 4096 by 6144. Sampler: DPM++ 2M Karras.">
-          <div class="content" data-reveal="up">
+        <div class="step" data-step="2" data-image="for%20placeholders/opt-rwhypervail_A_full-body_studio_fashion_photograph_of_a_black__b8b56a8e-dda5-46e6-b653-001af4ea8db2_1.jpg" data-version="MODEL 1.4" data-res="Fine-tune" data-treatment="ph-bright" data-prompt="Premium fashion editorial ad close-up. A young man head on to camera, cropped just below the collarbone, chin level, eyes straight down the lens. A small hoop through the nose, a stud below the lower lip, a thin chain at the throat. Add visible micro pores, peach fuzz and stubble to his skin, and let the light rake across one cheek so the texture holds. Black and white, medium format, soft window light, deep contrast.">
+          <div class="content">
             <p class="m m-accent eyebrow" data-reveal="up">Step / 03</p>
             <div class="head">
               <span class="num">03</span>
@@ -838,8 +838,8 @@
           </div>
         </div>
 
-        <div class="step" data-step="3" data-image="for%20placeholders/opt-hf_20260513_132227_7dfd9840-0d44-4981-a252-1b510a5c71ba.jpg" data-version="FRAME 04" data-res="4K" data-treatment="ph-image" data-prompt="Full-body portrait. Subject in oversized varsity jacket and wide-leg denim, centre-frame against weathered concrete. Late afternoon hard sunlight from camera-right. 35mm prime, f/2.0. Cool industrial colour grade with warm skin retention.">
-          <div class="content" data-reveal="up">
+        <div class="step" data-step="3" data-image="for%20placeholders/opt-hf_20260513_132227_7dfd9840-0d44-4981-a252-1b510a5c71ba.jpg" data-version="FRAME 04" data-res="4K" data-treatment="ph-image" data-prompt="High-end editorial product macro. Pooled enamel on primed canvas, sky blue and cadmium yellow bleeding into one another as a single flooded shape, ringed by a dark olive ground. The edges feather where the two colours met while still wet. Keep the brush drag and the canvas weave reading through the thin passages, and hold an even sheen across the whole surface. Shot flat, raking light, gold cast, fine grain.">
+          <div class="content">
             <p class="m m-accent eyebrow" data-reveal="up">Step / 04</p>
             <div class="head">
               <span class="num">04</span>
@@ -850,8 +850,8 @@
           </div>
         </div>
 
-        <div class="step" data-step="4" data-image="for%20placeholders/opt-1.jpg" data-version="POST 04/12" data-res="Master" data-treatment="ph-dark" data-prompt="Master comp 04 of 12. Skin retouch pass, dodge and burn on shadow side. Colour grade: lift shadows +0.08, midtones +0.04. Sharpen low-frequency at 0.45. Output: ProRes 4444, 4K UHD, 16-bit linear.">
-          <div class="content" data-reveal="up">
+        <div class="step" data-step="4" data-image="for%20placeholders/opt-1.jpg" data-version="POST 04/12" data-res="Master" data-treatment="ph-dark" data-prompt="Premium fashion editorial ad close-up. A man in a dark suit and white shirt, cropped tight from the brow to the collar, looking just past the lens. Reproduce him as a coarse offset print with a visible halftone rosette and the cyan and warm orange separations slightly out of register. Keep the paper tooth and the dot structure reading at full size, with the ink sitting on the sheet rather than in it. Scanned print, four colour, flat blue ground.">
+          <div class="content">
             <p class="m m-accent eyebrow" data-reveal="up">Step / 05</p>
             <div class="head">
               <span class="num">05</span>
@@ -862,8 +862,8 @@
           </div>
         </div>
 
-        <div class="step" data-step="5" data-image="for%20placeholders/opt-rwhypervail_An_interior_architectural_shot_showcasing_a_stark_35bee0c5-2a9d-4260-ac4c-97af9aca093b_2.jpg" data-version="DROP 01" data-res="Final" data-treatment="ph-image" data-prompt="Asset package: one hero film (4K UHD, ProRes), four campaign stills (TIFF 16-bit, 6K), twelve social cuts (1:1, 9:16, 4:5, H.264 master). Brand book extension included. Delivered via secure drop link.">
-          <div class="content" data-reveal="up">
+        <div class="step" data-step="5" data-image="for%20placeholders/opt-rwhypervail_An_interior_architectural_shot_showcasing_a_stark_35bee0c5-2a9d-4260-ac4c-97af9aca093b_2.jpg" data-version="DROP 01" data-res="Final" data-treatment="ph-image" data-prompt="Cinematic architectural film still. A tall concrete corridor with a doorway cut straight through it, and one weathered boulder set on the brick floor in the opening. A bare tree grows against the far wall. A single hard shaft of afternoon sun cuts down the left wall and lays out across the brick. Keep the concrete pour lines, the lichen on the stone and the mortar joints reading. Medium format, hard sun, deep shadow, warm stone against a cold wall.">
+          <div class="content">
             <p class="m m-accent eyebrow" data-reveal="up">Step / 06</p>
             <div class="head">
               <span class="num">06</span>
@@ -881,9 +881,9 @@
   <!-- HOW A JOB RUNS — the engagement around the six moves. the moves are
        the making; this is what working together looks like, deliverable
        named per stage. -->
-  <section class="sticky-block" style="padding-top: 0;">
+  <section id="p-work" class="sticky-block" style="padding-top: 0;" data-chapter="02 / Working together">
     <div class="grid" style="margin-bottom: 16px;">
-      <p class="m m-accent col-span-12 md-col-2" data-reveal="up">Around the moves / Working together</p>
+      <p class="ch-mark" data-reveal="up"><span class="ch-no">02</span> &nbsp;/&nbsp; Working together</p>
       <div class="col-span-12 md-col-10">
         <h3 class="d" style="font-size: clamp(32px, 4.5vw, 72px); line-height: 0.95;">How a job runs<span class="dot">.</span></h3>
         <p style="margin-top: 20px; max-width: 560px; color: rgba(10,10,10,0.8); line-height: 1.6;">The six moves are the making. Around them, every job runs the same five stages, and each one ends with something in your hands.</p>
@@ -936,9 +936,9 @@
   </style>
 
   <!-- Position stat: ZERO generic prompts -->
-  <section class="stat-block" data-stat>
+  <section id="p-edge" class="stat-block" data-stat data-chapter="03 / The edge">
     <div class="row">
-      <p class="m m-accent eyebrow" data-reveal="up">The edge / 01</p>
+      <p class="ch-mark" data-reveal="up"><span class="ch-no">03</span> &nbsp;/&nbsp; The edge</p>
       <p class="big">0</p>
       <div class="caption-row">
         <h3 class="d">Generic prompts on generic models<span class="dot">.</span></h3>
@@ -948,9 +948,9 @@
   </section>
 
   <!-- Universal CTA -->
-  <section class="cta">
+  <section id="p-start" class="cta" data-chapter="04 / Start">
     <div class="grid">
-      <p class="m m-accent col-span-12 md-col-2" data-reveal="up">Next / Start</p>
+      <p class="ch-mark" data-reveal="up"><span class="ch-no">04</span> &nbsp;/&nbsp; Start</p>
       <div class="col-span-12 md-col-10">
         <h2 class="d scroll-drift" data-reveal="mask">Start anywhere<span class="dot">.</span></h2>
         <p class="lede">Bring a brief, a sketch, or just a feeling. Fully formed concept or zero idea yet. We meet you where you are.</p>

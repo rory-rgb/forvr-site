@@ -272,6 +272,16 @@ body.page-axis .pull-quote blockquote > * { text-align: center; }
    page-axis section, the eyebrow and the display headline each take the full
    row and centre, so the head stacks on the axis exactly like a .ch-mark and
    a .ch-h do on the homepage. */
+/* .ch-mark is included here because the inner pages' eyebrows were converted
+   to it, and the old rule keyed only on .m.m-accent, which left every new
+   chapter marker ranged left while its headline sat centred. */
+/* The marker centres within whatever column holds it, rather than depending on
+   its parent's text-align. Some of these sit inside split hero layouts whose
+   left column is not centred, and inline-flex left them ranged against it. */
+body.page-axis .ch-mark { display: flex; justify-content: center; width: 100%; }
+body.page-axis section > .grid > .ch-mark,
+body.page-axis section > .ch-mark,
+body.page-axis .section-head > .ch-mark,
 body.page-axis section > .grid > .m.m-accent,
 body.page-axis section > .grid > h1.d,
 body.page-axis section > .grid > h2.d,
