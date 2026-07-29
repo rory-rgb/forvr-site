@@ -360,3 +360,101 @@ body.page-axis .stat-block > * {
     transition: none !important;
   }
 }
+
+/* =====================================================================
+   REVEAL KIT
+   A small, shared vocabulary of entrance animations used across every
+   page, so the site animates in one accent instead of per-page one-offs.
+
+   Usage:
+     <h2 data-reveal="mask">          one element
+     <div data-stagger>               children reveal one by one
+       <div data-reveal="pop">…</div>
+
+   Rules this kit follows, from the reference sites and from Rory's brief
+   ("don't overload with scrolling, needs to be quick and easy to use"):
+     - Nothing adds page height. These are entrances, not scroll budgets.
+     - Nothing gates reading. Text primitives start partly visible, and the
+       slowest entrance is 0.7s with a 60ms stagger.
+     - One curve, --ease, shared with everything else on the site.
+   ===================================================================== */
+
+[data-reveal] {
+  --rd: 0.62s;                                  /* duration */
+  --rs: 60ms;                                   /* per-item stagger */
+  transition-delay: calc(var(--i, 0) * var(--rs));
+}
+
+/* up — the workhorse. Fade and rise. Starts faintly visible so a failed
+   observer can never hide copy outright. */
+[data-reveal="up"] {
+  opacity: 0.1; transform: translateY(18px);
+  transition: opacity var(--rd) var(--ease), transform var(--rd) var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--rs));
+}
+[data-reveal="up"].is-revealed { opacity: 1; transform: none; }
+
+/* mask — a line of type wiped upward behind its own edge. The premium
+   headline move on both reference sites. */
+[data-reveal="mask"] {
+  clip-path: inset(0 0 110% 0);
+  transform: translateY(0.18em);
+  transition: clip-path 0.7s var(--ease), transform 0.7s var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--rs));
+}
+[data-reveal="mask"].is-revealed { clip-path: inset(-20% -10% -20% -10%); transform: none; }
+
+/* pop — squares of information arriving one by one. Scale plus lift, which
+   reads as placement rather than fade. */
+[data-reveal="pop"] {
+  /* Longer stagger than the default 60ms: this is the "squares of information
+     arriving one by one" case, and at 60ms a six-tile grid reads as one fade.
+     85ms x 6 is still only ~0.5s of choreography. */
+  --rs: 85ms;
+  opacity: 0; transform: translateY(26px) scale(0.955);
+  transition: opacity var(--rd) var(--ease), transform var(--rd) var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--rs));
+}
+[data-reveal="pop"].is-revealed { opacity: 1; transform: none; }
+
+/* wipe — a panel uncovering itself. For images and media cards. Direction
+   set with data-from. */
+[data-reveal="wipe"] {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.72s var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--rs));
+}
+[data-reveal="wipe"][data-from="left"]   { clip-path: inset(0 100% 0 0); }
+[data-reveal="wipe"][data-from="right"]  { clip-path: inset(0 0 0 100%); }
+[data-reveal="wipe"][data-from="top"]    { clip-path: inset(100% 0 0 0); }
+[data-reveal="wipe"].is-revealed { clip-path: inset(0 0 0 0); }
+
+/* line — a rule drawing itself across. Cheap, and it makes a list feel
+   assembled rather than dumped. */
+[data-reveal="line"] {
+  transform: scaleX(0); transform-origin: 0 50%;
+  transition: transform 0.6s var(--ease);
+  transition-delay: calc(var(--i, 0) * var(--rs));
+}
+[data-reveal="line"].is-revealed { transform: scaleX(1); }
+
+/* chars — per-character rise. Reserve for SHORT headlines; the JS refuses
+   to split anything long enough to look silly. */
+[data-reveal="chars"] .rc {
+  display: inline-block;
+  opacity: 0; transform: translateY(0.5em);
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+[data-reveal="chars"].is-revealed .rc { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Entrances are decoration. Under reduced motion the content is simply
+     present, with no dependency on an observer firing to make it visible. */
+  [data-reveal],
+  [data-reveal="chars"] .rc {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}

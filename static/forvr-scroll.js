@@ -28,8 +28,61 @@
 (function () {
   'use strict';
 
+  /* ---------------- Reveal kit ----------------
+     Drives [data-reveal] on every page. Replays: an element re-arms once it
+     is completely clear of the viewport, matching the homepage behaviour
+     Rory asked for. Entrances never gate reading, so a failure here leaves
+     the page readable rather than blank. */
+  function initRevealKit() {
+    var nodes = [].slice.call(document.querySelectorAll('[data-reveal]'));
+    if (!nodes.length) return;
+
+    // Auto-index children of a [data-stagger] container so they arrive one
+    // by one without hand-numbering every item in the markup.
+    [].forEach.call(document.querySelectorAll('[data-stagger]'), function (group) {
+      var kids = group.querySelectorAll('[data-reveal]');
+      for (var i = 0; i < kids.length; i++) {
+        if (!kids[i].style.getPropertyValue('--i')) kids[i].style.setProperty('--i', i);
+      }
+    });
+
+    // Split short headlines into characters. Long strings are left alone:
+    // per-character motion on a full sentence reads as noise, and it would
+    // also mean hundreds of extra spans.
+    [].forEach.call(document.querySelectorAll('[data-reveal="chars"]'), function (el) {
+      var text = el.textContent.trim();
+      if (text.length > 28 || el.querySelector('.rc')) { el.removeAttribute('data-reveal'); return; }
+      var html = '', n = 0;
+      for (var i = 0; i < text.length; i++) {
+        var ch = text[i];
+        if (ch === ' ') { html += ' '; continue; }
+        html += '<span class="rc" style="transition-delay:' + (n * 26) + 'ms">' + ch.replace('&', '&amp;').replace('<', '&lt;') + '</span>';
+        n++;
+      }
+      el.innerHTML = html;
+    });
+
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach(function (n) { n.classList.add('is-revealed'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-revealed');
+        } else {
+          var r = e.boundingClientRect;
+          if (r.bottom < 0 || r.top > window.innerHeight) e.target.classList.remove('is-revealed');
+        }
+      });
+    }, { rootMargin: '-40px 0px' });
+    nodes.forEach(function (n) { io.observe(n); });
+  }
+
   /* ---------------- Rail and progress ---------------- */
   document.addEventListener('DOMContentLoaded', function () {
+    initRevealKit();
+
     var chapters = [].slice.call(document.querySelectorAll('[data-chapter]'));
 
     // Progress hairline
