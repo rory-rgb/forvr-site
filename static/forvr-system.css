@@ -119,6 +119,68 @@
 
 .ch-cta { margin-top: clamp(30px, 4vh, 48px); display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
 
+/* ---------------------------------------------------------------------
+   Fact cards that swipe an image in on hover.
+
+   Add .has-media to a .ch-facts row, then give each .ch-fact a --media
+   image and a data-dir of top | bottom | left | right. The panel slides in
+   from that edge and the text flips to light over it. Alternating the
+   direction across a row makes the cards read as one choreographed move
+   rather than four identical fades.
+   --------------------------------------------------------------------- */
+.ch-facts.has-media .ch-fact {
+  position: relative;
+  overflow: hidden;
+  /* Tight on phones, where the panel is an always-on backdrop rather than a
+     hover reveal, and seven padded cards cost most of a viewport. */
+  padding: 16px 14px;
+  isolation: isolate;
+}
+@media (min-width: 760px) {
+  .ch-facts.has-media .ch-fact { padding: clamp(22px, 3vh, 34px) 18px; }
+}
+.ch-facts.has-media .ch-fact::before {
+  content: '';
+  position: absolute; inset: 0; z-index: -1;
+  /* --media must be a ROOT-relative url(). A relative one resolves against
+     THIS stylesheet (/static/), not the page, so `_proto/...` silently became
+     `/static/_proto/...` and 404'd. */
+  background-image: var(--media);
+  background-size: cover;
+  background-position: center;
+  /* Scrim baked into the same layer, so the panel arrives already legible
+     instead of needing a second element to fade in behind the text. */
+  box-shadow: inset 0 0 0 100vmax rgba(6,6,6,0.52);
+  transition: transform 0.62s var(--ease);
+  will-change: transform;
+}
+.ch-facts.has-media .ch-fact[data-dir="top"]::before    { transform: translate3d(0, -101%, 0); }
+.ch-facts.has-media .ch-fact[data-dir="bottom"]::before { transform: translate3d(0, 101%, 0); }
+.ch-facts.has-media .ch-fact[data-dir="left"]::before   { transform: translate3d(-101%, 0, 0); }
+.ch-facts.has-media .ch-fact[data-dir="right"]::before  { transform: translate3d(101%, 0, 0); }
+
+.ch-facts.has-media .ch-fact:hover::before,
+.ch-facts.has-media .ch-fact:focus-within::before { transform: translate3d(0, 0, 0); }
+
+.ch-facts.has-media .ch-fact-n,
+.ch-facts.has-media .ch-fact-h,
+.ch-facts.has-media .ch-fact-p { transition: color 0.4s var(--ease); }
+.ch-facts.has-media .ch-fact:hover .ch-fact-h,
+.ch-facts.has-media .ch-fact:focus-within .ch-fact-h { color: #fff; }
+.ch-facts.has-media .ch-fact:hover .ch-fact-p,
+.ch-facts.has-media .ch-fact:focus-within .ch-fact-p { color: rgba(255,255,255,0.82); }
+
+/* Touch and reduced-motion get the image as a quiet always-on backdrop
+   rather than a hover trick they can never trigger. */
+@media (hover: none) {
+  .ch-facts.has-media .ch-fact::before { transform: none; opacity: 0.9; }
+  .ch-facts.has-media .ch-fact-h { color: #fff; }
+  .ch-facts.has-media .ch-fact-p { color: rgba(255,255,255,0.82); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ch-facts.has-media .ch-fact::before { transition: none; }
+}
+
 /* Wordless transition band — full bleed, zero words. The page's punctuation. */
 .band {
   position: relative; width: 100%; overflow: hidden;
@@ -173,7 +235,14 @@ body.page-axis .copy p { text-align: center; }
 /* Buttons and meta rows sit on the axis too. */
 body.page-axis .section-head .btn,
 body.page-axis .usp-header .btn { margin-inline: auto; }
-body.page-axis .meta-strip { justify-content: center; text-align: center; }
+/* Utility rows (location, links, legal) range left across the site. Only the
+   things meant to be READ sit on the centre axis. */
+body.page-axis .meta-strip { justify-content: flex-start; text-align: left; }
+body.page-axis footer,
+body.page-axis .footer,
+body.page-axis nav,
+body.page-axis .nav-links,
+body.page-axis .foot-legal { text-align: left; }
 
 /* Pull quotes are display headlines here, not prose, so they centre with the
    other headlines. (.quote was originally in the left-ranged list below and

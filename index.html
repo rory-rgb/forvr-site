@@ -281,10 +281,41 @@
   /* Scrim keeps the centred names legible over any lane image. */
   #services .svc-image-bg::after {
     content: ''; position: absolute; inset: 0;
-    background: rgba(5,5,5,0.58);
+    /* Flat 0.52 left the lane names low-contrast over the brighter frames.
+       Slightly stronger, and weighted to the middle where the list sits. */
+    background:
+      linear-gradient(180deg, rgba(5,5,5,0.5) 0%, rgba(5,5,5,0.68) 45%, rgba(5,5,5,0.68) 60%, rgba(5,5,5,0.5) 100%);
+  }
+  /* The preview image is alive while you are over a lane: it sits slightly
+     overscaled so it has room to move, drifts a few pixels toward the cursor
+     (set by JS as --px/--py), and breathes on a slow loop so the section
+     never sits perfectly still under the pointer. Overscale is 1.06, so the
+     drift can never expose an edge.
+     Transform is on the IMAGE, opacity is on the same element, and both use
+     the house curve. */
+  #services .svc-image-bg {
+    transform: scale(1.06) translate3d(var(--px, 0px), var(--py, 0px), 0);
+    transition: opacity 0.5s var(--ease), transform 0.9s var(--ease);
+    will-change: transform, opacity;
+  }
+  #services.has-active .svc-image-bg {
+    /* Once a lane is live the drift should track the pointer closely, so the
+       transform transition shortens right down. */
+    transition: opacity 0.5s var(--ease), transform 0.28s cubic-bezier(0.33, 1, 0.68, 1);
+    animation: svcBreathe 7s ease-in-out infinite;
+  }
+  @keyframes svcBreathe {
+    0%, 100% { scale: 1; }
+    50%      { scale: 1.035; }
   }
   #services .svc-image-meta {
     left: 50%; transform: translateX(-50%); bottom: 20px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #services .svc-image-bg,
+    #services.has-active .svc-image-bg {
+      transform: scale(1.06); animation: none; transition: opacity 0.2s linear;
+    }
   }
   #services .svc-list .row,
   #services .svc-list a.svc-link {
@@ -330,15 +361,19 @@
   }
   #faq .faq-logo-wrap { max-width: 104px; margin-inline: auto; }
 
-  /* Contact: email + meta row both centred, and the email capped so it stays
-     on one line instead of wrapping into a two-line wall. */
+  /* Contact: the statement and the email stay on the centre axis, because
+     those are the things you are meant to read. The meta row underneath is
+     utility (where we are, the links) and ranges left, which stops the foot
+     of the page reading like a wedding invitation.
+     Rory: "we don't need absolutely everything centred, little things can be
+     on the left, like the links and that." */
   #contact .contact-email { display: block; text-align: center; margin-top: clamp(28px, 4vh, 48px); }
   #contact .contact-email h3 { font-size: clamp(32px, 5.6vw, 84px); line-height: 0.95; }
-  #contact .meta-strip { text-align: center; }
+  #contact .meta-strip { text-align: left; }
   @media (min-width: 768px) {
-    #contact .meta-strip { justify-content: center; gap: clamp(48px, 8vw, 120px); }
+    #contact .meta-strip { justify-content: flex-start; gap: clamp(40px, 6vw, 88px); }
   }
-  #contact .meta-strip .ig-link { justify-content: center; }
+  #contact .meta-strip .ig-link { justify-content: flex-start; }
 
   /* Nothing on the page may range against a different edge on mobile either. */
   @media (max-width: 767px) {
@@ -1277,18 +1312,18 @@
     <p class="ch-lede reveal-line">Founded by an AI-native producer who built these workflows inside a leading AI content studio, then took them independent.</p>
     <p class="ch-body ed-narrow reveal-line">The same founder is on every step, from the pitch through to delivery. We build for fashion, streetwear and brands that need a visual identity people remember. AI is a tool here, not a feature. The decisions are still ours.</p>
 
-    <div class="ch-facts cols-3">
-      <div class="reveal-line">
+    <div class="ch-facts cols-3 has-media">
+      <div class="ch-fact reveal-line" data-dir="left" style="--media:url('/_proto/assets/final/opt-final_02_nightbus.jpg')">
         <span class="ch-fact-n">01</span>
         <h3 class="ch-fact-h">The method</h3>
         <p class="ch-fact-p">Brand-trained models do the volume. Human direction does the polish.</p>
       </div>
-      <div class="reveal-line">
+      <div class="ch-fact reveal-line" data-dir="top" style="--media:url('/_proto/assets/final/opt-final_09_georgian_steps.jpg')">
         <span class="ch-fact-n">02</span>
         <h3 class="ch-fact-h">Six lanes</h3>
         <p class="ch-fact-p">Film, image, design, motion, web and social, produced under one roof in one voice.</p>
       </div>
-      <div class="reveal-line">
+      <div class="ch-fact reveal-line" data-dir="right" style="--media:url('/_proto/assets/final/opt-final_07_carpark_roof.jpg')">
         <span class="ch-fact-n">03</span>
         <h3 class="ch-fact-h">One building</h3>
         <p class="ch-fact-p">Concept to ship without a handoff, an account layer or a subcontractor.</p>
@@ -1326,15 +1361,15 @@
 <!-- CHAPTER 02 — Why forvr. Was a 2vp sticky 2fr/1fr split with the copy jammed
      into a right-hand third. Now the same copy on the centre axis, with the
      clip demoted to a wordless full-bleed band underneath it. -->
-<section id="mission" class="chapter is-dark" aria-label="Why Forvr" data-chapter="02 / Why forvr">
+<section id="mission" class="chapter" aria-label="Why Forvr" data-chapter="02 / Why forvr">
   <div class="ed reveal-group">
     <p class="ch-mark reveal-line"><span class="ch-no">02</span> &nbsp;/&nbsp; Why forvr</p>
     <h2 class="ch-h reveal-line">Most AI content looks like the model that made it<span class="dot">.</span></h2>
     <p class="ch-lede reveal-line">Ours trains on your brand before a single frame is made, so the work goes out recognisable as yours, not the model's default.</p>
     <p class="ch-body ed-narrow reveal-line">The speed and the cost follow from the workflows. The recognisability is the point.</p>
     <div class="ch-cta reveal-line">
-      <a class="btn btn-invert" href="work.html">See the work →</a>
-      <a class="btn btn-ghost-invert" href="studio.html">Meet the studio</a>
+      <a class="btn" href="work.html">See the work →</a>
+      <a class="btn btn-ghost" href="studio.html">Meet the studio</a>
     </div>
   </div>
 </section>
@@ -1346,15 +1381,17 @@
 </div>
 
 <style>
-  /* Invert-scheme buttons for dark chapters. */
-  .btn-invert {
-    background: var(--accent); color: #050505; border-color: var(--accent);
+  /* Secondary button on the light ground. (The invert pair that lived here
+     went with the dark mission chapter.) */
+  .btn-ghost {
+    background: transparent;
+    color: rgba(10,10,10,0.7);
+    border-color: rgba(10,10,10,0.22);
   }
-  .btn-invert:hover { background: #fff; border-color: #fff; color: #050505; }
-  .btn-ghost-invert {
-    background: transparent; color: #f2f2f2; border-color: rgba(255,255,255,0.35);
+  .btn-ghost:hover {
+    background: transparent;
+    border-color: var(--fg); color: var(--fg);
   }
-  .btn-ghost-invert:hover { border-color: #fff; color: #fff; }
 
   /* Wordless video band. Short, so it punctuates rather than delays. */
   .band-video { height: clamp(280px, 46vh, 460px); }
@@ -1428,11 +1465,16 @@
         </a>
       </li>
     </ul>
-    <div class="visual-wrap">
-      <div class="svc-image-box" id="svcImageBox">
-        <div class="svc-image-bg" id="svcScrollBg"></div>
-        <span class="svc-image-meta" id="svcScrollMeta">Hover any service</span>
-      </div>
+  </div>
+
+  <!-- The preview image layer is a DIRECT child of the section, not of the
+       centred column. Inside .ed-grid its inset:0 resolved against the 1080px
+       column instead of the section, so the image covered only the middle
+       band while the copy still turned white, i.e. white text on white. -->
+  <div class="visual-wrap">
+    <div class="svc-image-box" id="svcImageBox">
+      <div class="svc-image-bg" id="svcScrollBg"></div>
+      <span class="svc-image-meta" id="svcScrollMeta">Hover any service</span>
     </div>
   </div>
 
@@ -1612,23 +1654,23 @@
     <h2 class="ch-h reveal-line">Built around you, not assembled from a template<span class="dot">.</span></h2>
     <p class="ch-lede reveal-line">Most AI work is generic prompts on generic models. We extract your visual DNA and train on it before anything is produced.</p>
 
-    <div class="ch-facts cols-4">
-      <div class="reveal-line">
+    <div class="ch-facts cols-4 has-media">
+      <div class="ch-fact reveal-line" data-dir="top" style="--media:url('/_proto/assets/final/opt-final_17_barbican.jpg')">
         <span class="ch-fact-n">01</span>
         <h3 class="ch-fact-h">Extract</h3>
         <p class="ch-fact-p">Discovery, research and written direction. Your visual DNA on paper first.</p>
       </div>
-      <div class="reveal-line">
+      <div class="ch-fact reveal-line" data-dir="bottom" style="--media:url('/_proto/assets/final/opt-final_19_walkway_day.jpg')">
         <span class="ch-fact-n">02</span>
         <h3 class="ch-fact-h">Train</h3>
         <p class="ch-fact-p">Models trained on your specific aesthetic, not a public checkpoint.</p>
       </div>
-      <div class="reveal-line">
+      <div class="ch-fact reveal-line" data-dir="left" style="--media:url('/_proto/assets/final/opt-final_08_stairwell.jpg')">
         <span class="ch-fact-n">03</span>
         <h3 class="ch-fact-h">Direct</h3>
         <p class="ch-fact-p">Custom workflows, hand-graded output, the founder on every frame.</p>
       </div>
-      <div class="reveal-line">
+      <div class="ch-fact reveal-line" data-dir="right" style="--media:url('/_proto/assets/final/opt-final_20_canal.jpg')">
         <span class="ch-fact-n">04</span>
         <h3 class="ch-fact-h">Ship</h3>
         <p class="ch-fact-p">Priced upfront, delivered in weeks. Most projects ship inside a month.</p>
@@ -1648,12 +1690,16 @@
   .band-tetris { height: 118vh; background: #070707; }
   .band-tetris-pin {
     position: sticky; top: 0; height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    padding: clamp(24px, 6vh, 72px) var(--gut);
+    overflow: hidden;
+    padding: 0;
   }
+  /* Full bleed: the tiles fill the whole viewport, no black margin anywhere.
+     layoutTiles() already scales the slice with Math.max(pw/w, ph/h), i.e. a
+     true cover crop, so widening the frame crops rather than stretches and
+     the 1932x2400 source is still being scaled DOWN at 1440 wide. */
   .band-tetris .proc-tetris-wrap {
-    position: relative; width: 100%; max-width: var(--col);
-    aspect-ratio: 14 / 9; max-height: 100%;
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; max-width: none;
     overflow: hidden; background: #000;
   }
   /* Phones get the finished image and no pin at all — the cascade needs a tall
@@ -1661,8 +1707,8 @@
      already paints the static image below 900px. */
   @media (max-width: 900px) {
     .band-tetris { height: auto; }
-    .band-tetris-pin { position: static; height: auto; }
-    .band-tetris .proc-tetris-wrap { aspect-ratio: 3 / 2; }
+    .band-tetris-pin { position: static; height: 62vh; }
+    .band-tetris .proc-tetris-wrap { position: absolute; inset: 0; }
   }
 </style>
 
@@ -2890,6 +2936,34 @@ window.buildTetrisReveal({
       if (svcSection) svcSection.classList.remove('has-active');
     });
   });
+
+  // Move the preview image with the pointer while it is over the list, so the
+  // section reacts to the mouse instead of only to which row you are on. The
+  // image is overscaled 1.06 in CSS, so a +/-14px drift can never show an edge.
+  (function svcPointerDrift() {
+    if (!svcSection || !svcScrollBg) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!(window.matchMedia && window.matchMedia('(pointer: fine)').matches)) return;
+    const MAX = 14;
+    let queued = false, nx = 0, ny = 0;
+    function apply() {
+      queued = false;
+      svcScrollBg.style.setProperty('--px', nx.toFixed(1) + 'px');
+      svcScrollBg.style.setProperty('--py', ny.toFixed(1) + 'px');
+    }
+    svcSection.addEventListener('mousemove', (e) => {
+      const r = svcSection.getBoundingClientRect();
+      // -1..1 from the centre of the section, inverted so the image leans
+      // into the cursor rather than away from it.
+      nx = ((e.clientX - r.left) / r.width - 0.5) * -2 * MAX;
+      ny = ((e.clientY - r.top) / r.height - 0.5) * -2 * MAX;
+      if (!queued) { queued = true; requestAnimationFrame(apply); }
+    }, { passive: true });
+    svcSection.addEventListener('mouseleave', () => {
+      nx = ny = 0;
+      if (!queued) { queued = true; requestAnimationFrame(apply); }
+    });
+  })();
 
   // Mexican wave — service names reveal word by word, staggered across the list, when the section enters view.
   // Word-level (not char-level) so inline elements like the cyan .dot span on item 06 are preserved cleanly.
