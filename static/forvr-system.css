@@ -1,0 +1,286 @@
+/* =====================================================================
+   FORVR — shared editorial system
+   One centred column, one alignment, one easing curve, across every page.
+
+   Loaded by every page so the "sin" is identical site-wide. Page-specific
+   overrides stay inline in that page and must be ID-scoped to win, because
+   this file is linked in <head> and page <style> blocks come after it.
+   ===================================================================== */
+
+:root {
+  /* The centred editorial column every page aligns to. */
+  --col: 1080px;
+  --col-narrow: 760px;
+  --gut: 24px;
+  /* One curve. Everything that moves on this site uses it. */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 0.35s;
+  --dur: 0.85s;
+}
+@media (min-width: 768px) { :root { --gut: 40px; } }
+
+/* ---------------------------------------------------------------------
+   The column
+   --------------------------------------------------------------------- */
+.ed {
+  width: 100%;
+  max-width: var(--col);
+  margin-inline: auto;
+  padding-inline: var(--gut);
+  text-align: center;
+}
+.ed-narrow { max-width: var(--col-narrow); margin-inline: auto; }
+
+/* ---------------------------------------------------------------------
+   A chapter: one idea, one movement of the scroll
+   --------------------------------------------------------------------- */
+.chapter {
+  position: relative;
+  padding: clamp(96px, 14vh, 180px) 0;
+  border-top: 1px solid var(--line, #e5e5e5);
+}
+.chapter.is-dark { background: #070707; border-top-color: rgba(255,255,255,0.08); }
+.chapter.is-dark, .chapter.is-dark * { color: #f2f2f2; }
+.chapter.is-dark .dot, .chapter.is-dark .ch-mark::before { color: var(--accent, #5BC2E7); }
+.chapter.is-dark .ch-body { color: rgba(242,242,242,0.72); }
+
+/* Chapter marker — the running index. Same device, same place, every chapter. */
+.ch-mark {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--muted, #6a6a6a);
+  margin-bottom: clamp(28px, 4vh, 48px);
+}
+.ch-mark::before {
+  content: ''; width: 7px; height: 7px; background: var(--accent, #5BC2E7);
+  display: block; flex: 0 0 auto;
+}
+.ch-mark .ch-no { color: var(--accent, #5BC2E7); }
+
+.ch-h {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  line-height: 0.9; letter-spacing: -0.02em;
+  font-size: clamp(40px, 6.4vw, 104px);
+  max-width: 16ch; margin-inline: auto;
+}
+.ch-h.is-wide { max-width: 22ch; }
+
+.ch-lede {
+  font-size: clamp(19px, 2vw, 28px);
+  line-height: 1.45; letter-spacing: -0.01em;
+  max-width: 30ch; margin: clamp(28px, 4vh, 44px) auto 0;
+  color: rgba(10,10,10,0.88);
+}
+.chapter.is-dark .ch-lede { color: rgba(242,242,242,0.9); }
+
+.ch-body {
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.72; letter-spacing: 0.01em;
+  max-width: 62ch; margin: clamp(24px, 3.2vh, 36px) auto 0;
+  color: rgba(10,10,10,0.66);
+}
+.ch-body + .ch-body { margin-top: 1.1em; }
+
+/* Structured fact rows — how retired sections' information is kept without
+   giving each point an animated screen of its own. */
+.ch-facts {
+  display: grid; gap: clamp(32px, 4vw, 56px);
+  grid-template-columns: 1fr;
+  margin-top: clamp(48px, 7vh, 84px);
+  text-align: center;
+}
+@media (min-width: 760px) {
+  .ch-facts.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .ch-facts.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .ch-facts.cols-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1080px) { .ch-facts.cols-4 { grid-template-columns: repeat(4, 1fr); } }
+.ch-fact-n {
+  display: block; font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.22em; color: var(--accent, #5BC2E7); margin-bottom: 14px;
+}
+.ch-fact-h {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(20px, 2vw, 27px); line-height: 1.02; letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.ch-fact-p {
+  font-size: 14.5px; line-height: 1.65; color: rgba(10,10,10,0.62);
+  max-width: 34ch; margin-inline: auto;
+}
+.chapter.is-dark .ch-fact-p { color: rgba(242,242,242,0.66); }
+
+.ch-cta { margin-top: clamp(44px, 6vh, 72px); display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+/* Wordless transition band — full bleed, zero words. The page's punctuation. */
+.band {
+  position: relative; width: 100%; overflow: hidden;
+  background: #070707; border-top: 1px solid rgba(255,255,255,0.08);
+}
+/* A band that pins its own contents cannot clip them: overflow:hidden on an
+   ancestor silently disables position:sticky inside it. Bands that pin opt
+   out of the clip and let their inner frame do the clipping instead. */
+.band.pins { overflow: visible; }
+
+/* ---------------------------------------------------------------------
+   PAGE AXIS — opt in with <body class="page-axis">
+
+   The inner pages were each built on their own 12-column layout with their
+   own left edge, which is why the site read as a stack of unrelated pages.
+   These rules pull the shared furniture (section heads, display headlines,
+   body copy, meta rows, CTAs) onto the same centred axis as the homepage,
+   without touching page-specific functional layouts like the work index or
+   the contact form, which stay where they are and keep working.
+
+   Opt-in rather than blanket so a page is only converted once it has been
+   looked at.
+   --------------------------------------------------------------------- */
+body.page-axis .section-head,
+body.page-axis .usp-header,
+body.page-axis .outcomes-head {
+  text-align: center;
+}
+body.page-axis .section-head > *,
+body.page-axis .usp-header > * {
+  grid-column: 1 / -1 !important;
+}
+/* Display headlines centre and stop running to the viewport edge. */
+body.page-axis h1.d,
+body.page-axis h2.d,
+body.page-axis .section-head h2,
+body.page-axis .usp-header h2 {
+  text-align: center;
+  max-width: 20ch;
+  margin-inline: auto;
+}
+/* Standing body copy gets the shared measure, centred. */
+body.page-axis .copy,
+body.page-axis .lede,
+body.page-axis .section-head p,
+body.page-axis .usp-header p {
+  text-align: center;
+  max-width: var(--col-narrow);
+  margin-inline: auto;
+}
+body.page-axis .copy p { text-align: center; }
+/* Buttons and meta rows sit on the axis too. */
+body.page-axis .section-head .btn,
+body.page-axis .usp-header .btn { margin-inline: auto; }
+body.page-axis .meta-strip { justify-content: center; text-align: center; }
+
+/* Pull quotes are display headlines here, not prose, so they centre with the
+   other headlines. (.quote was originally in the left-ranged list below and
+   that left the studio page's biggest line flush to the viewport edge.) */
+body.page-axis .pull-quote,
+body.page-axis .pull-quote-large { text-align: center; }
+body.page-axis .pull-quote .quote,
+body.page-axis .pull-quote-large .quote {
+  text-align: center; max-width: 18ch; margin-inline: auto;
+}
+
+/* Long-form prose (case-study bodies, FAQ answers, form labels) stays ranged
+   left inside its centred column: centring a six-line paragraph hurts to
+   read. The block itself is still centred, so the axis holds.
+   :not(.pull-quote *) because the studio page's biggest line is marked up as
+   a blockquote and this rule was flattening it to the left edge. */
+body.page-axis .faq-body,
+body.page-axis form,
+body.page-axis label,
+body.page-axis .prose { text-align: left; }
+body.page-axis blockquote:not(.pull-quote blockquote) { text-align: left; }
+body.page-axis .pull-quote blockquote,
+body.page-axis .pull-quote blockquote > * { text-align: center; }
+
+/* The inner pages put the section eyebrow in columns 1-2 and the headline in
+   3-12, which is what makes them read as a different page family. Inside a
+   page-axis section, the eyebrow and the display headline each take the full
+   row and centre, so the head stacks on the axis exactly like a .ch-mark and
+   a .ch-h do on the homepage. */
+body.page-axis section > .grid > .m.m-accent,
+body.page-axis section > .grid > h1.d,
+body.page-axis section > .grid > h2.d,
+body.page-axis section > .grid > p.d {
+  grid-column: 1 / -1 !important;
+  text-align: center;
+  margin-inline: auto;
+}
+body.page-axis section > .grid > .m.m-accent { margin-bottom: 20px; }
+/* Standing paragraphs directly in a section grid (ledes, sign-offs) take the
+   shared measure and centre. Scoped to DIRECT children so the two-column
+   media-and-text blocks on /process and /work, which are functional layouts
+   rather than page furniture, are left alone. */
+body.page-axis section > .grid > p:not(.d):not(.m) {
+  grid-column: 1 / -1 !important;
+  text-align: center;
+  max-width: var(--col-narrow);
+  margin-inline: auto;
+}
+
+/* Give the inner pages the same column the homepage has. Without this the
+   content is centre-ALIGNED but still spans the full 1440, so the measure
+   is wrong and it does not read as the same page family. */
+body.page-axis section > .grid,
+body.page-axis section > .section-head,
+body.page-axis section > .usp-header,
+body.page-axis .pull-quote > *,
+body.page-axis .stat-block > * {
+  max-width: var(--col);
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------------
+   The through-line: chapter rail + scroll progress
+   Two fixed marks that persist across every chapter of every page, so the
+   scroll reads as one continuous document rather than a stack of pages.
+   --------------------------------------------------------------------- */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  z-index: 80; pointer-events: none;
+  background: transparent;
+}
+.scroll-progress i {
+  display: block; height: 100%; width: 0%;
+  background: var(--accent, #5BC2E7);
+  transform-origin: 0 50%;
+  transition: width 0.12s linear;
+}
+
+.chapter-rail {
+  position: fixed; top: 50%; right: 18px; transform: translateY(-50%);
+  z-index: 55; display: none; flex-direction: column; gap: 14px;
+  pointer-events: auto;
+}
+@media (min-width: 1100px) { .chapter-rail { display: flex; } }
+.chapter-rail a {
+  display: block; width: 7px; height: 7px;
+  background: rgba(10,10,10,0.22);
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.chapter-rail a:hover { transform: scale(1.5); background: rgba(10,10,10,0.5); }
+.chapter-rail a.is-on { background: var(--accent, #5BC2E7); transform: scale(1.5); }
+/* Over a dark chapter the rail inverts so it never disappears. */
+.chapter-rail.on-dark a { background: rgba(255,255,255,0.28); }
+.chapter-rail.on-dark a:hover { background: rgba(255,255,255,0.6); }
+.chapter-rail.on-dark a.is-on { background: var(--accent, #5BC2E7); }
+
+/* ---------------------------------------------------------------------
+   One reveal system. Everything that enters the viewport does the same
+   thing, with the same curve and the same stagger.
+   --------------------------------------------------------------------- */
+.ed [class*="reveal"] { will-change: opacity, transform; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress i { transition: none; }
+  .chapter-rail a { transition: none; }
+  /* Reveal primitives start at low opacity and are raised by an observer.
+     If anything ever stops that observer firing, a reduced-motion reader is
+     left looking at invisible copy, so pin them visible outright rather than
+     depending on JS to undo a decorative starting state. */
+  .reveal, .reveal-line, .clip-reveal,
+  .split-text .word .inner {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
