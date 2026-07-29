@@ -1313,17 +1313,17 @@
     <p class="ch-body ed-narrow reveal-line">The same founder is on every step, from the pitch through to delivery. We build for fashion, streetwear and brands that need a visual identity people remember. AI is a tool here, not a feature. The decisions are still ours.</p>
 
     <div class="ch-facts cols-3 has-media">
-      <div class="ch-fact reveal-line" data-dir="left" style="--media:url('/_proto/assets/final/opt-final_02_nightbus.jpg')">
+      <div class="ch-fact reveal-line" data-dir="left" style="--media:url('/forvr%20docs/images/posters/opt-dn2.jpg')">
         <span class="ch-fact-n">01</span>
         <h3 class="ch-fact-h">The method</h3>
         <p class="ch-fact-p">Brand-trained models do the volume. Human direction does the polish.</p>
       </div>
-      <div class="ch-fact reveal-line" data-dir="top" style="--media:url('/_proto/assets/final/opt-final_09_georgian_steps.jpg')">
+      <div class="ch-fact reveal-line" data-dir="top" style="--media:url('/forvr%20docs/small%20circle/Studio-Shoot/opt-11.jpg')">
         <span class="ch-fact-n">02</span>
         <h3 class="ch-fact-h">Six lanes</h3>
         <p class="ch-fact-p">Film, image, design, motion, web and social, produced under one roof in one voice.</p>
       </div>
-      <div class="ch-fact reveal-line" data-dir="right" style="--media:url('/_proto/assets/final/opt-final_07_carpark_roof.jpg')">
+      <div class="ch-fact reveal-line" data-dir="right" style="--media:url('/forvr%20docs/site-images/supplied/opt-ball7.jpg')">
         <span class="ch-fact-n">03</span>
         <h3 class="ch-fact-h">One building</h3>
         <p class="ch-fact-p">Concept to ship without a handoff, an account layer or a subcontractor.</p>
@@ -1538,11 +1538,11 @@
       <span class="oc-num">01</span>
       <h3 class="oc-title">Ship in weeks, not months<span class="dot">.</span></h3>
     </article>
-    <article class="oc-card" data-i="1" style="background-image: url('_proto/assets/final/opt-final_16_estate_group.jpg');">
+    <article class="oc-card" data-i="1" style="background-image: url('forvr%20docs/images/posters/opt-dn.jpg');">
       <span class="oc-num">02</span>
       <h3 class="oc-title">A fraction of traditional production cost<span class="dot">.</span></h3>
     </article>
-    <article class="oc-card" data-i="2" style="background-image: url('_proto/assets/final/opt-final_10_market_shutters.jpg');">
+    <article class="oc-card" data-i="2" style="background-image: url('forvr%20docs/small%20circle/Studio-Shoot/opt-14.jpg');">
       <span class="oc-num">03</span>
       <h3 class="oc-title">Every format, one brand voice<span class="dot">.</span></h3>
     </article>
@@ -1655,22 +1655,22 @@
     <p class="ch-lede reveal-line">Most AI work is generic prompts on generic models. We extract your visual DNA and train on it before anything is produced.</p>
 
     <div class="ch-facts cols-4 has-media">
-      <div class="ch-fact reveal-line" data-dir="top" style="--media:url('/_proto/assets/final/opt-final_17_barbican.jpg')">
+      <div class="ch-fact reveal-line" data-dir="top" style="--media:url('/forvr%20docs/images/posters/opt-kms.jpg')">
         <span class="ch-fact-n">01</span>
         <h3 class="ch-fact-h">Extract</h3>
         <p class="ch-fact-p">Discovery, research and written direction. Your visual DNA on paper first.</p>
       </div>
-      <div class="ch-fact reveal-line" data-dir="bottom" style="--media:url('/_proto/assets/final/opt-final_19_walkway_day.jpg')">
+      <div class="ch-fact reveal-line" data-dir="bottom" style="--media:url('/forvr%20docs/images/grit-project/opt-rwhypervail_Indoor_plate-lift_portrait_of_a_Latino_male_athle_e30ec554-b34a-49d0-9c5d-d1cdd4ccb8a6_0.jpg')">
         <span class="ch-fact-n">02</span>
         <h3 class="ch-fact-h">Train</h3>
         <p class="ch-fact-p">Models trained on your specific aesthetic, not a public checkpoint.</p>
       </div>
-      <div class="ch-fact reveal-line" data-dir="left" style="--media:url('/_proto/assets/final/opt-final_08_stairwell.jpg')">
+      <div class="ch-fact reveal-line" data-dir="left" style="--media:url('/forvr%20docs/small%20circle/Studio-Shoot/opt-13.jpg')">
         <span class="ch-fact-n">03</span>
         <h3 class="ch-fact-h">Direct</h3>
         <p class="ch-fact-p">Custom workflows, hand-graded output, the founder on every frame.</p>
       </div>
-      <div class="ch-fact reveal-line" data-dir="right" style="--media:url('/_proto/assets/final/opt-final_20_canal.jpg')">
+      <div class="ch-fact reveal-line" data-dir="right" style="--media:url('/forvr%20docs/site-images/supplied/opt-ball6.jpg')">
         <span class="ch-fact-n">04</span>
         <h3 class="ch-fact-h">Ship</h3>
         <p class="ch-fact-p">Priced upfront, delivered in weeks. Most projects ship inside a month.</p>
@@ -2829,17 +2829,25 @@ window.buildTetrisReveal({
     });
   });
 
-  // Scroll reveal — fire ONCE. Re-triggering on scroll-up made text and
-  // titles re-animate every pass, which fought the scroll-scrubbed sections
-  // (Pillars video, Process knockout, Tetris reveals, Studio gap-scrub) and
-  // felt nervy. Those scroll-driven sections live in their own handlers and
-  // still respond to scroll position; only the generic .reveal* fades become
-  // one-shot here.
+  // Scroll reveal — REPLAYS. Rory wants the animations to happen again when
+  // you scroll back up and come down a second time.
+  //
+  // These were one-shot because re-triggering "fought the scroll-scrubbed
+  // sections and felt nervy". Every section named in that note (the Pillars
+  // video, the Process knockout, the Studio gap-scrub) has since been removed
+  // from this page, and the one that remains, the tile cascade, runs in its
+  // own scroll handler and is untouched by this observer.
+  //
+  // An element is only re-armed once it is COMPLETELY clear of the viewport.
+  // Resetting on the -50px rootMargin boundary instead would strobe anything
+  // parked near the edge of the screen.
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
       if (e.isIntersecting) {
         e.target.classList.add('is-in');
-        io.unobserve(e.target);
+      } else {
+        const r = e.boundingClientRect;
+        if (r.bottom < 0 || r.top > window.innerHeight) e.target.classList.remove('is-in');
       }
     });
   }, { rootMargin: '-50px 0px' });
