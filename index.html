@@ -328,7 +328,7 @@
     grid-column: auto; position: static; order: -1;
     margin: 0 auto clamp(28px, 4vh, 44px);
   }
-  #faq .faq-logo-wrap { max-width: 168px; margin-inline: auto; }
+  #faq .faq-logo-wrap { max-width: 104px; margin-inline: auto; }
 
   /* Contact: email + meta row both centred, and the email capped so it stays
      on one line instead of wrapping into a two-line wall. */
@@ -370,8 +370,8 @@
   .ph-outline { position: absolute; inset: 0; background: rgba(0,0,0,0.3); border: 1px solid rgba(10,10,10,0.2); }
 
   /* Services */
-  .svc-list li { border-top: 1px solid var(--line); padding: 30px 0; cursor: default; transition: transform 0.5s; }
-  @media (min-width: 768px) { .svc-list li { padding: 48px 0; } }
+  .svc-list li { border-top: 1px solid var(--line); padding: 18px 0; cursor: default; transition: transform 0.5s; }
+  @media (min-width: 768px) { .svc-list li { padding: 26px 0; } }
   .svc-list li:last-child { border-bottom: 1px solid var(--line); }
   .svc-list .row { display: flex; align-items: start; gap: 24px; }
   .svc-list a.svc-link { display: flex; align-items: start; gap: 24px; text-decoration: none; color: inherit; cursor: pointer; }
@@ -379,7 +379,7 @@
   .svc-list .num { width: 40px; flex-shrink: 0; padding-top: 8px; }
   .svc-list .content { flex: 1; }
   .svc-list .content h3 {
-    font-size: clamp(32px, 5.8vw, 78px);
+    font-size: clamp(28px, 4.2vw, 56px);
     line-height: 0.94;
     transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.5s;
   }
@@ -1519,7 +1519,7 @@
     .outcomes-row { gap: 16px; padding: 0 32px 40px; }
   }
   @media (max-width: 700px) {
-    .outcomes-row { grid-template-columns: 1fr; }
+    .outcomes-row { grid-template-columns: 1fr; padding-bottom: 28px; }
   }
 
   .oc-card {
@@ -1540,6 +1540,13 @@
     cursor: pointer;
   }
   .oc-card.is-in { opacity: 1; transform: translateY(0); }
+  @media (max-width: 700px) {
+    /* Stacked 4:5 cards made Outcomes the longest block on a phone at 1.87
+       viewports. A landscape crop shows the same image and the same line in
+       roughly half the height. Declared after the base .oc-card rule because
+       an identical-specificity rule earlier in the file loses on source order. */
+    .oc-card { aspect-ratio: 16/10; }
+  }
   .oc-card.is-in:hover {
     transform: translateY(-8px) scale(1.015);
     box-shadow: 0 22px 48px -18px rgba(0,0,0,0.55), 0 0 0 1px rgba(91,194,231,0.18);
@@ -1638,7 +1645,7 @@
   /* The tile band pins for one screen and releases the moment the cascade
      completes, so it costs the page 1.6vp rather than the old section's 2vp
      plus a full screen of headline. */
-  .band-tetris { height: 160vh; background: #070707; }
+  .band-tetris { height: 118vh; background: #070707; }
   .band-tetris-pin {
     position: sticky; top: 0; height: 100vh;
     display: flex; align-items: center; justify-content: center;
@@ -1851,7 +1858,9 @@ window.buildTetrisReveal({
   image: 'forvr%20docs/site-images/supplied/opt-no-prompt-and-pray.jpg',
   cols: 14, rows: 9,
   preplaced: 0.24,
-  progressScale: 1.05,
+  // Band shortened 160vh -> 128vh, so the cascade has less scroll to resolve
+  // in. Scaling progress up keeps it finishing before the pin releases.
+  progressScale: 1.35,
   entry: 'sides',
 });
 
@@ -2000,9 +2009,9 @@ window.buildTetrisReveal({
   .faq-item:last-child { border-bottom: 1px solid var(--line); }
   .faq-item summary {
     cursor: pointer; list-style: none;
-    padding: 28px 0;
+    padding: 17px 0;
     font-family: var(--display); font-weight: 900;
-    font-size: clamp(28px, 3vw, 44px); line-height: 1.05; letter-spacing: -0.01em;
+    font-size: clamp(21px, 2vw, 29px); line-height: 1.1; letter-spacing: -0.01em;
     text-transform: uppercase;
     color: var(--fg);
     display: flex; align-items: baseline; justify-content: space-between; gap: 24px;

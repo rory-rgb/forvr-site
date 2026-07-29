@@ -1,99 +1,34 @@
 /* =====================================================================
    FORVR — shared scroll experience
-   Makes the whole site read as one continuous, planned scroll rather than
-   a stack of independent sections. Three parts:
 
-     1. Inertial scroll   — wheel input is eased into the native scroll
-                            position, so every section arrives on the same
-                            curve as every other one.
-     2. Chapter rail      — a persistent index of the page's chapters that
-                            tracks position and inverts over dark chapters.
-     3. Scroll progress   — a hairline at the top of the viewport.
+     1. Chapter rail    — a persistent index of the page's chapters that
+                          tracks position and inverts over dark chapters.
+     2. Scroll progress — a hairline at the top of the viewport.
 
-   Deliberate constraints:
-     - It drives window.scrollTo, it does NOT transform a wrapper element.
-       A transform-based virtual scroller breaks position:sticky, and this
-       site pins the tile band with sticky.
-     - Touch, keyboard, anchor jumps and reduced-motion all keep native
-       behaviour. Only mouse-wheel input is eased.
+   NOTE ON SMOOTH SCROLL, so nobody adds it back.
+   An inertial wheel-interception layer was built here and removed on
+   2026-07-29 because it felt, in Rory's words, stiff and then suddenly
+   flying. Measuring a simulated trackpad flick showed exactly that:
+
+     total travel 636px, of which 636px happened AFTER input stopped,
+     still moving 1.27s after the finger lifted.
+
+   The cause is structural, not a tuning problem. macOS already eases
+   trackpad input and sends a long decaying momentum tail, so easing the
+   wheel deltas again integrates the same gesture twice: the page lags the
+   finger while you move, then coasts once you stop. No lerp value fixes
+   that, because the input is already a velocity curve, not a position.
+
+   The continuity Rory wanted comes from choreography instead: one easing
+   curve on every reveal, a consistent chapter rhythm, the rail and the
+   progress hairline. The Bang, one of the two reference sites, likewise
+   does not intercept scroll at all, and reads as the most composed page
+   in the reference library.
    ===================================================================== */
 (function () {
   'use strict';
 
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
-
-  /* ---------------- 1. Inertial scroll ---------------- */
-  if (fine && !reduce) {
-    var target = window.scrollY;
-    var current = window.scrollY;
-    var running = false;
-    var LERP = 0.14;      // higher = snappier, lower = floatier
-    var SNAP = 0.4;       // px below which we settle
-    var selfDriven = 0;   // timestamp of the last scroll WE caused
-
-    function maxScroll() {
-      return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-    }
-
-    function frame() {
-      var diff = target - current;
-      if (Math.abs(diff) < SNAP) {
-        current = target;
-        selfDriven = Date.now();
-        window.scrollTo(0, Math.round(current));
-        running = false;
-        return;
-      }
-      current += diff * LERP;
-      selfDriven = Date.now();
-      window.scrollTo(0, Math.round(current));
-      requestAnimationFrame(frame);
-    }
-
-    function start() {
-      if (!running) { running = true; requestAnimationFrame(frame); }
-    }
-
-    window.addEventListener('wheel', function (e) {
-      // Let the browser handle zoom and any scroller that is not the page.
-      if (e.ctrlKey) return;
-      var el = e.target;
-      while (el && el !== document.body && el !== document.documentElement) {
-        if (el.scrollHeight > el.clientHeight + 2) {
-          var cs = getComputedStyle(el).overflowY;
-          if (cs === 'auto' || cs === 'scroll') return;
-        }
-        el = el.parentElement;
-      }
-      e.preventDefault();
-      target = Math.max(0, Math.min(maxScroll(), target + e.deltaY));
-      start();
-    }, { passive: false });
-
-    // Anything that moves the page by other means (keyboard, anchor jump,
-    // scrollbar drag, find-in-page, resize, browser restore) leaves `target`
-    // pointing at a stale position, and the next wheel event then yanks the
-    // page back to it. Rather than guess at every source, watch the scroll
-    // itself: any scroll we did not cause re-syncs us to reality.
-    // (Timed listeners were tried first and lost the race with the smooth
-    // anchor scroll, which yanked the page back 1400px on the next wheel.)
-    window.addEventListener('scroll', function () {
-      if (Date.now() - selfDriven > 120) {
-        current = window.scrollY;
-        if (!running) target = current;
-      }
-    }, { passive: true });
-
-    // An anchor jump should hand control back to the browser for the duration
-    // of its own smooth scroll.
-    document.addEventListener('click', function (e) {
-      var a = e.target.closest && e.target.closest('a[href^="#"]');
-      if (a) running = false;
-    });
-  }
-
-  /* ---------------- 2 + 3. Rail and progress ---------------- */
+  /* ---------------- Rail and progress ---------------- */
   document.addEventListener('DOMContentLoaded', function () {
     var chapters = [].slice.call(document.querySelectorAll('[data-chapter]'));
 

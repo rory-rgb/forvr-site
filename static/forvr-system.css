@@ -34,9 +34,13 @@
 /* ---------------------------------------------------------------------
    A chapter: one idea, one movement of the scroll
    --------------------------------------------------------------------- */
+/* Vertical rhythm is deliberately tight. An earlier pass used
+   clamp(96px, 14vh, 180px) and the homepage ran to 11.7 viewports, which
+   Rory read as too much scrolling. Whitespace is doing the same job here at
+   two thirds the cost. */
 .chapter {
   position: relative;
-  padding: clamp(96px, 14vh, 180px) 0;
+  padding: clamp(64px, 9vh, 112px) 0;
   border-top: 1px solid var(--line, #e5e5e5);
 }
 .chapter.is-dark { background: #070707; border-top-color: rgba(255,255,255,0.08); }
@@ -49,7 +53,7 @@
   display: inline-flex; align-items: center; gap: 12px;
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em;
   text-transform: uppercase; color: var(--muted, #6a6a6a);
-  margin-bottom: clamp(28px, 4vh, 48px);
+  margin-bottom: clamp(20px, 2.6vh, 32px);
 }
 .ch-mark::before {
   content: ''; width: 7px; height: 7px; background: var(--accent, #5BC2E7);
@@ -68,7 +72,7 @@
 .ch-lede {
   font-size: clamp(19px, 2vw, 28px);
   line-height: 1.45; letter-spacing: -0.01em;
-  max-width: 30ch; margin: clamp(28px, 4vh, 44px) auto 0;
+  max-width: 30ch; margin: clamp(20px, 2.8vh, 32px) auto 0;
   color: rgba(10,10,10,0.88);
 }
 .chapter.is-dark .ch-lede { color: rgba(242,242,242,0.9); }
@@ -76,7 +80,7 @@
 .ch-body {
   font-size: clamp(15px, 1.15vw, 17px);
   line-height: 1.72; letter-spacing: 0.01em;
-  max-width: 62ch; margin: clamp(24px, 3.2vh, 36px) auto 0;
+  max-width: 62ch; margin: clamp(18px, 2.4vh, 28px) auto 0;
   color: rgba(10,10,10,0.66);
 }
 .ch-body + .ch-body { margin-top: 1.1em; }
@@ -84,12 +88,15 @@
 /* Structured fact rows — how retired sections' information is kept without
    giving each point an animated screen of its own. */
 .ch-facts {
-  display: grid; gap: clamp(32px, 4vw, 56px);
+  /* Tighter gap when the columns stack on a phone: three or four stacked
+     facts at a 32px gap was adding most of a viewport per chapter. */
+  display: grid; gap: 22px;
   grid-template-columns: 1fr;
-  margin-top: clamp(48px, 7vh, 84px);
+  margin-top: clamp(32px, 4.5vh, 56px);
   text-align: center;
 }
 @media (min-width: 760px) {
+  .ch-facts { gap: clamp(32px, 4vw, 56px); }
   .ch-facts.cols-2 { grid-template-columns: repeat(2, 1fr); }
   .ch-facts.cols-3 { grid-template-columns: repeat(3, 1fr); }
   .ch-facts.cols-4 { grid-template-columns: repeat(2, 1fr); }
@@ -110,7 +117,7 @@
 }
 .chapter.is-dark .ch-fact-p { color: rgba(242,242,242,0.66); }
 
-.ch-cta { margin-top: clamp(44px, 6vh, 72px); display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.ch-cta { margin-top: clamp(30px, 4vh, 48px); display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
 
 /* Wordless transition band — full bleed, zero words. The page's punctuation. */
 .band {
