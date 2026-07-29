@@ -161,9 +161,184 @@
     panel.__genieRaf = requestAnimationFrame(frame);
   };
 
+  /* ---------------- Round-two rollout ----------------
+     Frame count, drift, genie'd FAQ rows, genie'd nav popup, and the pass.
+     All approved off /motion-lab. */
+
+  function initFrameCount() {
+    var els = [].slice.call(document.querySelectorAll('[data-count]'));
+    if (!els.length) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    els.forEach(function (el) {
+      var text = el.textContent.trim();
+      el.textContent = '';
+      el.__cols = [];
+      text.split('').forEach(function (ch) {
+        if (!/[0-9]/.test(ch)) {
+          var st = document.createElement('span'); st.textContent = ch; el.appendChild(st);
+          return;
+        }
+        var wrap = document.createElement('span'); wrap.className = 'fcnt-digit';
+        var col = document.createElement('span'); col.className = 'fcnt-col';
+        '0123456789'.split('').concat(ch).forEach(function (n) {
+          var sp = document.createElement('span'); sp.textContent = n; col.appendChild(sp);
+        });
+        wrap.appendChild(col); el.appendChild(wrap);
+        el.__cols.push(col);
+      });
+      el.__play = function () {
+        el.__cols.forEach(function (col, i) {
+          var steps = col.children.length - 1;
+          if (reduce) { col.style.transform = 'translateY(-' + steps + 'em)'; return; }
+          col.style.transition = 'none';
+          col.style.transform = 'translateY(0)';
+          void col.offsetHeight;
+          col.style.transition = 'transform ' + (0.9 + i * 0.1) + 's cubic-bezier(0.22,1,0.36,1)';
+          col.style.transform = 'translateY(-' + steps + 'em)';
+        });
+      };
+      // settle instantly so the number is never blank pre-view
+      el.__cols.forEach(function (col) { col.style.transform = 'translateY(-' + (col.children.length - 1) + 'em)'; });
+    });
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !e.target.__seen) { e.target.__seen = true; e.target.__play(); }
+        else if (!e.isIntersecting) {
+          var r = e.boundingClientRect;
+          if (r.bottom < 0 || r.top > window.innerHeight) e.target.__seen = false;
+        }
+      });
+    }, { rootMargin: '-40px 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  function initDrift() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var imgs = [].slice.call(document.querySelectorAll('img[data-drift]'));
+    if (!imgs.length) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      imgs.forEach(function (im) {
+        var r = im.parentElement.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        var travel = parseFloat(im.getAttribute('data-drift')) || 8;
+        var p = (r.top + r.height / 2 - window.innerHeight / 2) / (window.innerHeight / 2);
+        im.style.transform = 'translateY(' + (p * -travel).toFixed(2) + '%)';
+      });
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  function initGenieDetails() {
+    if (!window.forvrGenie) return;
+    [].forEach.call(document.querySelectorAll('details.faq-item'), function (d) {
+      var summary = d.querySelector('summary');
+      var body = d.querySelector('.faq-body');
+      if (!summary || !body) return;
+      // The genie neck sits where the + marker lives: the right end of the
+      // summary. forvrGenie only reads getBoundingClientRect, so a plain
+      // object stands in for a real anchor element.
+      var anchor = { getBoundingClientRect: function () {
+        var r = summary.getBoundingClientRect();
+        return { left: r.right - 46, right: r.right - 6, top: r.top, bottom: r.bottom, height: r.height, width: 40 };
+      } };
+      summary.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (!d.open) {
+          d.open = true;
+          body.style.visibility = 'visible';
+          window.forvrGenie(body, anchor, true);
+        } else {
+          body.style.visibility = 'visible';
+          window.forvrGenie(body, anchor, false, function () {
+            body.style.visibility = '';
+            d.open = false;
+          });
+        }
+      });
+    });
+  }
+
+  function initGenieNav() {
+    var nav = document.querySelector('.floating-nav');
+    var menu = nav && nav.querySelector('.nav-menu');
+    var btn = document.getElementById('navToggle');
+    if (!nav || !menu || !btn || !window.forvrGenie) return;
+    var was = nav.classList.contains('open');
+    new MutationObserver(function () {
+      var is = nav.classList.contains('open');
+      if (is === was) return;
+      was = is;
+      menu.style.visibility = 'visible';
+      window.forvrGenie(menu, btn, is, is ? null : function () { menu.style.visibility = ''; });
+    }).observe(nav, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  /* The pass — internal navigation as an exposure sweep. The hairline leads
+     a clean sheet across, the wordmark holds a beat, and the next page
+     opens already covered and sweeps itself clear. */
+  function initPass() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ov = document.createElement('div');
+    ov.id = 'forvrPass';
+    ov.setAttribute('aria-hidden', 'true');
+    ov.innerHTML = '<div class="sheet"></div><div class="edge"></div><div class="mark">forvr<i>.</i></div>';
+    document.body.appendChild(ov);
+    var sheet = ov.querySelector('.sheet'), edge = ov.querySelector('.edge'), mark = ov.querySelector('.mark');
+    var EASE = 'cubic-bezier(0.65,0,0.35,1)';
+    var leaving = false;
+
+    // Arrival: if the previous page swept in, we open covered and sweep out.
+    if (sessionStorage.getItem('forvrPass') === '1') {
+      sessionStorage.removeItem('forvrPass');
+      ov.style.visibility = 'visible';
+      sheet.style.transform = 'translateX(0)';
+      requestAnimationFrame(function () {
+        sheet.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(101%)' }], { duration: 460, easing: EASE, fill: 'forwards' });
+        edge.animate([{ left: '0%', opacity: 1 }, { left: '100%', opacity: 0 }], { duration: 460, easing: EASE, fill: 'forwards' });
+        setTimeout(function () { ov.style.visibility = 'hidden'; sheet.style.transform = ''; }, 500);
+      });
+    }
+
+    document.addEventListener('click', function (e) {
+      if (leaving || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target.closest && e.target.closest('a[href]');
+      if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+      var href = a.getAttribute('href');
+      // internal page navigations only — never anchors, mailto, external
+      if (!href || href.charAt(0) === '#' || /^(https?:|mailto:|tel:)/.test(href) && a.host !== location.host) return;
+      if (/^(mailto:|tel:)/.test(href)) return;
+      if (a.host && a.host !== location.host) return;
+      if (a.pathname === location.pathname && a.hash) return;
+      e.preventDefault();
+      leaving = true;
+      sessionStorage.setItem('forvrPass', '1');
+      ov.style.visibility = 'visible';
+      sheet.animate([{ transform: 'translateX(-101%)' }, { transform: 'translateX(0)' }], { duration: 420, easing: EASE, fill: 'forwards' });
+      edge.animate([{ left: '0%', opacity: 1 }, { left: '100%', opacity: 1 }], { duration: 420, easing: EASE, fill: 'forwards' });
+      mark.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, delay: 320, fill: 'forwards' });
+      setTimeout(function () { location.href = a.href; }, 480);
+    });
+
+    // Back-forward cache restores mid-transition state; reset it.
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) { leaving = false; ov.style.visibility = 'hidden'; sheet.style.transform = ''; }
+    });
+  }
+
   /* ---------------- Rail and progress ---------------- */
   document.addEventListener('DOMContentLoaded', function () {
     initRevealKit();
+    initFrameCount();
+    initDrift();
+    initGenieDetails();
+    initGenieNav();
+    initPass();
 
     // Ask AI popup rides the genie. The FAB's own inline script just toggles
     // .open; we watch that class and run the clip animation around it, so the

@@ -512,3 +512,49 @@ body.page-axis .stat-block > * {
 @media (prefers-reduced-motion: reduce) {
   .ask-fab-panel { clip-path: none; }
 }
+
+/* ---------------------------------------------------------------------
+   ROUND-TWO ROLLOUT (all four approved off /motion-lab)
+   --------------------------------------------------------------------- */
+
+/* Frame count — digits roll up on drums like the status-strip counter.
+   Mark any stat with data-count; non-digit characters stay static. */
+[data-count] .fcnt-digit { display: inline-block; height: 1em; overflow: hidden; vertical-align: top; }
+[data-count] .fcnt-col { display: flex; flex-direction: column; transform: translateY(0); }
+[data-count] .fcnt-col span { height: 1em; display: block; line-height: 1; }
+
+/* Drift — the image travels a beat slower than the page inside its frame.
+   The scale gives it headroom so edges never show. Container must clip;
+   the scan wipe's overflow:hidden already does on case figures. */
+img[data-drift] { will-change: transform; }
+.drift-img { scale: 1.12; }
+
+/* Genie'd FAQ answers — the approved restyle: page-coloured, one accent
+   rule, no box. Applies wherever details.faq-item is used (home FAQ,
+   studio rows). */
+details.faq-item .faq-body {
+  border-left: 2px solid var(--accent, #5BC2E7);
+  padding-left: 18px;
+  overflow: hidden;
+}
+
+/* The pass — page transitions. Injected by forvr-scroll.js. */
+#forvrPass { position: fixed; inset: 0; z-index: 300; pointer-events: none; visibility: hidden; }
+#forvrPass .sheet { position: absolute; inset: 0; background: var(--bg, #fafafa); transform: translateX(-101%); }
+#forvrPass .edge { position: absolute; top: 0; bottom: 0; width: 3px; background: var(--accent, #5BC2E7); left: 0; opacity: 0; }
+#forvrPass .mark { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-family: var(--display); font-weight: 900; font-size: 30px; text-transform: uppercase; opacity: 0; color: var(--fg, #0a0a0a); }
+#forvrPass .mark i { color: var(--accent, #5BC2E7); font-style: normal; }
+
+/* Nav popup rides the genie, same contract as the Ask AI panel. */
+.floating-nav .nav-menu {
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+  clip-path: polygon(0 100%, 0 100%, 0 100%);
+  visibility: hidden;
+}
+.floating-nav.open .nav-menu { visibility: visible; }
+@media (prefers-reduced-motion: reduce) {
+  .floating-nav .nav-menu { clip-path: none; }
+  .drift-img { scale: 1; }
+}

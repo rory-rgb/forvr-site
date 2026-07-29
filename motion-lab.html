@@ -282,24 +282,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 1000);
   }
 
-  /* 08 DRIFT — capped parallax, transform only */
-  (function () {
-    if (reduce) return;
-    var imgs = [].slice.call(document.querySelectorAll('[data-drift]'));
-    if (!imgs.length) return;
-    var ticking = false;
-    function update() {
-      ticking = false;
-      imgs.forEach(function (im) {
-        var r = im.parentElement.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > innerHeight) return;
-        var p = (r.top + r.height / 2 - innerHeight / 2) / (innerHeight / 2);
-        im.style.transform = 'translateY(' + (p * -10).toFixed(2) + '%)';
-      });
-    }
-    addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-    update();
-  })();
+  /* 08 DRIFT — driven by the shared initDrift in forvr-scroll.js */
 
   /* fire-on-view + replays */
   var fires = { fc: playFc, pass: playPass };
