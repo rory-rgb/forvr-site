@@ -134,14 +134,28 @@
 .ch-facts .ch-fact {
   border: 1px solid var(--line, #e5e5e5);
   transition: transform 0.45s var(--ease), border-color 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  /* Idle float — a slow breathe so the cards have life before anyone touches
+     them (Rory 2026-07-30). Small travel on purpose: the hover lift replaces
+     the animation, and a big float would make that handover visibly snap.
+     Durations and negative delays are varied per position so the row never
+     bobs in unison. */
+  animation: factFloat 6.4s ease-in-out infinite;
 }
+.ch-facts .ch-fact:nth-child(2n)   { animation-duration: 7.3s; animation-delay: -2.1s; }
+.ch-facts .ch-fact:nth-child(3n)   { animation-duration: 6.9s; animation-delay: -3.4s; }
+.ch-facts .ch-fact:nth-child(4n+1) { animation-delay: -4.6s; }
+@keyframes factFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+.ch-facts .ch-fact:hover { animation: none; }
 .ch-facts .ch-fact:hover {
   transform: translateY(-4px);
   border-color: rgba(91, 194, 231, 0.65);
   box-shadow: 0 16px 36px rgba(10, 10, 12, 0.10);
 }
 @media (prefers-reduced-motion: reduce) {
-  .ch-facts .ch-fact, .ch-facts .ch-fact:hover { transform: none; transition: none; box-shadow: none; }
+  .ch-facts .ch-fact, .ch-facts .ch-fact:hover { transform: none; transition: none; box-shadow: none; animation: none; }
 }
 
 .ch-facts.has-media .ch-fact {
