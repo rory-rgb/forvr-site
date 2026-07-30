@@ -128,6 +128,22 @@
    direction across a row makes the cards read as one choreographed move
    rather than four identical fades.
    --------------------------------------------------------------------- */
+/* Rory (2026-07-30): "little boxes and outlines just to give them a bit more
+   life and depth" — every fact card is a bordered box at rest, lifting with
+   an accent edge on hover. */
+.ch-facts .ch-fact {
+  border: 1px solid var(--line, #e5e5e5);
+  transition: transform 0.45s var(--ease), border-color 0.45s var(--ease), box-shadow 0.45s var(--ease);
+}
+.ch-facts .ch-fact:hover {
+  transform: translateY(-4px);
+  border-color: rgba(91, 194, 231, 0.65);
+  box-shadow: 0 16px 36px rgba(10, 10, 12, 0.10);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ch-facts .ch-fact, .ch-facts .ch-fact:hover { transform: none; transition: none; box-shadow: none; }
+}
+
 .ch-facts.has-media .ch-fact {
   position: relative;
   overflow: hidden;
@@ -145,6 +161,7 @@
   /* --media must be a ROOT-relative url(). A relative one resolves against
      THIS stylesheet (/static/), not the page, so `_proto/...` silently became
      `/static/_proto/...` and 404'd. */
+  background-color: #101012;   /* dark ground even if the image fails */
   background-image: var(--media);
   background-size: cover;
   background-position: center;
@@ -171,11 +188,16 @@
 .ch-facts.has-media .ch-fact:focus-within .ch-fact-p { color: rgba(255,255,255,0.82); }
 
 /* Touch and reduced-motion get the image as a quiet always-on backdrop
-   rather than a hover trick they can never trigger. */
+   rather than a hover trick they can never trigger.
+   The selector MUST carry [data-dir]: the per-direction park rules above
+   include that attribute, so a plain class selector loses on specificity and
+   the panel stays translated off-screen — which shipped as invisible white
+   text on the live mobile view. */
 @media (hover: none) {
-  .ch-facts.has-media .ch-fact::before { transform: none; opacity: 0.9; }
+  .ch-facts.has-media .ch-fact[data-dir]::before { transform: none; opacity: 1; }
+  .ch-facts.has-media .ch-fact-n { color: #9adcf5; }
   .ch-facts.has-media .ch-fact-h { color: #fff; }
-  .ch-facts.has-media .ch-fact-p { color: rgba(255,255,255,0.82); }
+  .ch-facts.has-media .ch-fact-p { color: rgba(255,255,255,0.86); }
 }
 @media (prefers-reduced-motion: reduce) {
   .ch-facts.has-media .ch-fact::before { transition: none; }

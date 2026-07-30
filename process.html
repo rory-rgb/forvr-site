@@ -926,8 +926,10 @@
   <style>
     .wt-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 40px; max-width: 1440px; }
     @media (min-width: 900px) { .wt-grid { grid-template-columns: repeat(5, 1fr); gap: 20px; } }
-    .wt-step { border-top: 1px solid var(--line); padding-top: 16px; display: flex; flex-direction: column; transition: border-color 0.4s; }
-    .wt-step:hover { border-top-color: var(--accent); }
+    /* Boxed like the fact cards site-wide (Rory 2026-07-30). */
+    .wt-step { border: 1px solid var(--line); padding: 18px 16px 16px; display: flex; flex-direction: column; transition: border-color 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.45s cubic-bezier(0.22,1,0.36,1); }
+    .wt-step:hover { border-color: rgba(91,194,231,0.65); transform: translateY(-4px); box-shadow: 0 16px 36px rgba(10,10,12,0.10); }
+    @media (prefers-reduced-motion: reduce) { .wt-step, .wt-step:hover { transform: none; transition: none; box-shadow: none; } }
     .wt-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(10,10,10,0.72); }
     .wt-eyebrow .acc { color: var(--accent); font-size: 8px; vertical-align: 2px; margin-right: 4px; }
     .wt-step h4 { font-family: var(--body); font-weight: 600; font-size: 16px; margin-top: 10px; }
