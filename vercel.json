@@ -1,4 +1,26 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/about",
+      "destination": "/studio",
+      "permanent": true
+    },
+    {
+      "source": "/process",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/system",
+      "destination": "/studio",
+      "permanent": true
+    },
+    {
+      "source": "/motion-lab",
+      "destination": "/work",
+      "permanent": true
+    }
+  ]
 }
