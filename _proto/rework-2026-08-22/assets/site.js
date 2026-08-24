@@ -86,6 +86,24 @@ addEventListener('pointerdown',()=>document.querySelectorAll('video').forEach(v=
 
 
 
+/* mobile menu */
+(function(){
+  const btn=document.getElementById('burger'), menu=document.getElementById('menu');
+  if(!btn||!menu) return;
+  let open=false;
+  function set(v){
+    open=v;
+    btn.setAttribute('aria-expanded',v);
+    btn.setAttribute('aria-label',v?'Close menu':'Open menu');
+    document.body.classList.toggle('menu-open',v);
+    if(v){menu.hidden=false; requestAnimationFrame(()=>menu.classList.add('open'));}
+    else{menu.classList.remove('open'); setTimeout(()=>{if(!open)menu.hidden=true},320);}
+  }
+  btn.addEventListener('click',()=>set(!open));
+  menu.addEventListener('click',e=>{if(e.target.tagName==='A')set(false)});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&open)set(false)});
+})();
+
 /* nav */
 addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40),{passive:true});
 

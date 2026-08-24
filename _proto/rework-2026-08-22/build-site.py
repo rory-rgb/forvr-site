@@ -23,7 +23,18 @@ def nav(active):
   <a class="mark" href="index.html">FORVR<span class="dot">.</span></a>
   <div class="links">{links}</div>
   <a class="cta-pill" href="trial.html">Try it free</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+    <span></span><span></span>
+  </button>
 </nav>
+<div class="menu" id="menu" hidden>
+  <div class="menu-links">{links}<a href="trial.html">Try it free</a></div>
+  <div class="menu-foot">
+    <a href="mailto:hello@forvr.org">hello@forvr.org</a>
+    <a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">Instagram</a>
+    <span>Reading, England</span>
+  </div>
+</div>
 '''
 
 def hero(img, eyebrow, line_pre, word, words, line_suffix, line2, sub, ctas, page=False):
