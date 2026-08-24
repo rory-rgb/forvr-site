@@ -1,0 +1,232 @@
+#!/usr/bin/env python3
+"""Generates the three homepage takes from one shared spine.
+Edit BODY or a take's CSS, run again. Local only, nothing deployed."""
+
+BODY = """
+<nav class="nav">
+  <a class="mark" href="#top">FORVR<span class="dot">.</span></a>
+  <div class="links">
+    <a href="#work">Work</a><a href="#services">Services</a><a href="#studio">Studio</a><a href="#contact">Contact</a>
+  </div>
+  <a class="cta-pill" href="#trial">Try it free</a>
+</nav>
+
+<header class="hero" id="top">
+  <p class="eyebrow"><span class="tick"></span>AI creative agency &middot; film, image, identity</p>
+  <h1>YOUR <span class="cycle" id="cycle">VISUAL WORLD</span>,<br>BUILT IN DAYS<span class="dot">.</span></h1>
+  <p class="sub">Generative AI directed by human taste. Full campaigns for a fraction of shoot cost.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="#work">See the work</a>
+    <a class="btn ghost" href="#trial">Try it free</a>
+  </div>
+  <aside class="promise">
+    <strong>The three pieces are yours, whether you book or not.</strong>
+    If the first delivery misses the brief you approved, we redo it at no cost.
+  </aside>
+</header>
+
+<section class="reel" id="work" aria-label="Selected work">
+  <div class="reel-track">
+    <figure><img src="assets/forvr-01.jpg" alt="Forvr Collection campaign still"><figcaption>FORVR COLLECTION</figcaption></figure>
+    <figure><img src="assets/sof-02-graphic.jpg" alt="Statue of a Fool lookbook graphic"><figcaption>STATUE OF A FOOL</figcaption></figure>
+    <figure><img src="assets/ff-01.jpg" alt="Fashion film frame"><figcaption>FASHION FILMS</figcaption></figure>
+    <figure><img src="assets/opt-final_01_chickenshop.jpg" alt="Campaign frame, chicken shop scene"><figcaption>CAMPAIGN STILLS</figcaption></figure>
+    <figure><img src="assets/grit-01.jpg" alt="Grit project still"><figcaption>GRIT</figcaption></figure>
+    <figure><img src="assets/posters-01.jpg" alt="Poster series"><figcaption>POSTERS</figcaption></figure>
+    <figure><img src="assets/sc-01.jpg" alt="Small Circle identity"><figcaption>SMALL CIRCLE</figcaption></figure>
+    <figure><img src="assets/opt-final_16_estate_group.jpg" alt="Campaign frame, estate group"><figcaption>CAMPAIGN STILLS</figcaption></figure>
+  </div>
+  <a class="all-work" href="#">All work &rarr;</a>
+</section>
+
+<section class="numbers" aria-label="The numbers">
+  <div class="stat"><span class="n">6</span><span class="l">projects</span></div>
+  <div class="stat"><span class="n">83</span><span class="l">stills</span></div>
+  <div class="stat"><span class="n">20</span><span class="l">films</span></div>
+  <div class="stat"><span class="n">1</span><span class="l">founder</span></div>
+  <p class="honest">No numbers you cannot check yourself.</p>
+  <p class="oldway"><s>Crew, studio, casting, location, reshoots.</s> One directed AI production, in days not months.</p>
+</section>
+
+<section class="craft" id="services">
+  <p class="eyebrow">The question every brand asks</p>
+  <h2>DOES IT LOOK LIKE AI<span class="dot">?</span></h2>
+  <p class="craft-answer">Yes, when it is made badly. Ours goes out when it beats the shoot it replaces.</p>
+  <div class="craft-grid">
+    <div class="craft-item"><span class="num">01</span><h3>One grade across the set</h3>
+      <p>Every piece looks like the same shoot: same light, same skin, same world. This is exactly where cheap AI content falls apart.</p></div>
+    <div class="craft-item"><span class="num">02</span><h3>Direction before generation</h3>
+      <p>The concept, the cast and the world are locked before a single frame is made. Prompting is the last step, not the first.</p></div>
+    <div class="craft-item"><span class="num">03</span><h3>Finished by hand</h3>
+      <p>Hands, fabric, type and logos are corrected piece by piece, because those details are what give generated work away.</p></div>
+  </div>
+</section>
+
+<section class="trial" id="trial">
+  <p class="eyebrow">Try it on your own brand</p>
+  <h2>THREE PIECES, FREE<span class="dot">.</span></h2>
+  <div class="steps">
+    <div class="step"><span class="num">01</span><h3>You send your Instagram</h3><p>Nothing else. No photos, no brief, no call.</p></div>
+    <div class="step"><span class="num">02</span><h3>We direct and produce</h3><p>One concept for your brand, three pieces that develop it. Same light, same world.</p></div>
+    <div class="step"><span class="num">03</span><h3>Yours in 72 hours</h3><p>Ready to post, whether you book us or not.</p></div>
+  </div>
+  <p class="why-free">Why free? Seeing your own product argues better than anything we could write here. It costs us half a day. If it lands, we gain a client. If it does not, you keep the pieces.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="mailto:hello@forvr.org?subject=Free%20trial">Start the trial</a>
+    <span class="no-card">No card. No commitment.</span>
+  </div>
+</section>
+
+<footer id="contact">
+  <a class="mark" href="#top">FORVR<span class="dot">.</span></a>
+  <div class="foot-cols">
+    <div><a href="mailto:hello@forvr.org">hello@forvr.org</a><p>Henley-on-Thames, England</p></div>
+    <div><a href="#work">Work</a><a href="#services">Services</a><a href="#studio">Studio</a></div>
+    <div><a href="https://instagram.com/forvr.cr">Instagram</a></div>
+  </div>
+  <p class="foot-line">Directed by a human. Built with the machines.</p>
+</footer>
+
+<script>
+(function(){
+  var words=["VISUAL WORLD","CAMPAIGN","FILM","IDENTITY"];
+  var el=document.getElementById("cycle");
+  if(!el) return;
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var i=0;
+  setInterval(function(){
+    i=(i+1)%words.length;
+    el.style.opacity=0;
+    setTimeout(function(){ el.textContent=words[i]; el.style.opacity=1; },320);
+  },2600);
+})();
+</script>
+"""
+
+HEAD = """<!DOCTYPE html><html lang="en-GB"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex"><title>{title}</title>
+<style>
+@font-face{{font-family:'BringBold';src:url('assets/BringBold-Nineties.woff2') format('woff2');font-display:swap}}
+{css}
+</style></head><body>
+"""
+
+FOOT = "</body></html>"
+
+# ---------------------------------------------------------------- shared skeleton css
+BASE = """
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body-font);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.dot{color:var(--accent)}
+h1,h2{font-family:'BringBold',sans-serif;font-weight:400;line-height:.95;letter-spacing:.01em}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;justify-content:var(--align,flex-start)}
+.tick{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+.nav{position:sticky;top:0;z-index:9;display:flex;align-items:center;gap:32px;padding:18px 5vw;background:var(--bg-nav);border-bottom:1px solid var(--line)}
+.mark{font-family:'BringBold',sans-serif;font-size:22px}
+.links{display:flex;gap:24px;font-size:14px;margin-left:auto}
+.links a:hover{color:var(--accent)}
+.cta-pill{font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--ink);padding:9px 16px;border-radius:99px}
+.cta-pill:hover{background:var(--ink);color:var(--bg)}
+.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;gap:26px;padding:8vh 5vw;text-align:var(--hero-align,left);align-items:var(--hero-items,flex-start)}
+.hero h1{font-size:clamp(52px,8.5vw,124px)}
+.cycle{color:var(--accent);transition:opacity .3s}
+.sub{font-size:19px;max-width:52ch;color:var(--muted)}
+.cta-row{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn{font-size:14px;letter-spacing:.05em;text-transform:uppercase;padding:15px 28px;border:1px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#070707}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.promise{font-size:14px;color:var(--muted);border-left:2px solid var(--accent);padding:10px 16px;max-width:46ch;text-align:left}
+.promise strong{color:var(--ink);display:block}
+.reel{padding:6vh 0 4vh}
+.reel-track{display:flex;gap:14px;overflow-x:auto;padding:0 5vw 12px;scroll-snap-type:x mandatory}
+.reel-track figure{flex:0 0 clamp(240px,26vw,380px);scroll-snap-align:start}
+.reel-track img{aspect-ratio:4/5;object-fit:cover;width:100%}
+figcaption{font-size:12px;letter-spacing:.12em;margin-top:8px;color:var(--muted)}
+.all-work{display:block;padding:10px 5vw;font-size:14px;letter-spacing:.06em}
+.all-work:hover{color:var(--accent)}
+.numbers{padding:10vh 5vw;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat .n{font-family:'BringBold',sans-serif;font-size:clamp(44px,6vw,84px);display:block}
+.stat .l{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.honest{grid-column:1/3;font-size:14px;color:var(--muted);align-self:end}
+.oldway{grid-column:3/5;font-size:14px;color:var(--muted);align-self:end}
+.oldway s{opacity:.55}
+.craft,.trial{padding:12vh 5vw;display:flex;flex-direction:column;gap:22px}
+.craft h2,.trial h2{font-size:clamp(38px,5.5vw,84px)}
+.craft-answer{font-size:19px;max-width:52ch;color:var(--muted)}
+.craft-grid,.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:14px}
+.craft-item,.step{border-top:1px solid var(--line);padding-top:18px}
+.num{font-size:13px;color:var(--accent);letter-spacing:.1em;display:block;margin-bottom:10px}
+.craft-item h3,.step h3{font-size:17px;margin-bottom:8px}
+.craft-item p,.step p{font-size:14.5px;color:var(--muted)}
+.why-free{font-size:15px;color:var(--muted);max-width:64ch;margin-top:6px}
+.no-card{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+footer{padding:10vh 5vw 6vh;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:28px}
+.foot-cols{display:flex;gap:8vw;flex-wrap:wrap;font-size:14.5px}
+.foot-cols div{display:flex;flex-direction:column;gap:6px}
+.foot-cols a:hover{color:var(--accent)}
+.foot-line{font-size:13px;color:var(--muted)}
+@media(max-width:760px){
+  .links{display:none}
+  .numbers{grid-template-columns:repeat(2,1fr)}
+  .honest,.oldway{grid-column:auto}
+  .craft-grid,.steps{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+"""
+
+TAKES = {
+# ------------------------------------------------ TAKE 1 · PAPER, light editorial
+"take-1-paper": {
+  "title": "Take 1, Paper | Forvr rework",
+  "css": BASE + """
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600&display=swap');
+:root{--body-font:'Archivo',sans-serif;--bg:#FAFAF7;--bg-nav:#FAFAF7f2;--ink:#101012;
+--muted:#6a6a6a;--line:#E5E3DC;--accent:#0FA3D8}
+"""},
+# ------------------------------------------------ TAKE 2 · SIGNAL, technical light
+"take-2-signal": {
+  "title": "Take 2, Signal | Forvr rework",
+  "css": BASE + """
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+:root{--body-font:'IBM Plex Sans',sans-serif;--bg:#F2F4F5;--bg-nav:#F2F4F5f2;--ink:#0B0E10;
+--muted:#5C6670;--line:#D7DCDF;--accent:#0B7FB4}
+.eyebrow,.num,.no-card,figcaption,.btn,.cta-pill,.stat .l,.foot-line{font-family:'IBM Plex Mono',monospace}
+.stat .n{font-variant-numeric:tabular-nums}
+.hero{border-bottom:1px solid var(--line)}
+.reel-track img{filter:none;border:1px solid var(--line)}
+"""},
+# ------------------------------------------------ TAKE 3 · NIGHT, industry dark
+"take-3-night": {
+  "title": "Take 3, Night | Forvr rework",
+  "css": BASE + """
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&display=swap');
+:root{--body-font:'Instrument Sans',sans-serif;--bg:#0A0C0E;--bg-nav:#0A0C0Ef0;--ink:#F2F4F5;
+--muted:#98A2AB;--line:#20262B;--accent:#5BC2E7;--hero-align:center;--hero-items:center;--align:center}
+.hero{position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url('assets/opt-hero-a.poster.jpg') center/cover;opacity:.28;z-index:-1}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,transparent 30%,var(--bg) 90%);z-index:-1}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#070707}
+.btn.primary:hover{background:var(--ink);border-color:var(--ink)}
+.promise{background:#12161A;border-left-color:var(--accent);padding:14px 18px}
+"""},
+}
+
+import pathlib
+root = pathlib.Path(__file__).parent
+for slug, t in TAKES.items():
+    (root / f"{slug}.html").write_text(HEAD.format(title=t["title"], css=t["css"]) + BODY + FOOT)
+    print("built", slug)
+
+# chooser
+links = "".join(f'<li><a href="{s}.html">{s}</a></li>' for s in TAKES)
+(root/"index.html").write_text(f"""<!DOCTYPE html><meta charset="utf-8"><meta name="robots" content="noindex">
+<title>Forvr rework, three takes</title>
+<body style="font-family:sans-serif;padding:40px;line-height:2">
+<h1>Forvr rework, 22 Aug. Three takes, same spine.</h1><ul>{links}</ul>
+<p>Local only. Nothing here is deployed.</p></body>""")
+print("built index")
