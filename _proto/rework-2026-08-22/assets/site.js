@@ -1,6 +1,12 @@
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 gsap.registerPlugin(ScrollTrigger);
 
+/* ScrollTrigger measures before images and webfonts settle, which left
+   anything already on screen stuck at opacity 0 until the first scroll. */
+addEventListener('load',()=>ScrollTrigger.refresh());
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>ScrollTrigger.refresh());
+addEventListener('resize',()=>ScrollTrigger.refresh());
+
 /* videos play when visible */
 const vio=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){e.target.play().catch(()=>{});}else{e.target.pause();}
@@ -115,13 +121,13 @@ if(!reduced){
   }
 
   gsap.utils.toArray('.tile').forEach((x,i)=>gsap.fromTo(x,{opacity:0,y:44},
-    {opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:x,start:'top 88%'},delay:(i%2)*.08}));
+    {opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:x,start:'top bottom-=40'},delay:(i%2)*.08}));
   gsap.utils.toArray('.reveal,.check,.scanwrap,.proj,.lane,.stepc,.fact,.split .imgwrap').forEach(x=>gsap.to(x,
-    {opacity:1,y:0,x:0,duration:.85,ease:'power3.out',scrollTrigger:{trigger:x,start:'top 88%'}}));
+    {opacity:1,y:0,x:0,duration:.85,ease:'power3.out',scrollTrigger:{trigger:x,start:'top bottom-=40'}}));
 
   /* stat rows: count + strike */
   gsap.utils.toArray('.srow').forEach(row=>{
-    ScrollTrigger.create({trigger:row,start:'top 82%',once:true,onEnter(){
+    ScrollTrigger.create({trigger:row,start:'top bottom-=60',once:true,onEnter(){
       row.classList.add('struck');
       const n=row.querySelector('[data-n]');
       if(n)gsap.fromTo(n,{textContent:0},{textContent:+n.dataset.n,duration:1.2,ease:'power2.out',snap:{textContent:1}});
@@ -135,7 +141,7 @@ if(!reduced){
 
   /* trial: calm cards + roadmap draw + lit nodes */
   gsap.utils.toArray('.fcard').forEach((c,i)=>gsap.to(c,{opacity:1,y:0,duration:.7,ease:'power3.out',
-    scrollTrigger:{trigger:'.flow',start:'top 82%'},delay:i*.12}));
+    scrollTrigger:{trigger:'.flow',start:'top bottom-=60'},delay:i*.12}));
 
 
   /* curtain: the page slides over the pinned hero */

@@ -1,10 +1,11 @@
 <!DOCTYPE html><html lang="en-GB"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex"><title>Start the free trial | Forvr</title>
+<meta name="description" content="Three finished pieces built from your brand, free, back within 72 hours. No card, no commitment.">
 <style>
 @font-face{font-family:'BringBold';src:url('assets/BringBold-Nineties.woff2') format('woff2');font-display:swap}
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
-:root{--bg:#0A0B0D;--ink:#F2F3F4;--muted:#9AA1A8;--line:#1E2226;--blue:#5BC2E7;--blue-deep:#0E90C4}
+:root{--fs-xs:12px;--fs-sm:13.5px;--fs-md:15px;--bg:#0A0B0D;--ink:#F2F3F4;--muted:#9AA1A8;--line:#1E2226;--blue:#5BC2E7;--blue-deep:#0E90C4}
 *{box-sizing:border-box;margin:0}
 body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100svh;display:flex;flex-direction:column}
 a{color:inherit;text-decoration:none}
@@ -13,25 +14,27 @@ a{color:inherit;text-decoration:none}
 canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
 nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:20px 4vw}
 .mark{font-family:'BringBold',sans-serif;font-size:23px}
-nav a.back{font-size:13px;color:var(--muted)}
+nav a.back{font-size:var(--fs-sm);color:var(--muted)}
 nav a.back:hover{color:var(--blue)}
 main{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:5vw;align-items:center;padding:6vh 4vw 10vh;max-width:1250px;margin:0 auto;width:100%}
 h1{font-family:'BringBold',sans-serif;font-weight:400;font-size:clamp(36px,4.6vw,72px);line-height:.96}
 .lede{color:var(--muted);margin-top:22px;max-width:44ch}
-.points{margin:30px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:14.5px;color:var(--muted)}
+.points{margin:30px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:var(--fs-md);color:var(--muted)}
 .points li{display:flex;gap:10px;align-items:baseline}
 .points .ok{color:var(--blue)}
 form{background:rgba(16,18,21,.85);border:1px solid var(--line);padding:34px 30px;backdrop-filter:blur(6px)}
-label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:18px 0 7px;font-family:'IBM Plex Mono',monospace}
+label{display:block;font-size:var(--fs-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:18px 0 7px;font-family:'IBM Plex Mono',monospace}
 label:first-child{margin-top:0}
-input{width:100%;background:#0D0F12;border:1px solid var(--line);color:var(--ink);font-size:15px;font-family:'Archivo',sans-serif;padding:14px}
+input{width:100%;background:#0D0F12;border:1px solid var(--line);color:var(--ink);font-size:var(--fs-md);font-family:'Archivo',sans-serif;padding:14px}
 input:focus{outline:2px solid var(--blue);outline-offset:-1px}
 .ig-wrap{display:flex;align-items:center;background:#0D0F12;border:1px solid var(--line)}
 .ig-wrap span{padding:0 0 0 14px;color:var(--muted)}
 .ig-wrap input{border:0;flex:1}
-button{margin-top:26px;width:100%;font-size:13.5px;letter-spacing:.07em;text-transform:uppercase;padding:17px;border:1.5px solid var(--blue);background:var(--blue);color:#070707;cursor:pointer;font-family:'Archivo',sans-serif;font-weight:600}
+button{margin-top:26px;width:100%;font-size:var(--fs-sm);letter-spacing:.07em;text-transform:uppercase;padding:17px;border:1.5px solid var(--blue);background:var(--blue);color:#070707;cursor:pointer;font-family:'Archivo',sans-serif;font-weight:600}
 button:hover{background:var(--ink);border-color:var(--ink)}
-.fine{font-size:11.5px;letter-spacing:.1em;color:var(--muted);margin-top:14px;text-align:center;font-family:'IBM Plex Mono',monospace}
+.fine{font-size:var(--fs-xs);letter-spacing:.1em;color:var(--muted);margin-top:14px;text-align:center;font-family:'IBM Plex Mono',monospace}
+.errline{display:none;margin-top:14px;font-size:var(--fs-sm);color:#E2603F}
+.errline a{border-bottom:1px solid currentColor}
 .done{display:none;text-align:center;padding:40px 10px}
 .done h2{font-family:'BringBold',sans-serif;font-weight:400;font-size:34px;margin-bottom:12px}
 .done p{color:var(--muted);max-width:38ch;margin:0 auto}
@@ -51,7 +54,8 @@ button:hover{background:var(--ink);border-color:var(--ink)}
     </ul>
   </div>
   <div>
-    <form id="f" novalidate>
+    <form id="f" action="https://formspree.io/f/mdajrlge" method="POST" novalidate>
+      <input type="hidden" name="_subject" value="forvr.org FREE TRIAL request">
       <label for="name">Your name</label>
       <input id="name" name="name" type="text" autocomplete="name" required>
       <label for="email">Email, where the pieces land</label>
@@ -61,6 +65,7 @@ button:hover{background:var(--ink);border-color:var(--ink)}
       <button type="submit">Send it &mdash; three pieces in 72h</button>
       <p class="fine">NO CARD &middot; NO SPAM &middot; UNSUBSCRIBE ANY TIME</p>
     </form>
+    <p class="errline" id="err">Something went wrong sending that. Email <a href="mailto:hello@forvr.org">hello@forvr.org</a> and we will pick it up.</p>
     <div class="done" id="done">
       <h2>GOT IT<span class="dot">.</span></h2>
       <p>We are on it. Three pieces, built from your world, in your inbox within 72 hours.</p>
@@ -70,16 +75,23 @@ button:hover{background:var(--ink);border-color:var(--ink)}
 <script>
 /* PROTO: no backend yet. Submission opens a prefilled email to hello@forvr.org
    and shows the confirmation. Wire to a real endpoint before launch. */
-document.getElementById('f').addEventListener('submit',e=>{
+const form=document.getElementById('f');
+form.addEventListener('submit',async e=>{
   e.preventDefault();
   const n=document.getElementById('name').value.trim(),
-        m=document.getElementById('email').value.trim(),
-        g=document.getElementById('ig').value.trim().replace(/^@/,'');
+        m=document.getElementById('email').value.trim();
   if(!n||!m){alert('Name and email, then we can send you the pieces.');return;}
-  location.href='mailto:hello@forvr.org?subject='+encodeURIComponent('Free trial — '+n+(g?' (@'+g+')':''))
-    +'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+m+'\nInstagram: @'+g);
-  document.getElementById('f').style.display='none';
-  document.getElementById('done').style.display='block';
+  const btn=form.querySelector('button');
+  btn.disabled=true; btn.textContent='Sending…';
+  try{
+    const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+    if(!r.ok) throw new Error('bad status');
+    form.style.display='none';
+    document.getElementById('done').style.display='block';
+  }catch(err){
+    btn.disabled=false; btn.textContent='Send it — three pieces in 72h';
+    document.getElementById('err').style.display='block';
+  }
 });
 (function(){
   const cv=document.getElementById('stars'),ctx=cv.getContext('2d');let W,H,st=[];

@@ -243,8 +243,7 @@ work += f'''<section class="section dark-band">
 {projs}
   <p class="honest-line">Spec work is labelled spec. Nothing here is a case study we cannot show you the files for, and no numbers are attached to work that has not run.</p>
 </section>
-
-{TRIAL}'''
+'''
 work += footer()
 (root/"work.html").write_text(work)
 
@@ -267,7 +266,7 @@ STEPS = [("01","Brief","One call or one Instagram handle. We work out what the b
  ("02","Direction","Concept, cast, world and palette locked and signed off before anything is generated."),
  ("03","Production","Frames built as elements, then graded as one set."),
  ("04","Finish","Hand correction, sound, delivery in every format you need.")]
-steps = "".join(f'<div class="stepc"><span class="num mono">{n}</span><h4>{t}</h4><p>{d}</p></div>' for n,t,d in STEPS)
+steps = "".join(f'<div class="stepc"><span class="num mono">{n}</span><h3>{t}</h3><p>{d}</p></div>' for n,t,d in STEPS)
 
 serv = head("Services — Forvr","Campaign films, stills, identity and document design.")
 serv += nav("Services")
@@ -291,8 +290,7 @@ serv += f'''<section class="section">
   <p class="lede reveal">The same route every time, whether it is one image or a full campaign.</p>
   <div class="steps-row">{steps}</div>
 </section>
-
-{TRIAL}'''
+'''
 serv += footer()
 (root/"services.html").write_text(serv)
 
@@ -326,14 +324,13 @@ stud += f'''<section class="section">
   <h2 class="reveal">DIRECTION FIRST<span class="dot">.</span></h2>
   <p class="lede reveal">Generation is the last step, not the first. Everything upstream of it is the job.</p>
   <div class="steps-row" style="margin-top:48px">
-    <div class="stepc"><span class="num mono">01</span><h4>Read the brand</h4><p>What it already looks like, who it sells to, what it must never look like.</p></div>
-    <div class="stepc"><span class="num mono">02</span><h4>Build the world</h4><p>Locations, cast and props built once as elements, reused across every frame.</p></div>
-    <div class="stepc"><span class="num mono">03</span><h4>Hold the grade</h4><p>One light and one palette locked, so a hundred pieces read as a single shoot.</p></div>
-    <div class="stepc"><span class="num mono">04</span><h4>Finish by hand</h4><p>Hands, fabric, type and logos corrected frame by frame before anything ships.</p></div>
+    <div class="stepc"><span class="num mono">01</span><h3>Read the brand</h3><p>What it already looks like, who it sells to, what it must never look like.</p></div>
+    <div class="stepc"><span class="num mono">02</span><h3>Build the world</h3><p>Locations, cast and props built once as elements, reused across every frame.</p></div>
+    <div class="stepc"><span class="num mono">03</span><h3>Hold the grade</h3><p>One light and one palette locked, so a hundred pieces read as a single shoot.</p></div>
+    <div class="stepc"><span class="num mono">04</span><h3>Finish by hand</h3><p>Hands, fabric, type and logos corrected frame by frame before anything ships.</p></div>
   </div>
 </section>
-
-{TRIAL}'''
+'''
 stud += footer()
 (root/"studio.html").write_text(stud)
 
@@ -348,6 +345,36 @@ cont += hero("hero-monk.jpg","Start something",
 cont += '''<section class="section">
   <div class="contact-grid">
     <div>
+      <p class="eyebrow reveal"><span class="tick"></span>Start a project</p>
+      <h2 class="reveal" style="font-size:clamp(30px,3.6vw,56px)">TELL US MORE<span class="dot">.</span></h2>
+      <p class="lede reveal">A brief, a sketch, or just a feeling. We reply the same working day.</p>
+      <form class="enq" action="https://formspree.io/f/mdajrlge" method="POST">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
+        <input type="hidden" name="_subject" value="forvr.org enquiry">
+        <div class="frow">
+          <label class="field half"><span class="lbl">Name <span class="req">*</span></span>
+            <input type="text" name="name" required placeholder="Your name" autocomplete="name"></label>
+          <label class="field half"><span class="lbl">Email <span class="req">*</span></span>
+            <input type="email" name="email" required placeholder="you@brand.com" autocomplete="email"></label>
+        </div>
+        <label class="field"><span class="lbl">Brand or company</span>
+          <input type="text" name="brand" placeholder="Optional" autocomplete="organization"></label>
+        <label class="field"><span class="lbl">Rough budget</span>
+          <select name="budget">
+            <option value="">Skip</option>
+            <option>Under &pound;1k</option>
+            <option>&pound;1k to &pound;3k</option>
+            <option>&pound;3k to &pound;5k</option>
+            <option>&pound;5k to &pound;10k</option>
+            <option>&pound;10k+</option>
+            <option>Not sure yet</option>
+          </select></label>
+        <label class="field"><span class="lbl">What do you need <span class="req">*</span></span>
+          <textarea name="message" rows="5" required placeholder="What are you looking to get done?"></textarea></label>
+        <button type="submit" class="btn primary">Send message</button>
+      </form>
+    </div>
+    <div>
       <p class="eyebrow reveal"><span class="tick"></span>Direct</p>
       <a class="bigmail" href="mailto:hello@forvr.org">hello@forvr.org</a>
       <div class="clist">
@@ -356,13 +383,12 @@ cont += '''<section class="section">
         <div class="crow"><span class="k">Typical reply</span><span>Same working day</span></div>
         <div class="crow"><span class="k">Working with</span><span>Consumer brands, anywhere</span></div>
       </div>
-    </div>
-    <div>
-      <p class="eyebrow reveal"><span class="tick"></span>Not ready to email?</p>
-      <h2 class="reveal" style="font-size:clamp(30px,3.6vw,56px)">TAKE THE TRIAL INSTEAD<span class="dot">.</span></h2>
-      <p class="lede reveal">Send your Instagram and nothing else. Three finished pieces built from your brand, back within 72 hours, yours whether you book us or not.</p>
-      <div class="cta-row" style="opacity:1;transform:none">
+      <div class="trialcard">
+        <span class="tstamp mono">72H</span>
+        <h3>Not ready to brief us<span class="dot">?</span></h3>
+        <p>Send your Instagram and nothing else. Three finished pieces built from your brand, back within 72 hours, yours whether you book us or not.</p>
         <a class="btn primary" href="trial.html">Start the free trial</a>
+        <span class="mono fine">NO CARD &middot; NO COMMITMENT</span>
       </div>
     </div>
   </div>
