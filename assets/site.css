@@ -293,6 +293,9 @@ footer .big a:hover{color:var(--blue-deep)}
 .menu{position:fixed;inset:0;z-index:19;background:var(--dark);color:var(--dark-ink);
   display:flex;flex-direction:column;justify-content:center;padding:14vh 6vw 6vh;
   opacity:0;transition:opacity .3s ease}
+/* display:flex above beats the browser default [hidden]{display:none}, which
+   left a full-screen invisible overlay swallowing every click on the page. */
+.menu[hidden]{display:none}
 .menu.open{opacity:1}
 .menu-links{display:flex;flex-direction:column;gap:4px}
 .menu-links a{font-family:'BringBold',sans-serif;font-size:clamp(38px,12vw,64px);line-height:1.06;
