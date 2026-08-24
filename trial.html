@@ -45,6 +45,18 @@ button:hover{background:var(--ink);border-color:var(--ink)}
 .fine{font-size:var(--fs-xs);letter-spacing:.1em;color:var(--muted);margin-top:14px;text-align:center;font-family:'IBM Plex Mono',monospace}
 .errline{display:none;margin-top:14px;font-size:var(--fs-sm);color:#E2603F}
 .errline a{border-bottom:1px solid currentColor}
+.hp{position:absolute;left:-9999px;opacity:0;width:1px;height:1px}
+select{width:100%;background:#0D0F12;border:1px solid var(--line);color:var(--ink);font-size:var(--fs-md);
+  font-family:'Archivo',sans-serif;padding:14px;min-height:48px;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%235BC2E7' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;background-size:12px;padding-right:40px}
+select:focus{outline:2px solid var(--blue);outline-offset:-1px}
+.notice{border:1px solid var(--blue);background:rgba(91,194,231,.07);padding:22px 20px;margin-top:22px;
+  font-size:var(--fs-sm);color:var(--muted);line-height:1.6}
+.notice strong{color:var(--ink);display:block;margin-bottom:6px}
+.notice .btn{display:inline-block;margin-top:16px;padding:13px 22px;font-size:var(--fs-xs);letter-spacing:.07em;
+  text-transform:uppercase;background:var(--blue);color:#070707;border:1.5px solid var(--blue)}
+.notice .btn:hover{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .done{display:none;text-align:center;padding:40px 10px}
 .done h2{font-family:'BringBold',sans-serif;font-weight:400;font-size:34px;margin-bottom:12px}
 .done p{color:var(--muted);max-width:38ch;margin:0 auto}
@@ -66,14 +78,58 @@ button:hover{background:var(--ink);border-color:var(--ink)}
   <div>
     <form id="f" action="https://formspree.io/f/mdajrlge" method="POST" novalidate>
       <input type="hidden" name="_subject" value="forvr.org FREE TRIAL request">
-      <label for="name">Your name</label>
-      <input id="name" name="name" type="text" autocomplete="name" required>
-      <label for="email">Email, where the pieces land</label>
-      <input id="email" name="email" type="email" autocomplete="email" required>
-      <label for="ig">Brand Instagram</label>
-      <div class="ig-wrap"><span>@</span><input id="ig" name="instagram" type="text" autocomplete="off"></div>
-      <button type="submit">Send it &mdash; three pieces in 72h</button>
-      <p class="fine">NO CARD &middot; NO SPAM &middot; UNSUBSCRIBE ANY TIME</p>
+      <input type="text" name="website_hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
+
+      <label for="sector">What does your brand sell?</label>
+      <select id="sector" name="sector" required>
+        <option value="">Choose one</option>
+        <option>Clothing and accessories</option>
+        <option>Footwear</option>
+        <option>Jewellery and watches</option>
+        <option>Beauty and skincare</option>
+        <option>Food and drink</option>
+        <option>Homeware and furniture</option>
+        <option>Other physical product</option>
+        <option value="service">A service, not a physical product</option>
+      </select>
+
+      <div id="svc" class="notice" hidden>
+        <strong>The free trial is built around a physical product.</strong>
+        We shoot the thing you sell, so a service brand needs a different starting point.
+        Tell us what you are working on and we will come back with what we would actually do for you.
+        <a class="btn blue small" href="contact.html">Talk to us directly</a>
+      </div>
+
+      <div id="prod">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+
+        <label for="email">Email, where the pieces land</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+
+        <label for="brand">Brand name</label>
+        <input id="brand" name="brand" type="text" autocomplete="organization" required>
+
+        <label for="ig">Brand Instagram</label>
+        <div class="ig-wrap"><span>@</span><input id="ig" name="instagram" type="text" autocomplete="off" required></div>
+
+        <label for="product">Which product should we build it around?</label>
+        <input id="product" name="product" type="text" placeholder="One piece, or a drop">
+
+        <label for="assets">Do you have product photos we can work from?</label>
+        <select id="assets" name="assets">
+          <option>Yes, clean product shots</option>
+          <option>Only phone photos</option>
+          <option>Only what is on our Instagram</option>
+          <option>Nothing yet</option>
+        </select>
+
+        <label for="when">Anything coming up?</label>
+        <input id="when" name="timing" type="text" placeholder="A drop, a launch, a date. Optional">
+
+        <button type="submit">Send it &mdash; three pieces in 72h</button>
+        <p class="fine">NO CARD &middot; NO SPAM &middot; UNSUBSCRIBE ANY TIME</p>
+      </div>
     </form>
     <p class="errline" id="err">Something went wrong sending that. Email <a href="mailto:hello@forvr.org">hello@forvr.org</a> and we will pick it up.</p>
     <div class="done" id="done">
@@ -86,11 +142,23 @@ button:hover{background:var(--ink);border-color:var(--ink)}
 /* PROTO: no backend yet. Submission opens a prefilled email to hello@forvr.org
    and shows the confirmation. Wire to a real endpoint before launch. */
 const form=document.getElementById('f');
+const sector=document.getElementById('sector'), svc=document.getElementById('svc'), prod=document.getElementById('prod');
+function syncSector(){
+  const isService = sector.value==='service';
+  svc.hidden = !isService;
+  prod.hidden = isService;
+  prod.querySelectorAll('input,select').forEach(el=>{
+    if(el.dataset.req===undefined && el.required) el.dataset.req='1';
+    el.required = isService ? false : el.dataset.req==='1';
+  });
+}
+sector.addEventListener('change',syncSector); syncSector();
+
 form.addEventListener('submit',async e=>{
   e.preventDefault();
-  const n=document.getElementById('name').value.trim(),
-        m=document.getElementById('email').value.trim();
-  if(!n||!m){alert('Name and email, then we can send you the pieces.');return;}
+  if(sector.value==='service') return;
+  const missing=[...form.querySelectorAll('#prod [required], #sector')].find(el=>!el.value.trim());
+  if(missing){ missing.focus(); document.getElementById('err').textContent='Fill that one in and we can get started.'; document.getElementById('err').style.display='block'; return; }
   const btn=form.querySelector('button');
   btn.disabled=true; btn.textContent='Sending…';
   try{
@@ -104,18 +172,56 @@ form.addEventListener('submit',async e=>{
   }
 });
 (function(){
-  const cv=document.getElementById('stars'),ctx=cv.getContext('2d');let W,H,st=[];
-  function size(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio;
-    st=Array.from({length:170},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.3+.4)*devicePixelRatio,
-      tw:Math.random()*6.28,sp:.05+Math.random()*.2,blue:Math.random()<.35}));}
-  size();addEventListener('resize',size);
+  const cv=document.getElementById('stars'); if(!cv) return;
+  const ctx=cv.getContext('2d'); let W,H,stars=[],DPR=1;
+  let mx=.5,my=.45,ox=.5,oy=.45,warm=0;
   const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function draw(t){ctx.clearRect(0,0,W,H);
-    for(const s of st){ctx.globalAlpha=still?.5:.22+.42*(.5+.5*Math.sin(t/900+s.tw));
-      ctx.fillStyle=s.blue?'#5BC2E7':'#E8ECEF';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.283);ctx.fill();
-      if(!still){s.x+=s.sp;if(s.x>W)s.x=0;}}
-    if(!still)requestAnimationFrame(draw);}
-  if(still)draw(0);else requestAnimationFrame(draw);
+  function build(){
+    DPR=Math.min(devicePixelRatio||1,2);
+    W=cv.width=Math.round(innerWidth*DPR); H=cv.height=Math.round(innerHeight*DPR);
+    const n=Math.round(Math.min(130,Math.max(60,innerWidth/12)));
+    stars=Array.from({length:n},()=>{const z=Math.random();
+      return {x:Math.random()*W,y:Math.random()*H,z,r:(0.7+z*2.0)*DPR,
+        tw:Math.random()*6.28,sp:.25+Math.random()*.55,blue:Math.random()<.28,big:z>.78};});
+  }
+  build(); addEventListener('resize',build); addEventListener('load',build);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(build);
+  addEventListener('pointermove',e=>{mx=e.clientX/innerWidth;my=e.clientY/innerHeight;warm=1;});
+  function orb(x,y,R,a){
+    const g=ctx.createRadialGradient(x,y,0,x,y,R);
+    g.addColorStop(0,'rgba(150,222,247,'+(0.42*a)+')');
+    g.addColorStop(0.18,'rgba(91,194,231,'+(0.26*a)+')');
+    g.addColorStop(0.45,'rgba(38,120,164,'+(0.12*a)+')');
+    g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,R,0,6.283);ctx.fill();
+  }
+  function drawStar(x,y,r,a,blue,big,t,tw){
+    const col=blue?'145,215,242':'236,242,246';
+    const g=ctx.createRadialGradient(x,y,0,x,y,r*9);
+    g.addColorStop(0,'rgba('+col+','+(a*0.7)+')');g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*9,0,6.283);ctx.fill();
+    ctx.fillStyle='rgba('+col+','+Math.min(a*1.35,1)+')';
+    ctx.beginPath();ctx.arc(x,y,r,0,6.283);ctx.fill();
+    if(big){const L=r*(6+2.2*Math.sin(t/620+tw));
+      ctx.strokeStyle='rgba('+col+','+(a*0.55)+')';ctx.lineWidth=Math.max(1,r*0.34);
+      ctx.beginPath();ctx.moveTo(x-L,y);ctx.lineTo(x+L,y);
+      ctx.moveTo(x,y-L*0.8);ctx.lineTo(x,y+L*0.8);ctx.stroke();}
+  }
+  function frame(t){
+    ox+=(mx-ox)*.06; oy+=(my-oy)*.06;
+    const OX=ox*W,OY=oy*H,R=Math.max(W,H)*0.42;
+    ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation='lighter';
+    orb(OX,OY,R,0.85+0.25*warm); orb(OX,OY,R*0.26,1.1+0.4*warm);
+    for(const s of stars){
+      const px=s.x+(ox-.5)*s.z*70*DPR, py=s.y+(oy-.5)*s.z*46*DPR;
+      const d=Math.hypot(px-OX,py-OY)||1, near=Math.max(0,1-d/(R*0.95));
+      const base=still?0.42:0.24+0.22*(.5+.5*Math.sin(t/1600+s.tw))*s.sp;
+      drawStar(px,py,s.r,Math.min(base+near*0.62,1),s.blue,s.big,t,s.tw);
+    }
+    ctx.globalCompositeOperation='source-over';
+    if(!still) requestAnimationFrame(frame);
+  }
+  if(still) frame(0); else requestAnimationFrame(frame);
 })();
 </script>
 </body></html>

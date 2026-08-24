@@ -16,71 +16,88 @@ addEventListener('pointerdown',()=>document.querySelectorAll('video').forEach(v=
   if(v.paused&&v.getBoundingClientRect().top<innerHeight)v.play().catch(()=>{});
 }),{once:true});
 
-/* light orb tracks the cursor; stars glow and give way around it */
+/* Trial panel: a light orb the cursor carries, with depth-parallaxed stars.
+   Everything is drawn additively so the glow reads on the near-black ground. */
 (function(){
   const cv=document.getElementById('stars'); if(!cv) return;
-  const ctx=cv.getContext('2d'); let W,H,stars=[];
-  let mx=.5,my=.42,ox=.5,oy=.42;
-  function size(){W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio;
-    stars=Array.from({length:64},()=>({x:Math.random()*W,y:Math.random()*H,
-      r:(Math.random()*1.4+.5)*devicePixelRatio,tw:Math.random()*6.28,z:.35+Math.random()*.65,
-      blue:Math.random()<.22, big:Math.random()<.16}));}
-  size(); addEventListener('resize',size);
-  cv.parentElement.addEventListener('pointermove',e=>{
-    const b=cv.getBoundingClientRect();
-    mx=(e.clientX-b.left)/b.width; my=(e.clientY-b.top)/b.height;});
+  const ctx=cv.getContext('2d'); let W,H,stars=[],DPR=1;
+  let mx=.5,my=.45,ox=.5,oy=.45,warm=0;
   const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function star(x,y,r,alpha,blue,big,t,tw){
-    // halo
-    const g=ctx.createRadialGradient(x,y,0,x,y,r*7);
-    g.addColorStop(0,(blue?'rgba(91,194,231,':'rgba(233,238,242,')+(alpha*.55)+')');
+
+  function build(){
+    DPR=Math.min(devicePixelRatio||1,2);
+    W=cv.width=Math.round(cv.offsetWidth*DPR);
+    H=cv.height=Math.round(cv.offsetHeight*DPR);
+    const n=Math.round(Math.min(120,Math.max(55,cv.offsetWidth/13)));
+    stars=Array.from({length:n},()=>{
+      const z=Math.random();
+      return {x:Math.random()*W,y:Math.random()*H,z,
+        r:(0.7+z*2.0)*DPR, tw:Math.random()*6.28, sp:.25+Math.random()*.55,
+        blue:Math.random()<.28, big:z>.78};
+    });
+  }
+  build();
+  addEventListener('resize',build);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(build);
+  addEventListener('load',build);
+
+  const host=cv.parentElement;
+  host.addEventListener('pointermove',e=>{
+    const b=cv.getBoundingClientRect();
+    mx=(e.clientX-b.left)/b.width; my=(e.clientY-b.top)/b.height; warm=1;
+  });
+  host.addEventListener('pointerleave',()=>{warm=0});
+
+  function orb(x,y,R,a){
+    const g=ctx.createRadialGradient(x,y,0,x,y,R);
+    g.addColorStop(0,   'rgba(150,222,247,'+(0.42*a)+')');
+    g.addColorStop(0.18,'rgba(91,194,231,' +(0.26*a)+')');
+    g.addColorStop(0.45,'rgba(38,120,164,' +(0.12*a)+')');
+    g.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,R,0,6.283); ctx.fill();
+  }
+
+  function drawStar(x,y,r,a,blue,big,t,tw){
+    const col=blue?'145,215,242':'236,242,246';
+    const g=ctx.createRadialGradient(x,y,0,x,y,r*9);
+    g.addColorStop(0,'rgba('+col+','+(a*0.7)+')');
     g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r*7,0,6.283); ctx.fill();
-    // core
-    ctx.globalAlpha=alpha;
-    ctx.fillStyle=blue?'#8FD8F2':'#F4F7F9';
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r*9,0,6.283); ctx.fill();
+    ctx.fillStyle='rgba('+col+','+Math.min(a*1.35,1)+')';
     ctx.beginPath(); ctx.arc(x,y,r,0,6.283); ctx.fill();
-    // sparkle cross on the large ones
     if(big){
-      ctx.globalAlpha=alpha*.5; ctx.strokeStyle=blue?'#8FD8F2':'#F4F7F9';
-      ctx.lineWidth=devicePixelRatio*.7;
-      const L=r*(5+1.6*Math.sin(t/700+tw));
+      const L=r*(6+2.2*Math.sin(t/620+tw));
+      ctx.strokeStyle='rgba('+col+','+(a*0.55)+')';
+      ctx.lineWidth=Math.max(1,r*0.34);
       ctx.beginPath();
-      ctx.moveTo(x-L,y);ctx.lineTo(x+L,y);
-      ctx.moveTo(x,y-L);ctx.lineTo(x,y+L);
+      ctx.moveTo(x-L,y); ctx.lineTo(x+L,y);
+      ctx.moveTo(x,y-L*0.8); ctx.lineTo(x,y+L*0.8);
       ctx.stroke();
     }
-    ctx.globalAlpha=1;
   }
-  function draw(t){
-    ox+=(mx-ox)*.055; oy+=(my-oy)*.055;
-    const OX=ox*W, OY=oy*H;
+
+  function frame(t){
+    ox+=(mx-ox)*.06; oy+=(my-oy)*.06;
+    const OX=ox*W, OY=oy*H, R=Math.max(W,H)*0.42;
     ctx.clearRect(0,0,W,H);
     ctx.globalCompositeOperation='lighter';
-    // the orb
-    const R=Math.min(W,H)*.34;
-    let g=ctx.createRadialGradient(OX,OY,0,OX,OY,R);
-    g.addColorStop(0,'rgba(91,194,231,.20)');
-    g.addColorStop(.35,'rgba(43,130,168,.10)');
-    g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(OX,OY,R,0,6.283); ctx.fill();
-    g=ctx.createRadialGradient(OX,OY,0,OX,OY,R*.22);
-    g.addColorStop(0,'rgba(160,220,243,.30)');
-    g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(OX,OY,R*.22,0,6.283); ctx.fill();
-    // stars, brightened near the orb, eased slightly away from it
-    for(const st of stars){
-      const dx=st.x-OX, dy=st.y-OY, d=Math.hypot(dx,dy)||1;
-      const push=Math.max(0,1-d/(R*1.1))*20*st.z*devicePixelRatio;
-      const x=st.x+dx/d*push, y=st.y+dy/d*push;
-      const near=Math.max(0,1-d/(R*1.4));
-      const a=(still?.4:.14+.26*(.5+.5*Math.sin(t/1500+st.tw)))+.35*near;
-      star(x,y,st.r,Math.min(a,.85),st.blue,st.big,t,st.tw);
+
+    orb(OX,OY,R,0.85+0.25*warm);
+    orb(OX,OY,R*0.26,1.1+0.4*warm);
+
+    for(const s of stars){
+      const px=s.x+(ox-.5)*s.z*70*DPR, py=s.y+(oy-.5)*s.z*46*DPR;
+      const d=Math.hypot(px-OX,py-OY)||1;
+      const near=Math.max(0,1-d/(R*0.95));
+      const base=still?0.42:0.24+0.22*(.5+.5*Math.sin(t/1600+s.tw))*s.sp;
+      drawStar(px,py,s.r,Math.min(base+near*0.62,1),s.blue,s.big,t,s.tw);
     }
     ctx.globalCompositeOperation='source-over';
-    if(!still) requestAnimationFrame(draw); }
-  if(still){draw(0);} else requestAnimationFrame(draw);
+    if(!still) requestAnimationFrame(frame);
+  }
+  if(still) frame(0); else requestAnimationFrame(frame);
 })();
+
 
 
 
