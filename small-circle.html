@@ -1,267 +1,110 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Small Circle · varsity collab · Forvr Studios</title>
-<meta name="description" content="Studio shoot produced in collaboration with Small Circle for the varsity collection. Editorial framing, single lighting setup, whole collection in one sitting."/>
-<link rel="icon" href="/favicon.ico" sizes="any"/>
-<link rel="icon" type="image/png" sizes="32x32" href="/static/icon-32.png"/>
-<link rel="apple-touch-icon" sizes="180x180" href="/static/icon-180.png"/>
-<link rel="stylesheet" href="_proto/forvr.css"/>
-<script>
-  if ('IntersectionObserver' in window &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.documentElement.classList.add('js');
-  }
-</script>
-<link rel="stylesheet" href="static/forvr-system.css" />
-<script src="static/forvr-scroll.js" defer></script>
-<style>
-  /* page-only, same skeleton as the Statue of a Fool case page */
-  .case-hero { position: relative; height: 82svh; min-height: 520px; overflow: hidden; background: var(--ink); }
-  .case-hero img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; object-position: 50% 32%;
-  }
-  .case-hero::after {
-    content: ""; position: absolute; inset: 0;
-    background:
-      linear-gradient(180deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 18%, rgba(0,0,0,0) 34%, rgba(0,0,0,.55) 100%),
-      linear-gradient(90deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.12) 45%, rgba(0,0,0,0) 70%);
-  }
-  .case-hero-inner {
-    position: relative; z-index: 2; height: 100%;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding-bottom: var(--s8); color: #fff;
-  }
-  .facts { display: grid; gap: var(--s5); grid-template-columns: repeat(2, 1fr); margin-top: var(--s6); }
-  .fact dt { font-family: var(--mono); font-size: var(--t-label); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .fact dd { font-size: var(--t-small); margin-top: var(--s1); }
-  @media (min-width: 768px) { .facts { grid-template-columns: repeat(4, 1fr); } }
-  @media (prefers-reduced-motion: no-preference) {
-    .gal figure { overflow: hidden; }
-    .gal img { transition: transform .9s cubic-bezier(.2, .6, .2, 1); }
-    .gal figure:hover img { transform: scale(1.035); }
-  }
-  .case-video { width: 100%; height: auto; display: block; background: #000; }
-</style>
-</head>
-<body>
-
-<a href="index.html" class="top-brand" aria-label="Forvr">
-  <img class="brand-logo" src="static/forvr-logo.svg" alt="Forvr" width="36" height="26" style="display:block;height:26px;width:auto;" loading="lazy" decoding="async">
-  <span class="brand-name">Forvr<span class="dot">.</span></span>
-</a>
-<style>
-  /* live-site chrome: brand mark + floating navigation, shared with every page */
-  .top-brand { position: fixed; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 10px; pointer-events: auto; }
-  @media (min-width: 768px) { .top-brand { top: 28px; left: 40px; } }
-  .top-brand .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; color: #fff; mix-blend-mode: difference; }
-  .floating-nav { position: fixed; bottom: 24px; right: 24px; z-index: 60; }
-  @media (min-width: 768px) { .floating-nav { bottom: 28px; right: 40px; } }
-  .nav-toggle { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(245,245,245,0.85); transition: all 0.35s; overflow: hidden; }
-  .nav-toggle::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: 999px; pointer-events: none; }
-  .nav-toggle:hover, .floating-nav.open .nav-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35), inset 0 0 18px rgba(91,194,231,0.08); }
-  .nav-toggle .icon { display: inline-block; width: 9px; height: 9px; position: relative; z-index: 1; }
-  .nav-toggle .icon::before, .nav-toggle .icon::after { content: ""; position: absolute; background: currentColor; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
-  .nav-toggle .icon::before { top: 4px; left: 0; right: 0; height: 1.5px; }
-  .nav-toggle .icon::after { top: 0; bottom: 0; left: 4px; width: 1.5px; }
-  .floating-nav.open .nav-toggle .icon::after { transform: rotate(90deg); }
-  .nav-toggle > span:first-child { position: relative; z-index: 1; }
-  .nav-menu { position: absolute; bottom: calc(100% + 8px); right: 0; display: flex; flex-direction: column-reverse; gap: 6px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
-  .floating-nav.open .nav-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
-  @keyframes nav-wave-in {
-    0% { opacity: 0; transform: translateY(20px) scale(0.7); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
-    45% { opacity: 1; transform: translateY(-2px) scale(1.04); background: rgba(91,194,231,0.45); border-color: var(--accent); box-shadow: 0 0 36px rgba(91,194,231,0.55), inset 0 0 18px rgba(91,194,231,0.25); }
-    100% { opacity: 1; transform: translateY(0) scale(1); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
-  }
-  @keyframes nav-genie-out {
-    0% { opacity: 1; transform: translate(0, 0) scale(1, 1) skewX(0deg); border-radius: 999px; filter: blur(0px); }
-    40% { opacity: 0.85; transform: translate(20px, 14px) scale(0.55, 0.6) skewX(-6deg); border-radius: 16px; filter: blur(0.4px); }
-    80% { opacity: 0.35; transform: translate(38px, 30px) scale(0.18, 0.22) skewX(-12deg); border-radius: 50%; filter: blur(1.5px); }
-    100% { opacity: 0; transform: translate(50px, 38px) scale(0.02, 0.04) skewX(-16deg); border-radius: 50%; filter: blur(3px); }
-  }
-  .nav-item { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border: 1px solid rgba(91,194,231,0.20); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; transform-origin: bottom right; opacity: 0; transform: translateY(20px) scale(0.7); white-space: nowrap; overflow: hidden; transition: border-color 0.35s, box-shadow 0.35s; }
-  .nav-item::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: inherit; pointer-events: none; }
-  .nav-item:hover { border-color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.4), inset 0 0 18px rgba(91,194,231,0.10); transform: translateY(0) translateX(-4px) scale(1); transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s; }
-  .floating-nav.open .nav-item { animation: nav-wave-in 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .floating-nav.open .nav-item:nth-child(1) { animation-delay: 0.28s; }
-  .floating-nav.open .nav-item:nth-child(2) { animation-delay: 0.22s; }
-  .floating-nav.open .nav-item:nth-child(3) { animation-delay: 0.16s; }
-  .floating-nav.open .nav-item:nth-child(4) { animation-delay: 0.10s; }
-  .floating-nav.open .nav-item:nth-child(5) { animation-delay: 0.04s; }
-  .floating-nav.open .nav-item:nth-child(6) { animation-delay: 0.00s; }
-  .floating-nav.open .nav-item:nth-child(7) { animation-delay: 0.00s; }
-  .floating-nav.closing .nav-item { animation: nav-genie-out 0.55s cubic-bezier(0.7, 0, 0.84, 0) forwards !important; transform-origin: bottom right; opacity: 1; transform: translateY(0) scale(1); }
-  .floating-nav.closing .nav-item:nth-child(1) { animation-delay: 0.00s !important; }
-  .floating-nav.closing .nav-item:nth-child(2) { animation-delay: 0.05s !important; }
-  .floating-nav.closing .nav-item:nth-child(3) { animation-delay: 0.10s !important; }
-  .floating-nav.closing .nav-item:nth-child(4) { animation-delay: 0.15s !important; }
-  .floating-nav.closing .nav-item:nth-child(5) { animation-delay: 0.20s !important; }
-  .floating-nav.closing .nav-item:nth-child(6) { animation-delay: 0.25s !important; }
-  .floating-nav.closing .nav-item:nth-child(7) { animation-delay: 0.30s !important; }
-  .floating-nav.closing .nav-menu { pointer-events: none; }
-  .nav-item .num { position: relative; z-index: 1; font-family: var(--mono); font-size: 9px; color: var(--accent); letter-spacing: 0.10em; }
-  .nav-item .title { position: relative; z-index: 1; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; line-height: 1; color: rgba(245,245,245,0.9); transition: color 0.35s; }
-  .nav-item:hover .title { color: var(--accent); }
-  .nav-item .caption { display: none; }
-  .nav-item.active { border-color: var(--accent); box-shadow: 0 0 14px rgba(91,194,231,0.30); }
-  .nav-item.active .title { color: var(--accent); }
-</style>
-
-
-<header class="case-hero" id="cs-intro" data-chapter="Intro">
-  <img src="forvr%20docs/small%20circle/Studio-Shoot/opt-1.jpg" alt="Small Circle varsity collection, studio frame"/>
-  <div class="case-hero-inner wrap-w">
-    <p class="label rv" style="color:rgba(255,255,255,.6)">Varsity collab</p>
-    <h1 class="display rv" style="font-size:var(--t-h1); margin-top:var(--s3)">
-      Small Circle<span class="dot">.</span>
-    </h1>
+<!DOCTYPE html><html lang="en-GB"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Small Circle &middot; varsity collab &middot; Forvr Studios</title>
+<meta name="description" content="A whole varsity collection shot in one sitting under one lighting setup that never moved. Studio stills for Small Circle.">
+<link rel="canonical" href="https://forvr.org/small-circle">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forvr Studios">
+<meta property="og:title" content="Small Circle &middot; varsity collab &middot; Forvr Studios">
+<meta property="og:description" content="A whole varsity collection shot in one sitting under one lighting setup that never moved. Studio stills for Small Circle.">
+<meta property="og:url" content="https://forvr.org/small-circle">
+<meta property="og:image" content="https://forvr.org/assets/small-circle/03.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Small Circle &middot; varsity collab &middot; Forvr Studios">
+<meta name="twitter:description" content="A whole varsity collection shot in one sitting under one lighting setup that never moved. Studio stills for Small Circle.">
+<meta name="twitter:image" content="https://forvr.org/assets/small-circle/03.jpg">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/icon-180.png">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+<nav class="nav" id="nav">
+  <a class="mark" href="index.html">FORVR<span class="dot">.</span></a>
+  <div class="links"><a href="work.html" aria-current="page">Work</a><a href="services.html">Services</a><a href="studio.html">Studio</a><a href="contact.html">Contact</a></div>
+  <a class="cta-pill" href="trial.html">Try it free</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+    <span></span><span></span>
+  </button>
+</nav>
+<div class="menu" id="menu" hidden>
+  <div class="menu-links"><a href="work.html">Work</a><a href="services.html">Services</a><a href="studio.html">Studio</a><a href="contact.html">Contact</a><a href="trial.html">Try it free</a></div>
+  <div class="menu-foot">
+    <a href="mailto:hello@forvr.org">hello@forvr.org</a>
+    <a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">Instagram</a>
+    <span>Reading, England</span>
+  </div>
+</div>
+<header class="hero page" id="top">
+  <img class="hero-bg" id="heroBg" src="assets/small-circle/03.jpg" alt="">
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="tick"></span>Varsity collab &middot; Stills &middot; 2026</p>
+    <h1><span class="row"><span>SMALL CIRCLE<span class="dot">.</span></span></span></h1>
+    <p class="sub">A whole collection shot in one sitting, under one light that never moved.</p>
+    <div class="cta-row"><a class="btn ghost" href="work.html">&larr; All work</a></div>
   </div>
 </header>
-
-<!-- what it is, said plainly and up front -->
-<section class="section-tight wrap">
-  <p class="lead rv" style="max-width:var(--c-narrow)">
-    A studio shoot produced in collaboration with Small Circle for the varsity
-    collection. Editorial framing, a single lighting setup, and the whole
-    collection shot in one sitting, so the set reads as one session rather
-    than a folder of separate pictures.
-  </p>
-
-  <dl class="facts rv">
-    <div class="fact"><dt>Type</dt><dd>Varsity collab</dd></div>
-    <div class="fact"><dt>Direction</dt><dd>Forvr</dd></div>
-    <div class="fact"><dt>Format</dt><dd>Studio stills, lead film</dd></div>
-    <div class="fact"><dt>Year</dt><dd>2026</dd></div>
-  </dl>
-</section>
-
-<!-- 01 THE SITTING -->
-<section id="cs-1" class="section wrap" data-chapter="01 / 01 The sitting">
-  <div class="head rv">
-    <h2 class="label">01 The sitting</h2>
-    <span class="label">One setup, the whole collection</span>
-  </div>
-
-  <p class="lead rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
-    One lighting setup, held for the whole collection. Keeping the light fixed
-    is what makes the set stack: every piece, every pose, every crop sits in
-    the same world, and the collection reads as one shoot.
-  </p>
-
-  <div class="gal" style="margin-top:var(--s7)">
-    <figure class="g-wide" data-reveal="scan">
-      <img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-2.jpg" alt="Small Circle varsity collection, studio frame 02" loading="lazy"/>
-      <figcaption class="label">Frame 02</figcaption>
-    </figure>
-    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-3.jpg" alt="Small Circle varsity collection, studio frame 03" loading="lazy"/><figcaption class="label">Frame 03</figcaption></figure>
-    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-4.jpg" alt="Small Circle varsity collection, studio frame 04" loading="lazy"/><figcaption class="label">Frame 04</figcaption></figure>
-    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-5.jpg" alt="Small Circle varsity collection, studio frame 05" loading="lazy"/><figcaption class="label">Frame 05</figcaption></figure>
-    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-7.jpg" alt="Small Circle varsity collection, studio frame 07" loading="lazy"/><figcaption class="label">Frame 07</figcaption></figure>
-    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-9.jpg" alt="Small Circle varsity collection, studio frame 09" loading="lazy"/><figcaption class="label">Frame 09</figcaption></figure>
-    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-10.jpg" alt="Small Circle varsity collection, studio frame 10" loading="lazy"/><figcaption class="label">Frame 10</figcaption></figure>
-    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-13.jpg" alt="Small Circle varsity collection, studio frame 13" loading="lazy"/><figcaption class="label">Frame 13</figcaption></figure>
-    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-15.jpg" alt="Small Circle varsity collection, studio frame 15" loading="lazy"/><figcaption class="label">Frame 15</figcaption></figure>
-    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-17.jpg" alt="Small Circle varsity collection, studio frame 17" loading="lazy"/><figcaption class="label">Frame 17</figcaption></figure>
-    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/small%20circle/Studio-Shoot/opt-20.jpg" alt="Small Circle varsity collection, studio frame 20" loading="lazy"/><figcaption class="label">Frame 20</figcaption></figure>
-  </div>
-
-  <p class="small muted rv" style="margin-top:var(--s6); max-width:var(--c-narrow)">
-    Eleven of nineteen frames. The rest sit in the archive.
-  </p>
-</section>
-
-<!-- 02 THE FILM -->
-<section class="section dark">
-  <div class="wrap">
-    <div class="head rv" style="border-color:rgba(255,255,255,.14)">
-      <h2 class="label" style="color:var(--accent)">02 The film</h2>
-      <span class="label">Lead film, cut from the sitting</span>
+<main class="over">
+<section class="section dark-band">
+  <div class="sec-head"><h2>THE SITTING<span class="dot">.</span></h2><span class="mono">18 frames &middot; 4:5</span></div>
+  <div class="casefacts">
+    <div class="fact"><span class="k">Client</span><p>Small Circle</p></div>
+    <div class="fact"><span class="k">Discipline</span><p>Studio stills, direction</p></div>
+    <div class="fact"><span class="k">Format</span><p>4:5, 18 frames</p></div>
+    <div class="fact"><span class="k">Year</span><p>2026</p></div>
     </div>
-    <video class="case-video rv" style="margin-top:var(--s7)"
-      src="forvr%20docs/videos/streetwear/small%20circle/opt-SCsite.mp4"
-      poster="forvr%20docs/videos/streetwear/small%20circle/opt-SCsite.poster.jpg"
-      controls playsinline preload="none"></video>
+</section>
+<section class="section">
+  <div class="sec-head"><h2>HOW IT WORKS<span class="dot">.</span></h2></div>
+  <div class="casenote reveal">
+    <p>One lighting setup, held for the entire collection. Keeping the light fixed is what makes a set stack: every piece, every pose, every crop sits in the same world, so the collection reads as one shoot rather than a folder of separate pictures.</p>
+    <p>Shot in a single sitting against one concrete sweep, with the ball as the only prop that moves. Editorial framing throughout, so the garments carry the frame instead of being laid out flat for a catalogue.</p>
+    <p>Eighteen frames here. The rest sit in the archive.</p>
   </div>
 </section>
-
-<!-- CTA -->
-<section id="cs-next" class="section wrap" data-chapter="02 / Next">
-  <h2 class="display rv" style="font-size:var(--t-h1)">Want one<br/>of these<span class="dot">?</span></h2>
-  <p class="small muted rv" style="margin-top:var(--s5); max-width:var(--c-narrow)">
-    A whole collection, shot in one sitting, delivered as one set. If your
-    label has a drop coming, the first conversation is free.
-  </p>
-  <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
-    <a class="cta" href="contact.html">Book a call <span class="pip"></span></a>
-    <a class="label" href="work.html">See the rest of the work <span class="dot">→</span></a>
+<section class="section dark-band">
+  <div class="sec-head"><h2>THE SET<span class="dot">.</span></h2><span class="mono">18 frames</span></div>
+  <div class="gal three">
+    <figure><img src="assets/small-circle/01.jpg" alt="Small Circle frame 1" loading="lazy" width="1200" height="1490"><figcaption>01</figcaption></figure>
+    <figure><img src="assets/small-circle/02.jpg" alt="Small Circle frame 2" loading="lazy" width="1200" height="1490"><figcaption>02</figcaption></figure>
+    <figure><img src="assets/small-circle/03.jpg" alt="Small Circle frame 3" loading="lazy" width="1200" height="1490"><figcaption>03</figcaption></figure>
+    <figure><img src="assets/small-circle/04.jpg" alt="Small Circle frame 4" loading="lazy" width="1200" height="1490"><figcaption>04</figcaption></figure>
+    <figure><img src="assets/small-circle/05.jpg" alt="Small Circle frame 5" loading="lazy" width="1200" height="1490"><figcaption>05</figcaption></figure>
+    <figure><img src="assets/small-circle/06.jpg" alt="Small Circle frame 6" loading="lazy" width="1200" height="1490"><figcaption>06</figcaption></figure>
+    <figure><img src="assets/small-circle/07.jpg" alt="Small Circle frame 7" loading="lazy" width="1200" height="1490"><figcaption>07</figcaption></figure>
+    <figure><img src="assets/small-circle/08.jpg" alt="Small Circle frame 8" loading="lazy" width="1200" height="1490"><figcaption>08</figcaption></figure>
+    <figure><img src="assets/small-circle/09.jpg" alt="Small Circle frame 9" loading="lazy" width="1200" height="1490"><figcaption>09</figcaption></figure>
+    <figure><img src="assets/small-circle/10.jpg" alt="Small Circle frame 10" loading="lazy" width="1200" height="1490"><figcaption>10</figcaption></figure>
+    <figure><img src="assets/small-circle/11.jpg" alt="Small Circle frame 11" loading="lazy" width="1200" height="1490"><figcaption>11</figcaption></figure>
+    <figure><img src="assets/small-circle/12.jpg" alt="Small Circle frame 12" loading="lazy" width="1200" height="1490"><figcaption>12</figcaption></figure>
+    <figure><img src="assets/small-circle/13.jpg" alt="Small Circle frame 13" loading="lazy" width="1200" height="1490"><figcaption>13</figcaption></figure>
+    <figure><img src="assets/small-circle/14.jpg" alt="Small Circle frame 14" loading="lazy" width="1200" height="1490"><figcaption>14</figcaption></figure>
+    <figure><img src="assets/small-circle/15.jpg" alt="Small Circle frame 15" loading="lazy" width="1200" height="1490"><figcaption>15</figcaption></figure>
+    <figure><img src="assets/small-circle/16.jpg" alt="Small Circle frame 16" loading="lazy" width="1200" height="1490"><figcaption>16</figcaption></figure>
+    <figure><img src="assets/small-circle/17.jpg" alt="Small Circle frame 17" loading="lazy" width="1200" height="1490"><figcaption>17</figcaption></figure>
+    <figure><img src="assets/small-circle/18.jpg" alt="Small Circle frame 18" loading="lazy" width="1200" height="1490"><figcaption>18</figcaption></figure>
   </div>
 </section>
-
-<footer class="foot">
-  <div class="wrap foot-row">
-    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
-    <span class="label">Case study · 2026</span>
+<nav class="case-next">
+  <span class="k">Next project</span>
+  <a href="statue-of-a-fool.html">STATUE OF A FOOL<span class="dot">.</span></a>
+</nav>
+<footer id="contact-foot">
+  <p class="big reveal">GOT A DROP COMING<span class="dot">?</span><br><a href="mailto:hello@forvr.org">LET'S BUILD IT<span class="dot">.</span></a></p>
+  <div class="foot-cols">
+    <div><span class="mark">FORVR<span class="dot">.</span></span></div>
+    <div><a href="mailto:hello@forvr.org">hello@forvr.org</a><span>Reading, England</span></div>
+    <div><a href="work.html">Work</a><a href="services.html">Services</a><a href="studio.html">Studio</a></div>
+    <div><a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">Instagram</a></div>
   </div>
+  <div class="foot-base"><span>&copy; 2026 Forvr.Studios</span><span class="foot-legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span></div>
 </footer>
-
-<script src="_proto/forvr.js"></script>
-<!-- Floating navigation -->
-<div class="floating-nav" id="floatingNav">
-  <div class="nav-menu" aria-label="Site navigation">
-    <a class="nav-item" href="index.html"><span class="num">00</span><span class="title">Home</span></a>
-    <a class="nav-item active" href="work.html"><span class="num">01</span><span class="title">Portfolio</span></a>
-    <a class="nav-item" href="services.html"><span class="num">02</span><span class="title">Services</span></a>
-    <a class="nav-item" href="studio.html"><span class="num">03</span><span class="title">Studio</span></a>
-    <a class="nav-item" href="process.html"><span class="num">04</span><span class="title">Process</span></a>
-    <a class="nav-item" href="contact.html"><span class="num">05</span><span class="title">Contact</span></a>
-  </div>
-  <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu">
-    <span>Navigation</span>
-    <span class="icon" aria-hidden="true"></span>
-  </button>
-</div>
-<script>
-(function () {
-  var floatingNav = document.getElementById('floatingNav');
-  var navToggle = document.getElementById('navToggle');
-  if (!floatingNav || !navToggle) return;
-  function close() {
-    floatingNav.classList.add('closing');
-    floatingNav.classList.remove('open');
-    setTimeout(function () { floatingNav.classList.remove('closing'); }, 850);
-  }
-  navToggle.addEventListener('click', function (e) {
-    e.stopPropagation();
-    if (floatingNav.classList.contains('open')) close();
-    else floatingNav.classList.add('open');
-  });
-  document.addEventListener('click', function (e) {
-    if (!floatingNav.contains(e.target) && floatingNav.classList.contains('open')) close();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && floatingNav.classList.contains('open')) close();
-  });
-})();
-</script>
-<style>
-  @media (max-width: 767px) {
-    .top-brand { transition: opacity 0.35s, visibility 0.35s; }
-    .top-brand.tb-hide { opacity: 0; visibility: hidden; }
-  }
-</style>
-<script>
-(function () {
-  var b = document.querySelector('.top-brand');
-  if (!b) return;
-  var hidden = false;
-  window.addEventListener('scroll', function () {
-    var h = window.scrollY > 64;
-    if (h !== hidden) { hidden = h; b.classList.toggle('tb-hide', h); }
-  }, { passive: true });
-})();
-</script>
-</body>
-</html>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/site.js"></script>
+</body></html>

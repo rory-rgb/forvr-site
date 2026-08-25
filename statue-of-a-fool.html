@@ -1,472 +1,113 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Statue of a Fool · concept collection · Forvr Studios</title>
-<meta name="description" content="A self-initiated concept collection: written direction, statement graphic, garment and campaign, made end to end."/>
-<link rel="stylesheet" href="_proto/forvr.css"/>
-<script>
-  if ('IntersectionObserver' in window &&
-      !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.documentElement.classList.add('js');
-  }
-</script>
-<link rel="stylesheet" href="static/forvr-system.css" />
-<script src="static/forvr-scroll.js" defer></script>
-<style>
-  /* page-only */
-  /* hero frame is shot landscape with the subject held right and the left
-     third left empty, so the display type lands on pavement, not on him. */
-  .case-hero { position: relative; height: 82svh; min-height: 520px; overflow: hidden; background: var(--ink); }
-  .case-hero img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; object-position: 55% 42%;
-  }
-  .case-hero::after {
-    content: ""; position: absolute; inset: 0;
-    /* top scrim carries the nav, which otherwise sits on pale stucco;
-       left scrim carries the display type; bottom just seats the frame. */
-    background:
-      linear-gradient(180deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 18%, rgba(0,0,0,0) 34%, rgba(0,0,0,.55) 100%),
-      linear-gradient(90deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,0) 70%);
-  }
-  .case-hero-inner {
-    position: relative; z-index: 2; height: 100%;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding-bottom: var(--s8); color: #fff;
-  }
-  /* on narrow screens the subject sits off the right edge, so bias back */
-  @media (max-width: 767px) { .case-hero img { object-position: 50% 42%; } }
-  /* 01 Direction sits on the concrete the collection was shot on, not on black */
-  .direction { background: #EDE7DD; }
-  .direction .pole { border-top: 1px solid rgba(10,10,10,.16); }
-  .sw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); margin-top: var(--s4); }
-  @media (min-width: 768px) { .sw-grid { grid-template-columns: repeat(6, 1fr); } }
-  .sw-chip { height: 110px; border-radius: 2px; border: 1px solid rgba(10,10,10,.10); }
-  .sw-name { font-family: var(--mono); font-size: var(--t-label); letter-spacing: .08em; text-transform: uppercase; margin-top: var(--s2); }
-  .sw-hex { font-family: var(--mono); font-size: var(--t-label); color: var(--muted); }
-  @media (prefers-reduced-motion: no-preference) {
-    .js .rv .sw-card { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
-    .js .rv.in .sw-card { opacity: 1; transform: none; }
-    .js .rv.in .sw-card:nth-child(2) { transition-delay: .07s; }
-    .js .rv.in .sw-card:nth-child(3) { transition-delay: .14s; }
-    .js .rv.in .sw-card:nth-child(4) { transition-delay: .21s; }
-    .js .rv.in .sw-card:nth-child(5) { transition-delay: .28s; }
-    .js .rv.in .sw-card:nth-child(6) { transition-delay: .35s; }
-    .gal figure { overflow: hidden; }
-    .gal img { transition: transform .9s cubic-bezier(.2, .6, .2, 1); }
-    .gal figure:hover img { transform: scale(1.035); }
-  }
-  .facts { display: grid; gap: var(--s5); grid-template-columns: repeat(2, 1fr); margin-top: var(--s6); }
-  .fact dt { font-family: var(--mono); font-size: var(--t-label); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-  .fact dd { font-size: var(--t-small); margin-top: var(--s1); }
-  .poles { display: grid; gap: var(--s5); grid-template-columns: 1fr; margin-top: var(--s6); }
-  .pole { border-top: 1px solid var(--line); padding-top: var(--s4); }
-  .full img { width: 100%; height: auto; }
-  .pair { display: grid; gap: var(--s4); grid-template-columns: 1fr; }
-  @media (min-width: 768px) {
-    .facts { grid-template-columns: repeat(4, 1fr); }
-    .poles { grid-template-columns: 1fr 1fr; gap: var(--s8); }
-    .pair  { grid-template-columns: 1fr 1fr; }
-  }
-</style>
-</head>
-<body>
-
-<a href="index.html" class="top-brand" aria-label="Forvr">
-  <img class="brand-logo" src="static/forvr-logo.svg" alt="Forvr" width="36" height="26" style="display:block;height:26px;width:auto;" loading="lazy" decoding="async">
-  <span class="brand-name">Forvr<span class="dot">.</span></span>
-</a>
-<style>
-  /* live-site chrome: brand mark + floating navigation, shared with every page */
-  .top-brand { position: fixed; top: 24px; left: 24px; z-index: 50; display: flex; align-items: center; gap: 10px; pointer-events: auto; }
-  @media (min-width: 768px) { .top-brand { top: 28px; left: 40px; } }
-  .top-brand .brand-name { font-family: var(--display); font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 900; color: #fff; mix-blend-mode: difference; }
-  .floating-nav { position: fixed; bottom: 24px; right: 24px; z-index: 60; }
-  @media (min-width: 768px) { .floating-nav { bottom: 28px; right: 40px; } }
-  .nav-toggle { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid rgba(91,194,231,0.25); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: rgba(245,245,245,0.85); transition: all 0.35s; overflow: hidden; }
-  .nav-toggle::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: 999px; pointer-events: none; }
-  .nav-toggle:hover, .floating-nav.open .nav-toggle { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.35), inset 0 0 18px rgba(91,194,231,0.08); }
-  .nav-toggle .icon { display: inline-block; width: 9px; height: 9px; position: relative; z-index: 1; }
-  .nav-toggle .icon::before, .nav-toggle .icon::after { content: ""; position: absolute; background: currentColor; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
-  .nav-toggle .icon::before { top: 4px; left: 0; right: 0; height: 1.5px; }
-  .nav-toggle .icon::after { top: 0; bottom: 0; left: 4px; width: 1.5px; }
-  .floating-nav.open .nav-toggle .icon::after { transform: rotate(90deg); }
-  .nav-toggle > span:first-child { position: relative; z-index: 1; }
-  .nav-menu { position: absolute; bottom: calc(100% + 8px); right: 0; display: flex; flex-direction: column-reverse; gap: 6px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: all 0.4s cubic-bezier(0.22,1,0.36,1); }
-  .floating-nav.open .nav-menu { opacity: 1; pointer-events: auto; transform: translateY(0); }
-  @keyframes nav-wave-in {
-    0% { opacity: 0; transform: translateY(20px) scale(0.7); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
-    45% { opacity: 1; transform: translateY(-2px) scale(1.04); background: rgba(91,194,231,0.45); border-color: var(--accent); box-shadow: 0 0 36px rgba(91,194,231,0.55), inset 0 0 18px rgba(91,194,231,0.25); }
-    100% { opacity: 1; transform: translateY(0) scale(1); background: rgba(15,15,15,0.78); border-color: rgba(91,194,231,0.20); box-shadow: none; }
-  }
-  @keyframes nav-genie-out {
-    0% { opacity: 1; transform: translate(0, 0) scale(1, 1) skewX(0deg); border-radius: 999px; filter: blur(0px); }
-    40% { opacity: 0.85; transform: translate(20px, 14px) scale(0.55, 0.6) skewX(-6deg); border-radius: 16px; filter: blur(0.4px); }
-    80% { opacity: 0.35; transform: translate(38px, 30px) scale(0.18, 0.22) skewX(-12deg); border-radius: 50%; filter: blur(1.5px); }
-    100% { opacity: 0; transform: translate(50px, 38px) scale(0.02, 0.04) skewX(-16deg); border-radius: 50%; filter: blur(3px); }
-  }
-  .nav-item { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border: 1px solid rgba(91,194,231,0.20); background: rgba(15,15,15,0.78); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 999px; transform-origin: bottom right; opacity: 0; transform: translateY(20px) scale(0.7); white-space: nowrap; overflow: hidden; transition: border-color 0.35s, box-shadow 0.35s; }
-  .nav-item::before { content: ""; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(91,194,231,0.05) 0px, rgba(91,194,231,0.05) 1px, transparent 1px, transparent 3px); border-radius: inherit; pointer-events: none; }
-  .nav-item:hover { border-color: var(--accent); box-shadow: 0 0 24px rgba(91,194,231,0.4), inset 0 0 18px rgba(91,194,231,0.10); transform: translateY(0) translateX(-4px) scale(1); transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s; }
-  .floating-nav.open .nav-item { animation: nav-wave-in 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .floating-nav.open .nav-item:nth-child(1) { animation-delay: 0.28s; }
-  .floating-nav.open .nav-item:nth-child(2) { animation-delay: 0.22s; }
-  .floating-nav.open .nav-item:nth-child(3) { animation-delay: 0.16s; }
-  .floating-nav.open .nav-item:nth-child(4) { animation-delay: 0.10s; }
-  .floating-nav.open .nav-item:nth-child(5) { animation-delay: 0.04s; }
-  .floating-nav.open .nav-item:nth-child(6) { animation-delay: 0.00s; }
-  .floating-nav.open .nav-item:nth-child(7) { animation-delay: 0.00s; }
-  .floating-nav.closing .nav-item { animation: nav-genie-out 0.55s cubic-bezier(0.7, 0, 0.84, 0) forwards !important; transform-origin: bottom right; opacity: 1; transform: translateY(0) scale(1); }
-  .floating-nav.closing .nav-item:nth-child(1) { animation-delay: 0.00s !important; }
-  .floating-nav.closing .nav-item:nth-child(2) { animation-delay: 0.05s !important; }
-  .floating-nav.closing .nav-item:nth-child(3) { animation-delay: 0.10s !important; }
-  .floating-nav.closing .nav-item:nth-child(4) { animation-delay: 0.15s !important; }
-  .floating-nav.closing .nav-item:nth-child(5) { animation-delay: 0.20s !important; }
-  .floating-nav.closing .nav-item:nth-child(6) { animation-delay: 0.25s !important; }
-  .floating-nav.closing .nav-item:nth-child(7) { animation-delay: 0.30s !important; }
-  .floating-nav.closing .nav-menu { pointer-events: none; }
-  .nav-item .num { position: relative; z-index: 1; font-family: var(--mono); font-size: 9px; color: var(--accent); letter-spacing: 0.10em; }
-  .nav-item .title { position: relative; z-index: 1; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase; line-height: 1; color: rgba(245,245,245,0.9); transition: color 0.35s; }
-  .nav-item:hover .title { color: var(--accent); }
-  .nav-item .caption { display: none; }
-  .nav-item.active { border-color: var(--accent); box-shadow: 0 0 14px rgba(91,194,231,0.30); }
-  .nav-item.active .title { color: var(--accent); }
-</style>
-
-
-<header class="case-hero" id="cs-intro" data-chapter="Intro">
-  <img src="_proto/assets/final/opt-final_01_chickenshop.jpg" alt="The Statue of a Fool hood at the chicken shop counter under night flash"/>
-  <div class="case-hero-inner wrap-w">
-    <p class="label rv" style="color:rgba(255,255,255,.6)">Concept collection</p>
-    <h1 class="display rv" style="font-size:var(--t-h1); margin-top:var(--s3)">
-      Statue of a Fool<span class="dot">.</span>
-    </h1>
+<!DOCTYPE html><html lang="en-GB"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Statue of a Fool &middot; concept collection &middot; Forvr Studios</title>
+<meta name="description" content="A self-initiated collection built end to end, from written direction through to a finished campaign. Twenty one frames.">
+<link rel="canonical" href="https://forvr.org/statue-of-a-fool">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forvr Studios">
+<meta property="og:title" content="Statue of a Fool &middot; concept collection &middot; Forvr Studios">
+<meta property="og:description" content="A self-initiated collection built end to end, from written direction through to a finished campaign. Twenty one frames.">
+<meta property="og:url" content="https://forvr.org/statue-of-a-fool">
+<meta property="og:image" content="https://forvr.org/assets/sof/16.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Statue of a Fool &middot; concept collection &middot; Forvr Studios">
+<meta name="twitter:description" content="A self-initiated collection built end to end, from written direction through to a finished campaign. Twenty one frames.">
+<meta name="twitter:image" content="https://forvr.org/assets/sof/16.jpg">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/icon-180.png">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+<nav class="nav" id="nav">
+  <a class="mark" href="index.html">FORVR<span class="dot">.</span></a>
+  <div class="links"><a href="work.html" aria-current="page">Work</a><a href="services.html">Services</a><a href="studio.html">Studio</a><a href="contact.html">Contact</a></div>
+  <a class="cta-pill" href="trial.html">Try it free</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+    <span></span><span></span>
+  </button>
+</nav>
+<div class="menu" id="menu" hidden>
+  <div class="menu-links"><a href="work.html">Work</a><a href="services.html">Services</a><a href="studio.html">Studio</a><a href="contact.html">Contact</a><a href="trial.html">Try it free</a></div>
+  <div class="menu-foot">
+    <a href="mailto:hello@forvr.org">hello@forvr.org</a>
+    <a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">Instagram</a>
+    <span>Reading, England</span>
+  </div>
+</div>
+<header class="hero page" id="top">
+  <img class="hero-bg" id="heroBg" src="assets/sof/16.jpg" alt="">
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="eyebrow"><span class="tick"></span>Concept collection &middot; Stills &middot; 2026</p>
+    <h1><span class="row"><span>STATUE OF A FOOL<span class="dot">.</span></span></span></h1>
+    <p class="sub">A collection built end to end, from written direction through to a finished campaign.</p>
+    <div class="cta-row"><a class="btn ghost" href="work.html">&larr; All work</a></div>
   </div>
 </header>
-
-<!-- what it is, said plainly and up front -->
-<section class="section-tight wrap">
-  <p class="lead rv" style="max-width:var(--c-narrow)">
-    A self-initiated collection built end to end, from written direction through
-    to a finished campaign. Nobody commissioned it. We made it to show how the
-    studio works when it has full control of the brief.
-  </p>
-
-  <dl class="facts rv">
-    <div class="fact"><dt>Type</dt><dd>Concept collection</dd></div>
-    <div class="fact"><dt>Scope</dt><dd>Direction, graphic, garment, campaign</dd></div>
-    <div class="fact"><dt>Pieces</dt><dd>Hood, tee, jersey, shorts, jorts, longsleeve</dd></div>
-    <div class="fact"><dt>Status</dt><dd>Self-initiated, unreleased</dd></div>
-  </dl>
+<main class="over">
+<section class="section dark-band">
+  <div class="sec-head"><h2>THE COLLECTION<span class="dot">.</span></h2><span class="mono">21 frames &middot; 3:4</span></div>
+  <div class="casefacts">
+    <div class="fact"><span class="k">Client</span><p>Forvr, self-initiated</p></div>
+    <div class="fact"><span class="k">Discipline</span><p>Direction, graphic, garment, campaign</p></div>
+    <div class="fact"><span class="k">Format</span><p>3:4, 21 frames</p></div>
+    <div class="fact"><span class="k">Year</span><p>2026</p></div>
+    </div>
 </section>
-
-<!-- 01 DIRECTION : sits on concrete, like every product shot -->
-<section id="cs-1" class="section direction" data-chapter="01 / 01 Direction">
-  <div class="wrap">
-    <div class="head rv">
-      <h2 class="label">01 Direction</h2>
-      <span class="label">Written before anything was made</span>
-    </div>
-
-    <p class="lead rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
-      The collection starts as a written codex, not a prompt. It fixes the
-      palette, the light, the settings and the wardrobe, so every frame made
-      afterwards has something to be judged against.
-    </p>
-
-    <div class="poles">
-      <div class="pole rv">
-        <p class="label" style="color:var(--accent)">Pole one, street truth</p>
-        <p class="small" style="margin-top:var(--s3)">
-          Direct on-camera flash, hard shadow, deep black falloff. Chicken
-          shops, laundrettes, wet pavement at night. Off-guard and unbothered.
-        </p>
-      </div>
-      <div class="pole rv">
-        <p class="label" style="color:var(--accent)">Pole two, elevated myth</p>
-        <p class="small" style="margin-top:var(--s3)">
-          Chiaroscuro, subject emerging from black, marble and classical
-          statuary. Monumental stillness, face half hidden.
-        </p>
-      </div>
-    </div>
-
-    <p class="small muted rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
-      Both poles have to be present or it reads as a clean render instead of a
-      real campaign. The swing between them is the whole idea.
-    </p>
-
-    <div class="rv" style="margin-top:var(--s7)">
-      <p class="label" style="margin-bottom:var(--s2)">Palette</p>
-      <p class="small muted" style="max-width:var(--c-narrow)">
-        Sampled from the finished garments and the streets they were shot in,
-        not picked from swatches.
-      </p>
-      <div class="sw-grid">
-        <div class="sw-card"><div class="sw-chip" style="background:#161616"></div><p class="sw-name">Onyx</p><p class="sw-hex">#161616 · the wash</p></div>
-        <div class="sw-card"><div class="sw-chip" style="background:#E7DCD1"></div><p class="sw-name">Bone</p><p class="sw-hex">#E7DCD1 · the type</p></div>
-        <div class="sw-card"><div class="sw-chip" style="background:#634D6E"></div><p class="sw-name">Violet</p><p class="sw-hex">#634D6E · the print</p></div>
-        <div class="sw-card"><div class="sw-chip" style="background:#21212C"></div><p class="sw-name">Slate</p><p class="sw-hex">#21212C · colourway two</p></div>
-        <div class="sw-card"><div class="sw-chip" style="background:#D1C6BB"></div><p class="sw-name">Concrete</p><p class="sw-hex">#D1C6BB · the backdrop</p></div>
-        <div class="sw-card"><div class="sw-chip" style="background:#8C6B4F"></div><p class="sw-name">Brick</p><p class="sw-hex">#8C6B4F · the estates</p></div>
-      </div>
-    </div>
+<section class="section">
+  <div class="sec-head"><h2>HOW IT WORKS<span class="dot">.</span></h2></div>
+  <div class="casenote reveal">
+    <p>Nobody commissioned it. We made it to show how the studio works when it has full control of the brief, so it starts as a written codex rather than a prompt: palette, light, settings and wardrobe all fixed before a single frame exists, which gives everything made afterwards something to be judged against.</p>
+    <p>It swings between two poles on purpose. Direct on-camera flash, hard shadow and wet pavement at one end. Chiaroscuro, marble and monumental stillness at the other. Both have to be present or the whole thing reads as a clean render instead of a real campaign.</p>
+    <p>The palette is sampled off the finished garments and the streets they were shot in, not picked from swatches. Twenty one frames here.</p>
   </div>
 </section>
-
-<!-- 02 GRAPHIC -->
-<section id="cs-2" class="section wrap" data-chapter="02 / 02 Graphic">
-  <div class="head rv">
-    <h2 class="label">02 Graphic</h2>
-    <span class="label">The statement artwork</span>
-  </div>
-  <div class="split" style="margin-top:var(--s7)">
-    <div class="rv full">
-      <img src="_proto/assets/sof-02-graphic.jpg" alt="Statue of a Fool artwork: a veiled marble figure standing inside display type filled with banknotes"/>
-    </div>
-    <div class="rv">
-      <h3 style="font-size:var(--t-h3)">A fool cast in marble</h3>
-      <p class="small muted" style="margin-top:var(--s4)">
-        The type is filled with money and the statue stands in front of it, so
-        the monument and the currency occupy the same space. It reads as a
-        shrine and a joke at once, which is the tension the codex asked for.
-      </p>
-      <p class="small muted" style="margin-top:var(--s4)">
-        Everything downstream, the print placement, the wash, the campaign
-        setting, is decided by this one piece of artwork.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- 03 GARMENT -->
-<section id="cs-3" class="section wrap" data-chapter="03 / 03 Garment">
-  <div class="head rv">
-    <h2 class="label">03 Garment</h2>
-    <span class="label">Print on product</span>
-  </div>
-  <div class="split" style="margin-top:var(--s7)">
-    <div class="rv">
-      <h3 style="font-size:var(--t-h3)">Washed black, studded, distressed</h3>
-      <p class="small muted" style="margin-top:var(--s4)">
-        A heavyweight hood in washed black and washed navy, with studded cuffs
-        and shoulders and deliberate distressing through the body. The print is
-        set deliberately low, so the pocket cuts the last word and the lockup
-        has to be completed by the person reading it.
-      </p>
-      <p class="small muted" style="margin-top:var(--s4)">
-        The collection extends to tees, shorts and a navy mesh jersey that
-        carries the lockup arched across the back over a cracked number zero.
-        Then the quieter pieces: black denim jorts stitched in bone with a
-        struck coin badge at the back waistband, and a thermal longsleeve that
-        runs engraved filigree down both sleeves, made in washed black and bone.
-      </p>
-    </div>
-    <div class="rv pair">
-      <img src="_proto/assets/sof-03-garment.jpg" alt="Washed black hooded sweatshirt with studded cuffs carrying the Statue of a Fool print"/>
-      <img src="_proto/assets/sof-03-garment-navy.jpg" alt="The same hood in washed navy, studded and distressed"/>
-    </div>
-  </div>
-
-  <div class="pair rv" style="margin-top:var(--s6)">
-    <img src="_proto/assets/sof-14-longsleeve.jpg" alt="Washed black thermal longsleeve, engraved filigree down both sleeves, small arched Lost City wordmark on the chest"/>
-    <img src="_proto/assets/sof-14-longsleeve-white.jpg" alt="The same longsleeve in bone cream, the filigree printed in dark ink"/>
-  </div>
-  <div class="pair rv" style="margin-top:var(--s4)">
-    <img src="_proto/assets/sof-15-jorts.jpg" alt="Black denim jorts with bone contrast stitching, a curved arc stitch across each thigh"/>
-    <img src="_proto/assets/sof-detail-longsleeve.jpg" alt="Macro detail of the sleeve filigree, ink cracked and sunk into the waffle knit"/>
-  </div>
-
-  <div class="pair rv" style="margin-top:var(--s6)">
-    <img src="_proto/assets/sof-detail.jpg" alt="Macro detail of the print showing texture and distressing"/>
-    <div style="display:flex; align-items:flex-end">
-      <p class="small muted">
-        Detail shots are made at the same time as the campaign, not after. A
-        product nobody can see up close is a product nobody trusts.
-      </p>
-    </div>
+<section class="section dark-band">
+  <div class="sec-head"><h2>THE CAMPAIGN<span class="dot">.</span></h2><span class="mono">21 frames</span></div>
+  <div class="gal three">
+    <figure><img src="assets/sof/01.jpg" alt="Statue of a Fool frame 1" loading="lazy" width="1200" height="1608"><figcaption>01</figcaption></figure>
+    <figure><img src="assets/sof/02.jpg" alt="Statue of a Fool frame 2" loading="lazy" width="1200" height="1608"><figcaption>02</figcaption></figure>
+    <figure><img src="assets/sof/03.jpg" alt="Statue of a Fool frame 3" loading="lazy" width="1200" height="1608"><figcaption>03</figcaption></figure>
+    <figure><img src="assets/sof/04.jpg" alt="Statue of a Fool frame 4" loading="lazy" width="1200" height="1608"><figcaption>04</figcaption></figure>
+    <figure><img src="assets/sof/05.jpg" alt="Statue of a Fool frame 5" loading="lazy" width="1200" height="1608"><figcaption>05</figcaption></figure>
+    <figure><img src="assets/sof/06.jpg" alt="Statue of a Fool frame 6" loading="lazy" width="1200" height="1608"><figcaption>06</figcaption></figure>
+    <figure><img src="assets/sof/07.jpg" alt="Statue of a Fool frame 7" loading="lazy" width="1200" height="1608"><figcaption>07</figcaption></figure>
+    <figure><img src="assets/sof/08.jpg" alt="Statue of a Fool frame 8" loading="lazy" width="1200" height="1608"><figcaption>08</figcaption></figure>
+    <figure><img src="assets/sof/09.jpg" alt="Statue of a Fool frame 9" loading="lazy" width="1200" height="1608"><figcaption>09</figcaption></figure>
+    <figure><img src="assets/sof/10.jpg" alt="Statue of a Fool frame 10" loading="lazy" width="1200" height="1608"><figcaption>10</figcaption></figure>
+    <figure><img src="assets/sof/11.jpg" alt="Statue of a Fool frame 11" loading="lazy" width="1200" height="1608"><figcaption>11</figcaption></figure>
+    <figure><img src="assets/sof/12.jpg" alt="Statue of a Fool frame 12" loading="lazy" width="1200" height="1608"><figcaption>12</figcaption></figure>
+    <figure><img src="assets/sof/13.jpg" alt="Statue of a Fool frame 13" loading="lazy" width="1200" height="1608"><figcaption>13</figcaption></figure>
+    <figure><img src="assets/sof/14.jpg" alt="Statue of a Fool frame 14" loading="lazy" width="1200" height="1608"><figcaption>14</figcaption></figure>
+    <figure><img src="assets/sof/15.jpg" alt="Statue of a Fool frame 15" loading="lazy" width="1200" height="1608"><figcaption>15</figcaption></figure>
+    <figure><img src="assets/sof/16.jpg" alt="Statue of a Fool frame 16" loading="lazy" width="1200" height="1608"><figcaption>16</figcaption></figure>
+    <figure><img src="assets/sof/17.jpg" alt="Statue of a Fool frame 17" loading="lazy" width="1200" height="1608"><figcaption>17</figcaption></figure>
+    <figure><img src="assets/sof/18.jpg" alt="Statue of a Fool frame 18" loading="lazy" width="1200" height="1608"><figcaption>18</figcaption></figure>
+    <figure><img src="assets/sof/19.jpg" alt="Statue of a Fool frame 19" loading="lazy" width="1200" height="1608"><figcaption>19</figcaption></figure>
+    <figure><img src="assets/sof/20.jpg" alt="Statue of a Fool frame 20" loading="lazy" width="1200" height="1608"><figcaption>20</figcaption></figure>
+    <figure><img src="assets/sof/21.jpg" alt="Statue of a Fool frame 21" loading="lazy" width="1200" height="1608"><figcaption>21</figcaption></figure>
   </div>
 </section>
-
-<!-- 04 CAMPAIGN : the locked batch-06 set -->
-<section id="cs-4" class="section dark" data-chapter="04 / 04 Campaign">
-  <div class="wrap">
-    <div class="head rv">
-      <h2 class="label">04 Campaign</h2>
-      <span class="label">One world, night and day</span>
-    </div>
-    <!-- the codex above argues for two poles, so the campaign has to show
-         them rather than assert them. night under flash first. -->
-    <div class="gal rv" style="margin-top:var(--s7)">
-      <figure class="g-wide" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_01_chickenshop.jpg" alt="Statue of a Fool campaign: chicken shop, hood" loading="lazy"/>
-        <figcaption class="label">Chicken shop <span class="dot">·</span> hood</figcaption>
-      </figure>
-      <figure class="g-3 g-tall" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_09_georgian_steps.jpg" alt="Statue of a Fool campaign: georgian steps, longsleeve bone, hood" loading="lazy"/>
-        <figcaption class="label">Georgian steps <span class="dot">·</span> longsleeve bone, hood</figcaption>
-      </figure>
-      <figure class="g-3 g-tall" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_10_market_shutters.jpg" alt="Statue of a Fool campaign: market shutters, longsleeve, tee, tee navy" loading="lazy"/>
-        <figcaption class="label">Market shutters <span class="dot">·</span> longsleeve, tee, tee navy</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_02_nightbus.jpg" alt="Statue of a Fool campaign: night bus, hood" loading="lazy"/>
-        <figcaption class="label">Night bus <span class="dot">·</span> hood</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_03_offlicence.jpg" alt="Statue of a Fool campaign: off-licence, hood, navy" loading="lazy"/>
-        <figcaption class="label">Off-licence <span class="dot">·</span> hood, navy</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_06_kebab_table.jpg" alt="Statue of a Fool campaign: kebab shop, jersey" loading="lazy"/>
-        <figcaption class="label">Kebab shop <span class="dot">·</span> jersey</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_04_laundrette.jpg" alt="Statue of a Fool campaign: laundrette, tee, longsleeve bone" loading="lazy"/>
-        <figcaption class="label">Laundrette <span class="dot">·</span> tee, longsleeve bone</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_05_phonebox.jpg" alt="Statue of a Fool campaign: phone box, tee, navy" loading="lazy"/>
-        <figcaption class="label">Phone box <span class="dot">·</span> tee, navy</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_08_stairwell.jpg" alt="Statue of a Fool campaign: stairwell, longsleeve" loading="lazy"/>
-        <figcaption class="label">Stairwell <span class="dot">·</span> longsleeve</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_11_kerb_shorts.jpg" alt="Statue of a Fool campaign: kerb, tee, shorts" loading="lazy"/>
-        <figcaption class="label">Kerb <span class="dot">·</span> tee, shorts</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_12_laundrette_door.jpg" alt="Statue of a Fool campaign: laundrette door, jersey, jorts" loading="lazy"/>
-        <figcaption class="label">Laundrette door <span class="dot">·</span> jersey, jorts</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_13_takeaway_wait.jpg" alt="Statue of a Fool campaign: takeaway, tee, longsleeve bone" loading="lazy"/>
-        <figcaption class="label">Takeaway <span class="dot">·</span> tee, longsleeve bone</figcaption>
-      </figure>
-    </div>
-
-    <div class="head rv" style="margin-top:var(--s9); border-color:rgba(255,255,255,.14)">
-      <h2 class="label">And in daylight</h2>
-      <span class="label">Same cast, same world</span>
-    </div>
-    <div class="gal rv" style="margin-top:var(--s7)">
-      <figure class="g-wide" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_16_estate_group.jpg" alt="Statue of a Fool campaign: estate, daylight, hood, tee navy" loading="lazy"/>
-        <figcaption class="label">Estate, daylight <span class="dot">·</span> hood, tee navy</figcaption>
-      </figure>
-      <figure class="g-3 g-tall" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_17_barbican.jpg" alt="Statue of a Fool campaign: barbican, tee" loading="lazy"/>
-        <figcaption class="label">Barbican <span class="dot">·</span> tee</figcaption>
-      </figure>
-      <figure class="g-3 g-tall" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_18_cage.jpg" alt="Statue of a Fool campaign: the cage, jersey, shorts" loading="lazy"/>
-        <figcaption class="label">The cage <span class="dot">·</span> jersey, shorts</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_19_walkway_day.jpg" alt="Statue of a Fool campaign: walkway, jersey, jorts" loading="lazy"/>
-        <figcaption class="label">Walkway <span class="dot">·</span> jersey, jorts</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_20_canal.jpg" alt="Statue of a Fool campaign: canal, longsleeve, jorts" loading="lazy"/>
-        <figcaption class="label">Canal <span class="dot">·</span> longsleeve, jorts</figcaption>
-      </figure>
-      <figure class="g-2 g-sq" data-reveal="scan">
-        <img data-drift="4" class="drift-img" src="_proto/assets/final/opt-final_21_chickenshop_day.jpg" alt="Statue of a Fool campaign: chicken shop, daylight, hood, shorts" loading="lazy"/>
-        <figcaption class="label">Chicken shop, daylight <span class="dot">·</span> hood, shorts</figcaption>
-      </figure>
-    </div>
-
-    <p class="lead rv" style="margin-top:var(--s8); max-width:var(--c-narrow)">
-      One world, a cast of faces, shot at night under flash and again in
-      daylight. Eighteen of the twenty-one final frames, six garments, and the
-      piece is exact to the flat product in every single one. Holding a look
-      steady across people, locations and two kinds of light is the hard part
-      of this work, and it is what separates a campaign from a folder of nice
-      images.
-    </p>
+<nav class="case-next">
+  <span class="k">Next project</span>
+  <a href="relay.html">RELAY<span class="dot">.</span></a>
+</nav>
+<footer id="contact-foot">
+  <p class="big reveal">GOT A DROP COMING<span class="dot">?</span><br><a href="mailto:hello@forvr.org">LET'S BUILD IT<span class="dot">.</span></a></p>
+  <div class="foot-cols">
+    <div><span class="mark">FORVR<span class="dot">.</span></span></div>
+    <div><a href="mailto:hello@forvr.org">hello@forvr.org</a><span>Reading, England</span></div>
+    <div><a href="work.html">Work</a><a href="services.html">Services</a><a href="studio.html">Studio</a></div>
+    <div><a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">Instagram</a></div>
   </div>
-</section>
-
-<!-- CTA -->
-<section id="cs-next" class="section wrap" data-chapter="05 / Next">
-  <h2 class="display rv" style="font-size:var(--t-h1)">Want one<br/>of these<span class="dot">?</span></h2>
-  <p class="small muted rv" style="margin-top:var(--s5); max-width:var(--c-narrow)">
-    This is what a full campaign looks like when the studio runs it end to end.
-    If you want the same for your brand, the first conversation is free.
-  </p>
-  <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
-    <a class="cta" href="contact.html">Book a call <span class="pip"></span></a>
-    <a class="label" href="work.html">See the rest of the work <span class="dot">→</span></a>
-  </div>
-</section>
-
-<footer class="foot">
-  <div class="wrap foot-row">
-    <span class="label">Forvr Studios<span class="dot">.</span> Reading, England</span>
-    <span class="label">Case study · 2026</span>
-  </div>
+  <div class="foot-base"><span>&copy; 2026 Forvr.Studios</span><span class="foot-legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></span></div>
 </footer>
-
-<script src="_proto/forvr.js"></script>
-<!-- Floating navigation -->
-<div class="floating-nav" id="floatingNav">
-  <div class="nav-menu" aria-label="Site navigation">
-    <a class="nav-item" href="index.html"><span class="num">00</span><span class="title">Home</span></a>
-    <a class="nav-item active" href="work.html"><span class="num">01</span><span class="title">Portfolio</span></a>
-    <a class="nav-item" href="services.html"><span class="num">02</span><span class="title">Services</span></a>
-    <a class="nav-item" href="studio.html"><span class="num">03</span><span class="title">Studio</span></a>
-    <a class="nav-item" href="process.html"><span class="num">04</span><span class="title">Process</span></a>
-    <a class="nav-item" href="contact.html"><span class="num">05</span><span class="title">Contact</span></a>
-  </div>
-  <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu">
-    <span>Navigation</span>
-    <span class="icon" aria-hidden="true"></span>
-  </button>
-</div>
-<script>
-(function () {
-  var floatingNav = document.getElementById('floatingNav');
-  var navToggle = document.getElementById('navToggle');
-  if (!floatingNav || !navToggle) return;
-  function close() {
-    floatingNav.classList.add('closing');
-    floatingNav.classList.remove('open');
-    setTimeout(function () { floatingNav.classList.remove('closing'); }, 850);
-  }
-  navToggle.addEventListener('click', function (e) {
-    e.stopPropagation();
-    if (floatingNav.classList.contains('open')) close();
-    else floatingNav.classList.add('open');
-  });
-  document.addEventListener('click', function (e) {
-    if (!floatingNav.contains(e.target) && floatingNav.classList.contains('open')) close();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && floatingNav.classList.contains('open')) close();
-  });
-})();
-</script>
-<style>
-  @media (max-width: 767px) {
-    .top-brand { transition: opacity 0.35s, visibility 0.35s; }
-    .top-brand.tb-hide { opacity: 0; visibility: hidden; }
-  }
-</style>
-<script>
-(function () {
-  var b = document.querySelector('.top-brand');
-  if (!b) return;
-  var hidden = false;
-  window.addEventListener('scroll', function () {
-    var h = window.scrollY > 64;
-    if (h !== hidden) { hidden = h; b.classList.toggle('tb-hide', h); }
-  }, { passive: true });
-})();
-</script>
-</body>
-</html>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/site.js"></script>
+</body></html>

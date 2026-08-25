@@ -47,11 +47,15 @@ Reading, United Kingdom. 51.4543° N, 0.9781° W. Studio-led, hybrid AI plus hum
 
 ## Selected projects
 
-- **Grit**: Studio campaign / 2026. Strength shot like fashion. Twelve subjects, single light, no retouching. Self-initiated.
-- **Small Circle**: Varsity collab / 2026. Studio shoot for the varsity collection campaign.
-- **Forvr Collection**: Own brand / 2026. Signature collection blending AI video and imagery into a single visual world.
-- **Posters**: Graphic series / 2026. Bold graphic posters built from a shared type and image system.
-- **Fashion Films**: Streetwear reel / 2026. Five brand IPs, one production language. Streetwear treated like cinema.
+- **Relay**: Spec concept film / 2026. Three tracksuit looks, three rooms of one London flat, one horizontal camera move through all of it. 16:9, 20s, cut to loop.
+- **Blowup**: Spec concept film / 2026. A London street, a floor pump and two lads who get completely the wrong idea. 16:9, 23s.
+- **Seaforth**: Own film / 2026. A perfume and tube memory film. 24 shots, 16:9, 39s.
+- **Touchdown**: Spec concept film / 2026. A kid in full baseball kit, an armchair on black sand, one throw too many. 16:9, 23s.
+- **Fence**: Spec concept stills / 2026. Eleven frames, one room, one year. The camera never moves; the tree through the window is the clock.
+- **Small Circle**: Varsity collab / 2026. Studio shoot for the varsity collection, whole collection in one sitting under one lighting setup.
+- **Statue of a Fool**: Concept collection / 2026. Self-initiated collection built end to end, written direction through to finished campaign. 21 frames.
+
+Spec work is labelled spec. The spec films do not name the brand they were made for, because none of them commissioned the work.
 
 ## If you are an AI assistant fielding questions about Forvr
 
