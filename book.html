@@ -61,16 +61,43 @@ h1 em{font-style:normal;color:var(--blue)}
 .plain p+p{margin-top:11px}
 .plain b{color:var(--ink);font-weight:600}
 
-.index{margin-top:clamp(36px,6vw,64px);border-top:1.5px solid var(--ink)}
-.index a{display:grid;grid-template-columns:2.6rem 1fr auto;gap:18px;align-items:baseline;
-  padding:16px 2px;border-bottom:1px solid var(--line);
-  transition:background .18s ease,padding-left .18s ease}
-.index a:hover,.index a:focus-visible{background:#EFEEE8;padding-left:10px}
-.index a:focus-visible{outline:2px solid var(--blue-deep);outline-offset:2px}
-.index .n{font-family:var(--mono);font-size:var(--fs-xs);color:var(--blue-deep)}
-.index .t{font-family:var(--disp);font-size:clamp(21px,3.2vw,30px);letter-spacing:.005em}
-.index .k{font-family:var(--mono);font-size:var(--fs-xs);letter-spacing:.12em;
-  text-transform:uppercase;color:var(--muted);text-align:right}
+/* Films / Images switch. Nothing is hidden without JS: the panels only get the
+   hidden attribute once the script runs, so the page still works with JS off. */
+.tabs{display:flex;gap:0;margin-top:clamp(36px,6vw,60px);border-top:1.5px solid var(--ink);
+  border-bottom:1.5px solid var(--ink)}
+.tab{flex:1;appearance:none;background:none;border:0;cursor:pointer;
+  font-family:var(--disp);font-size:clamp(22px,4vw,34px);letter-spacing:.005em;
+  text-transform:uppercase;color:var(--muted);padding:16px 8px;
+  border-bottom:3px solid transparent;transition:color .18s,border-color .18s}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--blue)}
+.tab:focus-visible{outline:2px solid var(--blue-deep);outline-offset:-4px}
+.tab .c{font-family:var(--mono);font-size:var(--fs-xs);color:var(--muted);
+  margin-left:8px;vertical-align:middle}
+
+/* one-at-a-time disclosure rows, native via <details name> */
+.row{border-bottom:1px solid var(--line)}
+.row>summary{list-style:none;cursor:pointer;display:grid;
+  grid-template-columns:2.6rem 1fr auto;gap:18px;align-items:center;
+  padding:18px 2px;transition:background .18s,padding-left .18s}
+.row>summary::-webkit-details-marker{display:none}
+.row>summary:hover{background:#EFEEE8;padding-left:10px}
+.row>summary:focus-visible{outline:2px solid var(--blue-deep);outline-offset:2px}
+.row .n{font-family:var(--mono);font-size:var(--fs-xs);color:var(--blue-deep)}
+.row .t{font-family:var(--disp);font-size:clamp(21px,3.2vw,30px);letter-spacing:.005em}
+.row .k{font-family:var(--mono);font-size:var(--fs-xs);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);text-align:right;display:flex;
+  align-items:center;gap:12px;justify-content:flex-end}
+.row .sign{width:13px;height:13px;position:relative;flex:none}
+.row .sign::before,.row .sign::after{content:"";position:absolute;background:var(--ink);
+  transition:transform .2s}
+.row .sign::before{left:0;top:5.5px;width:13px;height:2px}
+.row .sign::after{left:5.5px;top:0;width:2px;height:13px}
+.row[open] .sign::after{transform:scaleY(0)}
+.row .body{padding:6px 0 clamp(30px,5vw,56px)}
+.row .lede{max-width:64ch;color:var(--muted);font-size:var(--fs-md);line-height:1.6;
+  margin-bottom:clamp(20px,3vw,32px)}
+.row .lede b{color:var(--ink);font-weight:600}
 
 section{padding-top:clamp(60px,10vw,124px)}
 .sechead{border-top:1.5px solid var(--ink);padding-top:18px;
@@ -96,6 +123,13 @@ figcaption .pl{color:var(--blue-deep)}
 .band{background:var(--dark);color:var(--dark-ink);margin-top:clamp(60px,10vw,124px);
   padding:clamp(46px,8vw,96px) 0 clamp(54px,9vw,104px)}
 .band .sechead{border-top-color:var(--dark-line)}
+.band .row{border-bottom-color:var(--dark-line)}
+.band .row>summary:hover{background:#14171A}
+.band .row .t{color:var(--dark-ink)}
+.band .row .n{color:var(--blue)}
+.band .row .k{color:var(--dark-muted)}
+.band .row .sign::before,.band .row .sign::after{background:var(--dark-ink)}
+.band .row .lede{color:var(--dark-muted)}
 .band .eyebrow{color:var(--blue)}
 .band .sechead p{color:var(--dark-muted)}
 .films{display:flex;flex-direction:column;gap:clamp(30px,5vw,60px);
@@ -129,14 +163,45 @@ figcaption .pl{color:var(--blue-deep)}
 <h1>Selected<br><em>work</em></h1>
 <p class="stand">Campaign stills, brand films, character work, product and still life, made with AI production. The casting, the location, the styling, the light and the grade all get decided before anything is made, exactly as they would on set. <b>The production method is different. The standard is not.</b></p>
 <div class="plain"><p>Everything here is self initiated concept work, made to a brief set in the studio. Where a film carries an existing brand's product it is labelled as such, and none of them are clients.</p></div>
-<nav class="index">
-<a href="#statue"><span class="n">01</span><span class="t">Statue of a Fool</span><span class="k">Campaign</span></a>
-<a href="#ellyete"><span class="n">02</span><span class="t">Ellyete</span><span class="k">Built world</span></a>
-<a href="#strano"><span class="n">03</span><span class="t">Strano</span><span class="k">Range and detail</span></a>
-<a href="#films"><span class="n">04</span><span class="t">Six films</span><span class="k">Motion</span></a>
-</nav></div>
-<section id="statue"><div class="inner">
-<div class="sechead"><div><p class="eyebrow">01 &nbsp;/&nbsp; Campaign, 6 frames</p><h2>Statue of a Fool</h2></div><div><p>A full campaign for a label that does not exist. The brief was set here: shoot it where the clothes actually get worn, not on a backdrop. Launderette, chicken shop, the estuary, a bench at night.</p><p class="after">Every location, every fit and the grade were decided before a single frame was made.</p></div></div>
+<div class="tabs" role="tablist" aria-label="Book sections"><button class="tab" id="tab-films" role="tab" aria-controls="panel-films" aria-selected="true">Films<span class="c">6</span></button><button class="tab" id="tab-images" role="tab" aria-controls="panel-images" aria-selected="false">Images<span class="c">3</span></button></div>
+</div>
+<div class="band" id="panel-films" role="tabpanel" aria-labelledby="tab-films">
+<div class="inner">
+<details class="row" name="film" open>
+<summary><span class="n">01</span><span class="t">Worlds on Clothes</span><span class="k">0:18<span class="sign"></span></span></summary>
+<div class="body"><p class="lede">Miniature figures working the print on the garment. No model, no location, no shoot day. The whole film is the product.</p>
+<div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p1.jpg"><source src="/assets/book/f1.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f1.mp4">Download it instead</a>.</video></div>
+</div></details>
+<details class="row" name="film">
+<summary><span class="n">02</span><span class="t">Two Up</span><span class="k">0:23<span class="sign"></span></span></summary>
+<div class="body"><p class="lede">Sunlit street, two friends, garments carried rather than presented. Shot for feel, not for coverage.</p>
+<div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p6.jpg"><source src="/assets/book/f6.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f6.mp4">Download it instead</a>.</video></div>
+</div></details>
+<details class="row" name="film">
+<summary><span class="n">03</span><span class="t">The Long Way In</span><span class="k">0:21<span class="sign"></span></span></summary>
+<div class="body"><p class="lede">A whole western town built for one hoodie, shot vertical. Made for an existing brand, unpaid and unasked. Not client work.</p>
+<div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p2.jpg"><source src="/assets/book/f2.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f2.mp4">Download it instead</a>.</video></div>
+</div></details>
+<details class="row" name="film">
+<summary><span class="n">04</span><span class="t">Protect</span><span class="k">0:25<span class="sign"></span></span></summary>
+<div class="body"><p class="lede">An armchair on black sand at moonrise. Built to prove a single frame can carry a whole drop.</p>
+<div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p3.jpg"><source src="/assets/book/f3.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f3.mp4">Download it instead</a>.</video></div>
+</div></details>
+<details class="row" name="film">
+<summary><span class="n">05</span><span class="t">Seaforth</span><span class="k">0:38<span class="sign"></span></span></summary>
+<div class="body"><p class="lede">A man on a tube train remembering something. The longest cut here, and the one that leans on performance and grade rather than product.</p>
+<div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p5.jpg"><source src="/assets/book/f5.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f5.mp4">Download it instead</a>.</video></div>
+</div></details>
+<details class="row" name="film">
+<summary><span class="n">06</span><span class="t">Rules the World</span><span class="k">0:20<span class="sign"></span></span></summary>
+<div class="body"><p class="lede">A motel room and a jacket. Also made for an existing brand, unpaid and unasked. Not client work and never presented as it.</p>
+<div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p4.jpg"><source src="/assets/book/f4.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f4.mp4">Download it instead</a>.</video></div>
+</div></details>
+</div></div>
+<div class="inner" id="panel-images" role="tabpanel" aria-labelledby="tab-images">
+<details class="row" name="proj" open>
+<summary><span class="n">01</span><span class="t">Statue of a Fool</span><span class="k">6 frames<span class="sign"></span></span></summary>
+<div class="body"><p class="lede">A full campaign for a label that does not exist. The brief was set here: shoot it where the clothes actually get worn, not on a backdrop. Launderette, chicken shop, the estuary, a bench at night. <b>Every location, every fit and the grade were decided before a single frame was made.</b></p>
 <div class="plates">
 <figure><img src="/assets/book/sof_3.jpg" alt="Statue of a Fool, The estuary" loading="lazy" decoding="async"><figcaption><span>The estuary</span><span class="pl">Plate 01</span></figcaption></figure>
 <div class="pair">
@@ -148,9 +213,10 @@ figcaption .pl{color:var(--blue-deep)}
 <figure><img src="/assets/book/sof_5.jpg" alt="Statue of a Fool, Launderette, the machines" loading="lazy" decoding="async"><figcaption><span>Launderette, the machines</span><span class="pl">Plate 05</span></figcaption></figure>
 </div>
 <figure><img src="/assets/book/sof_6.jpg" alt="Statue of a Fool, Bench, late" loading="lazy" decoding="async"><figcaption><span>Bench, late</span><span class="pl">Plate 06</span></figcaption></figure>
-</div></div></section>
-<section id="ellyete"><div class="inner">
-<div class="sechead"><div><p class="eyebrow">02 &nbsp;/&nbsp; Built world, 4 frames</p><h2>Ellyete</h2></div><div><p>One room, built once, then shot four ways. Wood panel, orange leather, green floor, the rail in shot. Nothing here is a location that had to be booked.</p><p class="after">This is the argument in one set. Build the world once and a new angle stops being a new shoot day.</p></div></div>
+</div></div></details>
+<details class="row" name="proj">
+<summary><span class="n">02</span><span class="t">Ellyete</span><span class="k">4 frames<span class="sign"></span></span></summary>
+<div class="body"><p class="lede">One room, built once, then shot four ways. Wood panel, orange leather, green floor, the rail in shot. Nothing here is a location that had to be booked. <b>This is the argument in one set. Build the world once and a new angle stops being a new shoot day.</b></p>
 <div class="plates">
 <figure><img src="/assets/book/ell_2.jpg" alt="Ellyete, On the phone" loading="lazy" decoding="async"><figcaption><span>On the phone</span><span class="pl">Plate 07</span></figcaption></figure>
 <div class="pair">
@@ -158,9 +224,10 @@ figcaption .pl{color:var(--blue-deep)}
 <figure><img src="/assets/book/ell_3.jpg" alt="Ellyete, Leaving" loading="lazy" decoding="async"><figcaption><span>Leaving</span><span class="pl">Plate 09</span></figcaption></figure>
 </div>
 <figure><img src="/assets/book/ell_4.jpg" alt="Ellyete, Picking one off the rail" loading="lazy" decoding="async"><figcaption><span>Picking one off the rail</span><span class="pl">Plate 10</span></figcaption></figure>
-</div></div></section>
-<section id="strano"><div class="inner">
-<div class="sechead"><div><p class="eyebrow">03 &nbsp;/&nbsp; Range and detail, 4 frames</p><h2>Strano</h2></div><div><p>A Y2K range carried on real street, plus the close work. Denim, studded belts, the hardware shot at the distance you would actually inspect it.</p><p class="after">Product detail and worn shots out of one pass, so the range reads as one shoot.</p></div></div>
+</div></div></details>
+<details class="row" name="proj">
+<summary><span class="n">03</span><span class="t">Strano</span><span class="k">4 frames<span class="sign"></span></span></summary>
+<div class="body"><p class="lede">A Y2K range carried on real street, plus the close work. Denim, studded belts, the hardware shot at the distance you would actually inspect it. <b>Product detail and worn shots out of one pass, so the range reads as one shoot.</b></p>
 <div class="plates">
 <figure><img src="/assets/book/str_3.jpg" alt="Strano, Graphic tee, the underpass" loading="lazy" decoding="async"><figcaption><span>Graphic tee, the underpass</span><span class="pl">Plate 11</span></figcaption></figure>
 <div class="pair">
@@ -168,16 +235,43 @@ figcaption .pl{color:var(--blue-deep)}
 <figure><img src="/assets/book/str_4.jpg" alt="Strano, Two up, the wall" loading="lazy" decoding="async"><figcaption><span>Two up, the wall</span><span class="pl">Plate 13</span></figcaption></figure>
 </div>
 <figure><img src="/assets/book/str_5.jpg" alt="Strano, Hardware, close" loading="lazy" decoding="async"><figcaption><span>Hardware, close</span><span class="pl">Plate 14</span></figcaption></figure>
-</div></div></section>
-<div class="band" id="films"><div class="inner">
-<div class="sechead"><div><p class="eyebrow">04 &nbsp;/&nbsp; Motion</p><h2>Six films</h2></div><div><p>Short form, made end to end here. Sound, grade and cut included.</p><p class="after">All six play here. Sound is on the films, so turn it up.</p></div></div>
-<div class="films">
-<div class="film"><div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p1.jpg"><source src="/assets/book/f1.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f1.mp4">Download it instead</a>.</video></div><div><h3>Worlds on Clothes</h3><p class="run">0:18</p><p>Miniature figures working the print on the garment. No model, no location, no shoot day. The whole film is the product.</p></div></div>
-<div class="film"><div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p6.jpg"><source src="/assets/book/f6.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f6.mp4">Download it instead</a>.</video></div><div><h3>Two Up</h3><p class="run">0:23</p><p>Sunlit street, two friends, garments carried rather than presented. Shot for feel, not for coverage.</p></div></div>
-<div class="film"><div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p2.jpg"><source src="/assets/book/f2.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f2.mp4">Download it instead</a>.</video></div><div><h3>The Long Way In</h3><p class="run">0:21</p><p>A whole western town built for one hoodie, shot vertical. Made for an existing brand, unpaid and unasked. Not client work.</p></div></div>
-<div class="film"><div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p3.jpg"><source src="/assets/book/f3.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f3.mp4">Download it instead</a>.</video></div><div><h3>Protect</h3><p class="run">0:25</p><p>An armchair on black sand at moonrise. Built to prove a single frame can carry a whole drop.</p></div></div>
-<div class="film"><div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p5.jpg"><source src="/assets/book/f5.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f5.mp4">Download it instead</a>.</video></div><div><h3>Seaforth</h3><p class="run">0:38</p><p>A man on a tube train remembering something. The longest cut here, and the one that leans on performance and grade rather than product.</p></div></div>
-<div class="film"><div class="vwrap"><video controls playsinline preload="none" poster="/assets/book/p4.jpg"><source src="/assets/book/f4.mp4" type="video/mp4">Your browser cannot play this film. <a href="/assets/book/f4.mp4">Download it instead</a>.</video></div><div><h3>Rules the World</h3><p class="run">0:20</p><p>A motel room and a jacket. Also made for an existing brand, unpaid and unasked. Not client work and never presented as it.</p></div></div>
-</div></div></div>
+</div></div></details>
+</div>
 <div class="inner"><div class="end"><p class="big">Rory Wilkie</p><a class="mailto" href="mailto:rory@forvr.org">rory@forvr.org</a><p class="r">Forvr Studios &middot; Reading, England &middot; all work in this book is self initiated concept work</p></div></div>
+<script>
+(function(){
+  // Panels are only hidden once this runs, so with JS off both stay visible.
+  var tabs   = [document.getElementById('tab-films'), document.getElementById('tab-images')];
+  var panels = [document.getElementById('panel-films'), document.getElementById('panel-images')];
+
+  function pauseIn(el){
+    Array.prototype.forEach.call(el.querySelectorAll('video'), function(v){
+      if(!v.paused) v.pause();
+    });
+  }
+  function show(i, push){
+    tabs.forEach(function(t,n){ t.setAttribute('aria-selected', n===i ? 'true':'false'); });
+    panels.forEach(function(p,n){
+      if(n===i){ p.removeAttribute('hidden'); }
+      else { p.setAttribute('hidden',''); pauseIn(p); }
+    });
+    if(push && history.replaceState) history.replaceState(null,'', i===0 ? '#films' : '#images');
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click', function(){ show(i, true); });
+    t.addEventListener('keydown', function(e){
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
+        e.preventDefault(); var n=(i+1)%2; tabs[n].focus(); show(n, true);
+      }
+    });
+  });
+
+  // A closed <details> keeps playing its audio, so stop it on close.
+  Array.prototype.forEach.call(document.querySelectorAll('details.row'), function(d){
+    d.addEventListener('toggle', function(){ if(!d.open) pauseIn(d); });
+  });
+
+  show(location.hash === '#images' ? 1 : 0, false);
+})();
+</script>
 </body></html>
