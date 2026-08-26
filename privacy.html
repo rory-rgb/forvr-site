@@ -40,13 +40,13 @@
 <header class="legal-head">
   <p class="eyebrow"><span class="tick"></span>Legal</p>
   <h1>PRIVACY<span class="dot">.</span></h1>
-  <p class="sub">Last updated 25 August 2026</p>
+  <p class="sub">Last updated 26 August 2026</p>
 </header>
 <main>
 <section class="section">
   <div class="legal-body">
     <h2>The short version</h2>
-    <p>We do not use cookies, we do not run analytics, and there are no advertising or tracking pixels anywhere on this site. The only personal information we hold is what you type into one of our two forms and send us on purpose.</p>
+    <p>We do not use cookies, we do not run analytics, and there are no advertising or tracking pixels anywhere on this site. Every font, script and image is served from our own server, so loading a page does not tell any other company you were here. The only personal information we hold is what you type into one of our two forms and send us on purpose.</p>
 
     <h2>Who we are</h2>
     <p>Forvr Studios is the trading name of Rory Wilkie, an individual sole trader working from Reading, England. Forvr Studios is the data controller for the information described on this page.</p>
@@ -62,7 +62,7 @@
     <p>Both forms carry a hidden field that automated spam bots fill in and people do not. We use it only to throw away spam.</p>
 
     <h3>Information collected automatically</h3>
-    <p>We do not run any analytics, so we do not build a picture of who visits or what they look at. Our hosting provider and the services that deliver our fonts and code do see your IP address and browser details as a normal part of serving you the page. That is described in the next section.</p>
+    <p>We do not run any analytics, so we do not build a picture of who visits or what they look at. Our hosting provider sees your IP address and browser details in its server logs, as any web server does. Nothing else is involved: we host our own fonts and scripts rather than pulling them from Google or a public CDN, so no third party learns you visited unless you actually send us a form.</p>
 
     <h3>Cookies and browser storage</h3>
     <p>This site sets no cookies. A few older pages store a single value in your browser's session storage, named <code>forvrPass</code>, purely so the page transition animation knows to play. It contains no information about you, it is never sent anywhere, and it disappears when you close the tab.</p>
@@ -74,9 +74,7 @@
       <tbody>
         <tr><td>Formspree</td><td>Receives our form submissions and emails them to us</td><td>Everything you typed into the form, plus your IP address</td></tr>
         <tr><td>Vercel</td><td>Hosts the site</td><td>Your IP address and browser details, as server logs</td></tr>
-        <tr><td>Google Fonts</td><td>Serves the typefaces</td><td>Your IP address when the fonts load</td></tr>
-        <tr><td>jsDelivr</td><td>Serves the animation library</td><td>Your IP address when the script loads</td></tr>
-        <tr><td>Our email provider</td><td>Hosts hello@forvr.org</td><td>Any enquiry once it reaches our inbox</td></tr>
+                <tr><td>Our email provider</td><td>Hosts hello@forvr.org</td><td>Any enquiry once it reaches our inbox</td></tr>
       </tbody>
     </table>
     </div>
@@ -93,7 +91,7 @@
     </ul>
 
     <h2>Information leaving the UK</h2>
-    <p>Formspree and jsDelivr are based in the United States, and Google Fonts is served from Google's global network. Where your information reaches those services it may be processed outside the UK. Those transfers rely on the UK's approved safeguards, which for US providers usually means the UK Extension to the EU-US Data Privacy Framework or standard contractual clauses.</p>
+    <p>Formspree is based in the United States, so anything you send through one of our forms is processed there. That transfer relies on the UK’s approved safeguards, which for US providers usually means the UK Extension to the EU-US Data Privacy Framework or standard contractual clauses. If you never submit a form, nothing about you leaves the UK.</p>
 
     <h2>Your rights</h2>
     <p>Under UK GDPR you have the right to ask us for a copy of what we hold about you, to have it corrected, to have it deleted, to restrict or object to how we use it, and to receive it in a portable format. Email <a href="mailto:hello@forvr.org">hello@forvr.org</a> and we will answer within one month.</p>
@@ -125,7 +123,7 @@
   </div>
 </footer>
 </main>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/site.js"></script>
 </body></html>
