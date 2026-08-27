@@ -42,7 +42,7 @@ def shoot(html, slug):
                     "--virtual-time-budget=6000", f"--screenshot={png}", str(tmp)],
                    check=True, capture_output=True)
     Image.open(png).convert("RGB").resize((1200, 630), Image.LANCZOS).save(
-        OUT / f"{slug}.jpg", quality=88, optimize=True, progressive=True)
+        OUT / f"{slug}.jpg", quality=88, optimize=True, progressive=False)
     tmp.unlink(); png.unlink()
     print(f"  {slug}.jpg  {(OUT / f'{slug}.jpg').stat().st_size // 1024} KB")
 
@@ -67,18 +67,11 @@ h1{{font-family:'BringBold',sans-serif;font-weight:400;line-height:.92;letter-sp
 .d{{color:#5BC2E7}}
 </style>"""
 
-# slug: (hero, headline, strap, headline px)
+# One card for the whole site. Every page points at it, so whatever link gets
+# shared, the preview is the same. slug: (hero, headline, strap, headline px)
 HERO_CARDS = {
-    "home":     ("hero-foliage.jpg", "YOUR VISUAL<br>WORLD, BUILT<br>IN DAYS<span class=d>.</span>",
-                 "AI CREATIVE AGENCY &middot; READING, UK", 78),
-    "work":     ("hero-beanbag.jpg", "RECENT FILMS<br>AND STILLS<span class=d>.</span>",
-                 "SELECTED WORK &middot; 2026", 80),
-    "services": ("hero-garden.jpg", "WE BUILD FILMS,<br>AND THE WORLD<br>AROUND THEM<span class=d>.</span>",
-                 "WHAT WE MAKE", 70),
-    "studio":   ("hero-desert.jpg", "HOW WE DIRECT,<br>AND WHY IT<br>HOLDS<span class=d>.</span>",
-                 "THE STUDIO", 78),
-    "contact":  ("hero-monk.jpg", "LET'S BUILD<br>YOUR CAMPAIGN<span class=d>.</span>",
-                 "START SOMETHING &middot; READING, UK", 78),
+    "share": ("hero-foliage.jpg", "YOUR VISUAL<br>WORLD, BUILT<br>IN DAYS<span class=d>.</span>",
+              "AI CREATIVE AGENCY &middot; READING, UK", 78),
 }
 
 HERO_BODY = """<style>
@@ -139,4 +132,3 @@ if __name__ == "__main__":
     for slug, (hero, head, strap, size) in HERO_CARDS.items():
         shoot(HEAD + HERO_BODY.format(hero=b64_jpg(f"assets/{hero}"),
                                       head=head, strap=strap, size=size), slug)
-    shoot(trial_card(), "trial")
