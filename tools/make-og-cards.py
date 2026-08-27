@@ -126,9 +126,33 @@ h1{font-size:88px}
 </div>"""
 
 
+# Every path this site has ever advertised as its share card. Scrapers cache by
+# URL and never re-check, so a platform that saw an old tag keeps fetching the
+# old path forever. Pointing them all at the current card is the only thing that
+# reaches a cache you cannot clear (WhatsApp, iMessage, an existing LinkedIn
+# Featured item). Deleting them instead turns a stale preview into a broken one.
+LEGACY = [
+    "static/og-card.jpg",      # Jul 2026 Statue of a Fool card
+    "static/forvr-og.jpg",     # the card before that
+    "assets/og/home.jpg",      # per-page set, live for about an hour
+    "assets/og/work.jpg", "assets/og/services.jpg",
+    "assets/og/studio.jpg", "assets/og/contact.jpg", "assets/og/trial.jpg",
+]
+
+
+def mirror_to_legacy():
+    card = (OUT / "share.jpg").read_bytes()
+    for rel in LEGACY:
+        dest = REPO / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(card)
+        print(f"  {rel}  <- share.jpg")
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     print("Rendering share cards ->", OUT)
     for slug, (hero, head, strap, size) in HERO_CARDS.items():
         shoot(HEAD + HERO_BODY.format(hero=b64_jpg(f"assets/{hero}"),
                                       head=head, strap=strap, size=size), slug)
+    mirror_to_legacy()
