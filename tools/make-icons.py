@@ -19,7 +19,7 @@ FONT   = "data:font/woff2;base64," + base64.b64encode(
     (REPO / "assets/BringBold-Nineties.woff2").read_bytes()).decode()
 
 S = 1024   # master, all geometry below is a fraction of it
-HTML = f"""<meta charset=utf-8><style>
+HTML = f"""<style>
 @font-face{{font-family:'BringBold';src:url('{FONT}') format('woff2');font-display:block}}
 *{{margin:0;padding:0}}
 body{{width:{S}px;height:{S}px;overflow:hidden}}

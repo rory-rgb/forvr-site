@@ -18,8 +18,15 @@ from PIL import Image
 REPO   = pathlib.Path(__file__).resolve().parent.parent
 OUT    = REPO / "assets/og"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-FONT   = "data:font/woff2;base64," + base64.b64encode(
-    (REPO / "assets/BringBold-Nineties.woff2").read_bytes()).decode()
+def _font(rel):
+    return "data:font/woff2;base64," + base64.b64encode((REPO / rel).read_bytes()).decode()
+
+# every face is embedded from the site's own self-hosted files, so a card is
+# drawn with the exact same outlines the site ships and the build needs no network
+FONT     = _font("assets/BringBold-Nineties.woff2")
+ARCHIVO  = _font("assets/fonts/archivo-latin.woff2")
+PLEX     = _font("assets/fonts/ibm-plex-mono-400-latin.woff2")
+PLEX_500 = _font("assets/fonts/ibm-plex-mono-500-latin.woff2")
 
 
 def b64_jpg(rel):
@@ -41,10 +48,11 @@ def shoot(html, slug):
 
 
 HEAD = f"""<meta charset=utf-8>
-<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=block" rel=stylesheet>
 <style>
 @font-face{{font-family:'BringBold';src:url('{FONT}') format('woff2');font-display:block}}
+@font-face{{font-family:'Archivo';src:url('{ARCHIVO}') format('woff2');font-display:block}}
+@font-face{{font-family:'IBM Plex Mono';font-weight:400;src:url('{PLEX}') format('woff2');font-display:block}}
+@font-face{{font-family:'IBM Plex Mono';font-weight:500;src:url('{PLEX_500}') format('woff2');font-display:block}}
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{width:1200px;height:630px;overflow:hidden;-webkit-font-smoothing:antialiased}}
 .card{{width:1200px;height:630px;position:relative;overflow:hidden;background:#0A0B0D;color:#F2F3F4}}
