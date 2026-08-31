@@ -9,8 +9,6 @@ root = pathlib.Path(__file__).resolve().parent.parent
 SITES = [
  ("pyre","PYRE","Hot sauce",
   "The page has a temperature. Scoville maps to Kelvin on a black-body curve, so scrolling the range physically heats the site from near-black to white-hot.",12),
- ("kestrel","KESTREL","Running shoe",
-  "One shoe, six colourways. Choosing one repaints the entire site in a single transition, so the product decision and the page are the same act.",11),
  ("section","SECTION","Sandwich counter",
   "The build. The sandwich comes apart layer by layer as you scroll, because the order things go in is the thing they actually sell.",12),
  ("halflight","HALF LIGHT","Fragrance",
@@ -71,7 +69,7 @@ def band():
       <p class="eyebrow reveal"><span class="tick"></span>Design and build</p>
       <h2 class="reveal">WEBSITES<span class="dot">.</span></h2>
     </div>
-    <span class="mono">9 builds &middot; designed and coded in house</span>
+    <span class="mono">{len(SITES)} builds &middot; designed and coded in house</span>
   </div>
   <p class="lede reveal" style="margin-bottom:56px">Every one answers the same question a different way: what should this business's site actually do that a template cannot? Each is built around one working interaction, not a slideshow of it.</p>
   <div class="sites-grid">
