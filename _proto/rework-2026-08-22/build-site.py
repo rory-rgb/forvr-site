@@ -164,31 +164,35 @@ PROJECTS = [
 ]
 
 SITES = [
- ("haldane","Haldane","Watchmaker, Edinburgh",
-  "The Caseback. A circular aperture opens through the dial into the movement, then the escapement, with a balance wheel running at a real 4Hz."),
- ("hadal","Hadal","Deep-ocean expeditions",
-  "The Descent. Scroll and you sink to 4,000m. The page colour follows the real light-attenuation curve of seawater as pressure and temperature track with you."),
+ ("pyre","PYRE","Hot sauce",
+  "The page has a temperature. Scoville maps to Kelvin on a black-body curve, so scrolling the range physically heats the site from near-black to white-hot.",12),
+ ("kestrel","KESTREL","Running shoe",
+  "One shoe, six colourways. Choosing one repaints the entire site in a single transition, so the product decision and the page are the same act.",11),
+ ("section","SECTION","Sandwich counter",
+  "The build. The sandwich comes apart layer by layer as you scroll, because the order things go in is the thing they actually sell.",12),
+ ("halflight","HALF LIGHT","Fragrance",
+  "Real refractive glass, with liquid that carries scroll momentum. The bottle behaves like glass rather than a picture of it.",10),
+ ("haldane","HALDANE","Watchmaker, Edinburgh",
+  "The Caseback. A circular aperture opens through the dial into the movement, then the escapement, with a balance wheel running at a real 4Hz.",11),
  ("blip","BLIP","Children's toys, direct",
-  "The Incubator. A full-bleed ring of pods you drag or flick through. Open the front one and it cracks: the lid tips off and the creature springs out."),
- ("nocturne","Nocturne","Night-shift clinical staffing",
-  "The Rota Dial. A working 12-hour control. Drag it to 03:00 and coverage, open shifts and the hourly rate all re-resolve, and the page itself darkens."),
- ("holloway-marr","Holloway & Marr","Timber engineers",
-  "Deflection. Scroll applies load. The beam bends on the real elastic curve for a simply supported UDL and reads out live in millimetres."),
+  "The Incubator. A full-bleed ring of pods you drag or flick through. Open the front one and it cracks: the lid tips off and the creature springs out.",9),
+ ("nocturne","NOCTURNE","Night-shift clinical staffing",
+  "The Rota Dial. A working 12-hour control. Drag it to 03:00 and coverage, open shifts and the hourly rate all re-resolve, and the page itself darkens.",6),
  ("pica","PICA","Risograph print house",
-  "Registration. Two real ink plates composited with multiply, so the overprint colour is produced rather than picked. They sit 9px out of true until you snap them."),
- ("puddle","Puddle","Animation studio",
-  "The Pose Test. Click a keyframe and the rig snaps to it, no tween. Press play to run it on twos, then switch the hand-drawn boil off and watch it die."),
- ("forvr","Forvr.Studios","Our own",
-  "The Scroll Test. A feed of eight posts, five filler and three ours. It times how long you hold on each and reports your own averages back to you."),
+  "Registration. Two real ink plates composited with multiply, so the overprint colour is produced rather than picked. They sit 9px out of true until you snap them.",8),
+ ("puddle","PUDDLE","Animation studio",
+  "The Pose Test. Click a keyframe and the rig snaps to it, no tween. Press play to run it on twos, then switch the hand-drawn boil off and watch it die.",5),
 ]
 
+
 def sites_section():
-    cards = "".join(f'''    <article class="sitecard">
-      <div class="shot"><img src="assets/site-{slug}.jpg" alt="{name} site, first screen" loading="lazy"></div>
+    cards = "".join(f'''    <a class="sitecard" href="site-{slug}.html">
+      <div class="shot"><img class="strip" src="assets/strip-{slug}.jpg" alt="{name} site, scrolled" loading="lazy">
+        <span class="scrub mono">Hover to scroll &middot; click to open</span></div>
       <div class="scap"><h3>{name}</h3><span class="mono">{sector}</span></div>
       <p>{desc}</p>
-    </article>
-''' for slug,name,sector,desc in SITES)
+    </a>
+''' for slug,name,sector,desc,_ in SITES)
     return f'''<section class="section" id="websites">
   <div class="sec-head">
     <div>
@@ -220,11 +224,11 @@ by = {p["slug"]:p for p in PROJECTS}
 for slug, cls in tile_spec:
     p = by[slug]
     live = '<span class="live"></span>' if p["media"][0]=="video" else ""
-    home_tiles += f'''    <figure class="tile {cls}">
+    home_tiles += f'''    <a class="tile {cls}" href="project-{slug}.html">
       {media_html(p["media"])}
       <span class="tag">{live}{p["tag"]}</span>
       <figcaption class="cap">{p["name"]}<span class="mono">{p["client"].upper()} &middot; {p["kind"].upper()}</span></figcaption>
-    </figure>
+    </a>
 '''
 
 home = head("Forvr Studios · AI creative agency, Reading",
@@ -294,14 +298,15 @@ projs = ""
 for p in PROJECTS:
     live = '<span class="live"></span>' if p["media"][0]=="video" else ""
     rows = "".join(f'<div><span class="k">{k}</span><span>{v}</span></div>' for k,v in p["rows"])
-    projs += f'''  <article class="proj">
-    <div class="media">{media_html(p["media"])}<span class="tag">{live}{p["tag"]}</span></div>
+    projs += f'''  <a class="proj" href="project-{p["slug"]}.html">
+    <div class="media">{media_html(p["media"])}<span class="tag">{live}{p["tag"]}</span>
+      <span class="openit mono">{"Watch the film" if p["media"][0]=="video" else "See the set"} &rarr;</span></div>
     <div>
       <h3>{p["name"]}</h3>
       <p>{p["blurb"]}</p>
       <div class="meta">{rows}</div>
     </div>
-  </article>
+  </a>
 '''
 work = head("Work · Forvr Studios",
   "Recent campaign films and stills from the studio, spec and commissioned. Every frame directed here and finished by hand.",
@@ -484,4 +489,76 @@ cont += '''<section class="section">
 '''
 cont += footer()
 (root/"contact.html").write_text(cont)
-print("built: index, work, services, studio, contact")
+
+# ---------------------------------------------------------------- WEBSITE DETAIL PAGES
+for slug,name,sector,desc,frames in SITES:
+    shots = "".join(
+      f'  <figure class="sheet-cell"><img src="assets/f-{slug}-{i:02d}.jpg" alt="{name}, screen {i+1}" loading="lazy">'
+      f'<figcaption class="mono">{i+1:02d}</figcaption></figure>\n' for i in range(frames))
+    pg = head(f"{name} &middot; website &mdash; Forvr Studios",
+              f"{name}, {sector}. {desc[:120]}", f"site-{slug}")
+    pg += nav("Work")
+    pg += f'''<header class="detail-hero">
+  <a class="crumb mono" href="work.html#websites">&larr; All websites</a>
+  <p class="eyebrow"><span class="tick"></span>{sector}</p>
+  <h1>{name}<span class="dot">.</span></h1>
+  <p class="sub">{desc}</p>
+  <div class="dmeta">
+    <div><span class="k mono">Discipline</span><span>Design and build</span></div>
+    <div><span class="k mono">Built with</span><span>Hand-written HTML, CSS and JS</span></div>
+    <div><span class="k mono">Screens</span><span>{frames}</span></div>
+    <div><span class="k mono">Status</span><span>Concept build</span></div>
+  </div>
+</header>
+<main class="over">
+<section class="section">
+  <div class="sec-head"><h2>THE PAGE, TOP TO BOTTOM<span class="dot">.</span></h2>
+    <span class="mono">{frames} screens &middot; 1440px</span></div>
+  <div class="sheet">
+{shots}  </div>
+  <p class="honest-line" style="color:var(--muted)">Captured from the live build, scrolled in sequence. Self-initiated concept work.</p>
+</section>
+'''
+    pg += footer()
+    (root/f"site-{slug}.html").write_text(pg)
+
+# ---------------------------------------------------------------- PROJECT DETAIL PAGES
+PROJ_DETAIL = {
+ "relay":     ("film","film-relay.mp4","poster-corteiz.jpg",[]),
+ "blowup":    ("film","film-blowup.mp4","poster-blowup.jpg",[]),
+ "seaforth":  ("film","film-seaforth.mp4","poster-seaforth.jpg",[]),
+ "protect":   ("film","film-protect.mp4","poster-protect.jpg",[]),
+ "studio":    ("stills",None,None,[f"proj-studio-{i:02d}.jpg" for i in range(6)]),
+ "fence":     ("stills",None,None,[f"proj-fence-{i:02d}.jpg" for i in range(6)]),
+}
+for p_ in PROJECTS:
+    slug=p_["slug"]
+    kind,vid,poster,stills = PROJ_DETAIL[slug]
+    rows = "".join(f'<div><span class="k mono">{k}</span><span>{v}</span></div>' for k,v in p_["rows"])
+    if kind=="film":
+        body = f'''  <div class="filmwrap">
+    <video src="assets/{vid}" poster="assets/{poster}" controls playsinline preload="metadata"></video>
+  </div>'''
+    else:
+        body = '  <div class="sheet">' + "".join(
+          f'<figure class="sheet-cell"><img src="assets/{s}" alt="{p_["name"]}, frame {i+1}" loading="lazy">'
+          f'<figcaption class="mono">{i+1:02d}</figcaption></figure>' for i,s in enumerate(stills)) + '</div>'
+    pg = head(f"{p_['name']} &middot; {p_['kind']} &mdash; Forvr Studios",
+              f"{p_['name']} for {p_['client']}. {p_['blurb'][:110]}", f"project-{slug}")
+    pg += nav("Work")
+    pg += f'''<header class="detail-hero">
+  <a class="crumb mono" href="work.html">&larr; All work</a>
+  <p class="eyebrow"><span class="tick"></span>{p_["client"]} &middot; {p_["kind"]}</p>
+  <h1>{p_["name"]}<span class="dot">.</span></h1>
+  <p class="sub">{p_["blurb"]}</p>
+  <div class="dmeta">{rows}</div>
+</header>
+<main class="over">
+<section class="section">
+{body}
+</section>
+'''
+    pg += footer()
+    (root/f"project-{slug}.html").write_text(pg)
+
+print("built: index, work, services, studio, contact, 9 site pages, 6 project pages")
