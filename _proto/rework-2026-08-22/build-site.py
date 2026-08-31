@@ -163,6 +163,48 @@ PROJECTS = [
       rows=[("Client","Spec"),("Discipline","Stills, location build"),("Format","4:5"),("Year","2026")]),
 ]
 
+SITES = [
+ ("haldane","Haldane","Watchmaker, Edinburgh",
+  "The Caseback. A circular aperture opens through the dial into the movement, then the escapement, with a balance wheel running at a real 4Hz."),
+ ("hadal","Hadal","Deep-ocean expeditions",
+  "The Descent. Scroll and you sink to 4,000m. The page colour follows the real light-attenuation curve of seawater as pressure and temperature track with you."),
+ ("blip","BLIP","Children's toys, direct",
+  "The Incubator. A full-bleed ring of pods you drag or flick through. Open the front one and it cracks: the lid tips off and the creature springs out."),
+ ("nocturne","Nocturne","Night-shift clinical staffing",
+  "The Rota Dial. A working 12-hour control. Drag it to 03:00 and coverage, open shifts and the hourly rate all re-resolve, and the page itself darkens."),
+ ("holloway-marr","Holloway & Marr","Timber engineers",
+  "Deflection. Scroll applies load. The beam bends on the real elastic curve for a simply supported UDL and reads out live in millimetres."),
+ ("pica","PICA","Risograph print house",
+  "Registration. Two real ink plates composited with multiply, so the overprint colour is produced rather than picked. They sit 9px out of true until you snap them."),
+ ("puddle","Puddle","Animation studio",
+  "The Pose Test. Click a keyframe and the rig snaps to it, no tween. Press play to run it on twos, then switch the hand-drawn boil off and watch it die."),
+ ("forvr","Forvr.Studios","Our own",
+  "The Scroll Test. A feed of eight posts, five filler and three ours. It times how long you hold on each and reports your own averages back to you."),
+]
+
+def sites_section():
+    cards = "".join(f'''    <article class="sitecard">
+      <div class="shot"><img src="assets/site-{slug}.jpg" alt="{name} site, first screen" loading="lazy"></div>
+      <div class="scap"><h3>{name}</h3><span class="mono">{sector}</span></div>
+      <p>{desc}</p>
+    </article>
+''' for slug,name,sector,desc in SITES)
+    return f'''<section class="section" id="websites">
+  <div class="sec-head">
+    <div>
+      <p class="eyebrow reveal"><span class="tick"></span>Design and build</p>
+      <h2 class="reveal">WEBSITES<span class="dot">.</span></h2>
+    </div>
+    <span class="mono">8 builds &middot; designed and coded in house</span>
+  </div>
+  <p class="lede reveal" style="margin-bottom:56px">Every one answers the same question a different way: what should this business's site actually do that a template cannot? Each is built around one working interaction, not a slideshow of it.</p>
+  <div class="sites-grid">
+{cards}  </div>
+  <p class="honest-line" style="color:var(--muted)">Self-initiated concept builds, made to prove the interaction rather than to fill a portfolio. Client sites shown on request.</p>
+</section>
+
+'''
+
 def media_html(m, cls=""):
     kind, src, poster = m
     if kind=="video":
@@ -278,7 +320,8 @@ work += f'''<section class="section dark-band">
 {projs}
   <p class="honest-line">Spec work is labelled spec. Nothing here is a case study we cannot show you the files for, and no numbers are attached to work that has not run.</p>
 </section>
-'''
+
+''' + sites_section()
 work += footer()
 (root/"work.html").write_text(work)
 
@@ -290,11 +333,15 @@ LANES = [
   ["Lookbooks, product and editorial","One grade locked across the set","Hand finish on fabric, hands and type","Print-ready and social crops"]),
  ("03","BRAND IDENTITY","The visual language underneath the campaign.",
   ["Direction, palette and type","Logo and mark work","Art direction guidelines","Templates your team can run"]),
- ("04","DECKS AND DOCUMENTS","Corporate work that looks like the brand, not like a template.",
+ ("04","WEBSITE DESIGN","Designed and coded here. Static, fast, no framework tax.",
+  ["Concept, design and build","One signature interaction, built to work","Copy written to match","Yours to keep, hosted anywhere"]),
+ ("05","DECKS AND DOCUMENTS","Corporate work that looks like the brand, not like a template.",
   ["Pitch and sales decks","Reports and one-pagers","Built in your own file formats","Reusable master system"]),
+ ("06","CREATIVE DIRECTION","The concept and the world, written down so it survives without us.",
+  ["Concept and treatment","Palette, type and grade rules","Art direction guidelines","Templates your team can run"]),
 ]
 lanes = "".join(f'''    <div class="lane"><span class="num">{n}</span><h3>{t}</h3><p>{d}</p>
-      <ul>{"".join(f"<li>{i}</li>" for i in items)}</ul></div>
+      <ul>{"".join(f"<li>{i}</li>" for i in items)}</ul>{'<a class="lane-link" href="work.html#websites">See the builds &rarr;</a>' if t=="WEBSITE DESIGN" else ""}</div>
 ''' for n,t,d,items in LANES)
 
 STEPS = [("01","Brief","One call or one Instagram handle. We work out what the brand already looks like."),

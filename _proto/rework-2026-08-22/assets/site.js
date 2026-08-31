@@ -165,7 +165,7 @@ if(!reduced){
 
   gsap.utils.toArray('.tile').forEach((x,i)=>gsap.fromTo(x,{opacity:0,y:44},
     {opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:x,start:'top bottom-=40'},delay:(i%2)*.08}));
-  gsap.utils.toArray('.reveal,.check,.scanwrap,.proj,.lane,.stepc,.fact,.split .imgwrap').forEach(x=>gsap.to(x,
+  gsap.utils.toArray('.reveal,.check,.scanwrap,.proj,.lane,.stepc,.fact,.split .imgwrap,.sitecard').forEach(x=>gsap.to(x,
     {opacity:1,y:0,x:0,duration:.85,ease:'power3.out',scrollTrigger:{trigger:x,start:'top bottom-=40'}}));
 
   /* stat rows: count + strike */
@@ -206,7 +206,7 @@ if(!reduced){
   /* aurora drift + stamp idle float */
   gsap.to('#stamp',{y:8,rotate:-3,duration:2.6,ease:'sine.inOut',yoyo:true,repeat:-1});
 }else{
-  document.querySelectorAll('.reveal,.check,.fcard,.scanwrap,.tile,.hero-media,.hero .sub,.cta-row,.proj,.lane,.stepc,.fact,.split .imgwrap').forEach(e=>{e.style.opacity=1;e.style.transform='none'});
+  document.querySelectorAll('.reveal,.check,.fcard,.scanwrap,.tile,.hero-media,.hero .sub,.cta-row,.proj,.lane,.stepc,.fact,.split .imgwrap,.sitecard').forEach(e=>{e.style.opacity=1;e.style.transform='none'});
   document.querySelectorAll('.hero h1 .row>span').forEach(e=>e.style.transform='none');
   document.querySelectorAll('.srow').forEach(r=>r.classList.add('struck'));
   document.querySelectorAll('[data-n]').forEach(n=>n.textContent=n.dataset.n);
