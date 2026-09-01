@@ -35,7 +35,7 @@
   .offer-head{padding:16vh 4vw 0}
   .offer-head h1{font-size:clamp(40px,6.2vw,96px);margin:18px 0 22px}
   .offer-head .lede{max-width:52ch}
-  .price-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);border:1px solid var(--line);margin-top:7vh}
+  .price-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);margin-top:7vh}
   .pcell{background:var(--bg);padding:26px 24px 24px}
   .pcell .k{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:10px}
   .pcell .v{font-family:'BringBold',sans-serif;font-size:clamp(26px,2.7vw,42px);line-height:1}
@@ -43,6 +43,27 @@
   .getlist{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-direction:column;gap:9px;max-width:56ch}
   .getlist li{font-size:var(--fs-md);display:flex;gap:12px;align-items:flex-start}
   .getlist li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--blue);flex:none;margin-top:9px}
+  .dot-img{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:center;margin:5vh 0}
+  .dot-img figure{margin:0;max-width:400px;width:100%}
+  .dot-img.right figure{justify-self:end}
+  .dot-img.left figure{justify-self:start}
+  .dot-img img{display:block;width:100%;height:auto}
+  .dot-img figcaption{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+  .dot-img .said{font-size:var(--fs-lg);line-height:1.5;max-width:32ch}
+  .dot-img.right .said{justify-self:end}
+  .dot-img.left .said{justify-self:start}
+  .dot-img .said span{color:var(--muted);font-size:var(--fs-sm);display:block;margin-top:12px}
+  .dot-img.right figure{grid-column:2;grid-row:1}
+  .dot-img.right .said{grid-column:1;grid-row:1}
+  .dot-img.left figure{grid-column:1;grid-row:1}
+  .dot-img.left .said{grid-column:2;grid-row:1}
+  @media(max-width:760px){
+    .dot-img{grid-template-columns:1fr;gap:20px;margin:5vh 0}
+    .dot-img figure{max-width:none;justify-self:stretch!important}
+    .dot-img figure,.dot-img .said{grid-column:1!important}
+    .dot-img.right figure,.dot-img.left figure{grid-row:1}
+    .dot-img.right .said,.dot-img.left .said{grid-row:2}
+  }
   .two-up{display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:start}
   .why-500{font-size:var(--fs-md);color:var(--dark-muted);max-width:60ch}
   .why-500 p{margin-bottom:16px}
@@ -83,7 +104,6 @@
     <div class="pcell"><span class="k">Price</span><span class="v">&pound;500</span><p class="n">First three brands only</p></div>
     <div class="pcell"><span class="k">Payment</span><span class="v">250 / 250</span><p class="n">Half to start, half on delivery</p></div>
     <div class="pcell"><span class="k">Turnaround</span><span class="v">14 days</span><p class="n">From your product reference landing</p></div>
-    <div class="pcell"><span class="k">Formats</span><span class="v">9:16 4:5 1:1</span><p class="n">Every crop included, not extra</p></div>
   </div>
 </header>
 
@@ -104,11 +124,14 @@
       <ul class="getlist reveal">
         <li>One film, ten to twenty seconds, with sound</li>
         <li>Ten to fifteen stills from the same world</li>
-        <li>Vertical, portrait and square, cropped for each</li>
         <li>Direction shown and signed off before anything is finished</li>
         <li>Delivered ready to post, no further work needed</li>
       </ul>
     </div>
+  </div>
+  <div class="dot-img right reveal">
+    <figure><img src="/assets/founding/f-ellyette.jpg" alt="Ellyette, office set" loading="lazy"><figcaption>Ellyette &nbsp;/&nbsp; one world, four frames</figcaption></figure>
+    <p class="said">One room, built once, then shot from every angle it had in it.<span>The rail, the sofa, the phone and the carpet were all the same setup. The frames came out of the world, not out of four more ideas.</span></p>
   </div>
 </section>
 
@@ -124,12 +147,16 @@
     <div class="stepc"><span class="num mono">01</span><h3>You send product</h3><p>The product itself or good photographs of it. That plus your handle is the whole brief.</p></div>
     <div class="stepc"><span class="num mono">02</span><h3>I show direction</h3><p>The world, the palette, how your product sits in it. One round of changes here, before anything is finished.</p></div>
     <div class="stepc"><span class="num mono">03</span><h3>I build it</h3><p>Three setups, then the film and the stills out of them, graded as one set.</p></div>
-    <div class="stepc"><span class="num mono">04</span><h3>You get everything</h3><p>Every format, every crop, day fourteen. Late is the only thing a first client remembers, so the date is the date.</p></div>
+    <div class="stepc"><span class="num mono">04</span><h3>You get everything</h3><p>Everything delivered on day fourteen. Late is the only thing a first client remembers, so the date is the date.</p></div>
   </div>
   <div class="clist" style="margin-top:6vh">
-    <div class="crow"><span class="k">What I need from you</span><span>Product or product shots, and one person who can approve the direction inside 48 hours</span></div>
+    <div class="crow"><span class="k">What I need from you</span><span>Product or product shots, one person who can approve the direction inside 48 hours, and the formats you actually post in</span></div>
     <div class="crow"><span class="k">Where it is tight</span><span>One product or one collection. One world. One round of changes on direction. No new concepts after sign off</span></div>
     <div class="crow"><span class="k">Why it is tight</span><span>Because that is what makes fourteen days a real number rather than a hopeful one</span></div>
+  </div>
+  <div class="dot-img left reveal">
+    <figure><img src="/assets/founding/f-studio.jpg" alt="Studio portrait" loading="lazy"><figcaption>Studio &nbsp;/&nbsp; one light, one wall</figcaption></figure>
+    <p class="said">Simple is usually the expensive-looking one.<span>No location, no props, nothing to hire. A colour, a light and a fit, which is the cheapest world to build and often the one that reads best on a feed.</span></p>
   </div>
 </section>
 
@@ -163,7 +190,7 @@
     <div class="reveal">
       <p class="lede">Forvr is new and I am not going to pretend otherwise. The work is there and you can look at it, but nobody has paid me for it yet, so the only thing I am actually short of is brands who can say it landed.</p>
       <p class="lede" style="margin-top:16px">Three of those fixes it. That is worth more to me right now than the difference between &pound;500 and full rate, which is the entire reason this number exists.</p>
-      <p class="lede" style="margin-top:16px">You are getting a directed campaign for less than a single shoot day costs. I am getting the third thing I cannot buy any other way. Both of those are true at the same time.</p>
+      <p class="lede" style="margin-top:16px">You are getting a directed campaign for less than a single shoot day costs. I am getting the one thing I cannot buy any other way. Both of those are true at the same time.</p>
     </div>
     <div class="reveal">
       <div class="clist" style="margin-top:0">
@@ -175,6 +202,11 @@
     </div>
   </div>
 </section>
+
+  <div class="dot-img right reveal">
+    <figure><img src="/assets/founding/f-detail.jpg" alt="Product detail" loading="lazy"><figcaption>Detail &nbsp;/&nbsp; the close frame</figcaption></figure>
+    <p class="said">The close ones come out of the same setup as the wide ones.<span>This is why fifteen stills is still three ideas. You move in rather than start again, so the whole set still looks like one day.</span></p>
+  </div>
 
 <footer id="contact-foot">
   <p class="big reveal">GOT A DROP COMING<span class="dot">?</span><br><a href="mailto:hello@forvr.org">LET'S BUILD IT<span class="dot">.</span></a></p>
@@ -191,12 +223,4 @@
 <script src="/assets/vendor/gsap.min.js"></script>
 <script src="/assets/vendor/ScrollTrigger.min.js"></script>
 <script src="/assets/site.js"></script>
-<script>
-  /* failsafe: if the reveal script does not run, nothing may stay invisible on a page whose job is to be read. */
-  setTimeout(function(){
-    document.querySelectorAll('.reveal,.check,.fact,.lane,.stepc,.crow').forEach(function(el){
-      if(getComputedStyle(el).opacity === '0'){ el.style.opacity='1'; el.style.transform='none'; }
-    });
-  }, 1200);
-</script>
 </body></html>
