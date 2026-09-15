@@ -24,6 +24,7 @@ Disallow: /work-experiments.html
 Disallow: /project-layouts-preview.html
 Disallow: /splash-preview.html
 Disallow: /fan-variants-preview.html
+Disallow: /rory-wilkie-cv.pdf
 
 # OpenAI
 User-agent: GPTBot
