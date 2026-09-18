@@ -1,0 +1,690 @@
+<!DOCTYPE html><html lang="en-GB"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rory Wilkie &middot; AI Artist &middot; Forvr Studios</title>
+<meta name="description" content="Selected image-making and film by Rory Wilkie. Fashion-led stills and motion, built from written direction and repeatable Weavy workflows rather than one-off prompts.">
+<link rel="canonical" href="https://forvr.org/rorywilkie">
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Forvr Studios">
+<meta property="og:title" content="Rory Wilkie &middot; AI Artist &middot; Forvr Studios">
+<meta property="og:description" content="Selected image-making and film. Fashion-led stills and motion built from written direction rather than prompts.">
+<meta property="og:url" content="https://forvr.org/rorywilkie">
+<meta property="og:image" content="https://forvr.org/assets/og/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rory Wilkie &middot; AI Artist &middot; Forvr Studios">
+<meta name="twitter:description" content="Selected image-making and film. Fashion-led stills and motion built from written direction rather than prompts.">
+<meta name="twitter:image" content="https://forvr.org/assets/og/share.jpg">
+<meta name="theme-color" content="#F4F3EE">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/static/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/icon-180.png">
+<link rel="preload" href="assets/BringBold-Nineties.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'BringBold';src:url('assets/BringBold-Nineties.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:100%;font-display:swap;src:url('assets/fonts/archivo-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:100%;font-display:swap;src:url('assets/fonts/archivo-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('assets/fonts/ibm-plex-mono-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('assets/fonts/ibm-plex-mono-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* One light, printed look on purpose: the web twin of the one-page CV. */
+:root{
+  --paper:#F4F3EE; --ink:#0D0E10; --ink2:#2A2C31; --muted:#5E6168; --hair:#D6D4CC; --well:#E6E4DD;
+  --blue:#0E90C4; --blue-ink:#0A6C94; --ice:#5BC2E7; --gridc:rgba(14,144,196,.24);
+  --gut:clamp(16px,4vw,56px); --label:clamp(170px,17vw,248px); --gap:clamp(20px,2.8vw,44px); --max:1480px;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  --sans:'Archivo',Helvetica,Arial,sans-serif;
+  --display:'BringBold','Archivo',Impact,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:64px}
+html.v-open{overflow:hidden}
+body{margin:0;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E")}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+p{margin:0}
+::selection{background:var(--ice);color:var(--ink)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.dot{color:var(--ice)}
+.skip{position:absolute;left:var(--gut);top:-80px;z-index:80;background:var(--ink);color:var(--paper);padding:12px 16px;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.skip:focus{top:10px}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gut);position:relative}
+
+/* registration lines, after the reference CVs */
+.gridlines{position:fixed;inset:0;pointer-events:none;z-index:0}
+.gridlines .gl{position:relative;max-width:var(--max);height:100%;margin-inline:auto}
+.gridlines i{position:absolute;top:0;bottom:0;width:1px;background:var(--gridc)}
+.gridlines i:nth-child(1){left:calc(var(--gut) / 2)}
+.gridlines i:nth-child(2){left:calc(var(--gut) + var(--label) + var(--gap) / 2)}
+.gridlines i:nth-child(3){right:calc(var(--gut) / 2)}
+main,footer{position:relative;z-index:1}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:40;background:rgba(244,243,238,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .25s}
+.bar.is-scrolled{border-bottom-color:var(--ink)}
+.bar-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:58px}
+.bar-name{font-family:var(--display);font-size:20px;letter-spacing:.02em;text-decoration:none;white-space:nowrap;opacity:0;visibility:hidden;transform:translateY(4px);transition:opacity .3s,transform .3s,visibility 0s .3s}
+.bar.show-name .bar-name{opacity:1;visibility:visible;transform:none;transition:opacity .3s,transform .3s}
+.bar-links{display:flex;gap:clamp(16px,2.4vw,32px)}
+.bar-links a{position:relative;display:inline-flex;align-items:center;min-height:44px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+.bar-links a::after{content:"";position:absolute;left:0;right:0;bottom:12px;height:1.5px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.bar-links a:hover::after,.bar-links a:focus-visible::after{transform:scaleX(1)}
+
+/* masthead */
+.mast{padding-top:clamp(26px,4.4vw,60px)}
+.mast-name{display:flex;flex-wrap:wrap;align-items:center;column-gap:.24em;row-gap:0;margin:0;font-family:var(--display);font-weight:400;font-size:clamp(58px,10.2vw,160px);line-height:.86;letter-spacing:.005em}
+.mast-name .oval{display:inline-block;font:500 clamp(11px,.95vw,14px)/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;border:1.5px solid var(--ink);border-radius:999px;padding:.6em 1.15em;margin-left:.2em;white-space:nowrap}
+.mast-2{display:grid;grid-template-columns:var(--label) minmax(0,1fr);grid-template-areas:"role lead" "kv lead";grid-template-rows:auto 1fr;column-gap:var(--gap);row-gap:20px;border-top:2px solid var(--ink);margin-top:clamp(14px,1.8vw,26px);padding-block:clamp(22px,3vw,44px)}
+.m-role{grid-area:role;font:500 12.5px/1.55 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink)}
+.m-kv{grid-area:kv;margin:0;align-self:start}
+.m-kv div{padding:9px 0;border-top:1px solid var(--hair)}
+.m-kv dt{font:500 11px/1.5 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.m-kv dd{margin:2px 0 0;font-size:15px;line-height:1.4}
+.m-kv a{text-decoration:none;border-bottom:1px solid var(--hair)}
+.m-kv a:hover{color:var(--blue-ink);border-bottom-color:var(--blue)}
+.m-lead{grid-area:lead}
+.m-lead .lead{font-weight:600;font-size:clamp(26px,2.9vw,44px);line-height:1.08;letter-spacing:-.02em;margin-bottom:24px;color:var(--ink);max-width:24ch}
+.m-lead p:not(.lead){color:var(--ink2);font-size:17px;max-width:64ch}
+.m-lead p+p{margin-top:14px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+
+/* buttons and links */
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:0 20px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;background:var(--ink);color:var(--paper);border:1.5px solid var(--ink);cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.btn:hover{background:var(--blue-ink);border-color:var(--blue-ink)}
+.btn.line{background:transparent;color:var(--ink)}
+.btn.line:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tlink{display:inline-flex;align-items:center;min-height:44px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+.tlink span{border-bottom:1.5px solid var(--blue);padding-bottom:5px}
+.tlink:hover{color:var(--blue-ink)}
+
+/* rows: label column + content, one rule each */
+.row{display:grid;grid-template-columns:var(--label) minmax(0,1fr);column-gap:var(--gap);padding-block:clamp(30px,4.2vw,64px)}
+.row::before{content:"";position:absolute;top:0;left:calc(var(--gut) / 2);right:calc(var(--gut) / 2);height:1px;background:var(--ink)}
+.lab{position:sticky;top:78px;align-self:start;font:500 12px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink)}
+.lab-h{font:inherit;letter-spacing:inherit;margin:0;color:inherit}
+.lab .n{display:block;font:700 clamp(34px,3.4vw,52px)/.9 var(--sans);letter-spacing:-.03em;color:var(--ink);margin-bottom:12px;text-transform:none}
+.lab .t{display:block}
+.lab .t+.t{color:var(--muted)}
+
+/* index */
+.index{list-style:none;margin:0;padding:0}
+.index a{display:grid;grid-template-columns:3em minmax(0,1.7fr) minmax(0,.7fr) minmax(0,.9fr) minmax(0,1.2fr) 1.2em;gap:12px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--hair);text-decoration:none}
+.i-n,.i-k,.i-d,.i-a{font:500 12px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.i-n{color:var(--blue-ink)}
+.i-t{font:700 clamp(17px,1.6vw,22px)/1.2 var(--sans);letter-spacing:-.01em;transition:color .2s}
+.i-go{color:var(--blue-ink);opacity:0;transform:translateX(-6px);transition:opacity .2s,transform .2s}
+.index a:hover .i-t,.index a:focus-visible .i-t{color:var(--blue-ink)}
+.index a:hover .i-go,.index a:focus-visible .i-go{opacity:1;transform:none}
+
+/* a piece of work */
+.w-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px 24px;flex-wrap:wrap;margin-bottom:clamp(16px,2vw,26px)}
+.w-head h2{font:800 clamp(34px,4.4vw,66px)/.95 var(--sans);letter-spacing:-.032em;margin:0}
+.w-head .kick{font:500 12px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.disc{display:flex;gap:9px;align-items:baseline;font:500 12px/1.5 var(--mono);letter-spacing:.04em;color:var(--muted);margin:0 0 14px}
+.disc::before{content:"";flex:none;width:7px;height:7px;background:var(--blue);transform:translateY(-1px)}
+.w-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(20px,3vw,48px);align-items:start}
+.w-grid.vert{grid-template-columns:auto minmax(0,1fr)}
+.w-text{max-width:62ch}
+.w-text p{color:var(--ink2);font-size:16.5px}
+.w-text p+p{margin-top:.9em}
+.cover{position:relative;display:block;overflow:hidden;background:var(--well);cursor:zoom-in;text-decoration:none}
+.cover img{width:100%;height:auto;transition:transform .8s cubic-bezier(.2,.6,.2,1)}
+.cover:hover img{transform:scale(1.02)}
+.c-tag{position:absolute;bottom:12px;display:inline-flex;align-items:center;gap:8px;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;background:var(--paper);color:var(--ink);padding:8px 10px}
+.c-count{left:12px}
+.c-open{right:12px;background:var(--ink);color:var(--paper);transition:background .2s}
+.cover:hover .c-open{background:var(--blue-ink)}
+.kv{margin:0 0 22px;border-top:1px solid var(--hair)}
+.kv div{display:grid;grid-template-columns:8.6em minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid var(--hair)}
+.kv dt{font:500 11.5px/1.7 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kv dd{margin:0;font-size:15px;line-height:1.5}
+.actions{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;margin-top:24px}
+
+/* films, always at their real aspect ratio */
+.film{margin:0}
+.film video{width:100%;height:auto;background:var(--ink)}
+.film.vert video{width:auto;height:min(78svh,760px);max-width:100%;object-fit:contain}
+.film figcaption{display:flex;justify-content:space-between;align-items:center;gap:0 16px;flex-wrap:wrap;margin-top:4px;font:500 11.5px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);min-height:36px}
+.films-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2vw,28px)}
+.w-cols{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,3vw,48px);margin-bottom:clamp(20px,2.6vw,34px)}
+.w-cols .kv{margin:0}
+
+/* process, tools, more */
+.steps{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair)}
+.steps li{display:grid;grid-template-columns:3em minmax(0,1fr) minmax(0,1.5fr);gap:6px 24px;padding:16px 0;border-bottom:1px solid var(--hair)}
+.steps .s-n{font:500 12px/1.9 var(--mono);color:var(--blue-ink)}
+.steps h3{font:700 18px/1.35 var(--sans);letter-spacing:-.01em;margin:0}
+.steps p{color:var(--ink2)}
+.kv.tools div{grid-template-columns:11em minmax(0,1fr)}
+.more{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 var(--gap)}
+.more li{border-bottom:1px solid var(--hair)}
+.more a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:13px 0;text-decoration:none}
+.more b{font:700 17px/1.3 var(--sans);letter-spacing:-.01em;transition:color .2s}
+.more span{font:500 11.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.more a:hover b{color:var(--blue-ink)}
+
+/* footer */
+.foot{padding-bottom:28px}
+.bigmail{display:inline-block;font-family:var(--display);font-size:clamp(34px,5.6vw,84px);line-height:1;text-decoration:none;border-bottom:3px solid var(--ice);padding-bottom:6px;margin-bottom:30px;overflow-wrap:anywhere}
+.bigmail:hover{color:var(--blue-ink)}
+.foot .kv{max-width:720px}
+.foot a{text-decoration:none}
+.foot .kv a:hover{color:var(--blue-ink)}
+.foot-base{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(40px,6vw,80px);font:500 11.5px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.foot-base nav{display:flex;gap:20px}
+.foot-base a:hover{color:var(--blue-ink)}
+
+/* the viewer: one frame at a time */
+.viewer{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:var(--paper);color:var(--ink);overflow:hidden}
+.viewer[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+.viewer::backdrop{background:var(--paper)}
+.v-top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px var(--gut);border-bottom:1px solid var(--ink)}
+.v-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;min-width:0;font:800 clamp(16px,1.6vw,20px)/1.2 var(--sans);letter-spacing:-.01em}
+.v-count{font:500 12px/1 var(--mono);letter-spacing:.12em;color:var(--muted)}
+.v-stage{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;min-height:0;padding-block:clamp(10px,2vw,22px);touch-action:pan-y}
+.v-fig{margin:0;height:100%;min-height:0;display:flex;align-items:center;justify-content:center}
+.v-fig img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;cursor:e-resize;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
+.v-nav{align-self:stretch;width:clamp(52px,6vw,96px);border:0;background:none;padding:0;font:400 30px/1 var(--sans);color:var(--ink);cursor:pointer;transition:color .2s}
+.v-nav:hover{color:var(--blue-ink)}
+.v-foot{display:flex;justify-content:center;flex-wrap:wrap;gap:2px;padding:10px var(--gut) 14px;border-top:1px solid var(--hair)}
+.v-tick{position:relative;width:26px;height:26px;border:0;background:none;padding:0;cursor:pointer}
+.v-tick::before{content:"";position:absolute;left:5px;right:5px;top:12px;height:2px;background:var(--hair);transition:background .2s}
+.v-tick:hover::before{background:var(--muted)}
+.v-tick[aria-current="true"]::before{background:var(--ink)}
+
+@media (max-width:1100px){
+  .mast-2{grid-template-columns:minmax(0,1fr);grid-template-areas:"role" "lead" "kv";grid-template-rows:auto auto auto}
+  .m-kv{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:var(--gap)}
+  .index a{grid-template-columns:2.6em minmax(0,1.6fr) minmax(0,.7fr) minmax(0,.9fr) 1.2em}
+  .i-a{display:none}
+  .more{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .gridlines i:nth-child(2){display:none}
+  .bar-name{display:none}
+  .bar-links{width:100%;justify-content:space-between}
+  .mast-name{font-size:clamp(58px,19vw,120px);line-height:.84}
+  .m-kv{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .row{grid-template-columns:minmax(0,1fr)}
+  .lab{position:static;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-bottom:16px}
+  .lab .n{display:inline;font:500 12px/1.5 var(--mono);letter-spacing:.14em;color:var(--blue-ink);margin:0}
+  .lab .t{display:inline}
+  .w-grid,.w-grid.vert,.w-cols,.films-2{grid-template-columns:minmax(0,1fr)}
+  .film.vert video{height:min(74svh,640px)}
+  .index a{grid-template-columns:2.4em minmax(0,1fr) auto;gap:10px}
+  .i-d,.i-go{display:none}
+  .kv div,.kv.tools div{grid-template-columns:7.6em minmax(0,1fr)}
+  .steps li{grid-template-columns:2.4em minmax(0,1fr)}
+  .steps p{grid-column:2}
+  .more{grid-template-columns:minmax(0,1fr)}
+  .v-stage{grid-template-columns:minmax(0,1fr)}
+  .v-nav{position:absolute;top:0;bottom:0;z-index:2;width:30%;font-size:0;color:transparent}
+  .v-nav.prev{left:0}.v-nav.next{right:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Skip to the work</a>
+<div class="gridlines" aria-hidden="true"><div class="gl"><i></i><i></i><i></i></div></div>
+
+<header class="bar" id="bar">
+  <div class="wrap bar-in">
+    <a class="bar-name" href="#top">RORY WILKIE<span class="dot">.</span></a>
+    <nav class="bar-links" aria-label="Page">
+      <a href="#work">Work</a>
+      <a href="rory-wilkie-cv.pdf">CV</a>
+      <a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.linkedin.com/in/rorywilkie/" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="wrap mast" id="top">
+  <h1 class="mast-name"><span>RORY</span> <span>WILKIE<span class="dot">.</span></span><span class="oval">Portfolio</span></h1>
+  <div class="mast-2">
+    <p class="m-role">AI Artist<br>&amp; Creative Technologist</p>
+    <dl class="m-kv">
+      <div><dt>Based</dt><dd>Reading, UK<br>London commutable</dd></div>
+      <div><dt>Email</dt><dd><a href="mailto:rory@forvr.org">rory@forvr.org</a></dd></div>
+      <div><dt>Instagram</dt><dd><a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">@forvr.cr</a></dd></div>
+      <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/rorywilkie/" target="_blank" rel="noopener">in/rorywilkie</a></dd></div>
+      <div><dt>CV</dt><dd><a href="rory-wilkie-cv.pdf">One page, PDF</a></dd></div>
+    </dl>
+    <div class="m-lead">
+      <p class="lead">I make images, and I build the systems that make them repeatable.</p>
+      <p>Most of my work is fashion and image-led. The part I have spent the last year actually developing is the layer underneath it: how you take a look that worked once and turn it into a process that holds across a full collection, a full cast, or one room photographed across a year.</p>
+      <p>The best pieces here start as written direction rather than a prompt. Palette, light, settings and wardrobe are fixed before a single frame exists, which gives everything made afterwards something to be judged against. That is also what makes the work handable to someone else, which is the part most generative work never gets to.</p>
+      <div class="cta"><a class="btn" href="#work">See the work <span aria-hidden="true">&darr;</span></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap row" id="work" aria-labelledby="work-h">
+  <div class="lab"><h2 class="lab-h" id="work-h">Selected work</h2><span class="t">2026</span></div>
+  <div>
+    <p class="disc">Concept work &middot; everything here is self-initiated, none of it commissioned</p>
+    <ol class="index">
+      <li><a href="#statue"><span class="i-n">01</span><span class="i-t">Statue of a Fool</span><span class="i-k">Stills</span><span class="i-d">21 frames</span><span class="i-a">Concept collection</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="#forvr-collection"><span class="i-n">02</span><span class="i-t">Forvr Collection</span><span class="i-k">Stills</span><span class="i-d">7 frames</span><span class="i-a">Own brand &middot; Weavy</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="#ellyette"><span class="i-n">03</span><span class="i-t">Ellyette</span><span class="i-k">Stills</span><span class="i-d">4 frames</span><span class="i-a">Concept shoot &middot; Weavy</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="#strano"><span class="i-n">04</span><span class="i-t">Strano</span><span class="i-k">Stills</span><span class="i-d">4 frames</span><span class="i-a">Concept set</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="#seaforth"><span class="i-n">05</span><span class="i-t">Seaforth</span><span class="i-k">Film</span><span class="i-d">16:9</span><span class="i-a">Own film</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="#nike"><span class="i-n">06</span><span class="i-t">Nike, the ledge</span><span class="i-k">Film</span><span class="i-d">16:9</span><span class="i-a">Spec ad</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="#motion"><span class="i-n">07</span><span class="i-t">Relay &amp; Blowup</span><span class="i-k">Film</span><span class="i-d">16:9</span><span class="i-a">Motion</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="#worlds-on-clothes"><span class="i-n">08</span><span class="i-t">Worlds on Clothes</span><span class="i-k">Film</span><span class="i-d">9:16</span><span class="i-a">Vol. 1 &amp; 2</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="#sp5der"><span class="i-n">09</span><span class="i-t">Sp5der, bull ride</span><span class="i-k">Film</span><span class="i-d">9:16</span><span class="i-a">Brand film study</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a href="#how"><span class="i-n">10</span><span class="i-t">How I work</span><span class="i-k">Process</span><span class="i-d">&nbsp;</span><span class="i-a">The part that transfers</span><span class="i-go" aria-hidden="true">&rarr;</span></a></li>
+    </ol>
+  </div>
+</section>
+
+<article class="wrap row" id="statue" aria-labelledby="statue-h">
+  <div class="lab"><span class="n">01</span><span class="t">Stills</span><span class="t">Concept collection</span></div>
+  <div>
+    <header class="w-head"><h2 id="statue-h">Statue of a Fool</h2><span class="kick">21 frames &middot; 3:4 &middot; 2026</span></header>
+    <div class="w-grid">
+      <a class="cover" href="statue-of-a-fool.html" data-open="statue" aria-label="Open Statue of a Fool, all 21 frames">
+        <img src="assets/sof/16.jpg" alt="Statue of a Fool, three friends outside a block of flats" width="1200" height="1608" loading="lazy" decoding="async">
+        <span class="c-tag c-count">01 / 21</span><span class="c-tag c-open" aria-hidden="true">View set &rarr;</span>
+      </a>
+      <div class="w-text">
+        <dl class="kv">
+          <div><dt>Type</dt><dd>Concept collection</dd></div>
+          <div><dt>Scope</dt><dd>Direction, garment, campaign</dd></div>
+          <div><dt>Frames</dt><dd>21 &middot; 3:4</dd></div>
+        </dl>
+        <p>A collection built end to end, from written direction through to a finished campaign. It starts as a written codex rather than a prompt: palette, light, settings and wardrobe all fixed before a single frame exists, which gives everything made afterwards something to be judged against.</p>
+        <p>It swings between two poles on purpose. Direct on-camera flash, hard shadow and wet pavement at one end. Chiaroscuro, marble and monumental stillness at the other. Both have to be present or the whole thing reads as a clean render instead of a real campaign. The palette is sampled off the finished garments and the streets they were shot in, not picked from swatches.</p>
+        <div class="actions"><a class="btn" href="statue-of-a-fool.html" data-open="statue">View all 21 frames <span aria-hidden="true">&rarr;</span></a><a class="tlink" href="statue-of-a-fool.html"><span>Case study</span></a></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="wrap row" id="forvr-collection" aria-labelledby="fc-h">
+  <div class="lab"><span class="n">02</span><span class="t">Stills</span><span class="t">Own brand</span></div>
+  <div>
+    <header class="w-head"><h2 id="fc-h">Forvr Collection</h2><span class="kick">7 frames &middot; 4:5 &middot; 2026</span></header>
+    <div class="w-grid">
+      <a class="cover" href="forvr-collection.html" data-open="fc" aria-label="Open Forvr Collection, all 7 frames">
+        <img src="assets/forvr-collection/03.jpg" alt="Forvr Collection, tracksuit against a corrugated shutter" width="1933" height="2400" loading="lazy" decoding="async">
+        <span class="c-tag c-count">01 / 07</span><span class="c-tag c-open" aria-hidden="true">View set &rarr;</span>
+      </a>
+      <div class="w-text">
+        <dl class="kv">
+          <div><dt>Type</dt><dd>Own brand</dd></div>
+          <div><dt>Scope</dt><dd>Campaign, product, identity</dd></div>
+          <div><dt>Built in</dt><dd>Weavy, Nano Banana Pro</dd></div>
+          <div><dt>Frames</dt><dd>7 &middot; 4:5</dd></div>
+        </dl>
+        <p>The first brand I built, and the hardest product-consistency test in the portfolio. One garment, a black tracksuit with contrast blue stitching, carried across chain link, a corrugated shutter, bare concrete, a wet underpass and a stairwell. Different light, different surfaces, different distances, the same piece reading correctly in all of it.</p>
+        <p>The colour is what holds the set together rather than the styling: the blue in the stitching picks up the shutter, the underpass fluorescents and the enamel on the signet ring.</p>
+        <p>It was built with a Weavy workflow that connects the moodboard through to prompt concatenators, so the prompt for every frame is assembled inside the graph rather than written one at a time. Ellyette runs on the same workflow.</p>
+        <div class="actions"><a class="btn" href="forvr-collection.html" data-open="fc">View all 7 frames <span aria-hidden="true">&rarr;</span></a><a class="tlink" href="forvr-collection.html"><span>Films and identity</span></a></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="wrap row" id="ellyette" aria-labelledby="ell-h">
+  <div class="lab"><span class="n">03</span><span class="t">Stills</span><span class="t">Concept shoot</span></div>
+  <div>
+    <header class="w-head"><h2 id="ell-h">Ellyette</h2><span class="kick">4 frames &middot; 4:5 &middot; 2026</span></header>
+    <div class="w-grid">
+      <a class="cover" href="assets/ellyette/01.jpg" data-open="ellyette" aria-label="Open Ellyette, all 4 frames">
+        <img src="assets/ellyette/01.jpg" alt="Ellyette, leaning on the clothing rail in headphones" width="1933" height="2400" loading="lazy" decoding="async">
+        <span class="c-tag c-count">01 / 04</span><span class="c-tag c-open" aria-hidden="true">View set &rarr;</span>
+      </a>
+      <div class="w-text">
+        <dl class="kv">
+          <div><dt>Type</dt><dd>Concept shoot, streetwear</dd></div>
+          <div><dt>Built in</dt><dd>Weavy, Nano Banana Pro</dd></div>
+          <div><dt>Frames</dt><dd>4 &middot; 4:5</dd></div>
+        </dl>
+        <p>Ellyette's line is "from the office to the field", and they had only ever photographed the office. So this set stays in a 1970s office after hours and the field never arrives: rosewood panelling, drop-ceiling fluorescents, a rail of their own pieces, and one man with a job he is ambivalent about. Every frame is an event rather than a pose. He takes the hoodie off the rail, the desk phone interrupts him, he waits for someone who has not come back, and he leaves.</p>
+        <p>It was built with the same Weavy workflow as the Forvr Collection. The moodboard is analysed inside the graph, a constants node and a shot brief are joined by prompt concatenators into one prompt per frame, and a checker node reads them before anything renders. Every render gets the same three references in the same order: the character sheet, the hoodie and the room. The hoodie is never described in words, because describing a garment the model can already see makes it redraw it.</p>
+        <div class="actions"><a class="btn" href="assets/ellyette/01.jpg" data-open="ellyette">View all 4 frames <span aria-hidden="true">&rarr;</span></a></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="wrap row" id="strano" aria-labelledby="str-h">
+  <div class="lab"><span class="n">04</span><span class="t">Stills</span><span class="t">Concept set</span></div>
+  <div>
+    <header class="w-head"><h2 id="str-h">Strano</h2><span class="kick">4 frames &middot; 4:5 &middot; 2026</span></header>
+    <div class="w-grid">
+      <a class="cover" href="assets/strano/01.jpg" data-open="strano" aria-label="Open Strano, all 4 frames">
+        <img src="assets/strano/01.jpg" alt="Strano, a studded belt worn at a London bus stop" width="1933" height="2400" loading="lazy" decoding="async">
+        <span class="c-tag c-count">01 / 04</span><span class="c-tag c-open" aria-hidden="true">View set &rarr;</span>
+      </a>
+      <div class="w-text">
+        <dl class="kv">
+          <div><dt>Type</dt><dd>Concept set, belts and jewellery</dd></div>
+          <div><dt>Method</dt><dd>One edit pass per frame</dd></div>
+          <div><dt>Frames</dt><dd>4 &middot; 4:5</dd></div>
+        </dl>
+        <p>Strano is an Italian belt and jewellery brand, and the set puts their belts on the street in hard sun: a London bus stop, a rooftop, a pink wall, and a close macro of two belts stacked on denim.</p>
+        <p>The belts are real products. Each one goes into the edit as a photograph and is never described in the prompt, because words make the model rebuild the emboss, the studs and the buckle, and that is exactly where they drift. The concept frames were approved first, then restyled to carry the belts in a single edit pass, never two deep.</p>
+        <div class="actions"><a class="btn" href="assets/strano/01.jpg" data-open="strano">View all 4 frames <span aria-hidden="true">&rarr;</span></a></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<article class="wrap row" id="seaforth" aria-labelledby="sea-h">
+  <div class="lab"><span class="n">05</span><span class="t">Film</span><span class="t">Own film</span></div>
+  <div>
+    <header class="w-head"><h2 id="sea-h">Seaforth</h2><span class="kick">24 shots &middot; 16:9 &middot; sound on</span></header>
+    <div class="w-cols">
+      <dl class="kv">
+        <div><dt>Type</dt><dd>Own film</dd></div>
+        <div><dt>Built</dt><dd>Generated to match a real plate</dd></div>
+        <div><dt>Post</dt><dd>Directed, cut and sound-designed in-house</dd></div>
+      </dl>
+      <div class="w-text">
+        <p>A perfume, a tube carriage, and the thirty seconds a smell can take off you. A man catches something he recognises, and what follows is not a flashback so much as a slip: a bedroom in morning light, a pub, a corridor, a door.</p>
+        <p>The carriage, the seat, the position and the light are the real thing rather than invented, and everything generated downstream was built to match them. The sound does most of the work at the hinge: the platform pre-laps the cut, so you are already somewhere else before the picture agrees.</p>
+      </div>
+    </div>
+    <figure class="film">
+      <video src="assets/films/seaforth.mp4" poster="assets/films/seaforth.jpg" controls preload="none" playsinline width="1920" height="1080"></video>
+      <figcaption><span>24 shots &middot; ordered on feel rather than plot</span><a class="tlink" href="seaforth.html"><span>Film page</span></a></figcaption>
+    </figure>
+  </div>
+</article>
+
+<article class="wrap row" id="nike" aria-labelledby="nike-h">
+  <div class="lab"><span class="n">06</span><span class="t">Film</span><span class="t">Spec ad</span></div>
+  <div>
+    <header class="w-head"><h2 id="nike-h">Nike, the ledge</h2><span class="kick">23s &middot; 16:9 &middot; sound on</span></header>
+    <div class="w-cols">
+      <dl class="kv">
+        <div><dt>Type</dt><dd>Spec ad</dd></div>
+        <div><dt>Built from</dt><dd>One character sheet, three location bases</dd></div>
+        <div><dt>Wardrobe</dt><dd>Pink Tech Fleece, Vomero 5</dd></div>
+      </dl>
+      <div class="w-text">
+        <p>A man in pink Tech Fleece on the edge of a London rooftop at dusk, and every shot of the build-up is framed like he is about to jump: his face, his toes on the parapet, the crouch at the edge. Then he steps out onto a wire over the city and dances on it, and the swoosh lands over the wide.</p>
+        <p>The consistency comes from the method rather than the prompts. The character sheet goes in as the first reference on every generation and only the location changes, between a parapet corner, the gravel roof and the wire over the city, each built once as a base. That is what holds the man, the fleece and the building together from the widest shot down to the shoes on the wire.</p>
+      </div>
+    </div>
+    <figure class="film">
+      <video src="assets/films/nike-ledge.mp4" poster="assets/films/nike-ledge.jpg" controls preload="none" playsinline width="1920" height="1080"></video>
+      <figcaption><span>The build-up reads as a jump, the payoff is a dance</span></figcaption>
+    </figure>
+  </div>
+</article>
+
+<article class="wrap row" id="motion" aria-labelledby="mot-h">
+  <div class="lab"><span class="n">07</span><span class="t">Film</span><span class="t">Motion</span></div>
+  <div>
+    <header class="w-head"><h2 id="mot-h">Relay &amp; Blowup</h2><span class="kick">Two films &middot; 16:9 &middot; sound on</span></header>
+    <div class="w-text" style="margin-bottom:clamp(20px,2.6vw,34px)">
+      <p>Relay is the technical one. Three tracksuit looks, three rooms of one London flat, and a single horizontal camera move through the whole thing that never cuts away to reset. Each person gets six beats, then the dividing wall crosses the lens and fills it, and that is the hand-off into the next room. Room brightness runs dark warm, bright, dark cool, so the film has a shape before the garments do any work at all. It is cut to loop.</p>
+    </div>
+    <div class="films-2">
+      <figure class="film">
+        <video src="assets/films/relay.mp4" poster="assets/films/relay.jpg" controls preload="none" playsinline width="1920" height="1080"></video>
+        <figcaption><span>Relay &middot; one move, three rooms, cut to loop</span><a class="tlink" href="relay.html"><span>Film page</span></a></figcaption>
+      </figure>
+      <figure class="film">
+        <video src="assets/films/blowup.mp4" poster="assets/films/blowup.jpg" controls preload="none" playsinline width="1920" height="1080"></video>
+        <figcaption><span>Blowup &middot; spec concept film</span><a class="tlink" href="blowup.html"><span>Film page</span></a></figcaption>
+      </figure>
+    </div>
+  </div>
+</article>
+
+<article class="wrap row" id="worlds-on-clothes" aria-labelledby="woc-h">
+  <div class="lab"><span class="n">08</span><span class="t">Film</span><span class="t">Own series</span></div>
+  <div>
+    <header class="w-head"><h2 id="woc-h">Worlds on Clothes</h2><span class="kick">Vol. 1 &amp; 2 &middot; 9:16 &middot; sound on</span></header>
+    <div class="w-cols">
+      <dl class="kv">
+        <div><dt>Type</dt><dd>Own series of short films</dd></div>
+        <div><dt>Vol. 1</dt><dd>Cold Culture &middot; 18s</dd></div>
+        <div><dt>Vol. 2</dt><dd>6TH &middot; 17s</dd></div>
+      </dl>
+      <div class="w-text">
+        <p>Tiny workers doing jobs on clothing, shot as if the garment were a landscape. In Vol. 1, stitchers, a gardener, skiers and painters work their way across Cold Culture pieces, and a crane lifts the finale before the brand's own lockup holds the end.</p>
+        <p>Vol. 2 runs the same format on 6TH's Drop 01 garments. Two painters finishing a gold piece get chased off by model officers, a skater takes a rail across the Dark Star tee while his friend films, and three of them wind down on a hoodie at the end. The characters and graphics are 6TH's own.</p>
+      </div>
+    </div>
+    <div class="films-2">
+      <figure class="film vert">
+        <video src="assets/films/coldculture.mp4" poster="assets/films/coldculture.jpg" controls preload="none" playsinline width="1080" height="1920"></video>
+        <figcaption><span>Vol. 1 &middot; Cold Culture</span></figcaption>
+      </figure>
+      <figure class="film vert">
+        <video src="assets/films/6th-worlds.mp4" poster="assets/films/6th-worlds.jpg" controls preload="none" playsinline width="1080" height="1920"></video>
+        <figcaption><span>Vol. 2 &middot; 6TH</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</article>
+
+<article class="wrap row" id="sp5der" aria-labelledby="sp-h">
+  <div class="lab"><span class="n">09</span><span class="t">Film</span><span class="t">Brand film study</span></div>
+  <div>
+    <header class="w-head"><h2 id="sp-h">Sp5der, bull ride</h2><span class="kick">22s &middot; 9:16 &middot; sound on</span></header>
+    <div class="w-grid vert">
+      <figure class="film vert">
+        <video src="assets/films/sp5der-bull.mp4" poster="assets/films/sp5der-bull.jpg" controls preload="none" playsinline width="1080" height="1932"></video>
+      </figure>
+      <div class="w-text">
+        <dl class="kv">
+          <div><dt>Type</dt><dd>Brand film study</dd></div>
+          <div><dt>Built from</dt><dd>One keyframe</dd></div>
+          <div><dt>Format</dt><dd>22s &middot; 9:16</dd></div>
+        </dl>
+        <p>A short brand film cut for the feed: a rider in the yellow hoodie on a longhorn, walking a western street in hard midday sun, with the close-ups on the hoodie, the denim and the stirrup cut against the wide.</p>
+        <p>Like the rest of the brand films, it is built from one keyframe and tested against the pacing, styling and camera language streetwear advertising already runs on.</p>
+        <div class="actions"><a class="tlink" href="fashion-films.html"><span>More brand films</span></a></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<section class="wrap row" id="how" aria-labelledby="how-h">
+  <div class="lab"><span class="n">10</span><h2 class="lab-h t" id="how-h">How I work</h2><span class="t">The part that transfers</span></div>
+  <ol class="steps">
+    <li><span class="s-n">01</span><h3>Direction before generation</h3><p>Palette, light, settings and wardrobe are written down and fixed before a frame exists. It gives the output a standard to be judged against instead of a vibe to be argued about.</p></li>
+    <li><span class="s-n">02</span><h3>One setup, held</h3><p>A single lighting setup and a single grade carried across a whole set, so twelve frames read as one body of work rather than twelve separate generations.</p></li>
+    <li><span class="s-n">03</span><h3>The reference carries the product</h3><p>A garment or a belt goes in as a photograph and never gets described in words. The reference already holds the colour, the print and the hardware, and describing it only makes the model redraw it.</p></li>
+    <li><span class="s-n">04</span><h3>Real plates where they exist</h3><p>Where something was actually photographed, the generated material is built to match it rather than replace it. Generative work sits under photography and post, not over the top of them.</p></li>
+    <li><span class="s-n">05</span><h3>Written down, so it transfers</h3><p>Producing weekly to a deadline is what forces a process out of your head and onto paper. Anything held together by memory falls over by the third week. The Weavy workflows work the same way: swap the moodboard, the product and the brief, and the same graph runs the next brand.</p></li>
+  </ol>
+</section>
+
+<section class="wrap row" aria-labelledby="tools-h">
+  <div class="lab"><h2 class="lab-h" id="tools-h">Tools</h2></div>
+  <dl class="kv tools">
+    <div><dt>Image</dt><dd>Midjourney, Nano Banana, Nano Banana Pro via Weavy, Higgsfield, Magnific</dd></div>
+    <div><dt>Motion</dt><dd>Kling, Seedance, Veo, Sora</dd></div>
+    <div><dt>Post and finish</dt><dd>Photoshop, DaVinci Resolve</dd></div>
+    <div><dt>Research and build</dt><dd>Apify, Claude Code, Figma, Cosmos, HTML, CSS, JavaScript</dd></div>
+  </dl>
+</section>
+
+<section class="wrap row" aria-labelledby="more-h">
+  <div class="lab"><h2 class="lab-h" id="more-h">Also on forvr.org</h2></div>
+  <ul class="more">
+    <li><a href="grit.html"><b>Grit</b><span>Stills</span></a></li>
+    <li><a href="small-circle.html"><b>Small Circle</b><span>Stills</span></a></li>
+    <li><a href="fence.html"><b>Fence</b><span>Stills</span></a></li>
+    <li><a href="posters.html"><b>Posters</b><span>Design</span></a></li>
+    <li><a href="fashion-films.html"><b>Fashion Films</b><span>Film</span></a></li>
+    <li><a href="work.html"><b>Website builds</b><span>Build</span></a></li>
+  </ul>
+</section>
+</main>
+
+<footer class="wrap row foot" aria-labelledby="contact-h">
+  <div class="lab"><h2 class="lab-h" id="contact-h">Contact</h2></div>
+  <div>
+    <a class="bigmail" href="mailto:rory@forvr.org">rory@forvr.org</a>
+    <dl class="kv">
+      <div><dt>Instagram</dt><dd><a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">@forvr.cr</a></dd></div>
+      <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/rorywilkie/" target="_blank" rel="noopener">in/rorywilkie</a></dd></div>
+      <div><dt>CV</dt><dd><a href="rory-wilkie-cv.pdf">One page, PDF</a></dd></div>
+      <div><dt>Studio</dt><dd><a href="index.html">Forvr Studios, Reading</a></dd></div>
+    </dl>
+    <div class="foot-base"><span>&copy; 2026 Rory Wilkie</span><nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div>
+  </div>
+</footer>
+
+<dialog class="viewer" id="viewer" aria-labelledby="vTitle">
+  <div class="v-top">
+    <p class="v-title"><span id="vTitle">Frames</span><span class="v-count" id="vCount" aria-live="polite"></span></p>
+    <button class="btn line" id="vClose" type="button">Close <span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="v-stage">
+    <button class="v-nav prev" id="vPrev" type="button" aria-label="Previous frame">&larr;</button>
+    <figure class="v-fig"><img id="vImg" alt=""></figure>
+    <button class="v-nav next" id="vNext" type="button" aria-label="Next frame">&rarr;</button>
+  </div>
+  <div class="v-foot" id="vTicks"></div>
+</dialog>
+
+<script>
+(function(){
+  /* each set leads with its cover, then runs in order */
+  function sof(n, alt){ return ['assets/sof/' + n + '.jpg', 'Statue of a Fool, ' + alt]; }
+  var SETS = {
+    statue: { title: 'Statue of a Fool', items: [
+      sof('16','three friends outside a block of flats'),
+      sof('01','leaning on a takeaway counter at night'),
+      sof('02','sitting on the night bus'),
+      sof('03','stepping out of a doorway with a carrier bag'),
+      sof('04','two friends in a laundrette'),
+      sof('05','on the phone in a red phone box'),
+      sof('06','eating at a table'),
+      sof('07','the back of the jersey on a balcony at night'),
+      sof('08','on a stairwell'),
+      sof('09','two friends on front steps'),
+      sof('10','a group taking a photo against shutters'),
+      sof('11','crouched between parked cars'),
+      sof('12','in a lit doorway'),
+      sof('13','two friends at a takeaway counter'),
+      sof('14','the back of the jersey at a railing over the city'),
+      sof('15','two friends by a bollard'),
+      sof('17','crouched against a pillar'),
+      sof('18','holding a basketball behind a fence'),
+      sof('19','the back of the jersey against a wall'),
+      sof('20','sitting on a bollard by the river'),
+      sof('21','outside a chicken shop window')
+    ]},
+    fc: { title: 'Forvr Collection', items: [
+      ['assets/forvr-collection/03.jpg','Forvr Collection, tracksuit against a corrugated shutter'],
+      ['assets/forvr-collection/01.jpg','Forvr Collection, balaclava portrait against chain link'],
+      ['assets/forvr-collection/02.jpg','Forvr Collection, tracksuit laid flat on concrete'],
+      ['assets/forvr-collection/05.jpg','Forvr Collection, underpass walking shot'],
+      ['assets/forvr-collection/08.jpg','Forvr Collection, stairwell frame with camera timestamp'],
+      ['assets/forvr-collection/09.jpg','Forvr Collection, signet and rings product macro'],
+      ['assets/forvr-collection/10.jpg','Forvr Collection, portrait in blue light']
+    ]},
+    ellyette: { title: 'Ellyette', items: [
+      ['assets/ellyette/01.jpg','Ellyette, leaning on the clothing rail in headphones'],
+      ['assets/ellyette/02.jpg','Ellyette, on the office sofa with the desk phone'],
+      ['assets/ellyette/03.jpg','Ellyette, leaving the office with a canvas tote'],
+      ['assets/ellyette/04.jpg','Ellyette, taking a hoodie off the rail']
+    ]},
+    strano: { title: 'Strano', items: [
+      ['assets/strano/01.jpg','Strano, a studded belt worn at a London bus stop'],
+      ['assets/strano/03.jpg','Strano, a belt with a white tee on a rooftop'],
+      ['assets/strano/04.jpg','Strano, two belts worn against a pink wall'],
+      ['assets/strano/05.jpg','Strano, macro of two studded belts stacked on denim']
+    ]}
+  };
+
+  var dlg = document.getElementById('viewer');
+  if (dlg && typeof dlg.showModal === 'function') {
+    var img = document.getElementById('vImg'), title = document.getElementById('vTitle'),
+        count = document.getElementById('vCount'), ticks = document.getElementById('vTicks'),
+        closeBtn = document.getElementById('vClose');
+    var set = null, idx = 0, opener = null;
+    var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+
+    var render = function(){
+      var it = set.items[idx], total = set.items.length;
+      img.src = it[0]; img.alt = it[1];
+      count.textContent = pad(idx + 1) + ' / ' + pad(total);
+      for (var i = 0; i < ticks.children.length; i++) ticks.children[i].setAttribute('aria-current', i === idx ? 'true' : 'false');
+      [1, -1].forEach(function(d){ var p = new Image(); p.src = set.items[(idx + d + total) % total][0]; });
+    };
+    var go = function(d){ idx = (idx + d + set.items.length) % set.items.length; render(); };
+    var open = function(key, trigger){
+      set = SETS[key]; if (!set) return false;
+      idx = 0; opener = trigger; title.textContent = set.title; ticks.innerHTML = '';
+      set.items.forEach(function(it, i){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'v-tick'; b.setAttribute('aria-label', 'Frame ' + (i + 1));
+        b.addEventListener('click', function(){ idx = i; render(); });
+        ticks.appendChild(b);
+      });
+      render();
+      document.documentElement.classList.add('v-open');
+      dlg.showModal(); closeBtn.focus();
+      return true;
+    };
+
+    dlg.addEventListener('close', function(){
+      document.documentElement.classList.remove('v-open');
+      img.removeAttribute('src');
+      if (opener) opener.focus();
+    });
+    closeBtn.addEventListener('click', function(){ dlg.close(); });
+    document.getElementById('vPrev').addEventListener('click', function(){ go(-1); });
+    document.getElementById('vNext').addEventListener('click', function(){ go(1); });
+    img.addEventListener('click', function(){ go(1); });
+    /* Escape is handled here as well as natively: Chrome can swallow the
+       native close when the dialog was opened without a fresh user gesture. */
+    dlg.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') { go(1); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { go(-1); e.preventDefault(); }
+      else if (e.key === 'Escape') { e.preventDefault(); dlg.close(); }
+    });
+    dlg.addEventListener('cancel', function(e){ e.preventDefault(); dlg.close(); });
+
+    var stage = dlg.querySelector('.v-stage'), sx = null, sy = 0;
+    stage.addEventListener('pointerdown', function(e){ sx = e.clientX; sy = e.clientY; });
+    stage.addEventListener('pointerup', function(e){
+      if (sx === null) return;
+      var dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+    });
+
+    document.addEventListener('click', function(e){
+      var t = e.target.closest('[data-open]');
+      if (t && open(t.getAttribute('data-open'), t)) e.preventDefault();
+    });
+  }
+
+  /* the bar: a rule once you scroll, the name once the masthead has gone */
+  var bar = document.getElementById('bar'), name = document.querySelector('.mast-name');
+  var onScroll = function(){ bar.classList.toggle('is-scrolled', window.scrollY > 8); };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  if ('IntersectionObserver' in window && name) {
+    new IntersectionObserver(function(es){ bar.classList.toggle('show-name', !es[0].isIntersecting); }).observe(name);
+  } else { bar.classList.add('show-name'); }
+
+  /* one film plays at a time */
+  document.addEventListener('play', function(e){
+    document.querySelectorAll('video').forEach(function(v){ if (v !== e.target) v.pause(); });
+  }, true);
+})();
+</script>
+</body></html>

@@ -21,6 +21,11 @@
       "source": "/motion-lab",
       "destination": "/work",
       "permanent": true
+    },
+    {
+      "source": "/rorywilkieportfolio",
+      "destination": "/rorywilkie",
+      "permanent": true
     }
   ]
 }
