@@ -62,7 +62,7 @@ button{font:inherit;color:inherit}
 
 /* home: intro column + tile grid, one screen on a laptop */
 .home{display:grid;grid-template-columns:minmax(330px,31%) minmax(0,1fr);gap:clamp(24px,3vw,52px);padding:clamp(18px,2.4vw,34px) var(--gut);min-height:calc(100svh - var(--barh))}
-@media (min-width:1000px) and (min-height:640px){.home{height:calc(100svh - var(--barh))}}
+@media (min-width:1400px) and (min-height:740px),(min-width:1000px) and (min-height:820px){.home{height:calc(100svh - var(--barh))}}
 .intro{display:flex;flex-direction:column;min-height:0;border-right:1px solid var(--hair);padding-right:clamp(20px,2.6vw,44px)}
 .name{font:400 clamp(52px,min(6.4vw,11vh),112px)/.86 var(--display);letter-spacing:.005em;margin:0 0 clamp(12px,2.2vh,24px)}
 .role{font:500 12px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink);margin-bottom:clamp(10px,1.8vh,18px)}
@@ -95,6 +95,15 @@ button{font:inherit;color:inherit}
 .t-cap b{font-weight:600;font-size:14.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .t-cap i{font:400 10.5px/1 var(--mono);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .tile:hover .t-cap b{color:var(--blue-ink)}
+/* the bar already carries these links on a laptop */
+@media (min-width:1000px){.kv .dup{display:none}}
+@media (min-width:1000px) and (max-height:859px){.kv{padding-top:12px}.kv div{padding:5px 0}}
+/* laptop screens too short for one screen: let the page scroll and keep the tiles upright */
+@media (min-width:1000px) and (max-width:1399px) and (max-height:819px),(min-width:1400px) and (max-height:739px){
+  .tiles{grid-template-rows:none}
+  .t-img{flex:none;aspect-ratio:4/5}
+  .kv{margin-top:22px}
+}
 @media (max-width:999px){
   .home{grid-template-columns:minmax(0,1fr);height:auto}
   .intro{border-right:0;padding-right:0;border-bottom:1px solid var(--hair);padding-bottom:22px}
@@ -210,11 +219,12 @@ button{font:inherit;color:inherit}
       <a class="btn line" href="#how">How I work</a>
     </div>
     <dl class="kv">
+      <div><dt>Client work</dt><dd>Six months at Hypervail, a US AI agency, making UGC ads for Meta, four a week. Under NDA, so it isn't shown here.</dd></div>
       <div><dt>Based</dt><dd>Reading, UK &middot; London commutable</dd></div>
       <div><dt>Email</dt><dd><a href="mailto:rory@forvr.org">rory@forvr.org</a></dd></div>
-      <div><dt>Instagram</dt><dd><a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">@forvr.cr</a></dd></div>
-      <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/rorywilkie/" target="_blank" rel="noopener">in/rorywilkie</a></dd></div>
-      <div><dt>CV</dt><dd><a href="rory-wilkie-cv.pdf">One page, PDF</a></dd></div>
+      <div class="dup"><dt>Instagram</dt><dd><a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">@forvr.cr</a></dd></div>
+      <div class="dup"><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/rorywilkie/" target="_blank" rel="noopener">in/rorywilkie</a></dd></div>
+      <div class="dup"><dt>CV</dt><dd><a href="rory-wilkie-cv.pdf">One page, PDF</a></dd></div>
     </dl>
   </section>
 
