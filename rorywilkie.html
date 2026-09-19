@@ -78,10 +78,10 @@ main,footer{position:relative;z-index:1}
 .bar-links a:hover::after,.bar-links a:focus-visible::after{transform:scaleX(1)}
 
 /* masthead */
-.mast{padding-top:clamp(26px,4.4vw,60px)}
-.mast-name{display:flex;flex-wrap:wrap;align-items:center;column-gap:.24em;row-gap:0;margin:0;font-family:var(--display);font-weight:400;font-size:clamp(58px,10.2vw,160px);line-height:.86;letter-spacing:.005em}
+.mast{padding-top:0}
+.mast-name{display:flex;flex-wrap:wrap;align-items:center;column-gap:.24em;row-gap:0;margin:0;font-family:var(--display);font-weight:400;font-size:clamp(58px,10.2vw,160px);line-height:.86;letter-spacing:.005em;padding-block:clamp(26px,4.4vw,60px) clamp(14px,1.8vw,26px);background-color:var(--paper);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E")}
 .mast-name .oval{display:inline-block;font:500 clamp(11px,.95vw,14px)/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;border:1.5px solid var(--ink);border-radius:999px;padding:.6em 1.15em;margin-left:.2em;white-space:nowrap}
-.mast-2{display:grid;grid-template-columns:var(--label) minmax(0,1fr);grid-template-areas:"role lead" "kv lead";grid-template-rows:auto 1fr;column-gap:var(--gap);row-gap:20px;border-top:2px solid var(--ink);margin-top:clamp(14px,1.8vw,26px);padding-block:clamp(22px,3vw,44px)}
+.mast-2{display:grid;grid-template-columns:var(--label) minmax(0,1fr);grid-template-areas:"role lead" "kv lead";grid-template-rows:auto 1fr;column-gap:var(--gap);row-gap:20px;border-top:2px solid var(--ink);margin-top:0;padding-block:clamp(22px,3vw,44px)}
 .m-role{grid-area:role;font:500 12.5px/1.55 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink)}
 .m-kv{grid-area:kv;margin:0;align-self:start}
 .m-kv div{padding:9px 0;border-top:1px solid var(--hair)}
