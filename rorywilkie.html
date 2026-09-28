@@ -6,7 +6,7 @@
 <title>Rory Wilkie &middot; AI Artist &middot; Forvr Studios</title>
 <meta name="description" content="AI visuals by Rory Wilkie, and the systems that make them repeatable. Each brand's visual identity and DNA is extracted and locked first, so every asset reads as that brand.">
 <link rel="canonical" href="https://forvr.org/rorywilkie">
-<meta name="robots" content="noindex, follow">
+<meta name="robots" content="noindex, nofollow">
 <meta property="og:type" content="profile">
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="Forvr Studios">
@@ -82,8 +82,10 @@ button{font:inherit;color:inherit}
 .w-head{display:flex;justify-content:space-between;align-items:baseline;gap:6px 16px;flex-wrap:wrap;font:500 11.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
 .w-head b{color:var(--ink);font-weight:500}
 .w-head .disc{letter-spacing:.05em;text-transform:none}
-.tiles{list-style:none;margin:0;padding:0;flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:12px}
+.tiles{list-style:none;margin:0;padding:0;flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:12px}
 .tiles li{min-height:0}
+.tiles .span-tall{grid-row:span 2}
+.tiles .span-wide{grid-column:span 2}
 .tile{height:100%;display:flex;flex-direction:column;text-decoration:none;color:var(--ink)}
 .t-img{flex:1;min-height:0;overflow:hidden;background:var(--stage);position:relative}
 .t-img img{width:100%;height:100%;object-fit:cover;object-position:50% 32%;transition:transform .7s var(--ease)}
@@ -95,6 +97,8 @@ button{font:inherit;color:inherit}
 .t-cap b{font-weight:600;font-size:14.5px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .t-cap i{font:400 10.5px/1 var(--mono);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .tile:hover .t-cap b{color:var(--blue-ink)}
+/* four columns leave no room for the kind, so the title gets the whole line */
+@media (min-width:1000px) and (max-width:1699px){.t-cap{grid-template-columns:auto minmax(0,1fr)}.t-cap i{display:none}}
 /* the bar already carries these links on a laptop */
 @media (min-width:1000px){.kv .dup{display:none}}
 @media (min-width:1000px) and (max-height:859px){.kv{padding-top:12px}.kv div{padding:5px 0}}
@@ -102,6 +106,8 @@ button{font:inherit;color:inherit}
 @media (min-width:1000px) and (max-width:1399px) and (max-height:819px),(min-width:1400px) and (max-height:739px){
   .tiles{grid-template-rows:none}
   .t-img{flex:none;aspect-ratio:4/5}
+  .tiles .span-tall .t-img{aspect-ratio:auto;flex:1}
+  .tiles .span-wide .t-img{aspect-ratio:auto;flex:1}
   .kv{margin-top:22px}
 }
 @media (max-width:999px){
@@ -109,9 +115,12 @@ button{font:inherit;color:inherit}
   .intro{border-right:0;padding-right:0;border-bottom:1px solid var(--hair);padding-bottom:22px}
   .kv{margin-top:22px}
   .tiles{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none}
+  .tiles .span-tall,.tiles .span-wide{grid-row:auto;grid-column:auto}
+  .tiles .span-tall .t-img,.tiles .span-wide .t-img{aspect-ratio:4/5;flex:none}
   .t-img{flex:none;aspect-ratio:4/5}
   .t-tag{opacity:1;transform:none}
 }
+@media (max-width:760px){.bar nav .m-hide{display:none}}
 @media (max-width:560px){
   .bar nav .s-hide{display:none}
   .t-cap{grid-template-columns:auto minmax(0,1fr)}
@@ -148,6 +157,12 @@ button{font:inherit;color:inherit}
 .pv-tabs{position:absolute;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2}
 .pv-tabs button{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;border:1.5px solid var(--ink);background:var(--paper);cursor:pointer;white-space:nowrap}
 .pv-tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.pv-live{position:relative;overflow:hidden;flex:none;background:#fff;box-shadow:0 0 0 1px var(--ink)}
+.pv-live iframe{position:absolute;left:0;top:0;border:0;transform-origin:0 0;background:#fff}
+.pv-stage.live .pv-arrow{top:50%;bottom:auto;height:56px;width:56px;min-width:0;margin-top:-28px;padding:0 6px}
+.pv-live-tag{position:absolute;top:12px;left:50%;transform:translateX(-50%);margin:0;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:8px 10px;z-index:2;white-space:nowrap}
+.pv-tabs.num{gap:4px}
+.pv-tabs.num button{padding:8px 9px}
 .pv-info{overflow:auto;padding:clamp(18px,2.2vw,32px);border-left:1px solid var(--ink)}
 .pv-kick{font:500 11.5px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink);margin-bottom:10px}
 .pv-info h2{font-weight:700;font-size:clamp(30px,2.5vw,44px);line-height:1.02;letter-spacing:-.015em;margin:0 0 16px}
@@ -183,6 +198,25 @@ button{font:inherit;color:inherit}
 .how-foot li{padding:4px 0}
 .how-foot a{text-decoration:none;border-bottom:1px solid var(--hair)}
 .bigmail{font:400 clamp(30px,3vw,48px)/1 var(--display);text-decoration:none;display:inline-block;margin-bottom:12px}
+/* experience mode */
+.xp{list-style:none;margin:0 0 clamp(20px,3vh,32px);padding:0}
+.xp>li{display:grid;grid-template-columns:minmax(170px,22%) minmax(0,1fr);gap:clamp(16px,2.4vw,40px);border-top:2px solid var(--ink);padding:16px 0 22px}
+.xp-when{font:500 12px/1.6 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.xp-when b{display:block;color:var(--blue-ink);font-weight:500}
+.xp h3{font-size:clamp(19px,1.7vw,24px);line-height:1.15;margin:0 0 4px;font-weight:700}
+.xp h3 span{font-weight:400;color:var(--muted)}
+.xp-type{font:400 12px/1.5 var(--mono);color:var(--muted);margin-bottom:10px}
+.xp ul{list-style:none;margin:0;padding:0;max-width:78ch}
+.xp ul li{position:relative;padding-left:16px;margin-bottom:6px;font-size:15px;color:var(--ink2)}
+.xp ul li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:2px;background:var(--blue)}
+.xp ul b{color:var(--ink)}
+.xp-nda{font:400 12px/1.5 var(--mono);color:var(--muted);margin-top:10px}
+.xp-cta{display:flex;flex-wrap:wrap;gap:10px}
+.kv .xp-mini{line-height:1.42}
+.kv .xp-mini a{display:block;border-bottom:0}
+.kv .xp-mini span{display:block}
+.kv .xp-mini a:hover span{color:var(--blue-ink)}
+.kv .xp-mini .go{font:500 10.5px/1.9 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink)}
 @media (max-width:899px){
   .pv-body{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;overflow:auto;min-height:0}
   .pv-stage{height:min(60svh,560px);padding:10px}
@@ -191,6 +225,7 @@ button{font:inherit;color:inherit}
   .pv-arrow{width:30%}
   .steps{grid-template-columns:minmax(0,1fr)}
   .how-foot{grid-template-columns:minmax(0,1fr)}
+  .xp>li{grid-template-columns:minmax(0,1fr);gap:4px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -202,6 +237,7 @@ button{font:inherit;color:inherit}
   <nav aria-label="Page">
     <a href="#" data-home>Work</a>
     <a href="#how">How I work</a>
+    <a href="#experience" class="m-hide">Experience</a>
     <a href="rory-wilkie-cv.pdf">CV</a>
     <a class="s-hide" href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">Instagram</a>
     <a class="s-hide" href="https://www.linkedin.com/in/rorywilkie/" target="_blank" rel="noopener">LinkedIn</a>
@@ -215,11 +251,11 @@ button{font:inherit;color:inherit}
     <p class="lead">I make AI visuals, and build systems to make them repeatable.</p>
     <p class="sub">I extract a brand's visual identity and DNA, then build repeatable systems that align with the brand and fit its brand kit, so every asset is immediately recognisable as that brand.</p>
     <div class="ctas">
-      <a class="btn" href="#statue">Start with the work <span aria-hidden="true">&rarr;</span></a>
+      <a class="btn" href="#meta-ads">Start with the work <span aria-hidden="true">&rarr;</span></a>
       <a class="btn line" href="#how">How I work</a>
     </div>
     <dl class="kv">
-      <div><dt>Client work</dt><dd>Six months at Hypervail, a US AI agency, making UGC ads for Meta, four a week. Under NDA, so it isn't shown here.</dd></div>
+      <div><dt>Experience</dt><dd class="xp-mini"><a href="#experience"><span>Creative director &middot; Hypervail</span><span>Founder &middot; Forvr Studios</span><span>Social media &middot; Orwells</span><span class="go">Full experience &rarr;</span></a></dd></div>
       <div><dt>Based</dt><dd>Reading, UK &middot; London commutable</dd></div>
       <div><dt>Email</dt><dd><a href="mailto:rory@forvr.org">rory@forvr.org</a></dd></div>
       <div class="dup"><dt>Instagram</dt><dd><a href="https://instagram.com/forvr.cr" target="_blank" rel="noopener">@forvr.cr</a></dd></div>
@@ -229,7 +265,7 @@ button{font:inherit;color:inherit}
   </section>
 
   <section class="work" aria-labelledby="work-h">
-    <div class="w-head"><span id="work-h"><b>Selected work</b> &middot; 2026 &middot; click any piece</span><span class="disc">Concept work &middot; everything here is self-initiated, none of it commissioned</span></div>
+    <div class="w-head"><span id="work-h"><b>Selected work</b> &middot; 2026 &middot; click any piece</span><span class="disc">The Meta ads are client work made at Hypervail &middot; everything else is self-initiated</span></div>
     <ol class="tiles" id="tiles"></ol>
   </section>
 </main>
@@ -254,15 +290,14 @@ button{font:inherit;color:inherit}
   /* smaller copies live in assets/thumbs: -s/-l for the grid, m/ for frames on phones */
   function slug(src){ return src.slice(A.length).replace(/\//g, '-').replace(/\.jpg$/, ''); }
   function tileSrc(img, p){ var b = A + 'thumbs/' + slug(p.cover); img.sizes = '(max-width: 599px) 50vw, 100vw'; img.srcset = b + '-s.webp 600w, ' + b + '-l.webp 900w'; img.src = b + '-l.webp'; }
-  function frameSrc(img, src){ img.sizes = '(max-width: 599px) 92vw, (max-width: 999px) 100vw, 62vw'; img.srcset = A + 'thumbs/m/' + slug(src) + '.webp 1100w, ' + src + (src.indexOf('/sof/') > -1 ? ' 1200w' : ' 1933w'); img.src = src; }
+  function frameSrc(img, src){ img.sizes = '(max-width: 599px) 92vw, (max-width: 999px) 100vw, 62vw'; img.srcset = A + 'thumbs/m/' + slug(src) + '.webp 1100w, ' + src + (src.indexOf('/sof/') > -1 ? ' 1200w' : src.indexOf('/pages/') > -1 ? ' 1400w' : ' 1933w'); img.src = src; }
   var P = [
-    { id:'statue', title:'Statue of a Fool', kind:'Stills', count:'17 frames',
-      kick:'Stills · concept collection · 17 frames · 3:4 · 2026', cover:A+'sof/16.jpg',
-      kv:[['Type','Concept collection'],['Scope','Direction, garment, campaign']],
-      text:[`A collection built end to end, from written direction through to a finished campaign. It starts as a written codex rather than a prompt, with the collection's visual identity locked before a single frame exists, which gives everything made afterwards something to be judged against.`,
-            `It swings between two poles on purpose. Direct on-camera flash, hard shadow and wet pavement at one end. Chiaroscuro, marble and monumental stillness at the other. Both have to be present or the whole thing reads as a clean render instead of a real campaign. The palette is sampled off the finished garments and the streets they were shot in, not picked from swatches.`],
-      links:[['Case study','statue-of-a-fool.html']],
-      frames:[sof('16','three friends outside a block of flats'),sof('01','leaning on a takeaway counter at night'),sof('02','sitting on the night bus'),sof('03','stepping out of a doorway with a carrier bag'),sof('04','two friends in a laundrette'),sof('06','eating at a table'),sof('07','the back of the jersey on a balcony at night'),sof('08','on a stairwell'),sof('09','two friends on front steps'),sof('10','a group taking a photo against shutters'),sof('11','crouched between parked cars'),sof('13','two friends at a takeaway counter'),sof('14','the back of the jersey at a railing over the city'),sof('15','two friends by a bollard'),sof('17','crouched against a pillar'),sof('18','holding a basketball behind a fence'),sof('20','sitting on a bollard by the river')] },
+    { id:'meta-ads', title:'Meta ads', kind:'Film', count:'8 ads', span:'tall',
+      kick:'Film · client work at Hypervail · paid social · 9:16 · sound on', cover:A+'meta/01.jpg',
+      kv:[['Role','Creative director on the account'],['Output','About 50 ads, up to four a week'],['Client','US pet-grooming brand']],
+      text:[`Made at Hypervail, a US AI-native agency, where I was creative director on the account. Every ad was mine end to end: the angle, the hook and the script, then the generated video and images, the edit, the captions, the music and the sound.`,
+            `Three formats against one product, so a week never repeats itself: someone talking to camera, a story with a joke in it, and a straight education ad. The hook does its work in the first second, the captions run word by word because the sound is off, and every ad ends on the product, lit the same way.`],
+      films:[{label:'First time grooming at home', fmt:'UGC · 36s', src:A+'meta/01.mp4', poster:A+'meta/01.jpg', w:720, h:1260},{label:'The clipper killer', fmt:'Story · 19s', src:A+'meta/02.mp4', poster:A+'meta/02.jpg', w:720, h:1310},{label:'Tinder', fmt:'Story · 21s', src:A+'meta/03.mp4', poster:A+'meta/03.jpg', w:720, h:1280},{label:'Agility', fmt:'Story · 23s', src:A+'meta/04.mp4', poster:A+'meta/04.jpg', w:720, h:1280},{label:'Tear stains', fmt:'UGC · 31s', src:A+'meta/06.mp4', poster:A+'meta/06.jpg', w:720, h:1260},{label:'CCTV breaking news', fmt:'Story · 23s', src:A+'meta/07.mp4', poster:A+'meta/07.jpg', w:720, h:1280},{label:'Dog yoga', fmt:'Story · 15s', src:A+'meta/08.mp4', poster:A+'meta/08.jpg', w:720, h:1280},{label:'Pink motorbike', fmt:'Story · 20s', src:A+'meta/09.mp4', poster:A+'meta/09.jpg', w:720, h:1280}] },
     { id:'forvr-collection', title:'Forvr Collection', kind:'Stills', count:'7 frames',
       kick:'Stills · own brand · 7 frames · 4:5 · 2026', cover:A+'forvr-collection/03.jpg',
       kv:[['Type','Own brand'],['Scope','Campaign, product, identity'],['Built in','Weavy, Nano Banana Pro']],
@@ -271,50 +306,60 @@ button{font:inherit;color:inherit}
             `It was built with a Weavy workflow that connects the moodboard through to prompt concatenators, so the prompt for every frame is assembled inside the graph rather than written one at a time. Ellyette runs on the same workflow.`],
       links:[['Films and identity','forvr-collection.html']],
       frames:[[A+'forvr-collection/03.jpg','Forvr Collection, tracksuit against a corrugated shutter'],[A+'forvr-collection/01.jpg','Forvr Collection, balaclava portrait against chain link'],[A+'forvr-collection/02.jpg','Forvr Collection, tracksuit laid flat on concrete'],[A+'forvr-collection/05.jpg','Forvr Collection, underpass walking shot'],[A+'forvr-collection/08.jpg','Forvr Collection, stairwell frame with camera timestamp'],[A+'forvr-collection/09.jpg','Forvr Collection, signet and rings product macro'],[A+'forvr-collection/10.jpg','Forvr Collection, portrait in blue light']] },
-    { id:'ellyette', title:'Ellyette', kind:'Stills', count:'4 frames',
-      kick:'Stills · concept shoot · 4 frames · 4:5 · 2026', cover:A+'ellyette/01.jpg',
-      kv:[['Type','Concept shoot, streetwear'],['Built in','Weavy, Nano Banana Pro']],
-      text:[`Ellyette's line is "from the office to the field", and they had only ever photographed the office. So this set stays in a 1970s office after hours and the field never arrives: rosewood panelling, drop-ceiling fluorescents, a rail of their own pieces, and one man with a job he is ambivalent about. Every frame is an event rather than a pose. He takes the hoodie off the rail, the desk phone interrupts him, he waits for someone who has not come back, and he leaves.`,
-            `It was built with the same Weavy workflow as the Forvr Collection. The moodboard is analysed inside the graph, a constants node and a shot brief are joined by prompt concatenators into one prompt per frame, and a checker node reads them before anything renders. Every render gets the same three references in the same order: the character sheet, the hoodie and the room. The hoodie is never described in words, because describing a garment the model can already see makes it redraw it.`],
-      frames:[[A+'ellyette/01.jpg','Ellyette, leaning on the clothing rail in headphones'],[A+'ellyette/02.jpg','Ellyette, on the office sofa with the desk phone'],[A+'ellyette/03.jpg','Ellyette, leaving the office with a canvas tote'],[A+'ellyette/04.jpg','Ellyette, taking a hoodie off the rail']] },
     { id:'strano', title:'Strano', kind:'Stills', count:'4 frames',
       kick:'Stills · concept set · 4 frames · 4:5 · 2026', cover:A+'strano/01.jpg',
       kv:[['Type','Concept set, belts and jewellery'],['Method','One edit pass per frame']],
       text:[`Strano is an Italian belt and jewellery brand, and the set puts their belts on the street in hard sun: a London bus stop, a rooftop, a pink wall, and a close macro of two belts stacked on denim.`,
             `The belts are real products. Each one goes into the edit as a photograph and is never described in the prompt, because words make the model rebuild the emboss, the studs and the buckle, and that is exactly where they drift. The concept frames were approved first, then restyled to carry the belts in a single edit pass, never two deep.`],
       frames:[[A+'strano/01.jpg','Strano, a studded belt worn at a London bus stop'],[A+'strano/03.jpg','Strano, a belt with a white tee on a rooftop'],[A+'strano/04.jpg','Strano, two belts worn against a pink wall'],[A+'strano/05.jpg','Strano, macro of two studded belts stacked on denim']] },
-    { id:'seaforth', title:'Seaforth', kind:'Film', count:'24 shots',
-      kick:'Film · own film · 24 shots · 16:9 · sound on', cover:A+'films/seaforth.jpg',
-      kv:[['Type','Own film'],['Built','Generated to match a real plate'],['Post','Directed, cut and sound-designed in-house']],
-      text:[`A perfume, a tube carriage, and the thirty seconds a smell can take off you. A man catches something he recognises, and what follows is not a flashback so much as a slip: a bedroom in morning light, a pub, a corridor, a door.`,
-            `The carriage, the seat, the position and the light are the real thing rather than invented, and everything generated downstream was built to match them. The sound does most of the work at the hinge: the platform pre-laps the cut, so you are already somewhere else before the picture agrees.`],
-      links:[['Film page','seaforth.html']],
-      films:[{label:'Seaforth', src:A+'films/seaforth.mp4', poster:A+'films/seaforth.jpg', w:1920, h:1080}] },
+    { id:'ellyette', title:'Ellyette', kind:'Stills', count:'4 frames',
+      kick:'Stills · concept shoot · 4 frames · 4:5 · 2026', cover:A+'ellyette/01.jpg',
+      kv:[['Type','Concept shoot, streetwear'],['Built in','Weavy, Nano Banana Pro']],
+      text:[`Ellyette's line is "from the office to the field", and they had only ever photographed the office. So this set stays in a 1970s office after hours and the field never arrives: rosewood panelling, drop-ceiling fluorescents, a rail of their own pieces, and one man with a job he is ambivalent about. Every frame is an event rather than a pose. He takes the hoodie off the rail, the desk phone interrupts him, he waits for someone who has not come back, and he leaves.`,
+            `It was built with the same Weavy workflow as the Forvr Collection. The moodboard is analysed inside the graph, a constants node and a shot brief are joined by prompt concatenators into one prompt per frame, and a checker node reads them before anything renders. Every render gets the same three references in the same order: the character sheet, the hoodie and the room. The hoodie is never described in words, because describing a garment the model can already see makes it redraw it.`],
+      frames:[[A+'ellyette/01.jpg','Ellyette, leaning on the clothing rail in headphones'],[A+'ellyette/02.jpg','Ellyette, on the office sofa with the desk phone'],[A+'ellyette/03.jpg','Ellyette, leaving the office with a canvas tote'],[A+'ellyette/04.jpg','Ellyette, taking a hoodie off the rail']] },
     { id:'protect', title:'Protect, Touchdown', kind:'Film', count:'23s',
       kick:'Film · spec film · 23s · 16:9 · sound on', cover:A+'films/protect.jpg',
       kv:[['Type','Spec film'],['Built from','A character sheet, a product sheet, one location plate'],['Wardrobe',"Protect's Touchdown crewneck and sweat shorts"]],
       text:[`A London kid in a full American baseball kit, sat in a knackered armchair on a black sand beach, throwing a ball up and catching it. He throws one too hard and loses it in the sun. He waits, shrugs and walks off, and the ball lands beside the empty chair after he has gone.`,
             `The joke is Protect's own, lifted from their product copy, which wonders whether there is such a thing as a baseball college. The kit is theirs too, built as a product sheet so the script lettering holds in every shot. The kid, the chair and the beach were each built once and locked, and the ten shots come out of two generations split where he stands up, so the film's own act break hides the seam.`],
       films:[{label:'Touchdown', src:A+'films/protect.mp4', poster:A+'films/protect.jpg', w:1920, h:1080}] },
-    { id:'motion', title:'Relay & Blowup', kind:'Film', count:'2 films',
-      kick:'Film · motion · two films · 16:9 · sound on', cover:A+'films/relay.jpg',
-      kv:[['Type','Motion'],['Relay','One move, three rooms, cut to loop'],['Blowup','Spec concept film']],
-      text:[`Relay is the technical one. Three tracksuit looks, three rooms of one London flat, and a single vertical camera move through the whole thing that never cuts away to reset. Each person gets six beats, then the camera lifts out of the room and comes down into the next one, and that is the hand-off. Room brightness runs dark warm, bright, dark cool, so the film has a shape before the garments do any work at all. It is cut to loop.`],
-      links:[['Relay film page','relay.html'],['Blowup film page','blowup.html']],
-      films:[{label:'Relay', src:A+'films/relay.mp4', poster:A+'films/relay.jpg', w:1920, h:1080},{label:'Blowup', src:A+'films/blowup.mp4', poster:A+'films/blowup.jpg', w:1920, h:1080}] },
-    { id:'worlds-on-clothes', title:'Worlds on Clothes', kind:'Film', count:'Vol. 1 & 2',
-      kick:'Film · own series · Vol. 1 & 2 · 9:16 · sound on', cover:A+'films/coldculture.jpg',
-      kv:[['Type','Own series of short films'],['Vol. 1','Cold Culture · 18s'],['Vol. 2','6TH · 17s']],
+    { id:'statue', title:'Statue of a Fool', kind:'Stills', count:'17 frames',
+      kick:'Stills · concept collection · 17 frames · 3:4 · 2026', cover:A+'sof/16.jpg',
+      kv:[['Type','Concept collection'],['Scope','Direction, garment, campaign']],
+      text:[`A collection built end to end, from written direction through to a finished campaign. It starts as a written codex rather than a prompt, with the collection's visual identity locked before a single frame exists, which gives everything made afterwards something to be judged against.`,
+            `It swings between two poles on purpose. Direct on-camera flash, hard shadow and wet pavement at one end. Chiaroscuro, marble and monumental stillness at the other. Both have to be present or the whole thing reads as a clean render instead of a real campaign. The palette is sampled off the finished garments and the streets they were shot in, not picked from swatches.`],
+      links:[['Case study','statue-of-a-fool.html']],
+      frames:[sof('16','three friends outside a block of flats'),sof('01','leaning on a takeaway counter at night'),sof('02','sitting on the night bus'),sof('03','stepping out of a doorway with a carrier bag'),sof('04','two friends in a laundrette'),sof('06','eating at a table'),sof('07','the back of the jersey on a balcony at night'),sof('08','on a stairwell'),sof('09','two friends on front steps'),sof('10','a group taking a photo against shutters'),sof('11','crouched between parked cars'),sof('13','two friends at a takeaway counter'),sof('14','the back of the jersey at a railing over the city'),sof('15','two friends by a bollard'),sof('17','crouched against a pillar'),sof('18','holding a basketball behind a fence'),sof('20','sitting on a bollard by the river')] },
+    { id:'seaforth', title:'Seaforth', kind:'Film', count:'3 films',
+      kick:'Film · own film, 24 shots · with Relay and Blowup · 16:9 · sound on', cover:A+'films/seaforth.jpg',
+      kv:[['Type','Own film'],['Built','Generated to match a real plate'],['Post','Directed, cut and sound-designed in-house'],['Relay','One move, three rooms, cut to loop'],['Blowup','Spec concept film']],
+      text:[`A perfume, a tube carriage, and the thirty seconds a smell can take off you. A man catches something he recognises, and what follows is not a flashback so much as a slip: a bedroom in morning light, a pub, a corridor, a door.`,
+            `The carriage, the seat, the position and the light are the real thing rather than invented, and everything generated downstream was built to match them. The sound does most of the work at the hinge: the platform pre-laps the cut, so you are already somewhere else before the picture agrees.`,
+            `Relay is the technical one. Three tracksuit looks, three rooms of one London flat, and a single vertical camera move through the whole thing that never cuts away to reset. Each person gets six beats, then the camera lifts out of the room and comes down into the next one, and that is the hand-off. Room brightness runs dark warm, bright, dark cool, so the film has a shape before the garments do any work at all. It is cut to loop.`],
+      links:[['Seaforth film page','seaforth.html'],['Relay film page','relay.html'],['Blowup film page','blowup.html']],
+      films:[{label:'Seaforth', src:A+'films/seaforth.mp4', poster:A+'films/seaforth.jpg', w:1920, h:1080},{label:'Relay', src:A+'films/relay.mp4', poster:A+'films/relay.jpg', w:1920, h:1080},{label:'Blowup', src:A+'films/blowup.mp4', poster:A+'films/blowup.jpg', w:1920, h:1080}] },
+    { id:'worlds-on-clothes', title:'Worlds on Clothes', kind:'Film', count:'3 films',
+      kick:'Film · own series, Vol. 1 & 2 · with Sp5der · 9:16 · sound on', cover:A+'films/coldculture.jpg',
+      kv:[['Type','Own series of short films'],['Vol. 1','Cold Culture · 18s'],['Vol. 2','6TH · 17s'],['Sp5der','Brand film study · 22s']],
       text:[`Tiny workers doing jobs on clothing, shot as if the garment were a landscape. In Vol. 1, stitchers, a gardener, skiers and painters work their way across Cold Culture pieces, and a crane lifts the finale before the brand's own lockup holds the end.`,
-            `Vol. 2 runs the same format on 6TH's Drop 01 garments. Two painters finishing a gold piece get chased off by model officers, a skater takes a rail across the Dark Star tee while his friend films, and three of them wind down on a hoodie at the end. The characters and graphics are 6TH's own.`],
-      films:[{label:'Vol. 1 · Cold Culture', src:A+'films/coldculture.mp4', poster:A+'films/coldculture.jpg', w:1080, h:1920},{label:'Vol. 2 · 6TH', src:A+'films/6th-worlds.mp4', poster:A+'films/6th-worlds.jpg', w:1080, h:1920}] },
-    { id:'sp5der', title:'Sp5der, bull ride', kind:'Film', count:'22s',
-      kick:'Film · brand film study · 22s · 9:16 · sound on', cover:A+'films/sp5der-bull.jpg',
-      kv:[['Type','Brand film study'],['Built from','One keyframe'],['Format','22s · 9:16']],
-      text:[`A short brand film cut for the feed: a rider in the yellow hoodie on a longhorn, walking a western street in hard midday sun, with the close-ups on the hoodie, the denim and the stirrup cut against the wide.`,
-            `Like the rest of the brand films, it is built from one keyframe and tested against the pacing, styling and camera language streetwear advertising already runs on.`],
-      links:[['More brand films','fashion-films.html']],
-      films:[{label:'Sp5der', src:A+'films/sp5der-bull.mp4', poster:A+'films/sp5der-bull.jpg', w:1080, h:1932}] }
+            `Vol. 2 runs the same format on 6TH's Drop 01 garments. Two painters finishing a gold piece get chased off by model officers, a skater takes a rail across the Dark Star tee while his friend films, and three of them wind down on a hoodie at the end. The characters and graphics are 6TH's own.`,
+            `A short brand film cut for the feed: a rider in the yellow hoodie on a longhorn, walking a western street in hard midday sun, with the close-ups on the hoodie, the denim and the stirrup cut against the wide. It is built from one keyframe and tested against the pacing, styling and camera language streetwear advertising already runs on.`],
+      films:[{label:'Vol. 1 · Cold Culture', src:A+'films/coldculture.mp4', poster:A+'films/coldculture.jpg', w:1080, h:1920},{label:'Vol. 2 · 6TH', src:A+'films/6th-worlds.mp4', poster:A+'films/6th-worlds.jpg', w:1080, h:1920},{label:'Sp5der', src:A+'films/sp5der-bull.mp4', poster:A+'films/sp5der-bull.jpg', w:1080, h:1932}], links:[['More brand films','fashion-films.html']] },
+    { id:'posters', title:'Posters', kind:'Design', count:'6 posters',
+      kick:'Design · self-initiated · type and image system · 4:5', cover:A+'posters/tn2.jpg', pos:'50% 0%',
+      kv:[['Series','Sixteen posters'],['Brands','Nike, and a drinks brand'],['Held by','One type stack and one colour rule'],['Made with','Generation, then Photoshop to finish']],
+      text:[`Sixteen posters built off one system: a type stack, a colour rule and a way of sitting the product in a real scene. Swap the brand and the system still holds, which is the same argument as the shoots.`,
+            `The Nike set runs one line, feel the unreal, across four different shots and never repeats a layout. The drinks set is the same system carried into a different world, warmer palette, same discipline over the type.`],
+      links:[['All sixteen posters','posters.html']],
+      frames:[[A+'posters/tn1.jpg','Air Max Dn poster, feel the unreal, a kid holding the trainers over his face at dusk'],[A+'posters/tn2.jpg','Air Max Dn poster, feel the unreal, shot from the ground as he steps over the camera'],[A+'posters/tn3.jpg','Air Max Dn poster, feel the unreal, sat on a wall in orange trainers'],[A+'posters/tn4.jpg','Air Max Dn poster, feel the unreal, on a Lime bike at night'],[A+'posters/funk1.jpg','Funkin poster, Life\'s a Peach, a can on a beach towel'],[A+'posters/funk2.jpg','Funkin poster, Passion Funk, a can and a martini by a pool']] },
+    { id:'page-design', title:'Page design', kind:'Design', count:'5 sites', span:'wide',
+      kick:'Design · web · layout and build · two of them live here', cover:A+'pages/blip.jpg', pos:'50% 40%',
+      kv:[['Builds','Eight, and counting'],['Stack','Static HTML, CSS and JavaScript'],['Written with','Claude Code']],
+      text:[`I design the pages the work lives on and build them myself, through a production system I wrote with Claude Code. My own studio site is one of them, this portfolio is another. The rest are sites for brands I invented, so there was something real to design for.`,
+            `Blip and Pica are the real sites, running here: click, drag and scroll through them. Each one holds its layout from a laptop down to a phone, and the type, the grid and the motion get decided the way a shoot does: written down first, then built to.`],
+      links:[['Open forvr.org','https://forvr.org'],['Website builds','work.html']],
+      frames:[[A+'pages/blip.jpg','Blip, a toy brand I invented, live','demo/blip'],[A+'pages/pica.jpg','Pica, a risograph print house I invented, live','demo/pica'],[A+'pages/home.jpg','forvr.org, the studio site'],[A+'pages/halflight.jpg','Half Light, a perfume brand I invented'],[A+'pages/section.jpg','Section, a sandwich brand I invented']] }
   ];
   var STEPS = [
     ['Visual identity and DNA, locked first', "Before a frame exists, the shoot's visual identity and brand DNA are extracted and locked. Every frame is made against that, so a whole set is recognisably one shoot rather than a run of separate generations."],
@@ -324,6 +369,22 @@ button{font:inherit;color:inherit}
     ['Written down, so it transfers', 'Producing weekly to a deadline is what forces a process out of your head and onto paper. Anything held together by memory falls over by the third week. The Weavy workflows work the same way: swap the moodboard, the product and the brief, and the same graph runs the next brand.']
   ];
 
+  var XP = [
+    { when:'2026 &ndash; present', where:'Reading', title:'Founder', org:'Forvr Studios', type:'Independent AI studio, solo',
+      items:['Everything on this page: campaign stills, fashion film and brand identity, taken from written direction to final grade.',
+             'Products and characters are built once as reference sheets, so they hold across a whole set.',
+             'A website production system, used for eight builds including forvr.org, and the studio\'s own tools, built with Claude Code.'] },
+    { when:'Oct 2025 &ndash; Apr 2026', where:'Remote', title:'Creative Director', org:'Hypervail', type:'US AI-native marketing agency',
+      items:['Creative director on a US pet-grooming brand\'s account: about 50 video ads for its live Meta campaigns, up to four a week.',
+             'Every ad from concept to finished file, on my own: angles, hooks and scripts, then AI-generated video and images, edit, captions, music and sound.',
+             'Story-led ads alongside UGC-style and product ads, plus the product imagery for the brand\'s clipper range.',
+             'Also worked on a second account, a US womenswear brand.'] },
+    { when:'2024 &ndash; present', where:'Henley-on-Thames', title:'Orwells', org:'restaurant', type:'Social media and kitchen',
+      items:['<b>Co Social Media Manager</b>, Aug 2026 to now. Over 250,000 Instagram views in the first month.',
+             '<b>Head Chef, Streetfood</b>, Thameside Social pop-up, 2026, for a month: menu, prep, service and the people on it.',
+             '<b>Pastry Chef</b>, since 2024. Started at 17: the same dish to the same standard every service.'] }
+  ];
+  var ALIAS = { motion:['seaforth', 1], sp5der:['worlds-on-clothes', 2] };
   var byId = {}; P.forEach(function(p, i){ p.i = i; byId[p.id] = p; });
   var pad = function(n){ return (n < 10 ? '0' : '') + n; };
   function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -331,8 +392,8 @@ button{font:inherit;color:inherit}
   /* tiles */
   var tiles = document.getElementById('tiles');
   P.forEach(function(p, i){
-    var li = el('li'), a = el('a', 'tile'); a.href = '#' + p.id; a.dataset.id = p.id;
-    var box = el('span', 't-img'), img = el('img'); tileSrc(img, p); img.alt = ''; img.decoding = 'async';
+    var li = el('li', p.span ? 'span-' + p.span : null), a = el('a', 'tile'); a.href = '#' + p.id; a.dataset.id = p.id;
+    var box = el('span', 't-img'), img = el('img'); tileSrc(img, p); if (p.pos) img.style.objectPosition = p.pos; img.alt = ''; img.decoding = 'async';
     box.appendChild(img); box.appendChild(el('span', 't-tag', p.kind === 'Film' ? 'Play' : 'View set'));
     var cap = el('span', 't-cap'); cap.appendChild(el('span', 't-n', pad(i + 1))); cap.appendChild(el('b', null, p.title)); cap.appendChild(el('i', null, p.kind + ' · ' + p.count));
     a.appendChild(box); a.appendChild(cap); a.setAttribute('aria-label', 'Open ' + p.title + ', ' + p.kind.toLowerCase());
@@ -345,7 +406,7 @@ button{font:inherit;color:inherit}
   var prevB = document.getElementById('pvPrev'), nextB = document.getElementById('pvNext');
   var prevT = document.getElementById('pvPrevT'), nextT = document.getElementById('pvNextT');
   var cur = null, frame = 0, film = 0, opener = null, fromIndex = false;
-  var imgEl = null, frameLbl = null, arrowP = null, arrowN = null;
+  var imgEl = null, frameLbl = null, arrowP = null, arrowN = null, liveBox = null, liveFrame = null, liveTag = null;
 
   P.forEach(function(p, i){
     var b = el('button'); b.type = 'button'; b.setAttribute('aria-label', pad(i + 1) + ' ' + p.title); b.title = p.title;
@@ -359,6 +420,8 @@ button{font:inherit;color:inherit}
   function renderStills(stage, p){
     var media = el('div', 'pv-media');
     imgEl = el('img'); imgEl.decoding = 'async'; media.appendChild(imgEl); stage.appendChild(media);
+    liveBox = el('div', 'pv-live'); liveFrame = el('iframe'); liveBox.appendChild(liveFrame); liveBox.style.display = 'none'; media.appendChild(liveBox);
+    liveTag = el('p', 'pv-live-tag', 'Live site · click, drag and scroll'); liveTag.style.display = 'none'; stage.appendChild(liveTag);
     arrowP = el('button', 'pv-arrow prev'); arrowP.type = 'button'; arrowP.setAttribute('aria-label', 'Previous frame'); arrowP.appendChild(el('span', null, '←'));
     arrowN = el('button', 'pv-arrow next'); arrowN.type = 'button'; arrowN.setAttribute('aria-label', 'Next frame'); arrowN.appendChild(el('span', null, '→'));
     arrowP.addEventListener('click', function(){ step(-1); }); arrowN.addEventListener('click', function(){ step(1); });
@@ -373,10 +436,22 @@ button{font:inherit;color:inherit}
     imgEl.classList.add('loading'); imgEl.onload = function(){ imgEl.classList.remove('loading'); };
     frameSrc(imgEl, f[0]); imgEl.alt = f[1];
     if (imgEl.complete) imgEl.classList.remove('loading');
+    var live = !!f[2]; imgEl.style.display = live ? 'none' : ''; liveBox.style.display = live ? '' : 'none'; liveTag.style.display = live ? '' : 'none'; liveBox.parentNode.parentNode.classList.toggle('live', live);
+    if (live){ if (liveFrame.getAttribute('src') !== f[2]){ liveFrame.src = f[2]; liveFrame.title = f[1]; } requestAnimationFrame(fitLive); } else if (liveFrame.getAttribute('src')) liveFrame.removeAttribute('src');
     frameLbl.textContent = pad(frame + 1) + ' / ' + pad(p.frames.length);
     arrowP.hidden = frame === 0; arrowN.hidden = frame === p.frames.length - 1;
     [frame + 1, frame + 2].forEach(function(k){ if (p.frames[k]){ var pre = new Image(); frameSrc(pre, p.frames[k][0]); } });
   }
+  /* a live site renders at laptop size and is scaled to the stage; on a phone it gets its own phone layout */
+  function fitLive(){
+    if (!liveBox || liveBox.style.display === 'none') return;
+    var m = liveBox.parentNode, mw = m.clientWidth, mh = m.clientHeight, W = 1440, H = 900, k;
+    if (!mw || !mh) return;
+    if (mw < 700){ W = mw; H = mh; k = 1; } else k = Math.min(mw / W, mh / H);
+    liveFrame.style.width = W + 'px'; liveFrame.style.height = H + 'px'; liveFrame.style.transform = 'scale(' + k + ')';
+    liveBox.style.width = Math.floor(W * k) + 'px'; liveBox.style.height = Math.floor(H * k) + 'px';
+  }
+  window.addEventListener('resize', fitLive);
   function step(d){
     if (cur && cur.frames){
       var n = frame + d;
@@ -386,7 +461,7 @@ button{font:inherit;color:inherit}
       go(P[(cur.i + d + P.length) % P.length].id);
     }
   }
-  function renderFilms(stage, p){
+  function renderFilms(stage, p, start){
     var media = el('div', 'pv-media'); stage.appendChild(media);
     function load(k){
       pauseAll(); film = k; media.textContent = '';
@@ -395,14 +470,16 @@ button{font:inherit;color:inherit}
       v.width = f.w; v.height = f.h; v.setAttribute('aria-label', f.label);
       media.appendChild(v);
       if (tabs) Array.prototype.forEach.call(tabs.children, function(b, j){ b.setAttribute('aria-pressed', j === k ? 'true' : 'false'); });
+      if (cap) cap.textContent = pad(k + 1) + ' / ' + pad(p.films.length) + ' · ' + f.label + (f.fmt ? ' · ' + f.fmt : '');
     }
-    var tabs = null;
+    var tabs = null, many = p.films.length > 3, cap = null;
     if (p.films.length > 1){
-      tabs = el('div', 'pv-tabs');
-      p.films.forEach(function(f, j){ var b = el('button', null, f.label); b.type = 'button'; b.addEventListener('click', function(){ load(j); }); tabs.appendChild(b); });
+      tabs = el('div', 'pv-tabs' + (many ? ' num' : ''));
+      p.films.forEach(function(f, j){ var b = el('button', null, many ? pad(j + 1) : f.label); b.type = 'button'; if (many) b.setAttribute('aria-label', f.label); b.addEventListener('click', function(){ load(j); }); tabs.appendChild(b); });
       stage.appendChild(tabs);
     }
-    load(0);
+    if (many){ cap = el('p', 'pv-frame'); cap.setAttribute('aria-live', 'polite'); stage.appendChild(cap); }
+    load(start < p.films.length ? start : 0);
   }
   function renderInfo(p){
     var info = el('aside', 'pv-info');
@@ -415,13 +492,13 @@ button{font:inherit;color:inherit}
     if (p.links){ var ls = el('div', 'pv-links'); p.links.forEach(function(l){ var a = el('a', 'tlink', l[0]); a.href = l[1]; ls.appendChild(a); }); info.appendChild(ls); }
     return info;
   }
-  function openProject(id){
+  function openProject(id, k){
     var p = byId[id]; if (!p) return;
     pauseAll(); cur = p; dlg.classList.remove('how');
     body.textContent = '';
     var stage = el('div', 'pv-stage');
     body.appendChild(stage);
-    if (p.frames) renderStills(stage, p); else renderFilms(stage, p);
+    if (p.frames) renderStills(stage, p); else renderFilms(stage, p, k || 0);
     body.appendChild(renderInfo(p));
     where.textContent = pad(p.i + 1) + ' / ' + pad(P.length) + ' · ' + p.kind;
     Array.prototype.forEach.call(dots.children, function(b, j){ b.setAttribute('aria-current', j === p.i ? 'true' : 'false'); });
@@ -432,7 +509,7 @@ button{font:inherit;color:inherit}
     prevB.onclick = function(){ go(pv.id); }; nextB.onclick = function(){ go(nx.id); };
     hint.textContent = p.frames ? '← → frames · shift for next project · esc for the index' : '← → projects · esc for the index';
     dlg.setAttribute('aria-labelledby', 'pvTitle');
-    show();
+    show(); fitLive();
   }
   function openHow(){
     pauseAll(); cur = null; dlg.classList.add('how'); body.textContent = '';
@@ -443,7 +520,7 @@ button{font:inherit;color:inherit}
     w.appendChild(ol);
     var foot = el('div', 'how-foot');
     var c1 = el('div'); c1.appendChild(el('h4', null, 'Tools')); var dl = el('dl');
-    [['Image','Midjourney, Nano Banana, Nano Banana Pro via Weavy, Higgsfield, Magnific'],['Motion','Kling, Seedance, Veo, Sora'],['Post and finish','Photoshop, DaVinci Resolve'],['Research and build','Apify, Claude Code, Figma, Cosmos, HTML, CSS, JavaScript']].forEach(function(r){ var d = el('div'); d.appendChild(el('dt', null, r[0])); d.appendChild(el('dd', null, r[1])); dl.appendChild(d); });
+    [['Image','Midjourney, Nano Banana Pro, GPT Image, Higgsfield, Weavy'],['Motion','Kling, Seedance, Veo, Sora'],['Post and finish','Photoshop, DaVinci Resolve, CapCut'],['Research and build','Apify, Claude Code, Figma, Cosmos, HTML, CSS, JavaScript']].forEach(function(r){ var d = el('div'); d.appendChild(el('dt', null, r[0])); d.appendChild(el('dd', null, r[1])); dl.appendChild(d); });
     c1.appendChild(dl);
     var c2 = el('div'); c2.appendChild(el('h4', null, 'Also on forvr.org')); var ul = el('ul');
     [['Grit','grit.html'],['Small Circle','small-circle.html'],['Fence','fence.html'],['Posters','posters.html'],['Fashion Films','fashion-films.html'],['Website builds','work.html']].forEach(function(l){ var li = el('li'), a = el('a', null, l[0]); a.href = l[1]; li.appendChild(a); ul.appendChild(li); });
@@ -457,6 +534,29 @@ button{font:inherit;color:inherit}
     hint.textContent = 'esc for the index';
     show();
   }
+  function openExp(){
+    pauseAll(); cur = null; dlg.classList.add('how'); body.textContent = '';
+    var w = el('div', 'how-wrap');
+    var h = el('h2', null, 'Experience'); h.id = 'pvTitle'; w.appendChild(h);
+    var ol = el('ol', 'xp');
+    XP.forEach(function(x){
+      var li = el('li'), a = el('div', 'xp-when'), b = el('b'); b.innerHTML = x.when; a.appendChild(b); a.appendChild(document.createTextNode(x.where)); li.appendChild(a);
+      var c = el('div'), h3 = el('h3', null, x.title); h3.appendChild(el('span', null, ' \u00b7 ' + x.org)); c.appendChild(h3);
+      c.appendChild(el('p', 'xp-type', x.type));
+      var ul = el('ul'); x.items.forEach(function(t){ var it = el('li'); it.innerHTML = t; ul.appendChild(it); }); c.appendChild(ul);
+      if (x.nda) c.appendChild(el('p', 'xp-nda', x.nda));
+      li.appendChild(c); ol.appendChild(li);
+    });
+    w.appendChild(ol);
+    var cta = el('div', 'xp-cta'), cv = el('a', 'btn', 'The CV, one page PDF'); cv.href = 'rory-wilkie-cv.pdf'; cta.appendChild(cv);
+    var m = el('a', 'btn line', 'rory@forvr.org'); m.href = 'mailto:rory@forvr.org'; cta.appendChild(m);
+    w.appendChild(cta);
+    body.appendChild(w);
+    where.textContent = 'Experience'; dots.hidden = true;
+    prevB.hidden = true; nextT.textContent = 'Start with the work'; nextB.hidden = false; nextB.onclick = function(){ go(P[0].id); };
+    hint.textContent = 'esc for the index';
+    show();
+  }
   function closeView(){
     pauseAll(); cur = null;
     if (dlg.open){ try { dlg.close(); } catch(e){ dlg.removeAttribute('open'); } }
@@ -465,7 +565,8 @@ button{font:inherit;color:inherit}
   }
   function route(){
     var id = decodeURIComponent(location.hash.slice(1));
-    if (byId[id]) openProject(id); else if (id === 'how') openHow(); else closeView();
+    if (ALIAS[id]) { history.replaceState(null, '', '#' + ALIAS[id][0]); openProject(ALIAS[id][0], ALIAS[id][1]); return; }
+    if (byId[id]) openProject(id); else if (id === 'how') openHow(); else if (id === 'experience') openExp(); else closeView();
   }
   function go(id){ history.replaceState(null, '', '#' + id); route(); }
   function toIndex(){
@@ -478,7 +579,7 @@ button{font:inherit;color:inherit}
     if (!a) return;
     var id = a.getAttribute('href').slice(1);
     if (a.hasAttribute('data-home') || id === '' ){ e.preventDefault(); if (dlg.open) toIndex(); return; }
-    if (byId[id] || id === 'how'){
+    if (byId[id] || id === 'how' || id === 'experience'){
       e.preventDefault(); opener = a;
       if (!dlg.open){ fromIndex = true; history.pushState(null, '', '#' + id); } else { history.replaceState(null, '', '#' + id); }
       route();

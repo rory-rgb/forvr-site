@@ -1,0 +1,781 @@
+<meta charset="utf-8">
+<base href="/demo/blip/">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLIP — fifty little monsters, one feeling each</title>
+<meta name="description" content="Each BLIP holds one feeling for your child. The dark, injections, a new school, missing someone. £16, free UK delivery over £30, 60 day returns even opened.">
+<meta name="theme-color" content="#7ED0FF">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<a class="skip" href="/demo/blip#main">Skip to the content</a>
+
+<header class="nav" id="nav">
+  <a class="nav__mark" href="">BL<b>I</b>P</a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="hollow/">The Hollow</a>
+    <a href="shop/">All fifty</a>
+    <a href="how/">How it works</a>
+    <a href="sets/">Sets</a>
+    <a href="monthly/">The monthly</a>
+  </nav>
+  <button class="bag" type="button" id="bagBtn" aria-haspopup="dialog" aria-expanded="false">
+    <svg class="bag__ic" viewBox="0 0 24 24" aria-hidden="true" width="19" height="19">
+      <path d="M3 8h18l-2 12H5L3 8Z" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linejoin="round"/>
+      <path d="M8.5 8 12 2.6 15.5 8" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="bag__t">Bag</span>
+    <span class="bag__n" id="bagN">0</span>
+  </button>
+</header>
+
+<main id="main">
+
+  <!-- ══════════ ZONE 1 · THE NURSERY ══════════ -->
+  <section class="hero" aria-labelledby="h-hero">
+    <div class="hero__inner">
+    <div class="sky" aria-hidden="true">
+      <div class="sky__sun"></div>
+      <div class="sky__cloud sky__cloud--a"></div>
+      <div class="sky__cloud sky__cloud--b"></div>
+      <div class="sky__cloud sky__cloud--c"></div>
+      <div class="sky__hills"></div>
+      <div class="sky__grass"></div>
+    </div>
+
+    <div class="hero__head">
+      <h1 id="h-hero" class="hero__title">
+        <!-- data-scrim: the contrast walker cannot see -webkit-text-stroke. The
+             wordmark is cream with a 4px ink outline, so a reader sees 15.6:1. -->
+        <span class="hero__mark" aria-hidden="true" data-scrim>BLIP</span>
+        <span class="hero__mission">Fifty little monsters. Each one holds
+          <em>one feeling</em> for your child.</span>
+      </h1>
+    </div>
+
+    <div class="inc">
+      <h2 class="sr" id="h-inc">The incubator</h2>
+      <div class="inc__stage" id="stage" tabindex="0" role="group"
+           aria-labelledby="h-inc" aria-describedby="incHint">
+        <div class="inc__ring" id="ring"></div>
+        <div class="hatch" id="hatch" aria-hidden="true">
+          <span class="hatch__shadow"></span>
+          <span class="hatch__t"></span>
+          <img alt="" id="hatchImg" class="hatch__me">
+          <span class="hatch__b"></span>
+          <svg class="hatch__crack" viewBox="0 0 100 18" preserveAspectRatio="none">
+            <polyline points="0,9 11,3 23,14 35,3 47,15 59,3 71,14 84,4 100,10"/>
+          </svg>
+          <span class="hatch__pop"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__foot">
+      <div class="pill" id="card" role="status" aria-live="polite">
+        <div class="pill__me"><img id="cImg" alt="" width="76" height="76"></div>
+        <div class="pill__txt">
+          <p class="pill__n"><b id="cN">Bo</b> <span class="rar" id="cR">Common</span></p>
+          <p class="pill__f" id="cF">For the dark</p>
+          <p class="pill__s" id="cS">Bedroom, lights off, door left open exactly the right amount.</p>
+        </div>
+        <div class="pill__buy">
+          <p class="pill__p">£16</p>
+          <span class="pill__acts">
+            <a class="btn btn--cream btn--sm" id="cMore" href="meet/bo/">Meet it</a>
+            <button class="btn btn--sm" type="button" id="addFront">Add<span class="wide-only">to bag</span></button>
+          </span>
+        </div>
+      </div>
+
+      <div class="inc__ctl">
+        <button class="btn btn--cream btn--sm" type="button" id="open">Open this one</button>
+        <button class="btn btn--cream btn--sm" type="button" id="spin">Spin the ring</button>
+        <span class="inc__hint" id="incHint">Drag it, flick it, or use the arrow keys</span>
+      </div>
+
+      <a class="dive-btn" href="/demo/blip#hollow">
+        <span>Go down to the Hollow</span>
+        <span class="dive-btn__a" aria-hidden="true">↓</span>
+      </a>
+    </div>
+    </div>
+    <div class="hero__dim" aria-hidden="true"></div>
+  </section>
+
+  <!-- ══════════ ZONE 2 · THE WORLD ══════════ -->
+  <section class="zone zone--hollow zone--path" id="hollow" aria-labelledby="h-hollow">
+    <div class="roof" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="zhead"><div><p class="chip">You are in · the Hollow</p>
+      <h2 id="h-hollow" class="big">This is where<br>they are grown.</h2></div>
+      <p class="lead">A warm burrow under a meadow, lit by glowworms, with fifty front doors
+        in it. Every part of this shop is a place down here. Have a look round.</p></div>
+
+      <div class="map"><div class="map__in">
+  <div class="map__scn"><svg class="scn" viewBox="0 0 1400 780" role="img" aria-label="The Hollow: a warm terraced burrow under a meadow, with toadstool houses, lamp posts, a pond and BLIPs standing about on three levels"
+     preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <linearGradient id="hol-air" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE9C4"/><stop offset="1" stop-color="#FFCE96"/>
+    </linearGradient>
+    
+  </defs>
+  <rect width="1400" height="780" fill="url(#hol-air)"/>
+  <circle cx="112" cy="171.6" r="11" fill="#2ED8A0" opacity=".16"/>
+              <circle cx="112" cy="171.6" r="3.5" fill="#2ED8A0"/><circle cx="266" cy="327.59999999999997" r="11" fill="#FFC93C" opacity=".16"/>
+              <circle cx="266" cy="327.59999999999997" r="3.5" fill="#FFC93C"/><circle cx="406" cy="101.4" r="11" fill="#FFC93C" opacity=".16"/>
+              <circle cx="406" cy="101.4" r="3.5" fill="#FFC93C"/><circle cx="560" cy="241.8" r="11" fill="#2ED8A0" opacity=".16"/>
+              <circle cx="560" cy="241.8" r="3.5" fill="#2ED8A0"/><circle cx="700" cy="140.4" r="11" fill="#FFC93C" opacity=".16"/>
+              <circle cx="700" cy="140.4" r="3.5" fill="#FFC93C"/><circle cx="812" cy="312" r="11" fill="#FFC93C" opacity=".16"/>
+              <circle cx="812" cy="312" r="3.5" fill="#FFC93C"/><circle cx="938" cy="187.2" r="11" fill="#2ED8A0" opacity=".16"/>
+              <circle cx="938" cy="187.2" r="3.5" fill="#2ED8A0"/><circle cx="1050" cy="85.8" r="11" fill="#FFC93C" opacity=".16"/>
+              <circle cx="1050" cy="85.8" r="3.5" fill="#FFC93C"/><circle cx="1162" cy="273" r="11" fill="#FFC93C" opacity=".16"/>
+              <circle cx="1162" cy="273" r="3.5" fill="#FFC93C"/><circle cx="1274" cy="156" r="11" fill="#2ED8A0" opacity=".16"/>
+              <circle cx="1274" cy="156" r="3.5" fill="#2ED8A0"/><circle cx="1344" cy="343.2" r="11" fill="#FFC93C" opacity=".16"/>
+              <circle cx="1344" cy="343.2" r="3.5" fill="#FFC93C"/><circle cx="182" cy="429.00000000000006" r="11" fill="#FFC93C" opacity=".16"/>
+              <circle cx="182" cy="429.00000000000006" r="3.5" fill="#FFC93C"/>
+  <rect width="1400" height="26" fill="#8C5A2B"/>
+  <path d="M0 26 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 q11 18 22 0 t22 0 L1400 0 L0 0 Z" fill="#8C5A2B"/>
+  <path d="M70 26 q6 28.82608695652174 -2 57.65217391304348" fill="none" stroke="#8C5A2B"
+             stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M196.00000000000003 26 q6 67.82608695652173 -2 135.65217391304347" fill="none" stroke="#8C5A2B"
+             stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M322 26 q6 106.82608695652173 -2 213.65217391304347" fill="none" stroke="#8C5A2B"
+             stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M476.00000000000006 26 q6 145.82608695652175 -2 291.6521739130435" fill="none" stroke="#8C5A2B"
+             stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M616 26 q6 28.82608695652174 -2 57.65217391304348" fill="none" stroke="#8C5A2B"
+             stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M742 26 q6 67.82608695652173 -2 135.65217391304347" fill="none" stroke="#8C5A2B"
+             stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M882 26 q6 106.82608695652173 -2 213.65217391304347" fill="none" stroke="#8C5A2B"
+             stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M1008 26 q6 145.82608695652175 -2 291.6521739130435" fill="none" stroke="#8C5A2B"
+             stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M1134 26 q6 28.82608695652174 -2 57.65217391304348" fill="none" stroke="#8C5A2B"
+             stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M1260 26 q6 67.82608695652173 -2 135.65217391304347" fill="none" stroke="#8C5A2B"
+             stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/><path d="M1358 26 q6 106.82608695652173 -2 213.65217391304347" fill="none" stroke="#8C5A2B"
+             stroke-width="5" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".8"/>
+  <path d="M-40 390 Q280 294 644 364
+           Q1008 424 1440 320 L1440 780 L-40 780 Z"
+        fill="#F3AE72"/>
+  <path d="M-40 780 L-40 616 Q120 528 290 552 L430 552 Q570 436 710 458 L890 458 Q1015 338 1160 362 L1440 362 L1440 780 Z" fill="#E8A05A" stroke="#5FC94B" stroke-width="18"
+              stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+  <path d="M290 560 Q250 640 330 690" fill="none" stroke="#D18F55" stroke-width="16"
+           stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M760 470 Q740 570 810 632" fill="none" stroke="#D18F55" stroke-width="16"
+           stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M1120 372 Q1080 560 1150 722" fill="none" stroke="#D18F55" stroke-width="16"
+           stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><path d="M330 690 Q560 730 830 660" fill="none" stroke="#D18F55" stroke-width="16"
+           stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+  <path d="M10 606 L200 556 L420 548 L575 474 L790 460 L980 424 L1180 366 L1400 360"
+             fill="none" stroke="var(--ink)" stroke-width="42" stroke-linecap="round"
+             stroke-linejoin="round" opacity=".12" vector-effect="non-scaling-stroke"/>
+       <path d="M10 606 L200 556 L420 548 L575 474 L790 460 L980 424 L1180 366 L1400 360"
+             fill="none" stroke="#FFF1D6" stroke-width="30" stroke-linecap="round"
+             stroke-linejoin="round" opacity=".85" vector-effect="non-scaling-stroke"/>
+  <ellipse cx="154.5" cy="578.2" rx="38" ry="11" fill="var(--ink)" opacity=".1"/><ellipse cx="154.5" cy="578.2" rx="26" ry="7" fill="var(--ink)" opacity=".2"/><ellipse cx="403.6" cy="554.6" rx="30" ry="9" fill="var(--ink)" opacity=".1"/><ellipse cx="403.6" cy="554.6" rx="21" ry="6" fill="var(--ink)" opacity=".2"/><ellipse cx="694.0" cy="460.4" rx="34" ry="10" fill="var(--ink)" opacity=".1"/><ellipse cx="694.0" cy="460.4" rx="23" ry="6" fill="var(--ink)" opacity=".2"/><ellipse cx="908.3" cy="446.7" rx="28" ry="8" fill="var(--ink)" opacity=".1"/><ellipse cx="908.3" cy="446.7" rx="19" ry="5" fill="var(--ink)" opacity=".2"/><ellipse cx="1183.8" cy="366.5" rx="32" ry="9" fill="var(--ink)" opacity=".1"/><ellipse cx="1183.8" cy="366.5" rx="22" ry="6" fill="var(--ink)" opacity=".2"/><ellipse cx="1323.1" cy="362.8" rx="26" ry="7" fill="var(--ink)" opacity=".1"/><ellipse cx="1323.1" cy="362.8" rx="18" ry="5" fill="var(--ink)" opacity=".2"/><ellipse cx="333.1" cy="740.8" rx="26" ry="7" fill="var(--ink)" opacity=".1"/><ellipse cx="333.1" cy="740.8" rx="18" ry="5" fill="var(--ink)" opacity=".2"/><ellipse cx="832.9" cy="680.8" rx="24" ry="7" fill="var(--ink)" opacity=".1"/><ellipse cx="832.9" cy="680.8" rx="17" ry="5" fill="var(--ink)" opacity=".2"/><ellipse cx="1162.8" cy="770.9" rx="24" ry="7" fill="var(--ink)" opacity=".1"/><ellipse cx="1162.8" cy="770.9" rx="16" ry="4" fill="var(--ink)" opacity=".2"/>
+  <g transform="translate(1330,130) scale(0.6) translate(-50,-100)">
+    <path d="M50 34 L50 -130" fill="none" stroke="var(--ink)" stroke-width="3" vector-effect="non-scaling-stroke"/>
+    <circle cx="50" cy="66" r="48" fill="#FFC93C" opacity=".22"/>
+    <path d="M26 96 Q26 30 50 30 Q74 30 74 96 Z" fill="#FFC93C" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(640,150) scale(0.7) translate(-50,-100)">
+    <path d="M50 34 L50 -150" fill="none" stroke="var(--ink)" stroke-width="3" vector-effect="non-scaling-stroke"/>
+    <circle cx="50" cy="66" r="48" fill="#2ED8A0" opacity=".22"/>
+    <path d="M26 96 Q26 30 50 30 Q74 30 74 96 Z" fill="#2ED8A0" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(1030,205) scale(0.9) translate(-50,-100)">
+    <path d="M50 34 L50 -200" fill="none" stroke="var(--ink)" stroke-width="3" vector-effect="non-scaling-stroke"/>
+    <circle cx="50" cy="66" r="48" fill="#FF5D8F" opacity=".22"/>
+    <path d="M26 96 Q26 30 50 30 Q74 30 74 96 Z" fill="#FF5D8F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(240,210) scale(0.85) translate(-50,-100)">
+    <path d="M50 34 L50 -200" fill="none" stroke="var(--ink)" stroke-width="3" vector-effect="non-scaling-stroke"/>
+    <circle cx="50" cy="66" r="48" fill="#FFC93C" opacity=".22"/>
+    <path d="M26 96 Q26 30 50 30 Q74 30 74 96 Z" fill="#FFC93C" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(1360,364) scale(0.85) translate(-50,-100)">
+    <path d="M12 100 L12 56 L20 48 L28 56 L28 100 Z" fill="#FFF8EC" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M44 100 L44 56 L52 48 L60 56 L60 100 Z" fill="#FFF8EC" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M76 100 L76 56 L84 48 L92 56 L92 100 Z" fill="#FFF8EC" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M4 68 L96 68 M4 84 L96 84" fill="none" stroke="var(--ink)"
+          stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g><image href="assets/shy.webp" x="1289.0" y="302.0" width="62" height="62" preserveAspectRatio="xMidYMax meet"/><g transform="translate(1245,366) scale(1.4) translate(-50,-100)">
+    <path d="M45 100 L45 74 L55 74 L55 100 Z" fill="#A9702F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M50 8 L73 46 L59 46 L82 80 L18 80 L41 46 L27 46 Z" fill="#3B9E33" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(1105,368) scale(1.35) translate(-50,-100)">
+    <path d="M4 100 Q4 32 50 32 Q96 32 96 100 Z" fill="#F3AE72" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M68 34 L68 16 L80 16 L80 24" fill="#A9702F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M36 100 L36 72 A14 14 0 0 1 64 72 L64 100 Z" fill="#8F5E02" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="22" cy="64" r="8" fill="#FFF8EC" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><image href="assets/pink.webp" x="1142.0" y="292.0" width="76" height="76" preserveAspectRatio="xMidYMax meet" transform="translate(2360,0) scale(-1,1)"/><g transform="translate(1010,420) scale(0.55) translate(-50,-100)">
+    <path d="M50 100 L50 54" fill="none" stroke="var(--ink)" stroke-width="3"
+          stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="50" cy="34" r="11" fill="#FF5D8F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="31" cy="44" r="9" fill="#FF5D8F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="69" cy="44" r="9" fill="#FF5D8F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="50" cy="42" r="6" fill="#FFC93C"/></g><g transform="translate(950,430) scale(1) translate(-50,-100)">
+    <circle cx="50" cy="34" r="46" fill="#FFC93C" opacity=".2"/>
+    <path d="M45 100 L45 44 L55 44 L55 100 Z" fill="#2B1A3D" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M26 48 Q26 8 50 8 Q74 8 74 48 Z" fill="#FFC93C" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M22 48 L78 48" stroke="var(--ink)" stroke-width="3"
+          stroke-linecap="round" vector-effect="non-scaling-stroke"/></g><image href="assets/yellow.webp" x="872.0" y="382.0" width="66" height="66" preserveAspectRatio="xMidYMax meet"/><g transform="translate(860,460) scale(1.15) translate(-50,-100)">
+    <path d="M32 100 L32 60 Q32 50 50 50 Q68 50 68 60 L68 100 Z" fill="#FFF8EC" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M4 52 Q4 12 50 12 Q96 12 96 52 Z" fill="#8B5CF6" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="26" cy="34" r="7" fill="#FFF8EC" opacity=".85"/>
+    <circle cx="62" cy="26" r="5" fill="#FFF8EC" opacity=".85"/>
+    <circle cx="76" cy="40" r="6" fill="#FFF8EC" opacity=".85"/>
+    <path d="M43 100 L43 76 A7 7 0 0 1 57 76 L57 100 Z" fill="#2B1A3D" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(745,462) scale(1.15) translate(-50,-100)">
+    <path d="M44 100 L44 58 Q44 52 50 52 Q56 52 56 58 L56 100 Z" fill="#8F6A3F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M13 55 A21 21 0 0 1 33 21 A25 25 0 0 1 77 23 A20 20 0 0 1 87 57
+             C87 71 70 79 50 79 C30 79 13 70 13 55 Z" fill="#3B9E33" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><image href="assets/purple.webp" x="650.0" y="382.0" width="80" height="80" preserveAspectRatio="xMidYMax meet"/><g transform="translate(610,470) scale(1.4) translate(-50,-100)">
+    <path d="M4 100 Q4 32 50 32 Q96 32 96 100 Z" fill="#F3AE72" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M68 34 L68 16 L80 16 L80 24" fill="#A9702F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M36 100 L36 72 A14 14 0 0 1 64 72 L64 100 Z" fill="#8F5E02" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="22" cy="64" r="8" fill="#FFF8EC" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(460,550) scale(1.05) translate(-50,-100)">
+    <circle cx="50" cy="34" r="46" fill="#FFC93C" opacity=".2"/>
+    <path d="M45 100 L45 44 L55 44 L55 100 Z" fill="#2B1A3D" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M26 48 Q26 8 50 8 Q74 8 74 48 Z" fill="#FFC93C" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M22 48 L78 48" stroke="var(--ink)" stroke-width="3"
+          stroke-linecap="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(520,552) scale(0.6) translate(-50,-100)">
+    <path d="M8 100 Q3 60 30 50 Q52 38 74 52 Q97 64 92 100 Z" fill="#D98F58" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(205,556) scale(1.2) translate(-50,-100)">
+    <path d="M32 100 L32 60 Q32 50 50 50 Q68 50 68 60 L68 100 Z" fill="#FFF8EC" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M4 52 Q4 12 50 12 Q96 12 96 52 Z" fill="#FF5D8F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="26" cy="34" r="7" fill="#FFF8EC" opacity=".85"/>
+    <circle cx="62" cy="26" r="5" fill="#FFF8EC" opacity=".85"/>
+    <circle cx="76" cy="40" r="6" fill="#FFF8EC" opacity=".85"/>
+    <path d="M43 100 L43 76 A7 7 0 0 1 57 76 L57 100 Z" fill="#2B1A3D" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(350,556) scale(1) translate(-50,-100)">
+    <ellipse cx="50" cy="80" rx="46" ry="17" fill="#7ED0FF" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M24 74 Q36 68 52 71" fill="none" stroke="#FFF8EC" stroke-width="4"
+          stroke-linecap="round" opacity=".7" vector-effect="non-scaling-stroke"/></g><g transform="translate(285,556) scale(0.6) translate(-50,-100)">
+    <path d="M50 100 L50 54" fill="none" stroke="var(--ink)" stroke-width="3"
+          stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="50" cy="34" r="11" fill="#FF5D8F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="31" cy="44" r="9" fill="#FF5D8F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="69" cy="44" r="9" fill="#FF5D8F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="50" cy="42" r="6" fill="#FFC93C"/></g><image href="assets/lime.webp" x="364.0" y="484.0" width="72" height="72" preserveAspectRatio="xMidYMax meet" transform="translate(800,0) scale(-1,1)"/><image href="assets/blue.webp" x="105.0" y="490.0" width="90" height="90" preserveAspectRatio="xMidYMax meet"/><g transform="translate(80,606) scale(1.45) translate(-50,-100)">
+    <path d="M44 100 L44 58 Q44 52 50 52 Q56 52 56 58 L56 100 Z" fill="#A9702F" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M13 55 A21 21 0 0 1 33 21 A25 25 0 0 1 77 23 A20 20 0 0 1 87 57
+             C87 71 70 79 50 79 C30 79 13 70 13 55 Z" fill="#5FC94B" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(1290,640) scale(0.55) translate(-50,-100)">
+    <ellipse cx="50" cy="70" rx="34" ry="26" fill="#D89463"/></g><g transform="translate(830,660) scale(0.95) translate(-50,-100)">
+    <ellipse cx="50" cy="52" rx="48" ry="42" fill="#FFD9A8" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M18 84 Q50 96 82 84" fill="none" stroke="var(--ink)" stroke-width="3"
+          stroke-linecap="round" opacity=".4" vector-effect="non-scaling-stroke"/></g><image href="assets/miss.webp" x="801.0" y="624.0" width="58" height="58" preserveAspectRatio="xMidYMax meet"/><g transform="translate(640,700) scale(0.42) translate(-50,-100)">
+    <ellipse cx="50" cy="70" rx="34" ry="26" fill="#D89463"/></g><g transform="translate(330,720) scale(1) translate(-50,-100)">
+    <ellipse cx="50" cy="52" rx="48" ry="42" fill="#FFD9A8" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M18 84 Q50 96 82 84" fill="none" stroke="var(--ink)" stroke-width="3"
+          stroke-linecap="round" opacity=".4" vector-effect="non-scaling-stroke"/></g><g transform="translate(180,730) scale(0.5) translate(-50,-100)">
+    <ellipse cx="50" cy="70" rx="34" ry="26" fill="#D89463"/></g><image href="assets/brave.webp" x="299.0" y="680.0" width="62" height="62" preserveAspectRatio="xMidYMax meet"/><g transform="translate(1160,750) scale(0.9) translate(-50,-100)">
+    <ellipse cx="50" cy="52" rx="48" ry="42" fill="#FFD9A8" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <path d="M18 84 Q50 96 82 84" fill="none" stroke="var(--ink)" stroke-width="3"
+          stroke-linecap="round" opacity=".4" vector-effect="non-scaling-stroke"/></g><image href="assets/grow.webp" x="1132.0" y="716.0" width="56" height="56" preserveAspectRatio="xMidYMax meet"/>
+  <g transform="translate(60,616) scale(0.3) translate(-50,-100)">
+    <path d="M50 100 Q40 78 30 66 M50 100 Q50 74 50 58 M50 100 Q60 78 70 66"
+          fill="none" stroke="#5FC94B" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(250,562) scale(0.37) translate(-50,-100)">
+    <path d="M50 100 Q40 78 30 66 M50 100 Q50 74 50 58 M50 100 Q60 78 70 66"
+          fill="none" stroke="#5FC94B" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(400,558) scale(0.44) translate(-50,-100)">
+    <path d="M50 100 Q40 78 30 66 M50 100 Q50 74 50 58 M50 100 Q60 78 70 66"
+          fill="none" stroke="#5FC94B" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(640,472) scale(0.3) translate(-50,-100)">
+    <path d="M50 100 Q40 78 30 66 M50 100 Q50 74 50 58 M50 100 Q60 78 70 66"
+          fill="none" stroke="#5FC94B" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(820,466) scale(0.37) translate(-50,-100)">
+    <path d="M50 100 Q40 78 30 66 M50 100 Q50 74 50 58 M50 100 Q60 78 70 66"
+          fill="none" stroke="#5FC94B" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(1050,406) scale(0.44) translate(-50,-100)">
+    <path d="M50 100 Q40 78 30 66 M50 100 Q50 74 50 58 M50 100 Q60 78 70 66"
+          fill="none" stroke="#5FC94B" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g><g transform="translate(1290,372) scale(0.3) translate(-50,-100)">
+    <path d="M50 100 Q40 78 30 66 M50 100 Q50 74 50 58 M50 100 Q60 78 70 66"
+          fill="none" stroke="#5FC94B" stroke-width="7" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g>
+</svg></div>
+  <a class="stop" href="shop/" style="left:15%;top:60%">
+    <span class="stop__pin"><img src="assets/blue.webp" alt="" loading="lazy" decoding="async" width="60" height="60"></span>
+    <span class="stop__lbl"><b>The Shelves</b><span>All fifty</span></span>
+  </a>
+  <a class="stop" href="how/" style="left:33%;top:57%">
+    <span class="stop__pin"><img src="assets/lime.webp" alt="" loading="lazy" decoding="async" width="60" height="60"></span>
+    <span class="stop__lbl"><b>The Workshop</b><span>How it works</span></span>
+  </a>
+  <a class="stop" href="why/" style="left:51%;top:47%">
+    <span class="stop__pin"><img src="assets/grow.webp" alt="" loading="lazy" decoding="async" width="60" height="60"></span>
+    <span class="stop__lbl"><b>The Reading Room</b><span>Why it works</span></span>
+  </a>
+  <a class="stop" href="sets/" style="left:69%;top:44%">
+    <span class="stop__pin"><img src="assets/purple.webp" alt="" loading="lazy" decoding="async" width="60" height="60"></span>
+    <span class="stop__lbl"><b>The Packing Shed</b><span>Sets of three</span></span>
+  </a>
+  <a class="stop" href="monthly/" style="left:87%;top:35%">
+    <span class="stop__pin"><img src="assets/yellow.webp" alt="" loading="lazy" decoding="async" width="60" height="60"></span>
+    <span class="stop__lbl"><b>The Post Room</b><span>The monthly</span></span>
+  </a>
+</div></div>
+
+      <ul class="why">
+        <li class="why__c panel" data-rev>
+          <span class="why__ic" aria-hidden="true"><img src="assets/pink.webp" alt="" loading="lazy" decoding="async" width="120" height="120"></span>
+          <h3>One feeling each</h3>
+          <p>You do not buy a toy and hope. You buy the one for injections, or the one
+            for a new school, and it arrives already meaning something.</p>
+        </li>
+        <li class="why__c panel" data-rev style="--rev-delay:90ms">
+          <span class="why__ic" aria-hidden="true"><img src="assets/lime.webp" alt="" loading="lazy" decoding="async" width="120" height="120"></span>
+          <h3>It gives them the word</h3>
+          <p>Most children cannot name what they are feeling. Naming it is most of the
+            work. A BLIP gives them something to say it to first.</p>
+        </li>
+        <li class="why__c panel" data-rev style="--rev-delay:180ms">
+          <span class="why__ic" aria-hidden="true"><img src="assets/yellow.webp" alt="" loading="lazy" decoding="async" width="120" height="120"></span>
+          <h3>It builds into a set</h3>
+          <p>A child with eleven BLIPs has eleven words for things they used to only be
+            able to cry about. You buy the next one because something happened.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════ ZONE 3 · THE SHELVES ══════════ -->
+  <section class="zone zone--hollow zone--path" id="shop" aria-labelledby="h-shop">
+    <div class="wrap">
+      <div class="zhead"><div><p class="chip chip--berry">The Shelves</p>
+      <h2 id="h-shop" class="big">Fifty feelings.<br>Twelve out so far.</h2></div>
+      <p class="lead">Filter by what is actually going on, not by rarity. Each one has its
+        own page, its own town and its own story.</p></div>
+      <div class="filters" id="filters" role="group" aria-label="Filter by situation">
+  <button class="filt" type="button" data-g="all" aria-pressed="true">Everything</button>
+  <button class="filt" type="button" data-g="night" aria-pressed="false">Night & sleep</button>
+  <button class="filt" type="button" data-g="school" aria-pressed="false">School & people</button>
+  <button class="filt" type="button" data-g="hospital" aria-pressed="false">Hospital & hurt</button>
+  <button class="filt" type="button" data-g="away" aria-pressed="false">Being apart</button>
+  <button class="filt" type="button" data-g="everyday" aria-pressed="false">Everyday</button>
+</div>
+      <div class="shelf"><article class="prod" data-g="night">
+  <a class="prod__me" href="meet/bo/" style="background:#BFE7FF">
+    <span class="prod__i">01</span>
+    <span class="rar prod__rar" data-r="Common">Common</span>
+    <img src="assets/blue.webp" alt="Bo, a blue BLIP for the dark"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/bo/">Bo</a></h3>
+    <p class="prod__f">For the dark</p>
+    <p class="prod__s">Bedroom, lights off, door left open exactly the right amount.</p>
+    <p class="prod__st">In stock · 1 in 4 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b0">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="school">
+  <a class="prod__me" href="meet/pim/" style="background:#DDF5B8">
+    <span class="prod__i">02</span>
+    <span class="rar prod__rar" data-r="Common">Common</span>
+    <img src="assets/lime.webp" alt="Pim, a lime BLIP for being looked at"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/pim/">Pim</a></h3>
+    <p class="prod__f">For being looked at</p>
+    <p class="prod__s">Class assembly, reading out loud, saying your own name to a room.</p>
+    <p class="prod__st">In stock · 1 in 4 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b1">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="everyday">
+  <a class="prod__me" href="meet/nix/" style="background:#FFDDBA">
+    <span class="prod__i">03</span>
+    <span class="rar prod__rar" data-r="Common">Common</span>
+    <img src="assets/orange.webp" alt="Nix, a orange BLIP for loud noises"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/nix/">Nix</a></h3>
+    <p class="prod__f">For loud noises</p>
+    <p class="prod__s">Hand dryers, fireworks, the vacuum, a balloon about to go.</p>
+    <p class="prod__st">In stock · 1 in 5 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b2">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="school">
+  <a class="prod__me" href="meet/wren/" style="background:#FFD3E4">
+    <span class="prod__i">04</span>
+    <span class="rar prod__rar" data-r="Common">Common</span>
+    <img src="assets/pink.webp" alt="Wren, a pink BLIP for somewhere new"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/wren/">Wren</a></h3>
+    <p class="prod__f">For somewhere new</p>
+    <p class="prod__s">First day, new school, new house, a party where you know nobody.</p>
+    <p class="prod__st">In stock · 1 in 5 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b3">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="away">
+  <a class="prod__me" href="meet/tup/" style="background:#FFEFB8">
+    <span class="prod__i">05</span>
+    <span class="rar prod__rar" data-r="Uncommon">Uncommon</span>
+    <img src="assets/yellow.webp" alt="Tup, a yellow BLIP for being away"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/tup/">Tup</a></h3>
+    <p class="prod__f">For being away</p>
+    <p class="prod__s">Sleepovers, hospital stays, the first night in a strange bed.</p>
+    <p class="prod__st">In stock · 1 in 8 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b4">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="night">
+  <a class="prod__me" href="meet/gog/" style="background:#E3D2FF">
+    <span class="prod__i">06</span>
+    <span class="rar prod__rar" data-r="Rare">Rare</span>
+    <img src="assets/purple.webp" alt="Gog, a purple BLIP for bad dreams"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/gog/">Gog</a></h3>
+    <p class="prod__f">For bad dreams</p>
+    <p class="prod__s">Waking at three in the morning and not shouting for anyone.</p>
+    <p class="prod__st">In stock · 1 in 11 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b5">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="hospital">
+  <a class="prod__me" href="meet/pib/" style="background:#FFD9CF">
+    <span class="prod__i">07</span>
+    <span class="rar prod__rar" data-r="Uncommon">Uncommon</span>
+    <img src="assets/brave.webp" alt="Pib, a brave BLIP for being brave"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/pib/">Pib</a></h3>
+    <p class="prod__f">For being brave</p>
+    <p class="prod__s">Injections, stitches, the dentist, anything with a waiting room.</p>
+    <p class="prod__st">In stock · 1 in 7 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b6">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="away">
+  <a class="prod__me" href="meet/lun/" style="background:#D6E6FF">
+    <span class="prod__i">08</span>
+    <span class="rar prod__rar" data-r="Rare">Rare</span>
+    <img src="assets/miss.webp" alt="Lun, a miss BLIP for missing someone"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/lun/">Lun</a></h3>
+    <p class="prod__f">For missing someone</p>
+    <p class="prod__s">Someone who is away for a while, or someone who is not coming back.</p>
+    <p class="prod__st">In stock · 1 in 12 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b7">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="everyday">
+  <a class="prod__me" href="meet/fen/" style="background:#FFD0CA">
+    <span class="prod__i">09</span>
+    <span class="rar prod__rar" data-r="Uncommon">Uncommon</span>
+    <img src="assets/anger.webp" alt="Fen, a anger BLIP for anger"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/fen/">Fen</a></h3>
+    <p class="prod__f">For anger</p>
+    <p class="prod__s">When it is far too big for your body and comes out at the wrong person.</p>
+    <p class="prod__st">In stock · 1 in 8 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b8">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="school">
+  <a class="prod__me" href="meet/moss/" style="background:#CFF2E4">
+    <span class="prod__i">10</span>
+    <span class="rar prod__rar" data-r="Common">Common</span>
+    <img src="assets/shy.webp" alt="Moss, a shy BLIP for shyness"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/moss/">Moss</a></h3>
+    <p class="prod__f">For shyness</p>
+    <p class="prod__s">Parties, playdates, being made to say hello to an adult you do not know.</p>
+    <p class="prod__st">In stock · 1 in 5 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b9">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="everyday">
+  <a class="prod__me" href="meet/sprig/" style="background:#DCF3C6">
+    <span class="prod__i">11</span>
+    <span class="rar prod__rar" data-r="Uncommon">Uncommon</span>
+    <img src="assets/grow.webp" alt="Sprig, a grow BLIP for growing up"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/sprig/">Sprig</a></h3>
+    <p class="prod__f">For growing up</p>
+    <p class="prod__s">Losing a tooth, a bigger bike, moving up a year, being the older one now.</p>
+    <p class="prod__st">In stock · 1 in 9 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b10">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article>
+<article class="prod" data-g="night">
+  <a class="prod__me" href="meet/vesper/" style="background:#D8D2F5">
+    <span class="prod__i">12</span>
+    <span class="rar prod__rar" data-r="Rare">Rare</span>
+    <img src="assets/night.webp" alt="Vesper, a night BLIP for the 2am worries"
+         loading="lazy" decoding="async" width="200" height="200">
+  </a>
+  <div class="prod__b">
+    <h3 class="prod__n"><a href="meet/vesper/">Vesper</a></h3>
+    <p class="prod__f">For the 2am worries</p>
+    <p class="prod__s">The big ones about everything at once, that only arrive in the dark.</p>
+    <p class="prod__st">In stock · 1 in 14 boxes</p>
+  </div>
+  <div class="prod__row">
+    <p class="prod__p">£16</p>
+    <button class="btn btn--sm" type="button" data-add="b11">Add<span class="wide-only">to bag</span></button>
+  </div>
+</article></div>
+      <p class="shelf__note" id="gridNote"></p>
+      <p class="more"><a class="btn btn--cream" href="shop/">See the whole shelf</a></p>
+    </div>
+  </section>
+
+  <!-- ══════════ ZONE 4 · THE WORKSHOP ══════════ -->
+  <section class="zone zone--warm zone--path" id="how" aria-labelledby="h-how">
+    <div class="wrap">
+      <div class="zhead"><div><p class="chip">The Workshop</p>
+      <h2 id="h-how" class="big">Three steps.<br>Printed on the card.</h2></div>
+      <p class="lead">Every BLIP arrives with a card. Three lines on the back, the same three
+        every time, so a child who has two already knows what to do with the third.</p></div>
+      <div class="steps">
+  <div class="step panel" data-rev style="--rev-delay:0ms">
+    <p class="step__n">01</p>
+    <h3 class="step__t">Name it</h3>
+    <p class="step__d">Say out loud what the feeling actually is. Most of the work is here, and most children cannot do it without something to say it to.</p>
+  </div>
+  <div class="step panel" data-rev style="--rev-delay:100ms">
+    <p class="step__n">02</p>
+    <h3 class="step__t">Give it</h3>
+    <p class="step__d">Hold the BLIP and tell it. They are soft enough to squeeze properly, which matters more than it sounds like it should.</p>
+  </div>
+  <div class="step panel" data-rev style="--rev-delay:200ms">
+    <p class="step__n">03</p>
+    <h3 class="step__t">Put it somewhere</h3>
+    <p class="step__d">Pocket, bedside, school bag. It is holding the feeling now. That is the whole mechanism and we are not going to dress it up.</p>
+  </div>
+</div>
+      <p class="more"><a class="btn btn--cream" href="how/">Read the whole method</a></p>
+    </div>
+  </section>
+
+  <!-- ══════════ ZONE 5 · THE READING ROOM ══════════ -->
+  <section class="zone zone--warm zone--path" id="proof" aria-labelledby="h-proof">
+    <div class="wrap">
+      <div class="zhead"><div><p class="chip chip--mint">The Reading Room</p>
+      <h2 id="h-proof" class="big">It is a placebo.<br>That is the point.</h2></div>
+      <p class="lead">Putting a feeling onto an object outside yourself is a real technique,
+        used by play therapists for decades. It does not cure anything. It gives a child a
+        handle on something that had no shape and no name. We make a good handle.</p></div>
+      <div class="revs">
+  <div class="revs__score panel" data-rev>
+    <p class="revs__big">4.8</p>
+    <p class="stars" aria-label="4.8 out of 5">★★★★★</p>
+    <p class="revs__c">2,431 reviews</p>
+    <ul class="revs__bars">
+      <li><span>5</span><i style="--w:84%"></i><b>84%</b></li>
+      <li><span>4</span><i style="--w:11%"></i><b>11%</b></li>
+      <li><span>3</span><i style="--w:3%"></i><b>3%</b></li>
+      <li><span>2</span><i style="--w:1%"></i><b>1%</b></li>
+      <li><span>1</span><i style="--w:1%"></i><b>1%</b></li>
+    </ul>
+  </div>
+  <div class="revs__list">
+    <blockquote class="rev panel" data-rev style="--rev-delay:80ms">
+      <p class="stars" aria-label="5 out of 5">★★★★★</p>
+      <p>She took Pib to her bloods appointment and told the nurse it was Pib who was
+        scared, not her. It got us through the door.</p>
+      <cite>Hannah M · Sheffield · bought Pib</cite>
+    </blockquote>
+    <blockquote class="rev panel" data-rev style="--rev-delay:160ms">
+      <p class="stars" aria-label="5 out of 5">★★★★★</p>
+      <p>The naming is the part that does the work. Anything that gets a child to say the
+        specific word out loud is worth having, and most of them will say it to a toy long
+        before they say it to me.</p>
+      <cite>Dr Amara Boateng · paediatric play specialist</cite>
+    </blockquote>
+    <blockquote class="rev panel" data-rev style="--rev-delay:240ms">
+      <p class="stars" aria-label="4 out of 5">★★★★☆</p>
+      <p>Bo lives in the bed now and the landing light is off for the first time in two
+        years. Docked a star because the box was crushed in the post.</p>
+      <cite>Dev P · Leeds · bought Bo and Gog</cite>
+    </blockquote>
+  </div>
+</div>
+      <p class="more"><a class="btn btn--cream" href="why/">The honest version, in full</a></p>
+    </div>
+  </section>
+
+  <!-- ══════════ ZONE 6 · THE PACKING SHED ══════════ -->
+  <section class="zone zone--deep zone--path" id="sets" aria-labelledby="h-sets">
+    <div class="seam" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="zhead"><div><p class="chip chip--grape">The Packing Shed</p>
+      <h2 id="h-sets" class="big on-dark">When it is not<br>one feeling.</h2></div>
+      <p class="lead on-dark">A week in hospital is not one feeling, it is five in a row.
+        Three BLIPs chosen for a situation, £42 instead of £48, in one box
+        with the cards already filled in.</p></div>
+      <div class="sets">
+  <article class="set panel" data-rev style="--rev-delay:0ms">
+    <div class="set__me">
+      <span style="background:#BFE7FF"><img src="assets/blue.webp" alt="Bo" loading="lazy" decoding="async" width="140" height="140"></span>
+      <span style="background:#E3D2FF"><img src="assets/purple.webp" alt="Gog" loading="lazy" decoding="async" width="140" height="140"></span>
+      <span style="background:#D8D2F5"><img src="assets/night.webp" alt="Vesper" loading="lazy" decoding="async" width="140" height="140"></span>
+    </div>
+    <h3 class="set__t">The night set</h3>
+    <p class="set__d">Bo for the dark, Gog for bad dreams and Vesper for the 2am ones. The three that live on a bedside table.</p>
+    <div class="set__row">
+      <p class="set__p"><b>£42</b><s>£48</s><span class="set__save">Saves £6</span></p>
+      <button class="btn btn--sm" type="button" data-add="s0">Add the set</button>
+    </div>
+  </article>
+  <article class="set panel" data-rev style="--rev-delay:90ms">
+    <div class="set__me">
+      <span style="background:#FFD9CF"><img src="assets/brave.webp" alt="Pib" loading="lazy" decoding="async" width="140" height="140"></span>
+      <span style="background:#FFEFB8"><img src="assets/yellow.webp" alt="Tup" loading="lazy" decoding="async" width="140" height="140"></span>
+      <span style="background:#D6E6FF"><img src="assets/miss.webp" alt="Lun" loading="lazy" decoding="async" width="140" height="140"></span>
+    </div>
+    <h3 class="set__t">The hospital set</h3>
+    <p class="set__d">Pib for being brave, Tup for being away and Lun for missing someone. Packed for a stay, not a visit.</p>
+    <div class="set__row">
+      <p class="set__p"><b>£42</b><s>£48</s><span class="set__save">Saves £6</span></p>
+      <button class="btn btn--sm" type="button" data-add="s1">Add the set</button>
+    </div>
+  </article>
+  <article class="set panel" data-rev style="--rev-delay:180ms">
+    <div class="set__me">
+      <span style="background:#FFD3E4"><img src="assets/pink.webp" alt="Wren" loading="lazy" decoding="async" width="140" height="140"></span>
+      <span style="background:#DDF5B8"><img src="assets/lime.webp" alt="Pim" loading="lazy" decoding="async" width="140" height="140"></span>
+      <span style="background:#CFF2E4"><img src="assets/shy.webp" alt="Moss" loading="lazy" decoding="async" width="140" height="140"></span>
+    </div>
+    <h3 class="set__t">The new school set</h3>
+    <p class="set__d">Wren for somewhere new, Pim for being looked at and Moss for shyness. Posted to land the week before term.</p>
+    <div class="set__row">
+      <p class="set__p"><b>£42</b><s>£48</s><span class="set__save">Saves £6</span></p>
+      <button class="btn btn--sm" type="button" data-add="s2">Add the set</button>
+    </div>
+  </article>
+</div>
+    </div>
+  </section>
+
+  <!-- ══════════ ZONE 7 · THE POST ROOM ══════════ -->
+  <section class="zone zone--deep zone--path" id="monthly" aria-labelledby="h-monthly">
+    <div class="wrap">
+      <div class="mo panel" data-rev>
+        <div>
+          <p class="chip chip--sun">The Post Room</p>
+          <h2 id="h-monthly" class="big">£9 a month.<br>Skip any month<br>nothing happens.</h2>
+          <p class="lead">Tell us roughly what your child is dealing with and we choose the
+            one that fits. If it has been a quiet month, say so and we will skip you rather
+            than post you filler you did not need.</p>
+          <ul class="mo__l">
+            <li>First one free, cancel before the second and pay nothing</li>
+            <li>Skip, pause or stop from one link in the email</li>
+            <li>Members see new BLIPs a fortnight before everyone else</li>
+          </ul>
+          <p class="more more--left"><a class="btn" href="monthly/">How the monthly works</a></p>
+        </div>
+        <div class="mo__art" aria-hidden="true">
+          <span class="mo__pod"><img src="assets/purple.webp" alt="" loading="lazy" decoding="async" width="130" height="130"></span>
+          <span class="mo__pod"><img src="assets/yellow.webp" alt="" loading="lazy" decoding="async" width="130" height="130"></span>
+          <span class="mo__pod"><img src="assets/pink.webp" alt="" loading="lazy" decoding="async" width="130" height="130"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="zone zone--deep zone--path" id="trust" aria-labelledby="h-trust">
+  <div class="wrap">
+    <h2 id="h-trust" class="sr on-dark">Delivery, returns and safety</h2>
+    <ul class="trust">
+      <li><b>Free UK delivery</b><span>Over £30, 2 to 3 working days</span></li>
+      <li><b>60 day returns</b><span>Even opened, even squeezed</span></li>
+      <li><b>CE tested, from 3 years</b><span>No small parts, machine washable at 30</span></li>
+      <li><b>Made in Britain</b><span>Stitched in Stoke, boxed in Stoke</span></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <p class="nav__mark" style="font-size:34px">BL<b>I</b>P</p>
+        <p class="foot__adr">Unit 9, Bevenden Street<br>London N1<br>hello@blip.club</p>
+      </div>
+      <div>
+        <h2 class="foot-h">The Hollow</h2>
+        <ul>
+          <li><a href="hollow/">The map</a></li>
+          <li><a href="shop/">All fifty</a></li>
+          <li><a href="sets/">Sets of three</a></li>
+          <li><a href="monthly/">The monthly</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Practical</h2>
+        <ul>
+          <li><a href="how/">How to use one</a></li>
+          <li><a href="why/">Why it works</a></li>
+          <li><a href="bag/">Your bag</a></li>
+          <li><a href="why/#trust">Delivery and returns</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <p>© 2026 BLIP. Fictional company, built as a design study.</p>
+      <p>Suitable from 3 years · CE tested</p>
+    </div>
+  </div>
+</footer>
+
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="h-bag" hidden>
+  <div class="drawer__scrim" id="drawerScrim"></div>
+  <div class="drawer__panel">
+    <div class="drawer__top">
+      <h2 id="h-bag">Your bag</h2>
+      <button class="x" type="button" id="bagClose" aria-label="Close the bag">✕</button>
+    </div>
+    <div class="drawer__body" id="bagBody"></div>
+    <div class="drawer__foot">
+      <p class="drawer__ship" id="bagShip"></p>
+      <p class="drawer__tot"><span>Subtotal</span><b id="bagTot">£0</b></p>
+      <a class="btn drawer__go" href="bag/">Go to your bag</a>
+      <p class="drawer__fine">60 day returns even opened · free UK delivery over £30</p>
+    </div>
+  </div>
+</aside>
+
+<div class="buybar" id="buybar" aria-hidden="true">
+  <span class="buybar__t"><b id="bbN">Bo</b><span id="bbF">for the dark</span></span>
+  <span class="buybar__p">£16</span>
+  <button class="btn btn--sm" type="button" id="bbAdd">Add</button>
+</div>
+
+<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+<script src="data.js"></script>
+<script src="app.js"></script>

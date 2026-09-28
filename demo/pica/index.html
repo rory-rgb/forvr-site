@@ -1,0 +1,310 @@
+<meta charset="utf-8">
+<base href="/demo/pica/">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PICA — risograph printing, Margate</title>
+<meta name="description" content="A two-person risograph print house on the Margate seafront. Zines, posters and sleeves in spot inks, one colour pass at a time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<div class="grid-bg" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="nav__mark" href="/demo/pica#top">pica</a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="/demo/pica#printing">Printing</a>
+    <a href="/demo/pica#passes">How it works</a>
+    <a href="/demo/pica#paper">Paper &amp; prices</a>
+    <a href="/demo/pica#work">Work</a>
+  </nav>
+  <a class="btn" href="/demo/pica#order">Send us a file</a>
+</header>
+
+<main id="top">
+
+  <!-- ========== 1. HERO + SIGNATURE: REGISTRATION ========== -->
+  <section class="hero" aria-labelledby="h-hero">
+    <div class="wrap">
+      <div class="plates" id="hero">
+        <div class="hero__grid">
+          <div>
+            <p class="eyebrow">Risograph printing &middot; Margate</p>
+
+            <p class="mark" aria-hidden="true">
+              <span class="mark__l mark__l--pink plate plate--pink">pica</span>
+              <span class="mark__l mark__l--blue plate plate--blue">pica</span>
+            </p>
+            <h1 id="h-hero" class="sr">PICA — risograph printing in Margate</h1>
+
+            <p class="lead" style="max-width:36ch">Two colours. One pass at a time. We print zines, posters and sleeves on a single duplicator, in real spot inks, for people who want the flaws.</p>
+
+            <div class="hero__ctl">
+              <a class="btn" href="/demo/pica#order">Send us a file</a>
+              <button class="btn btn--out" id="regBtn" type="button" aria-pressed="false">Register the plates</button>
+              <span class="regstate" id="regState" role="status">Out of true &middot; 9px</span>
+            </div>
+          </div>
+
+          <!-- hero artwork: two ink plates, overprint computed by multiply -->
+          <figure class="art" aria-labelledby="artCap">
+            <svg viewBox="0 0 400 300" class="plate plate--pink" aria-hidden="true">
+              <rect x="0" y="0" width="400" height="176" fill="var(--pink)"/>
+              <circle cx="286" cy="70" r="44" fill="var(--paper)"/>
+              <path d="M0 176 L400 176 L400 300 L0 300 Z" fill="var(--pink)" opacity=".28"/>
+              <g fill="var(--pink)">
+                <rect x="40" y="196" width="10" height="72"/>
+                <rect x="96" y="196" width="10" height="72"/>
+                <rect x="152" y="196" width="10" height="72"/>
+                <rect x="208" y="196" width="10" height="72"/>
+                <rect x="20" y="184" width="216" height="14"/>
+              </g>
+            </svg>
+            <svg viewBox="0 0 400 300" class="plate plate--blue" aria-hidden="true">
+              <path d="M0 176 L400 176 L400 300 L0 300 Z" fill="var(--blue)"/>
+              <g fill="var(--blue)">
+                <rect x="0" y="120" width="400" height="56"/>
+                <circle cx="286" cy="70" r="26"/>
+              </g>
+              <g stroke="var(--paper)" stroke-width="5" fill="none" opacity=".9">
+                <path d="M0 232 q40 -14 80 0 t80 0 t80 0 t80 0 t80 0"/>
+                <path d="M0 260 q40 -14 80 0 t80 0 t80 0 t80 0 t80 0"/>
+                <path d="M0 288 q40 -14 80 0 t80 0 t80 0 t80 0 t80 0"/>
+              </g>
+            </svg>
+            <figcaption class="art__cap" id="artCap">Plate 1 pink &middot; Plate 2 blue</figcaption>
+          </figure>
+        </div>
+      </div>
+      <p class="note" style="margin-top:var(--s3)">Riso never lands perfectly in register. Neither does this. Move your pointer over it.</p>
+    </div>
+  </section>
+
+  <!-- ========== 2. WHAT WE PRINT ========== -->
+  <section class="sect" id="printing" aria-labelledby="h-print">
+    <div class="wrap">
+      <p class="eyebrow">01 &mdash; What we print</p>
+      <h2 id="h-print" style="margin-top:var(--s3);max-width:16ch">Three things,<br>done well.</h2>
+
+      <div class="cards">
+        <article class="card" data-rev>
+          <h3 class="card__n">zines</h3>
+          <p class="card__p">A4 folded to A5, saddle-stitched here on the bench. Two inks, up to 48 pages, runs of 25 upward.</p>
+          <p class="card__price">&pound;92 <span>/ 50 copies, 16pp</span></p>
+        </article>
+        <article class="card" data-rev="pink" style="--rev-delay:90ms">
+          <h3 class="card__n">posters</h3>
+          <p class="card__p">A3 and A2, two inks, trimmed square. The format the machine was built for and the one it does best.</p>
+          <p class="card__price">&pound;64 <span>/ 50 copies, A3</span></p>
+        </article>
+        <article class="card" data-rev style="--rev-delay:180ms">
+          <h3 class="card__n">sleeves</h3>
+          <p class="card__p">7" and 12" record sleeves, printed flat and folded by hand. Minimum 50. Ask about spines.</p>
+          <p class="card__price">&pound;180 <span>/ 50 copies, 12"</span></p>
+        </article>
+      </div>
+      <p class="note" style="margin-top:var(--s3)">Prices include one proof and are what you actually pay. Third and fourth inks are &pound;28 a pass.</p>
+    </div>
+  </section>
+
+  <!-- ========== 3. PASS COUNTER ========== -->
+  <section class="sect sect--ink" id="passes" aria-labelledby="h-pass" style="padding:0">
+    <div class="pass__track" id="passTrack">
+      <div class="pass__stick">
+        <div class="wrap">
+          <div class="pass__grid">
+            <div>
+              <p class="eyebrow">02 &mdash; How a two-colour job is made</p>
+              <h2 id="h-pass" style="margin-top:var(--s3);max-width:14ch">One ink.<br>Then the other.</h2>
+              <p class="sm" style="margin-top:var(--s3);max-width:44ch;opacity:.82">The duplicator can only lay down one colour at a time. The sheet goes through twice, and the second pass never lands exactly where the first one did. Getting it close is the job. Keep scrolling.</p>
+
+              <ol class="passlist" id="passList" style="margin-top:var(--s3)">
+                <li><span class="passlist__k">00</span><span class="passlist__t">Blank stock, loaded and squared in the feeder.</span></li>
+                <li><span class="passlist__k">01</span><span class="passlist__t">Blue pass. Master burned, drum inked, 50 sheets through.</span></li>
+                <li><span class="passlist__k">02</span><span class="passlist__t">Pink pass. Drum swapped, sheets reloaded. It lands 3mm out.</span></li>
+                <li><span class="passlist__k">03</span><span class="passlist__t">Re-squared and run again. This is the one we send you.</span></li>
+              </ol>
+            </div>
+
+            <figure class="sheet" id="sheet" data-pass="0">
+              <svg viewBox="0 0 400 300" aria-hidden="true">
+                <rect width="400" height="300" fill="var(--paper)"/>
+              </svg>
+              <svg viewBox="0 0 400 300" class="p-blue" aria-hidden="true">
+                <g fill="var(--blue)">
+                  <rect x="34" y="40" width="332" height="132"/>
+                  <rect x="34" y="196" width="150" height="18"/>
+                  <rect x="34" y="228" width="230" height="18"/>
+                </g>
+              </svg>
+              <svg viewBox="0 0 400 300" class="p-pink" style="mix-blend-mode:multiply" aria-hidden="true">
+                <g fill="var(--pink)">
+                  <circle cx="128" cy="158" r="62"/>
+                  <rect x="214" y="112" width="152" height="126"/>
+                  <rect x="34" y="258" width="332" height="16"/>
+                </g>
+              </svg>
+              <figcaption class="art__cap" id="sheetCap">Blank stock</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 4. PAPER PICKER + PRICES ========== -->
+  <section class="sect" id="paper" aria-labelledby="h-paper">
+    <div class="wrap">
+      <p class="eyebrow">03 &mdash; Paper &amp; prices</p>
+      <h2 id="h-paper" style="margin-top:var(--s3);max-width:18ch">Pick the stock.<br>The inks change with it.</h2>
+
+      <div style="display:grid;gap:var(--s5);margin-top:var(--s4)" class="paper__grid">
+        <div>
+          <p class="sm" style="max-width:48ch">Riso ink is translucent, so the paper is not a background, it is the lightest colour in the print. Choose one and the whole page becomes that sheet.</p>
+
+          <div class="stocks" id="stocks" role="group" aria-label="Choose a paper stock">
+            <button class="stock" type="button" aria-pressed="true"
+                    data-paper="var(--paper)" data-name="Natural 120gsm">
+              <i style="background:#F2EFE4"></i>Natural</button>
+            <button class="stock" type="button" aria-pressed="false"
+                    data-paper="#FFFFFF" data-name="Bright white 130gsm">
+              <i style="background:#FFFFFF"></i>Bright white</button>
+            <button class="stock" type="button" aria-pressed="false"
+                    data-paper="#F0E2C8" data-name="Manila 150gsm">
+              <i style="background:#F0E2C8"></i>Manila</button>
+            <button class="stock" type="button" aria-pressed="false"
+                    data-paper="#DCE6DA" data-name="Sage 120gsm">
+              <i style="background:#DCE6DA"></i>Sage</button>
+          </div>
+
+          <div class="swatchrow">
+            <figure><i class="sw-paper"></i><figcaption>Stock</figcaption></figure>
+            <figure><i class="sw-blue"></i><figcaption>Blue</figcaption></figure>
+            <figure><i class="sw-pink"></i><figcaption>Pink</figcaption></figure>
+            <figure><i class="sw-over"></i><figcaption>Overprint</figcaption></figure>
+          </div>
+          <p class="note" style="margin-top:var(--s2)">Currently: <span id="paperName">Natural 120gsm</span>. The overprint swatch is the two inks multiplied, not a colour we picked.</p>
+        </div>
+
+        <div>
+          <table class="prices">
+            <caption class="sr">Prices by run length</caption>
+            <thead>
+              <tr><th scope="col">Run</th><th scope="col">A3 poster, 2 inks</th><th scope="col">Per copy</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>25</td><td>&pound;46</td><td>&pound;1.84</td></tr>
+              <tr><td>50</td><td>&pound;64</td><td>&pound;1.28</td></tr>
+              <tr><td>100</td><td>&pound;92</td><td>&pound;0.92</td></tr>
+              <tr><td>250</td><td>&pound;168</td><td>&pound;0.67</td></tr>
+              <tr><td>500</td><td>&pound;284</td><td>&pound;0.57</td></tr>
+            </tbody>
+          </table>
+          <p class="note" style="margin-top:var(--s2)">Setup is in the price. Turnaround is five working days, or two if we have the drum on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 5. WORK ========== -->
+  <section class="sect" id="work" aria-labelledby="h-work">
+    <div class="wrap">
+      <p class="eyebrow">04 &mdash; Recent</p>
+      <h2 id="h-work" style="margin-top:var(--s3);max-width:16ch">Four jobs<br>off the bench.</h2>
+
+      <div class="work">
+        <figure class="job" data-rev>
+          <div class="job__img"><img src="assets/print-01.webp" alt="A two-colour risograph print of a harbour at dusk, fluorescent pink and blue overprinting to deep purple." width="1000" height="1333" loading="lazy" decoding="async"></div>
+          <figcaption class="job__m">
+            <p class="job__t">Harbour Nocturne</p>
+            <p class="job__d">A2 poster &middot; 2 inks &middot; run of 80</p>
+          </figcaption>
+        </figure>
+        <figure class="job" data-rev="pink" style="--rev-delay:80ms">
+          <div class="job__img"><img src="assets/print-02.webp" alt="A two-colour risograph print of overlapping figures in a crowd, pink and blue plates deliberately out of register." width="1000" height="1333" loading="lazy" decoding="async"></div>
+          <figcaption class="job__m">
+            <p class="job__t">Everyone At Once</p>
+            <p class="job__d">A3 poster &middot; 2 inks &middot; run of 150</p>
+          </figcaption>
+        </figure>
+        <figure class="job" data-rev style="--rev-delay:160ms">
+          <div class="job__img"><img src="assets/press.webp" alt="Two hands lifting a freshly printed pink and blue sheet off the delivery tray of a risograph duplicator." width="1400" height="1196" loading="lazy" decoding="async"></div>
+          <figcaption class="job__m">
+            <p class="job__t">Wednesday, 4pm</p>
+            <p class="job__d">Second pass &middot; still wet</p>
+          </figcaption>
+        </figure>
+        <figure class="job" data-rev="pink" style="--rev-delay:240ms">
+          <div class="job__img" style="display:grid;place-items:center;background:var(--blue)">
+            <svg viewBox="0 0 300 400" style="width:100%;height:100%" aria-hidden="true">
+              <rect width="300" height="400" fill="var(--blue)"/>
+              <g fill="var(--pink)" style="mix-blend-mode:multiply">
+                <rect x="30" y="46" width="240" height="120"/>
+                <circle cx="150" cy="272" r="86"/>
+              </g>
+              <g fill="var(--paper)">
+                <rect x="30" y="184" width="120" height="10"/>
+                <rect x="30" y="206" width="76" height="10"/>
+              </g>
+            </svg>
+          </div>
+          <figcaption class="job__m">
+            <p class="job__t">Margate Tape Club</p>
+            <p class="job__d">7&quot; sleeve &middot; 2 inks &middot; run of 300</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 6. ORDER ========== -->
+  <section class="sect sect--ink" id="order" aria-labelledby="h-order">
+    <div class="wrap">
+      <div class="cta__grid">
+        <div>
+          <p class="eyebrow">05 &mdash; Next</p>
+          <h2 id="h-order" style="margin-top:var(--s3)">send us<br>a file.</h2>
+        </div>
+        <div>
+          <p class="sm" style="opacity:.86;margin-bottom:var(--s3)">Two greyscale layers, one per ink, 300dpi, named by colour. If that sentence means nothing to you, send the artwork anyway and we will separate it.</p>
+          <a class="btn" href="mailto:print@pica.press">Send us a file</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <p class="nav__mark" style="font-size:30px">pica</p>
+        <p class="sm" style="margin-top:var(--s1)">Arch 12, Fort Road<br>Margate CT9<br>print@pica.press<br>01843 550 118</p>
+      </div>
+      <div>
+        <h3 class="foot-h">Shop</h3>
+        <ul>
+          <li><a href="/demo/pica#printing">Zines</a></li>
+          <li><a href="/demo/pica#printing">Posters</a></li>
+          <li><a href="/demo/pica#printing">Sleeves</a></li>
+          <li><a href="/demo/pica#paper">Paper &amp; prices</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="foot-h">Studio</h3>
+        <ul>
+          <li><a href="/demo/pica#passes">How it works</a></li>
+          <li><a href="/demo/pica#work">Recent work</a></li>
+          <li><a href="/demo/pica#order">File setup</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <p>&copy; 2026 PICA. Fictional print house, built as a design study.</p>
+      <p>Printed in two colours, never quite in register.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>

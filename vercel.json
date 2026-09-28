@@ -27,5 +27,25 @@
       "destination": "/rorywilkie",
       "permanent": true
     }
+  ],
+  "headers": [
+    {
+      "source": "/assets/meta/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/demo/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    }
   ]
 }

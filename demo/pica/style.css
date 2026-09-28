@@ -1,0 +1,349 @@
+/* ============================================================
+   PICA — risograph print house
+   Flat. Hard edges. No shadow, no blur, no gradient, no 3D.
+   Overprint is COMPUTED by mix-blend-mode: multiply, not picked.
+   Easing is steps() and linear only. A press is mechanical.
+   ============================================================ */
+
+:root{
+  /* stock — swapped live by the paper picker */
+  --paper:  #F2EFE4;
+  --paper-name: "Natural 120gsm";
+
+  /* the two spot inks */
+  --pink: #FF4FA3;
+  --blue: #1E7FD4;
+  --ink:  #191418;
+
+  /* CONTRAST RULE, enforced by usage:
+     ink/paper 15.6:1 — all body copy.
+     blue/paper 3.62:1 — display type >=24px and shapes ONLY.
+     pink/paper 2.64:1 — fills and plates ONLY, never text on paper.
+     pink/ink   5.95:1 — the one place pink is allowed to be text. */
+
+  --display:"Archivo Black","Archivo",Impact,sans-serif;
+  --body:"Archivo",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+
+  --t-xs:12px; --t-sm:14px; --t-body:17px; --t-lead:21px;
+  --t-h3:28px;
+  --t-h2:clamp(30px,4.6vw,52px);
+  --t-h1:clamp(40px,8vw,104px);
+  --t-mark:clamp(84px,24vw,320px);
+
+  /* 8px base */
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px;
+  --s6:64px; --s7:96px; --s8:128px; --s9:160px;
+
+  --c-n:760px; --c-m:1180px; --c-w:1500px;
+  --gut:clamp(20px,5vw,56px);
+
+  --off:9px;          /* current plate misregistration */
+  --snap:90ms steps(3,end);
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0 }
+html{ -webkit-text-size-adjust:100% }
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:var(--t-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  position:relative;
+}
+img,svg{ display:block; max-width:100% }
+a{ color:inherit; text-decoration:none }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer }
+
+/* paper grain over the whole document, so screen colour reads as ink on stock */
+body::after{
+  content:""; position:fixed; inset:0; z-index:99; pointer-events:none;
+  background-image:repeating-radial-gradient(circle at 0 0,
+      color-mix(in srgb, var(--ink) 20%, transparent) 0 .6px, transparent .6px 3px);
+  background-size:3px 3px;
+  mix-blend-mode:multiply; opacity:.5;
+}
+::selection{ background:var(--pink); color:var(--paper) }
+
+/* the 8px print grid, faint */
+.grid-bg{
+  position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5;
+  background-image:repeating-linear-gradient(to bottom,
+      color-mix(in srgb, var(--ink) 6%, transparent) 0 1px, transparent 1px 64px);
+}
+
+/* ---------- primitives ---------- */
+.wrap{ width:100%; max-width:var(--c-w); margin-inline:auto; padding-inline:var(--gut);
+       position:relative; z-index:1 }
+.wrap-m{ max-width:var(--c-m) }
+.sect{ padding-block:var(--s7); position:relative; z-index:1 }
+.sect--ink{ background:var(--ink); color:var(--paper) }
+.sect--ink .eyebrow{ color:var(--pink) }   /* 5.95:1 — the one pink-as-text use */
+
+.eyebrow{
+  font-family:var(--body); font-weight:600; font-size:var(--t-xs);
+  letter-spacing:.16em; text-transform:uppercase; color:var(--ink);
+  display:inline-block; padding-bottom:6px;
+  border-bottom:3px solid var(--pink);
+}
+h1,h2,h3{ font-family:var(--display); font-weight:400; line-height:.94;
+          letter-spacing:-.04em; text-transform:lowercase }
+h2{ font-size:var(--t-h2) }
+h3{ font-size:var(--t-h3); line-height:1.02 }
+p{ max-width:60ch }
+.lead{ font-size:var(--t-lead); line-height:1.45 }
+.sm{ font-size:var(--t-sm) }
+.note{ font-size:var(--t-xs); letter-spacing:.06em; text-transform:uppercase;
+       font-weight:600; opacity:.62 }
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky; top:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between; gap:var(--s2);
+  padding:var(--s2) var(--gut);
+  background:var(--paper);
+  border-bottom:3px solid var(--ink);
+}
+.nav__mark{ font-family:var(--display); font-size:22px; letter-spacing:-.05em;
+            text-transform:lowercase }
+.nav__links{ display:none; gap:var(--s4) }
+@media(min-width:880px){ .nav__links{ display:flex } }
+.nav__links a{ font-size:var(--t-sm); font-weight:600; display:inline-block;
+               border-bottom:3px solid transparent; padding:5px 0 4px;
+               transition:border-color 140ms linear }
+.nav__links a:hover,.nav__links a:focus-visible{ border-color:var(--blue) }
+
+/* ---------- buttons: flat, hard, no radius ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  font-weight:600; font-size:var(--t-sm); letter-spacing:.04em;
+  background:var(--ink); color:var(--paper);
+  padding:14px var(--s3); border:3px solid var(--ink);
+  transition:background 140ms linear, color 140ms linear, transform 90ms steps(2,end);
+}
+.btn:hover,.btn:focus-visible{ background:var(--pink); border-color:var(--pink); color:var(--ink) }
+.btn:active{ transform:translate(2px,2px) }        /* MISFEED */
+.btn--out{ background:transparent; color:var(--ink) }
+.btn--out:hover{ background:var(--blue); border-color:var(--blue); color:var(--paper) }
+.sect--ink .btn{ background:var(--paper); color:var(--ink); border-color:var(--paper) }
+.sect--ink .btn:hover{ background:var(--pink); border-color:var(--pink) }
+
+:where(a,button,input,summary):focus-visible{
+  outline:3px solid var(--blue); outline-offset:3px;
+}
+
+/* ============================================================
+   HERO + THE SIGNATURE: REGISTRATION
+   Two ink plates, composited with multiply so the overprint
+   colour is produced by the inks rather than chosen.
+   ============================================================ */
+.hero{ padding-block:var(--s6) var(--s7); position:relative; z-index:1 }
+.hero__grid{ display:grid; gap:var(--s4) }
+@media(min-width:940px){
+  .hero__grid{ grid-template-columns:1fr 380px; gap:var(--s6); align-items:end }
+}
+
+/* the plate stack */
+.plates{ position:relative; isolation:isolate }
+.plate{
+  transition:transform var(--snap);
+  will-change:transform;
+}
+.plate--pink{ transform:translate(calc(var(--off) * -1), calc(var(--off) * -.62)) }
+.plate--blue{ transform:translate(var(--off), calc(var(--off) * .62));
+              mix-blend-mode:multiply }
+.is-registered .plate--pink,
+.is-registered .plate--blue{ transform:translate(0,0) }
+
+/* the wordmark, one <span> per plate */
+.mark{ position:relative; line-height:.78; margin:var(--s2) 0 calc(var(--t-mark) * .2) }
+.mark__l{
+  display:block; font-family:var(--display); font-size:var(--t-mark);
+  letter-spacing:-.055em; text-transform:lowercase;
+}
+.mark__l--pink{ color:var(--pink) }
+.mark__l--blue{ color:var(--blue); position:absolute; inset:0 }
+
+/* the hero artwork, drawn as two plates */
+.art{ position:relative; aspect-ratio:4/3; border:3px solid var(--ink);
+      background:var(--paper); overflow:hidden; isolation:isolate }
+.art svg{ position:absolute; inset:0; width:100%; height:100% }
+.art__cap{ position:absolute; left:0; bottom:0; z-index:5;
+           background:var(--ink); color:var(--paper);
+           font-size:var(--t-xs); font-weight:600; letter-spacing:.12em;
+           text-transform:uppercase; padding:6px 12px }
+
+.hero__ctl{ display:flex; gap:var(--s2); flex-wrap:wrap; align-items:center;
+            margin-top:var(--s3) }
+.regstate{ font-size:var(--t-xs); font-weight:600; letter-spacing:.14em;
+           text-transform:uppercase; padding:6px 10px; border:3px solid var(--ink) }
+.is-registered .regstate{ background:var(--ink); color:var(--paper) }
+
+/* ============================================================
+   WHAT WE PRINT
+   ============================================================ */
+.cards{ display:grid; gap:3px; background:var(--ink); border:3px solid var(--ink);
+        margin-top:var(--s5) }
+@media(min-width:800px){ .cards{ grid-template-columns:repeat(3,1fr) } }
+.card{ background:var(--paper); padding:var(--s4) var(--s3) var(--s5);
+       transition:background 140ms linear }
+.card:hover{ background:var(--pink) }
+.card__n{ font-family:var(--display); font-size:var(--t-h3) }
+.card__p{ font-size:var(--t-sm); margin-top:var(--s1); max-width:34ch }
+.card__price{ font-family:var(--display); font-size:var(--t-h3); margin-top:var(--s3) }
+.card__price span{ font-family:var(--body); font-weight:400; font-size:var(--t-sm) }
+
+/* ============================================================
+   PASS COUNTER
+   ============================================================ */
+.pass__track{ height:340vh }
+.pass__stick{ position:sticky; top:0; min-height:100svh;
+              display:flex; flex-direction:column; justify-content:center;
+              padding-block:var(--s5) }
+.pass__grid{ display:grid; gap:var(--s4) }
+@media(min-width:940px){ .pass__grid{ grid-template-columns:1fr 1.05fr;
+                                      gap:var(--s6); align-items:center } }
+.sheet{ position:relative; aspect-ratio:4/3; border:3px solid var(--paper);
+        background:var(--paper); isolation:isolate; overflow:hidden;
+        width:min(100%, 68svh); margin-inline:auto }
+.sheet svg{ position:absolute; inset:0; width:100%; height:100% }
+/* each pass is either laid down or it is not. no interpolation.
+   scoped to .js so a no-JS visitor lands on the finished, registered print
+   rather than a permanently blank sheet. */
+.js .sheet .p-blue,.js .sheet .p-pink{ opacity:0 }
+.sheet[data-pass="1"] .p-blue,
+.sheet[data-pass="2"] .p-blue,
+.sheet[data-pass="3"] .p-blue{ opacity:1 }
+.sheet[data-pass="2"] .p-pink,
+.sheet[data-pass="3"] .p-pink{ opacity:1 }
+.sheet[data-pass="2"] .p-pink{ transform:translate(9px,-6px) }
+.sheet[data-pass="3"] .p-pink{ transform:translate(0,0) }
+.sheet .p-pink{ transition:transform var(--snap) }
+
+.passlist{ list-style:none; display:grid; gap:3px; background:color-mix(in srgb, var(--paper) 28%, transparent);
+           border:3px solid var(--paper) }
+.passlist li{ background:var(--ink); padding:var(--s2) var(--s3);
+              display:flex; gap:var(--s2); align-items:baseline; opacity:.42;
+              transition:opacity 140ms linear, background 140ms linear }
+.passlist li.on{ opacity:1 }
+.passlist li.on .passlist__k{ color:var(--pink) }
+.passlist__k{ font-family:var(--display); font-size:20px; min-width:2.4em }
+.passlist__t{ font-size:var(--t-sm) }
+
+/* ============================================================
+   PAPER PICKER
+   ============================================================ */
+.stocks{ display:flex; gap:var(--s2); flex-wrap:wrap; margin-top:var(--s3) }
+.stock{
+  display:flex; align-items:center; gap:10px;
+  border:3px solid var(--ink); padding:8px 14px 8px 8px;
+  font-size:var(--t-sm); font-weight:600;
+  transition:background 140ms linear, color 140ms linear;
+}
+.stock:hover{ background:var(--blue); color:var(--paper) }
+.stock[aria-pressed="true"]{ background:var(--ink); color:var(--paper) }
+.stock i{ width:26px; height:26px; display:block; border:1px solid color-mix(in srgb, var(--ink) 35%, transparent) }
+/* labels sit on the paper beneath each block, so no label is ever set on an
+   ink it cannot reach 4.5:1 against */
+.swatchrow{ display:flex; gap:var(--s2); margin-top:var(--s4) }
+.swatchrow figure{ flex:1; margin:0 }
+.swatchrow i{ display:block; height:64px; border:3px solid var(--ink) }
+.swatchrow figcaption{ font-size:11px; font-weight:600; letter-spacing:.08em;
+                       text-transform:uppercase; color:var(--ink); margin-top:8px }
+.sw-paper{ background:var(--paper) }
+.sw-blue{ background:var(--blue) }
+.sw-pink{ background:var(--pink) }
+.sw-over{ background:var(--blue); position:relative }
+.sw-over::before{ content:""; position:absolute; inset:0; background:var(--pink);
+                  mix-blend-mode:multiply }
+
+.prices{ width:100%; border-collapse:collapse; margin-top:var(--s4);
+         font-size:var(--t-sm) }
+.prices th,.prices td{ text-align:left; padding:10px 12px;
+                       border-bottom:1px solid color-mix(in srgb, var(--ink) 22%, transparent) }
+.prices th{ font-size:var(--t-xs); letter-spacing:.12em; text-transform:uppercase;
+            border-bottom:3px solid var(--ink) }
+.prices td:last-child,.prices th:last-child{ text-align:right;
+            font-variant-numeric:tabular-nums }
+
+/* ============================================================
+   WORK GRID
+   ============================================================ */
+.work{ display:grid; gap:3px; background:var(--ink); border:3px solid var(--ink);
+       margin-top:var(--s5) }
+@media(min-width:720px){ .work{ grid-template-columns:repeat(2,1fr) } }
+@media(min-width:1100px){ .work{ grid-template-columns:repeat(4,1fr) } }
+.job{ background:var(--paper); display:block }
+.job__img{ aspect-ratio:3/4; overflow:hidden; background:var(--paper) }
+.job__img img{ width:100%; height:100%; object-fit:cover;
+               transition:transform 90ms steps(2,end) }
+.job:hover .job__img img{ transform:translate(-3px,-3px) }   /* MISFEED */
+.job__m{ padding:var(--s2) var(--s3) var(--s3) }
+.job__t{ font-family:var(--display); font-size:19px }
+.job__d{ font-size:var(--t-xs); letter-spacing:.08em; text-transform:uppercase;
+         font-weight:600; opacity:.6; margin-top:4px }
+
+/* ============================================================
+   CTA + FOOTER
+   ============================================================ */
+.cta__grid{ display:grid; gap:var(--s4); align-items:end }
+@media(min-width:900px){ .cta__grid{ grid-template-columns:1.3fr .9fr } }
+.cta h2{ font-size:var(--t-h1) }
+
+.foot{ border-top:3px solid var(--ink); padding-block:var(--s5) var(--s4) }
+.foot__grid{ display:grid; gap:var(--s4) }
+@media(min-width:760px){ .foot__grid{ grid-template-columns:1.3fr 1fr 1fr } }
+.foot .foot-h{ font-size:var(--t-xs); letter-spacing:.14em; text-transform:uppercase;
+          margin-bottom:var(--s2) }
+.foot ul{ list-style:none; display:grid; gap:2px; font-size:var(--t-sm) }
+.foot li a{ display:inline-block; padding-block:5px; min-height:24px }
+.foot__base{ display:flex; justify-content:space-between; gap:var(--s2);
+             flex-wrap:wrap; margin-top:var(--s5); padding-top:var(--s2);
+             border-top:1px solid color-mix(in srgb, var(--ink) 25%, transparent); font-size:var(--t-xs) }
+
+/* ============================================================
+   MOTION VOCABULARY — PLATE / REGISTER / PASS / MISFEED
+   PLATE is the default section reveal: a hard colour block wipes
+   across and the content is simply there behind it. Not a fade.
+   ============================================================ */
+.js [data-rev]{ position:relative }
+.js [data-rev]::after{
+  content:""; position:absolute; inset:-2px;
+  background:var(--blue); z-index:6; pointer-events:none;
+  clip-path:inset(0 0 0 0);
+  transition:clip-path 380ms linear;
+  transition-delay:var(--rev-delay,0ms);
+}
+.js [data-rev="pink"]::after{ background:var(--pink) }
+.js [data-rev].in::after{ clip-path:inset(0 0 0 100%) }
+
+@media (prefers-reduced-motion:reduce){
+  :root{ --off:5px }            /* a static fringe is not motion */
+  .js [data-rev]::after{ display:none }
+  .plate{ transition:none }
+  .pass__track{ height:auto }
+  .pass__stick{ position:static; min-height:0 }
+  .sheet{ max-height:none }
+  *,*::before,*::after{ animation-duration:.001ms !important;
+                        transition-duration:.001ms !important }
+}
+
+.sr{ position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+     overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0 }
+
+@media(max-width:760px){
+  .nav__mark{ font-size:19px }
+  .nav .btn{ padding:10px 14px; font-size:12px; white-space:nowrap }
+  .sect{ padding-block:var(--s6) }
+  .swatchrow div{ height:52px; font-size:10px }
+}
+
+/* ---------- touch: every target reaches 44px of hit area ---------- */
+@media (max-width:760px), (pointer:coarse){
+  .nav__mark{ display:inline-flex; align-items:center; min-height:44px }
+  .nav__links a{ min-height:44px; display:inline-flex; align-items:center }
+  .foot li a{ min-height:44px; display:inline-flex; align-items:center; padding-block:0 }
+  .btn{ min-height:44px }
+}
