@@ -1,0 +1,5 @@
+:HL["/demo/marlow-hale/_next/static/media/1a4aa50920b5315c-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/demo/marlow-hale/_next/static/media/98e207f02528a563-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/demo/marlow-hale/_next/static/media/d3ebbfd689654d3a-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/demo/marlow-hale/_next/static/css/f984005c508a0d89.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"work","param":null,"prefetchHints":0,"slots":{"children":{"name":"project","param":{"type":"d","key":"marylebone-apartment","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"rXulhxR3qutvbIE1olwke"}

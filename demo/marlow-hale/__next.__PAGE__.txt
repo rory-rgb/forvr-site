@@ -1,0 +1,11 @@
+1:"$Sreact.fragment"
+2:I[5195,["355","static/chunks/619f3821-021ca7df9dba7bbc.js","290","static/chunks/290-a55bc3a5b86de441.js","173","static/chunks/173-3566a9ec8bd94cde.js","223","static/chunks/223-907e5e17d5b62350.js","974","static/chunks/app/page-9ee588bbbfd433ff.js"],"default"]
+3:I[7409,["355","static/chunks/619f3821-021ca7df9dba7bbc.js","290","static/chunks/290-a55bc3a5b86de441.js","173","static/chunks/173-3566a9ec8bd94cde.js","223","static/chunks/223-907e5e17d5b62350.js","974","static/chunks/app/page-9ee588bbbfd433ff.js"],"default"]
+4:I[6848,["355","static/chunks/619f3821-021ca7df9dba7bbc.js","290","static/chunks/290-a55bc3a5b86de441.js","173","static/chunks/173-3566a9ec8bd94cde.js","223","static/chunks/223-907e5e17d5b62350.js","974","static/chunks/app/page-9ee588bbbfd433ff.js"],"default"]
+5:I[2240,["355","static/chunks/619f3821-021ca7df9dba7bbc.js","290","static/chunks/290-a55bc3a5b86de441.js","173","static/chunks/173-3566a9ec8bd94cde.js","223","static/chunks/223-907e5e17d5b62350.js","974","static/chunks/app/page-9ee588bbbfd433ff.js"],"default"]
+6:I[7428,["355","static/chunks/619f3821-021ca7df9dba7bbc.js","290","static/chunks/290-a55bc3a5b86de441.js","173","static/chunks/173-3566a9ec8bd94cde.js","223","static/chunks/223-907e5e17d5b62350.js","974","static/chunks/app/page-9ee588bbbfd433ff.js"],"default"]
+7:I[2089,["355","static/chunks/619f3821-021ca7df9dba7bbc.js","290","static/chunks/290-a55bc3a5b86de441.js","173","static/chunks/173-3566a9ec8bd94cde.js","223","static/chunks/223-907e5e17d5b62350.js","974","static/chunks/app/page-9ee588bbbfd433ff.js"],"default"]
+8:I[9138,[],"OutletBoundary"]
+9:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[[["$","$L2",null,{}],["$","$L3",null,{}],["$","$L4",null,{}],["$","$L5",null,{}],["$","$L6",null,{}],["$","$L7",null,{"headline":"Tell us about your home.","sub":"A calm, senior conversation, no obligation. We reply to every enquiry ourselves.","contact":true,"tone":"bg"}]],null,["$","$L8",null,{"children":["$","$9",null,{"name":"Next.MetadataOutlet","children":"$@a"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"rXulhxR3qutvbIE1olwke"}
+a:null

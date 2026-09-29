@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[188,["355","static/chunks/619f3821-021ca7df9dba7bbc.js","290","static/chunks/290-a55bc3a5b86de441.js","173","static/chunks/173-3566a9ec8bd94cde.js","177","static/chunks/app/layout-0e79260a7c21cdf5.js"],"Container"]
+3:I[2754,["355","static/chunks/619f3821-021ca7df9dba7bbc.js","290","static/chunks/290-a55bc3a5b86de441.js","173","static/chunks/173-3566a9ec8bd94cde.js","177","static/chunks/app/layout-0e79260a7c21cdf5.js"],""]
+4:I[9138,[],"OutletBoundary"]
+5:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"className":"flex min-h-[70svh] flex-col justify-center pt-32","children":[["$","p",null,{"className":"eyebrow eyebrow--accent","children":"404"}],["$","h1",null,{"className":"mt-5 font-display text-ink","style":{"fontSize":"clamp(2.5rem,7vw,4.5rem)","lineHeight":1.02,"letterSpacing":"-0.015em"},"children":"This room is empty."}],["$","p",null,{"className":"mt-5 max-w-md text-lead text-muted","children":"The page you're after doesn't exist. The work is this way."}],["$","div",null,{"className":"mt-8 flex gap-6","children":[["$","$L3",null,{"href":"/work","className":"link-wipe text-[15px] font-medium","children":"See all work →"}],["$","$L3",null,{"href":"/","className":"link-wipe text-[15px] font-medium","children":"Back home →"}]]}]]}],null,["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"rXulhxR3qutvbIE1olwke"}
+6:null
