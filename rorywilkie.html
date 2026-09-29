@@ -313,23 +313,18 @@ button{font:inherit;color:inherit}
       kv:[['Type','Concept shoot, streetwear'],['Built in','Weavy, Nano Banana Pro']],
       text:[`A concept shoot for Ellyette. Not commissioned.`],
       frames:[[A+'ellyette/01.jpg','Ellyette, leaning on the clothing rail in headphones'],[A+'ellyette/02.jpg','Ellyette, on the office sofa with the desk phone'],[A+'ellyette/03.jpg','Ellyette, leaving the office with a canvas tote'],[A+'ellyette/04.jpg','Ellyette, taking a hoodie off the rail']] },
-    { id:'protect', title:'Protect, Touchdown', kind:'Film', count:'23s',
-      kick:'Film · spec film · 23s · 16:9 · sound on', cover:A+'films/protect.jpg',
-      kv:[['Type','Spec film'],['Built from','A character sheet, a product sheet, one location plate'],['Wardrobe',"Protect's Touchdown crewneck and sweat shorts"]],
-      text:[`A spec film for Protect London. Not commissioned.`],
-      films:[{label:'Touchdown', src:A+'films/protect.mp4', poster:A+'films/protect.jpg', w:1920, h:1080}] },
     { id:'statue', title:'Statue of a Fool', kind:'Stills', count:'17 frames',
       kick:'Stills · concept collection · 17 frames · 3:4 · 2026', cover:A+'sof/16.jpg',
       kv:[['Type','Concept collection'],['Scope','Direction, garment, campaign']],
       text:[`A concept collection I designed around Fimiguerrero's record, The Statue of a Fool.`],
       links:[['Case study','statue-of-a-fool.html']],
       frames:[sof('16','three friends outside a block of flats'),sof('01','leaning on a takeaway counter at night'),sof('02','sitting on the night bus'),sof('03','stepping out of a doorway with a carrier bag'),sof('04','two friends in a laundrette'),sof('06','eating at a table'),sof('07','the back of the jersey on a balcony at night'),sof('08','on a stairwell'),sof('09','two friends on front steps'),sof('10','a group taking a photo against shutters'),sof('11','crouched between parked cars'),sof('13','two friends at a takeaway counter'),sof('14','the back of the jersey at a railing over the city'),sof('15','two friends by a bollard'),sof('17','crouched against a pillar'),sof('18','holding a basketball behind a fence'),sof('20','sitting on a bollard by the river')] },
-    { id:'seaforth', title:'Short films', kind:'Film', count:'4 films',
+    { id:'seaforth', title:'Short films', kind:'Film', count:'5 films', span:'wide',
       kick:'Film · own and spec short films · 16:9 and 9:16 · sound on', cover:A+'films/seaforth.jpg',
-      kv:[['Seaforth','Own film · 39s'],['Relay','Spec film for Corteiz · 20s'],['Blowup','Spec film for Palace · 23s'],['Sp5der','Brand film study · 22s']],
+      kv:[['Seaforth','Own film · 39s'],['Touchdown','Spec film for Protect London · 23s'],['Relay','Spec film for Corteiz · 20s'],['Blowup','Spec film for Palace · 23s'],['Sp5der','Brand film study · 22s']],
       text:[`A selection of my short films, most built using my system: characters, products and places made once as sheets and plates, then animated in Seedance.`],
       links:[['Seaforth film page','seaforth.html'],['Relay film page','relay.html'],['Blowup film page','blowup.html'],['More brand films','fashion-films.html']],
-      films:[{label:'Seaforth', fmt:'Own film · 39s', src:A+'films/seaforth.mp4', poster:A+'films/seaforth.jpg', w:1920, h:1080},{label:'Relay', fmt:'Spec film for Corteiz · 20s', src:A+'films/relay.mp4', poster:A+'films/relay.jpg', w:1920, h:1080},{label:'Blowup', fmt:'Spec film for Palace · 23s', src:A+'films/blowup.mp4', poster:A+'films/blowup.jpg', w:1920, h:1080},{label:'Sp5der', fmt:'Brand film study · 22s', src:A+'films/sp5der-bull.mp4', poster:A+'films/sp5der-bull.jpg', w:1080, h:1932}] },
+      films:[{label:'Seaforth', fmt:'Own film · 39s', src:A+'films/seaforth.mp4', poster:A+'films/seaforth.jpg', w:1920, h:1080},{label:'Touchdown', fmt:'Spec film for Protect London · 23s', src:A+'films/protect.mp4', poster:A+'films/protect.jpg', w:1920, h:1080},{label:'Relay', fmt:'Spec film for Corteiz · 20s', src:A+'films/relay.mp4', poster:A+'films/relay.jpg', w:1920, h:1080},{label:'Blowup', fmt:'Spec film for Palace · 23s', src:A+'films/blowup.mp4', poster:A+'films/blowup.jpg', w:1920, h:1080},{label:'Sp5der', fmt:'Brand film study · 22s', src:A+'films/sp5der-bull.mp4', poster:A+'films/sp5der-bull.jpg', w:1080, h:1932}] },
     { id:'worlds-on-clothes', title:'Worlds on Clothes', kind:'Film', count:'2 films',
       kick:'Film · own series, Vol. 1 & 2 · 9:16 · sound on', cover:A+'films/coldculture.jpg',
       kv:[['Type','Own series of short films'],['Vol. 1','Cold Culture · 18s'],['Vol. 2','6TH · 17s']],
@@ -377,7 +372,7 @@ button{font:inherit;color:inherit}
              "Carried out programs from concept to delivery independently, from hooks and scripts, to AI-generated video and images, to finalising details in post-production.",
              "Built one visual language for the account, including maintaining the visual identity of a second fashion brand."] }
   ];
-  var ALIAS = { motion:['seaforth', 1], sp5der:['seaforth', 3] };
+  var ALIAS = { protect:['seaforth', 1], motion:['seaforth', 2], sp5der:['seaforth', 4] };
   var byId = {}; P.forEach(function(p, i){ p.i = i; byId[p.id] = p; });
   var pad = function(n){ return (n < 10 ? '0' : '') + n; };
   function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -581,8 +576,16 @@ button{font:inherit;color:inherit}
   document.getElementById('pvClose').addEventListener('click', toIndex);
   dlg.addEventListener('cancel', function(e){ e.preventDefault(); toIndex(); });
   window.addEventListener('popstate', function(){ fromIndex = false; route(); });
+  /* Shift on its own moves to the next project; Shift with an arrow still steps either way */
+  var shiftAlone = false;
+  function isShift(e){ return e.key === 'Shift' || e.keyCode === 16 || /^Shift/.test(e.code || ''); }
+  dlg.addEventListener('keyup', function(e){
+    if (isShift(e) && shiftAlone && cur){ shiftAlone = false; go(P[(cur.i + 1) % P.length].id); }
+  });
   dlg.addEventListener('keydown', function(e){
     if (!cur) return;
+    if (isShift(e)){ if (!e.repeat) shiftAlone = true; return; }
+    shiftAlone = false;
     if (e.target && (e.target.tagName === 'VIDEO' || e.target.tagName === 'INPUT')) return;
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
       var d = e.key === 'ArrowRight' ? 1 : -1;
