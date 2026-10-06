@@ -170,6 +170,7 @@ if(!reduced){
 
   /* stat rows: count + strike */
   gsap.utils.toArray('.srow').forEach(row=>{
+    const z=row.querySelector('[data-n]');if(z)z.textContent=0;
     ScrollTrigger.create({trigger:row,start:'top bottom-=60',once:true,onEnter(){
       row.classList.add('struck');
       const n=row.querySelector('[data-n]');
