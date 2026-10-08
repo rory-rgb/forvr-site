@@ -106,6 +106,7 @@ select:focus{outline:2px solid var(--blue);outline-offset:-1px}
  ]
 }
 </script>
+<script src="/assets/consent.js" defer></script>
 </head><body>
 <canvas id="stars" aria-hidden="true"></canvas>
 <nav><a class="mark" href="index.html">FORVR<span class="dot">.</span></a><a class="back" href="index.html">&larr; Back</a></nav>
@@ -171,7 +172,7 @@ select:focus{outline:2px solid var(--blue);outline-offset:-1px}
         <label for="when">Anything coming up?</label>
         <input id="when" name="timing" type="text" placeholder="A drop, a launch, a date. Optional">
 
-        <button type="submit">Send it &mdash; three pieces in 72h</button>
+        <button type="submit">Send it &middot; three pieces in 72h</button>
         <p class="fine">NO CARD &middot; NO SPAM &middot; UNSUBSCRIBE ANY TIME</p>
         <p class="fine-note">We use your details only to make and send your three pieces. <a href="privacy.html">How we handle them</a>.</p>
       </div>
@@ -209,10 +210,11 @@ form.addEventListener('submit',async e=>{
   try{
     const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
     if(!r.ok) throw new Error('bad status');
+    if(window.gtag) gtag('event','generate_lead',{form_name:'trial'});
     form.style.display='none';
     document.getElementById('done').style.display='block';
   }catch(err){
-    btn.disabled=false; btn.textContent='Send it — three pieces in 72h';
+    btn.disabled=false; btn.textContent='Send it · three pieces in 72h';
     document.getElementById('err').style.display='block';
   }
 });

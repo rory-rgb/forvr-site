@@ -1,14 +1,14 @@
 <!DOCTYPE html><html lang="en-GB"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy &middot; Forvr Studios</title>
-<meta name="description" content="How Forvr Studios handles personal information. No cookies, no analytics, no tracking pixels. Only what you send us through a form.">
+<meta name="description" content="How Forvr Studios handles personal information: what you send through a form or a booking, and Google Analytics only if you accept it.">
 <link rel="canonical" href="https://forvr.org/privacy">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_GB">
 <meta property="og:site_name" content="Forvr Studios">
 <meta property="og:title" content="Privacy &middot; Forvr Studios">
-<meta property="og:description" content="How Forvr Studios handles personal information. No cookies, no analytics, no tracking pixels. Only what you send us through a form.">
+<meta property="og:description" content="How Forvr Studios handles personal information: what you send through a form or a booking, and Google Analytics only if you accept it.">
 <meta property="og:url" content="https://forvr.org/privacy">
 <meta property="og:image" content="https://forvr.org/assets/og/share.jpg">
 <meta property="og:image:secure_url" content="https://forvr.org/assets/og/share.jpg">
@@ -19,13 +19,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://forvr.org/assets/og/share.jpg">
 <meta name="twitter:title" content="Privacy &middot; Forvr Studios">
-<meta name="twitter:description" content="How Forvr Studios handles personal information. No cookies, no analytics, no tracking pixels. Only what you send us through a form.">
+<meta name="twitter:description" content="How Forvr Studios handles personal information: what you send through a form or a booking, and Google Analytics only if you accept it.">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/static/icon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/static/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/static/icon-180.png">
 <link rel="stylesheet" href="assets/site.css">
+<script src="/assets/consent.js" defer></script>
 </head><body>
 <nav class="nav" id="nav">
   <a class="mark" href="index.html">FORVR<span class="dot">.</span></a>
@@ -46,13 +47,13 @@
 <header class="legal-head">
   <p class="eyebrow"><span class="tick"></span>Legal</p>
   <h1>PRIVACY<span class="dot">.</span></h1>
-  <p class="sub">Last updated 26 August 2026</p>
+  <p class="sub">Last updated 8 October 2026</p>
 </header>
 <main>
 <section class="section">
   <div class="legal-body">
     <h2>The short version</h2>
-    <p>We do not use cookies, we do not run analytics, and there are no advertising or tracking pixels anywhere on this site. Every font, script and image is served from our own server, so loading a page does not tell any other company you were here. The only personal information we hold is what you type into one of our two forms and send us on purpose.</p>
+    <p>Nothing on this site tracks you unless you say yes. If you accept the banner, we use Google Analytics to see which pages and which Google ads bring people here. If you say no, or ignore it, nothing from Google loads and no cookie is set. Beyond that, the only personal information we hold is what you type into one of our two forms, or give when you book a call, on purpose.</p>
 
     <h2>Who we are</h2>
     <p>Forvr Studios is the trading name of Rory Wilkie, an individual sole trader working from Reading, England. Forvr Studios is the data controller for the information described on this page.</p>
@@ -60,18 +61,20 @@
 
     <h2>What we collect</h2>
     <h3>Information you send us</h3>
-    <p>There are two forms on this site. Everything they collect is information you choose to type in.</p>
+    <p>There are two forms on this site and a booking calendar. Everything they collect is information you choose to give.</p>
     <ul>
       <li><strong>The contact form.</strong> Your name, your email address, your brand name if you give one, a budget range if you pick one, and your message.</li>
+      <li><strong>The booking calendar.</strong> On the book a call page, Calendly collects your name, your email address, the time you pick and your answers to its questions, so the call can go in both our diaries.</li>
       <li><strong>The free trial form.</strong> What your brand sells, your name, your email address, your brand name, your brand's Instagram handle, the product you want the work built around, what product photography you already have, and any timing you mention.</li>
     </ul>
     <p>Both forms carry a hidden field that automated spam bots fill in and people do not. We use it only to throw away spam.</p>
 
     <h3>Information collected automatically</h3>
-    <p>We do not run any analytics, so we do not build a picture of who visits or what they look at. Our hosting provider sees your IP address and browser details in its server logs, as any web server does. Nothing else is involved: we host our own fonts and scripts rather than pulling them from Google or a public CDN, so no third party learns you visited unless you actually send us a form.</p>
+    <p>Only if you accept the banner, Google Analytics records which pages you view, roughly where you are, what device you use, which ad or search brought you here, and whether you sent a form or booked a call. We use it to see which pages and ads work. Personalised advertising is switched off, so it is not used to follow you around with ads. Our hosting provider sees your IP address and browser details in its server logs, as any web server does. We host our own fonts and scripts, and the book a call page loads Calendly so you can pick a time.</p>
 
     <h3>Cookies and browser storage</h3>
-    <p>This site sets no cookies. A few older pages store a single value in your browser's session storage, named <code>forvrPass</code>, purely so the page transition animation knows to play. It contains no information about you, it is never sent anywhere, and it disappears when you close the tab.</p>
+    <p>If you accept, Google Analytics sets its own cookies (named <code>_ga</code>) to recognise a returning visitor. If you do not, we set none. Your choice itself is stored in your browser as <code>forvrConsent</code> so we do not ask again, and the book a call page loads Calendly, which sets cookies it needs to run the calendar. A few older pages also store a value named <code>forvrPass</code> in session storage so the page transition animation knows to play; it contains nothing about you and disappears when you close the tab.</p>
+    <p><a href="#" onclick="forvrConsent.open();return false">Change your cookie choice</a></p>
 
     <h2>Who else sees your information</h2>
     <div class="tablewrap">
@@ -79,6 +82,8 @@
       <thead><tr><th>Service</th><th>What it does</th><th>What it sees</th></tr></thead>
       <tbody>
         <tr><td>Formspree</td><td>Receives our form submissions and emails them to us</td><td>Everything you typed into the form, plus your IP address</td></tr>
+        <tr><td>Google Analytics</td><td>Measures visits and which ads work, only if you accept</td><td>The pages you view, your device and rough location, and how you arrived</td></tr>
+        <tr><td>Calendly</td><td>Runs the booking calendar</td><td>Your name, email, the time you book and your answers</td></tr>
         <tr><td>Vercel</td><td>Hosts the site</td><td>Your IP address and browser details, as server logs</td></tr>
                 <tr><td>Our email provider</td><td>Hosts hello@forvr.org</td><td>Any enquiry once it reaches our inbox</td></tr>
       </tbody>
@@ -87,7 +92,7 @@
     <p>We do not sell your information, we do not share it with advertisers, and we do not add you to any marketing list you did not ask for.</p>
 
     <h2>Why we are allowed to hold it</h2>
-    <p>Under UK GDPR we rely on two lawful bases. When you send an enquiry we process it to take steps at your request before entering into a contract. Beyond that we rely on legitimate interests, specifically running a small studio, answering the people who contact it, and keeping records of the work we have quoted for. We think that is what you would reasonably expect when you fill in a form asking us to get in touch.</p>
+    <p>Under UK GDPR we rely on two lawful bases. When you send an enquiry we process it to take steps at your request before entering into a contract. Beyond that we rely on legitimate interests, specifically running a small studio, answering the people who contact it, and keeping records of the work we have quoted for. We think that is what you would reasonably expect when you fill in a form asking us to get in touch. Analytics is different: it runs only on your consent, which you can withdraw at any time with the link above.</p>
 
     <h2>How long we keep it</h2>
     <ul>
@@ -97,7 +102,7 @@
     </ul>
 
     <h2>Information leaving the UK</h2>
-    <p>Formspree is based in the United States, so anything you send through one of our forms is processed there. That transfer relies on the UK’s approved safeguards, which for US providers usually means the UK Extension to the EU-US Data Privacy Framework or standard contractual clauses. If you never submit a form, nothing about you leaves the UK.</p>
+    <p>Formspree, Calendly and Google are based in the United States, so anything you send through a form or a booking, and analytics data if you accept it, is processed there. That transfer relies on the UK’s approved safeguards, which for US providers usually means the UK Extension to the EU-US Data Privacy Framework or standard contractual clauses. If you never submit a form, never book, and do not accept analytics, nothing about you leaves the UK.</p>
 
     <h2>Your rights</h2>
     <p>Under UK GDPR you have the right to ask us for a copy of what we hold about you, to have it corrected, to have it deleted, to restrict or object to how we use it, and to receive it in a portable format. Email <a href="mailto:hello@forvr.org">hello@forvr.org</a> and we will answer within one month.</p>
