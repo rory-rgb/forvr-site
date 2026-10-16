@@ -26,6 +26,46 @@
       "source": "/rorywilkieportfolio",
       "destination": "/rorywilkie",
       "permanent": true
+    },
+    {
+      "source": "/site-pyre",
+      "destination": "/work#websites",
+      "permanent": true
+    },
+    {
+      "source": "/site-section",
+      "destination": "/work#websites",
+      "permanent": true
+    },
+    {
+      "source": "/site-halflight",
+      "destination": "/work#websites",
+      "permanent": true
+    },
+    {
+      "source": "/site-haldane",
+      "destination": "/work#websites",
+      "permanent": true
+    },
+    {
+      "source": "/site-blip",
+      "destination": "/work#websites",
+      "permanent": true
+    },
+    {
+      "source": "/site-nocturne",
+      "destination": "/work#websites",
+      "permanent": true
+    },
+    {
+      "source": "/site-pica",
+      "destination": "/work#websites",
+      "permanent": true
+    },
+    {
+      "source": "/site-puddle",
+      "destination": "/work#websites",
+      "permanent": true
     }
   ],
   "headers": [

@@ -1,0 +1,4 @@
+:HL["/demo/calloway/_next/static/chunks/0fkd21n5hj-zc.css","style"]
+:HL["/demo/calloway/_next/static/chunks/3aqn6_09u8l4g.css","style"]
+:HL["/demo/calloway/_next/static/media/31a9145ccb84606d-s.p.3j3x29wbycqkn.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"b","param":null,"prefetchHints":0,"slots":{"children":{"name":"results","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"qnjxJfb8XEAL255tJnazx"}

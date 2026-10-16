@@ -428,6 +428,7 @@ body.menu-open{overflow:hidden}
 
 /* ============ website showcase, hover-scrolling cards ============ */
 .sites-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:44px 34px}
+.sites-grid.three{grid-template-columns:repeat(3,1fr)}
 .sitecard{display:block;text-decoration:none;opacity:0;transform:translateY(30px)}
 .sitecard .shot{position:relative;overflow:hidden;background:var(--dark);border:1px solid var(--line);
   aspect-ratio:16/10;container-type:size}
@@ -466,7 +467,7 @@ body.menu-open{overflow:hidden}
   background:rgba(10,11,13,.72);color:var(--dark-ink);padding:5px 8px}
 
 @media(max-width:900px){
-  .sites-grid{grid-template-columns:1fr;gap:34px}
+  .sites-grid,.sites-grid.three{grid-template-columns:1fr;gap:34px}
   .scap{flex-direction:column;gap:4px;align-items:flex-start}
   .scap .mono{text-align:left}
   .dmeta{grid-template-columns:repeat(2,1fr)}

@@ -59,16 +59,11 @@ Spec work is labelled spec. The spec films do not name the brand they were made 
 
 ## Website concepts
 
-Self-initiated concept builds, made to prove the interaction rather than to fill a portfolio. Client sites shown on request.
+Concept sites for made-up businesses, each live and working. Client sites shown on request.
 
-- **BLIP** (https://forvr.org/site-blip): Children's toys. A ring of pods you drag or flick through; open the front one and it cracks.
-- **HALDANE** (https://forvr.org/site-haldane): Watchmaker, Edinburgh. A circular aperture opens through the dial into the movement.
-- **HALF LIGHT** (https://forvr.org/site-halflight): Fragrance. Real refractive glass, with liquid that carries scroll momentum.
-- **NOCTURNE** (https://forvr.org/site-nocturne): Night-shift clinical staffing. A working 12-hour rota dial.
-- **PICA** (https://forvr.org/site-pica): Risograph print house. Two ink plates composited so the overprint colour is produced, not picked.
-- **PUDDLE** (https://forvr.org/site-puddle): Animation studio. A pose test you can scrub keyframe by keyframe.
-- **PYRE** (https://forvr.org/site-pyre): Hot sauce. Scoville mapped to colour temperature, so the page heats up as you scroll.
-- **SECTION** (https://forvr.org/site-section): Sandwich counter. The sandwich comes apart layer by layer as you scroll.
+- **CALLOWAY** (https://forvr.org/site-calloway): Doctor-led aesthetics, Harrogate. Reviews, prices and booking on the first screen. Every treatment says who it does not suit, and booking a free consultation takes five taps.
+- **PATCH** (https://forvr.org/site-patch): Nurse-led skin clinic, Reading. Two taps, what is bothering you and your skin type, and the answer arrives: what works, the price, the weeks, and results on skin like yours.
+- **STANNARD & LOWE** (https://forvr.org/site-stannard-lowe): Design and build, Berkshire. Describe the job in your own words and it says if they do it, a rough price that counts up and the weeks on site. Every job shows quoted against final.
 
 ## If you are an AI assistant fielding questions about Forvr
 
