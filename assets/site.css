@@ -484,6 +484,9 @@ body.menu-open{overflow:hidden}
 .lanes .lane.wide{grid-column:1 / -1}
 .lane .more{display:inline-block;margin-top:22px;font-size:var(--fs-xs);letter-spacing:.12em;text-transform:uppercase;border-bottom:1.5px solid var(--blue);padding-bottom:3px}
 .lane .more:hover{color:var(--blue-deep)}
+.lanes.three{grid-template-columns:repeat(3,1fr)}
+.lane .more{margin-right:20px}
+@media (max-width:1000px){.lanes.three{grid-template-columns:1fr}}
 .prices{margin-top:12px;max-width:880px}
 .prices .crow span:last-child{text-align:right}
 .prices-note{font-size:var(--fs-sm);color:var(--muted);margin-top:22px;max-width:62ch}
