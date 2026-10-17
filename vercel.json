@@ -95,6 +95,15 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/_proto/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
   ]
 }

@@ -4,13 +4,13 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Forvr Collection · own brand · Forvr Studios</title>
-<meta name="description" content="The first brand we built. Jewellery films, animal studies, tracksuit campaign stills and the identity that anchors it all, from one trained model."/>
+<meta name="description" content="Our own brand and the place the studio&#39;s method was built: a tracksuit and jewellery line held exact across campaign stills, plus three films testing motion."/>
 <link rel="canonical" href="https://forvr.org/forvr-collection"/>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Forvr Studios"/>
 <meta property="og:title" content="Forvr Collection · own brand · Forvr Studios"/>
-<meta property="og:description" content="The first brand we built. Jewellery films, animal studies, tracksuit campaign stills and the identity that anchors it all, from one trained model."/>
+<meta property="og:description" content="Our own brand and the place the studio&#39;s method was built: a tracksuit and jewellery line held exact across campaign stills, plus three films testing motion."/>
 <meta property="og:url" content="https://forvr.org/forvr-collection"/>
 <meta property="og:image" content="https://forvr.org/assets/og/share.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -50,6 +50,11 @@
   .film { margin: 0; }
   .film video { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; background: #000; }
   .film figcaption { margin-top: var(--s2); }
+  .film img { width: 100%; aspect-ratio: 4/5; object-fit: cover; display: block; background: #000; }
+  @media (min-width: 768px) { .film-grid.three { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 767px) { .gal figure:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+  .facts.method { gap: var(--s6); margin-top: var(--s7); }
+  .facts.method dd { color: var(--muted); line-height: 1.5; }
 </style>
 <script type="application/ld+json" id="ld-forvr">
 {
@@ -59,7 +64,7 @@
    "@type": "CreativeWork",
    "name": "Forvr Collection",
    "url": "https://forvr.org/forvr-collection",
-   "description": "The first brand we built. Jewellery films, animal studies, tracksuit campaign stills and the identity that anchors it all, from one trained model.",
+   "description": "Our own brand and the place the studio's method was built: a tracksuit and jewellery line held exact across campaign stills, plus three films testing motion.",
    "creator": {
     "@id": "https://forvr.org/#org"
    },
@@ -174,69 +179,111 @@
 </header>
 
 <section class="section-tight wrap">
-  <p class="lead rv" style="max-width:var(--c-narrow)">The first brand we built, before opening the studio for clients. Jewellery films, animal studies, tracksuit campaign stills and the brand identity that anchors it all, everything from one trained model.</p>
+  <p class="lead rv" style="max-width:var(--c-narrow)">Forvr Collection is our own brand, and the place the studio&rsquo;s method was built. Before we took on a client, we used it to work through the hard problems first: keeping a garment&rsquo;s stitching, colour and logo exact in every frame, making a set of images read as one shoot, and moving from stills to film without losing the product.</p>
   <dl class="facts rv">
     <div class="fact"><dt>Type</dt><dd>Own brand</dd></div>
-    <div class="fact"><dt>Direction</dt><dd>Forvr</dd></div>
-    <div class="fact"><dt>Format</dt><dd>Films and stills</dd></div>
+    <div class="fact"><dt>Pieces</dt><dd>Tracksuit, balaclava, jewellery</dd></div>
+    <div class="fact"><dt>Output</dt><dd>Campaign stills, films, identity</dd></div>
     <div class="fact"><dt>Year</dt><dd>2026</dd></div>
   </dl>
 </section>
 
-<section id="cs-1" class="section wrap" data-chapter="01 / 01 The films">
+<section id="cs-1" class="section wrap" data-chapter="01 / 01 The tracksuit">
   <div class="head rv">
-    <h2 class="label">01 The films</h2>
-    <span class="label">Four films, one brand world</span>
+    <h2 class="label">01 The tracksuit</h2>
+    <span class="label">Seven frames, one garment</span>
   </div>
   <p class="lead rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
-    Four self-initiated motion tests run through the brand-trained model.
-    Stills built in-house, motion grown from them, all graded together so the
-    four films sit as one body of work.
+    A black tracksuit and balaclava with blue contrast stitching and the Forvr
+    mark embroidered on the chest. Thin, bright stitching shows every mistake,
+    which made it the right test: the same piece had to read correctly against
+    chain link, a corrugated shutter, a wet underpass, a stairwell and a
+    graffiti alley, in different light and at different distances. The blue
+    in the stitching is what ties the set together, picking up the shutter,
+    the underpass lights and the enamel on the signet ring.
   </p>
-  <div class="film-grid" data-stagger>
+  <div class="gal" style="margin-top:var(--s7)">
+    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.20.04.jpg" alt="Black balaclava with blue contrast stitching, in front of a basketball court fence" loading="lazy"/><figcaption class="label">Balaclava, court fence</figcaption></figure>
+    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.40.57.jpg" alt="Tracksuit worn open with a chain, against a blue roller shutter" loading="lazy"/><figcaption class="label">Tracksuit, roller shutter</figcaption></figure>
+    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.41.23.jpg" alt="Hood up over the balaclava, against a rusted shutter" loading="lazy"/><figcaption class="label">Hood and balaclava</figcaption></figure>
+    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.20.12.jpg" alt="Full tracksuit, arms out against a concrete wall" loading="lazy"/><figcaption class="label">Against concrete</figcaption></figure>
+    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.44.45.jpg" alt="Walking away down a tiled underpass" loading="lazy"/><figcaption class="label">Underpass</figcaption></figure>
+    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-31%20at%2010.13.14.jpg" alt="Sitting on a concrete stairwell, framed as a security camera still" loading="lazy"/><figcaption class="label">Stairwell, camera still</figcaption></figure>
+    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.45.27.jpg" alt="Leaning on a graffiti wall in the tracksuit and a chain" loading="lazy"/><figcaption class="label">Graffiti alley</figcaption></figure>
+  </div>
+</section>
+
+<section id="cs-2" class="section wrap" style="padding-top:0" data-chapter="02 / 02 The jewellery">
+  <div class="head rv">
+    <h2 class="label">02 The jewellery</h2>
+    <span class="label">One film, two stills</span>
+  </div>
+  <p class="lead rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
+    A jewellery line built around the same mark: a signet ring with FORVR set
+    in blue enamel, the mark cast as a pendant, a chain that spells the name,
+    and iced rings, earrings and grills. Metal and stones give away any
+    inconsistency, so this is where we learnt to build each piece once as a
+    reference and place it in the frame, rather than describe it and hope.
+  </p>
+  <div class="film-grid three" data-stagger>
     <figure class="film rv">
       <video src="forvr%20docs/videos/forvr/opt-forvr-jewel-final.mp4" poster="forvr%20docs/videos/forvr/opt-forvr-jewel-final.poster.jpg" controls playsinline preload="none"></video>
-      <figcaption class="label">Jewel · hero film</figcaption>
+      <figcaption class="label">Jewellery film &middot; 14s</figcaption>
     </figure>
+    <figure class="film rv"><img src="forvr%20docs/images/forvr/jewel/opt-hf_20260206_103516_1f2c38f0-e68e-4e8d-992b-70bdf491a830.jpg" alt="Signet ring with the FORVR enamel face, worn with iced rings and the pendant" loading="lazy"/><figcaption class="label">Signet and rings</figcaption></figure>
+    <figure class="film rv"><img src="forvr%20docs/images/forvr/jewel/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-23%20at%2009.26.55.jpg" alt="Close portrait in blue light, showing iced grills" loading="lazy"/><figcaption class="label">Grills</figcaption></figure>
+  </div>
+</section>
+
+<section id="cs-3" class="section wrap" style="padding-top:0" data-chapter="03 / 03 The experiments">
+  <div class="head rv">
+    <h2 class="label">03 The experiments</h2>
+    <span class="label">Three films, testing motion</span>
+  </div>
+  <p class="lead rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
+    These films are where we tested what the method could do with movement: a
+    figure sitting among a flock of sheep, a horse on still water, and the
+    Forvr mark drawn in the air with a torch. None of them is selling a
+    product. They were made to find out where generated film holds up, where
+    it breaks and how to cut around it, and those answers now shape every
+    film we make for clients.
+  </p>
+  <div class="film-grid three" data-stagger>
     <figure class="film rv">
       <video src="forvr%20docs/videos/forvr/opt-sheep-complete.mp4" poster="forvr%20docs/videos/forvr/opt-sheep-complete.poster.jpg" controls playsinline preload="none"></video>
-      <figcaption class="label">Sheep</figcaption>
-    </figure>
-    <figure class="film rv">
-      <video src="forvr%20docs/videos/forvr/opt-0319.mp4" poster="forvr%20docs/videos/forvr/opt-0319.poster.jpg" controls playsinline preload="none"></video>
-      <figcaption class="label">Motion test</figcaption>
+      <figcaption class="label">The flock &middot; 15s</figcaption>
     </figure>
     <figure class="film rv">
       <video src="forvr%20docs/videos/forvr/opt-Timeline%201.mp4" poster="forvr%20docs/videos/forvr/opt-Timeline%201.poster.jpg" controls playsinline preload="none"></video>
-      <figcaption class="label">Timeline</figcaption>
+      <figcaption class="label">Still water &middot; 25s</figcaption>
+    </figure>
+    <figure class="film rv">
+      <video src="forvr%20docs/videos/forvr/opt-0319.mp4" poster="forvr%20docs/videos/forvr/opt-0319-mark.poster.jpg" controls playsinline preload="none"></video>
+      <figcaption class="label">The mark, drawn in light &middot; 15s</figcaption>
     </figure>
   </div>
 </section>
 
-<section id="cs-2" class="section wrap" style="padding-top:0" data-chapter="02 / 02 The stills">
+<section id="cs-4" class="section wrap" style="padding-top:0" data-chapter="04 / 04 What it built">
   <div class="head rv">
-    <h2 class="label">02 The stills</h2>
-    <span class="label">Jewellery, tracksuit, identity</span>
+    <h2 class="label">04 What it built</h2>
+    <span class="label">The method behind every job</span>
   </div>
-  <div class="gal" style="margin-top:var(--s7)">
-    <figure class="g-wide" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.20.04.jpg" alt="Frame 01" loading="lazy"/><figcaption class="label">Frame 01</figcaption></figure>
-    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.20.12.jpg" alt="Frame 02" loading="lazy"/><figcaption class="label">Frame 02</figcaption></figure>
-    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.40.57.jpg" alt="Frame 03" loading="lazy"/><figcaption class="label">Frame 03</figcaption></figure>
-    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.41.23.jpg" alt="Frame 04" loading="lazy"/><figcaption class="label">Frame 04</figcaption></figure>
-    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.44.45.jpg" alt="Frame 05" loading="lazy"/><figcaption class="label">Frame 05</figcaption></figure>
-    <figure class="g-2" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/jewel/opt-hf_20260206_103516_1f2c38f0-e68e-4e8d-992b-70bdf491a830.jpg" alt="Frame 06" loading="lazy"/><figcaption class="label">Frame 06</figcaption></figure>
-    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-25%20at%2018.45.14.jpg" alt="Frame 07" loading="lazy"/><figcaption class="label">Frame 07</figcaption></figure>
-    <figure class="g-3" data-reveal="scan"><img data-drift="4" class="drift-img" src="forvr%20docs/images/forvr/forvr%20tracksuit/opt-weavy-Gemini%203%20%28Nano%20Banana%20Pro%29-2026-01-31%20at%2010.13.14.jpg" alt="Frame 08" loading="lazy"/><figcaption class="label">Frame 08</figcaption></figure>
-  </div>
-  <p class="small muted rv" style="margin-top:var(--s6); max-width:var(--c-narrow)">
-    Every piece in the collection runs on a custom-trained brand model. Stills
-    generated in-house, motion built around them, edited and graded together.
+  <p class="lead rv" style="margin-top:var(--s7); max-width:var(--c-narrow)">
+    Everything that worked here was written down and turned into the system
+    every client job now runs on.
   </p>
+  <dl class="facts method rv">
+    <div class="fact"><dt>Identity first</dt><dd>The look of the brand is fixed before a single frame is made, so every image is judged against the same thing.</dd></div>
+    <div class="fact"><dt>One sheet per product</dt><dd>Each piece is built once as a reference sheet from several angles. Every frame pulls from the sheet, never from a description.</dd></div>
+    <div class="fact"><dt>One grade</dt><dd>Stills and films are graded together, so a set reads as one shoot rather than a run of separate generations.</dd></div>
+    <div class="fact"><dt>Saved workflows</dt><dd>Each step lives in a saved workflow. Swap the product, the moodboard and the brief, and the same process runs for the next brand.</dd></div>
+  </dl>
 </section>
 
-<section id="cs-next" class="section wrap" data-chapter="03 / Next">
+<section id="cs-next" class="section wrap" data-chapter="05 / Next">
   <h2 class="display rv" style="font-size:var(--t-h1)">A brand world<br/>of your own<span class="dot">?</span></h2>
-  <p class="small muted rv" style="margin-top:var(--s5); max-width:var(--c-narrow)">This is what one trained model can hold: films, stills and identity that agree with each other. The first conversation is free.</p>
+  <p class="small muted rv" style="margin-top:var(--s5); max-width:var(--c-narrow)">Films, stills and identity that agree with each other, built from your real product. The first conversation is free.</p>
   <div class="rv" style="display:flex; flex-wrap:wrap; gap:var(--s5); margin-top:var(--s6); align-items:center">
     <a class="cta" href="contact.html">Book a call <span class="pip"></span></a>
     <a class="label" href="work.html">See the rest of the work <span class="dot">→</span></a>
@@ -257,7 +304,7 @@
     <a class="nav-item active" href="work.html"><span class="num">01</span><span class="title">Portfolio</span></a>
     <a class="nav-item" href="services.html"><span class="num">02</span><span class="title">Services</span></a>
     <a class="nav-item" href="studio.html"><span class="num">03</span><span class="title">Studio</span></a>
-    <a class="nav-item" href="process.html"><span class="num">04</span><span class="title">Process</span></a>
+    <a class="nav-item" href="services.html"><span class="num">04</span><span class="title">Process</span></a>
     <a class="nav-item" href="contact.html"><span class="num">05</span><span class="title">Contact</span></a>
   </div>
   <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu">

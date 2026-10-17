@@ -479,3 +479,30 @@ body.menu-open{overflow:hidden}
   .sitecard .shot .strip{transition:none}
   .sitecard:hover .shot .strip{transform:none}
 }
+
+/* ============ pricing guide + faq ============ */
+.lanes .lane.wide{grid-column:1 / -1}
+.lane .more{display:inline-block;margin-top:22px;font-size:var(--fs-xs);letter-spacing:.12em;text-transform:uppercase;border-bottom:1.5px solid var(--blue);padding-bottom:3px}
+.lane .more:hover{color:var(--blue-deep)}
+.prices{margin-top:12px;max-width:880px}
+.prices .crow span:last-child{text-align:right}
+.prices-note{font-size:var(--fs-sm);color:var(--muted);margin-top:22px;max-width:62ch}
+.dark-band .prices-note{color:var(--dark-muted)}
+.faq{margin-top:12px;max-width:880px;border-top:1px solid var(--line)}
+.dark-band .faq{border-top-color:var(--dark-line)}
+.faq details{border-bottom:1px solid var(--line)}
+.dark-band .faq details{border-bottom-color:var(--dark-line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:24px;align-items:center;padding:22px 0;font-size:var(--fs-lg);font-weight:600}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-family:'IBM Plex Mono',monospace;font-weight:400;color:var(--blue-deep);font-size:22px;flex:none;transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{font-size:var(--fs-md);color:var(--muted);max-width:66ch;padding:0 0 24px}
+.dark-band .faq details p{color:var(--dark-muted)}
+.prose{max-width:66ch}
+.prose p{font-size:var(--fs-lg);color:var(--muted);margin-bottom:20px}
+.prose p:last-child{margin-bottom:0}
+.prose a{border-bottom:1.5px solid var(--blue)}
+.foot-cols .foot-svc a{font-size:inherit}
+@media(max-width:600px){.prices .crow{flex-direction:column;align-items:flex-start;gap:4px}.prices .crow span:last-child{text-align:left}}
+.hero.deep .hero-shade{background:linear-gradient(90deg,rgba(10,11,13,.68) 0%,rgba(10,11,13,.38) 45%,transparent 75%),linear-gradient(180deg,rgba(10,11,13,.25) 0%,transparent 40%,rgba(10,11,13,.6) 100%)}
+@media(max-width:900px){.hero.deep .hero-shade{background:linear-gradient(180deg,rgba(10,11,13,.35) 0%,rgba(10,11,13,.45) 40%,rgba(10,11,13,.75) 100%)}}
