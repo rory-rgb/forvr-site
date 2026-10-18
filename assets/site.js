@@ -151,6 +151,19 @@ if(!reduced){
           if(j>=next.length){clearInterval(add); setTimeout(typeNext,2100);} },55);}
     },30);
   }
+  /* reserve the headline height for the longest word so the hero never jumps (layout shift) */
+  function reserve(){
+    const h1=el&&el.closest('h1'); if(!h1) return;
+    const keep=el.textContent; h1.style.minHeight=''; let max=0;
+    for(const w of words){ el.textContent=w; max=Math.max(max,h1.offsetHeight); }
+    el.textContent=keep; h1.style.minHeight=max+'px';
+  }
+  if(el&&words.length>1){
+    const h1=el.closest('h1');
+    if(h1){ h1.style.display='flex'; h1.style.flexDirection='column'; h1.style.justifyContent='flex-end'; }
+    reserve(); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(reserve);
+    let rt; addEventListener('resize',()=>{clearTimeout(rt); rt=setTimeout(reserve,150);});
+  }
   if(el&&words.length>1) setTimeout(typeNext,2600);
 
   /* tools belt: seamless loop into the pacman, slows on hover */
