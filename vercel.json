@@ -1,109 +1,184 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
+ "cleanUrls": true,
+ "trailingSlash": false,
+ "redirects": [
+  {
+   "source": "/about",
+   "destination": "/studio",
+   "permanent": true
+  },
+  {
+   "source": "/process",
+   "destination": "/services",
+   "permanent": true
+  },
+  {
+   "source": "/system",
+   "destination": "/studio",
+   "permanent": true
+  },
+  {
+   "source": "/motion-lab",
+   "destination": "/work",
+   "permanent": true
+  },
+  {
+   "source": "/rorywilkieportfolio",
+   "destination": "/rorywilkie",
+   "permanent": true
+  },
+  {
+   "source": "/site-pyre",
+   "destination": "/work#websites",
+   "permanent": true
+  },
+  {
+   "source": "/site-section",
+   "destination": "/work#websites",
+   "permanent": true
+  },
+  {
+   "source": "/site-halflight",
+   "destination": "/work#websites",
+   "permanent": true
+  },
+  {
+   "source": "/site-haldane",
+   "destination": "/work#websites",
+   "permanent": true
+  },
+  {
+   "source": "/site-blip",
+   "destination": "/work#websites",
+   "permanent": true
+  },
+  {
+   "source": "/site-nocturne",
+   "destination": "/work#websites",
+   "permanent": true
+  },
+  {
+   "source": "/site-pica",
+   "destination": "/work#websites",
+   "permanent": true
+  },
+  {
+   "source": "/site-puddle",
+   "destination": "/work#websites",
+   "permanent": true
+  },
+  {
+   "source": "/services/graphic-design",
+   "destination": "/services",
+   "permanent": true
+  },
+  {
+   "source": "/services/creative-direction",
+   "destination": "/services",
+   "permanent": true
+  },
+  {
+   "source": "/services/brand-identity",
+   "destination": "/services",
+   "permanent": true
+  },
+  {
+   "source": "/services/website-design",
+   "destination": "/web-design",
+   "permanent": true
+  },
+  {
+   "source": "/services/image-creation",
+   "destination": "/ai-product-photography",
+   "permanent": true
+  },
+  {
+   "source": "/services/video-production",
+   "destination": "/ai-video-production",
+   "permanent": true
+  },
+  {
+   "source": "/work/luxury-brandwork",
+   "destination": "/work",
+   "permanent": true
+  },
+  {
+   "source": "/work/grit",
+   "destination": "/work",
+   "permanent": true
+  },
+  {
+   "source": "/work/product-flatlay",
+   "destination": "/ai-product-photography",
+   "permanent": true
+  },
+  {
+   "source": "/work/studio-shoot",
+   "destination": "/work",
+   "permanent": true
+  },
+  {
+   "source": "/work/graphic-posters",
+   "destination": "/work",
+   "permanent": true
+  },
+  {
+   "source": "/work/fashion-films",
+   "destination": "/ai-video-production",
+   "permanent": true
+  },
+  {
+   "source": "/work/small-circle",
+   "destination": "/small-circle",
+   "permanent": true
+  },
+  {
+   "source": "/work/forvr-collection",
+   "destination": "/forvr-collection",
+   "permanent": true
+  },
+  {
+   "source": "/ai-receptionist",
+   "destination": "/ai-automation",
+   "permanent": true
+  }
+ ],
+ "headers": [
+  {
+   "source": "/assets/meta/(.*)",
+   "headers": [
     {
-      "source": "/about",
-      "destination": "/studio",
-      "permanent": true
-    },
-    {
-      "source": "/process",
-      "destination": "/services",
-      "permanent": true
-    },
-    {
-      "source": "/system",
-      "destination": "/studio",
-      "permanent": true
-    },
-    {
-      "source": "/motion-lab",
-      "destination": "/work",
-      "permanent": true
-    },
-    {
-      "source": "/rorywilkieportfolio",
-      "destination": "/rorywilkie",
-      "permanent": true
-    },
-    {
-      "source": "/site-pyre",
-      "destination": "/work#websites",
-      "permanent": true
-    },
-    {
-      "source": "/site-section",
-      "destination": "/work#websites",
-      "permanent": true
-    },
-    {
-      "source": "/site-halflight",
-      "destination": "/work#websites",
-      "permanent": true
-    },
-    {
-      "source": "/site-haldane",
-      "destination": "/work#websites",
-      "permanent": true
-    },
-    {
-      "source": "/site-blip",
-      "destination": "/work#websites",
-      "permanent": true
-    },
-    {
-      "source": "/site-nocturne",
-      "destination": "/work#websites",
-      "permanent": true
-    },
-    {
-      "source": "/site-pica",
-      "destination": "/work#websites",
-      "permanent": true
-    },
-    {
-      "source": "/site-puddle",
-      "destination": "/work#websites",
-      "permanent": true
+     "key": "X-Robots-Tag",
+     "value": "noindex, nofollow"
     }
-  ],
-  "headers": [
+   ]
+  },
+  {
+   "source": "/demo/(.*)",
+   "headers": [
     {
-      "source": "/assets/meta/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
-      "source": "/demo/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
-      "source": "/rory-wilkie-portfolio.pdf",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    },
-    {
-      "source": "/_proto/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
+     "key": "X-Robots-Tag",
+     "value": "noindex, nofollow"
     }
-  ]
+   ]
+  },
+  {
+   "source": "/rory-wilkie-portfolio.pdf",
+   "headers": [
+    {
+     "key": "X-Robots-Tag",
+     "value": "noindex, nofollow"
+    }
+   ]
+  },
+  {
+   "source": "/_proto/(.*)",
+   "headers": [
+    {
+     "key": "X-Robots-Tag",
+     "value": "noindex, nofollow"
+    }
+   ]
+  }
+ ]
 }

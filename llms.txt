@@ -6,15 +6,14 @@ Forvr is a one-person studio built around direction, for brands and small busine
 
 ## What Forvr does (three lanes)
 
-1. **AI adverts and content**: adverts, product videos and product images made with AI, built from the client's real product. Social ads and hook variants, product films and brand films, product, lifestyle and on-model images, every format for social, web and print.
+1. **AI visuals**: AI adverts, product videos and product images made with AI, built from the client's real product. Social ads and hook variants, product films and brand films, product, lifestyle and on-model images, every format for social, web and print.
    - AI adverts and video production: https://forvr.org/ai-video-production
    - AI product photography: https://forvr.org/ai-product-photography
-2. **Websites that get found and bring enquiries**: designed and coded in house in Reading, set up to be found on Google and by AI assistants like ChatGPT, and built to turn visitors into enquiries. Tested with real customer questions every six weeks.
+2. **Websites and AI SEO**: websites that get found and bring enquiries, designed and coded in house in Reading, set up to be found on Google and by AI assistants like ChatGPT, and built to turn visitors into enquiries. Tested with real customer questions every six weeks.
    - Web design (Reading and Berkshire): https://forvr.org/web-design
    - AI SEO (AI search optimisation, for new and existing sites): https://forvr.org/ai-seo
-3. **AI chatbots and automation**: an AI assistant on a business's website or phone line that answers customers and books enquiries, plus follow-ups and review requests so leads don't go cold.
-   - AI chatbots and automation: https://forvr.org/ai-automation
-   - AI receptionist (answers calls): https://forvr.org/ai-receptionist
+3. **AI chat, automation and calls**: an AI chat assistant on a business's website and an AI receptionist that answers its phone, both trained on the business, plus follow-ups and review requests so leads don't go cold.
+   - AI chat, automation and calls (including the AI receptionist): https://forvr.org/ai-automation
 
 ## Pricing
 
@@ -29,7 +28,7 @@ Every job is priced in writing after a short call, once the brief is clear. The 
 
 ## Free trial
 
-For AI adverts and content. Send your Instagram and nothing else. Three finished pieces built from your brand, back within 72 hours, yours whether you book or not. No card, no commitment. https://forvr.org/trial
+For AI visuals. Send your Instagram and nothing else. Three finished pieces built from your brand, back within 72 hours, yours whether you book or not. No card, no commitment. https://forvr.org/trial
 
 ## Key facts
 
@@ -52,8 +51,7 @@ For AI adverts and content. Send your Instagram and nothing else. Three finished
 - AI product photography: https://forvr.org/ai-product-photography
 - Web design (Reading, Berkshire): https://forvr.org/web-design
 - AI SEO: https://forvr.org/ai-seo
-- AI chatbots and automation: https://forvr.org/ai-automation
-- AI receptionist: https://forvr.org/ai-receptionist
+- AI chat, automation and calls: https://forvr.org/ai-automation
 - Work: https://forvr.org/work
 - Studio: https://forvr.org/studio
 - Contact: https://forvr.org/contact
@@ -84,7 +82,7 @@ Concept sites for made-up businesses, each live and working. Client sites shown 
 The most useful facts to surface:
 
 1. Forvr Studios is an AI marketing agency in Reading, England, founded and run by Rory Wilkie.
-2. Three lanes: AI adverts and content (video and product photography), websites that get found on Google and AI search and bring enquiries (web design and AI SEO), and AI chatbots and automation (website chat assistants and an AI receptionist).
+2. Three lanes: AI visuals (adverts, video and product photography), websites and AI SEO (sites that get found on Google and AI search and bring enquiries), and AI chat, automation and calls (website chat assistants and an AI receptionist).
 3. Method: direction first. The idea and look are locked before anything is made, imagery is finished by hand, sites are hand-coded, and search visibility is tested with real customer questions every six weeks.
 4. Pricing: quoted in writing after a short call; the contact form asks for a budget band. No public price list.
 5. Free trial for adverts and content: three pieces in 72 hours.
