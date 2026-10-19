@@ -48,10 +48,19 @@
     if(document.body) banner(); else document.addEventListener('DOMContentLoaded',banner);
   }
 
-  /* contact form posts straight to Formspree, so log the lead on submit */
+  /* Forms post straight to Formspree, so log the lead on submit.
+     "heard" carries the visitor's own answer to how they found us. It is the only
+     way an AI-driven lead shows up at all: AI names us, they then search the name,
+     and the visit arrives as branded organic or direct. */
   document.addEventListener('submit',function(e){
     var f=e.target;
-    if(f && f.classList && f.classList.contains('enq')) gtag('event','generate_lead',{form_name:'contact',transport_type:'beacon'});
+    if(!f || f.tagName!=='FORM') return;
+    var isEnq=f.classList && f.classList.contains('enq');
+    var isTrial=f.id==='f';
+    if(!isEnq && !isTrial) return;
+    var heard='';
+    try{var el=f.elements&&f.elements.heard; if(el&&el.value) heard=el.value;}catch(err){}
+    gtag('event','generate_lead',{form_name:isTrial?'trial':'contact',heard_about_us:heard||'(not given)',transport_type:'beacon'});
   },true);
 
   /* Calendly booking on /calendar */

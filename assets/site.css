@@ -497,6 +497,7 @@ body.menu-open{overflow:hidden}
 .dark-band .faq details{border-bottom-color:var(--dark-line)}
 .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:24px;align-items:center;padding:22px 0;font-size:var(--fs-lg);font-weight:600}
 .faq summary::-webkit-details-marker{display:none}
+.faq summary h3{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;margin:0;padding:0}
 .faq summary::after{content:'+';font-family:'IBM Plex Mono',monospace;font-weight:400;color:var(--blue-deep);font-size:22px;flex:none;transition:transform .25s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details p{font-size:var(--fs-md);color:var(--muted);max-width:66ch;padding:0 0 24px}
