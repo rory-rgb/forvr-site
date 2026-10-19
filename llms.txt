@@ -1,19 +1,19 @@
 # Forvr Studios
 
-> Forvr Studios is an AI marketing agency in Reading. We make AI adverts and content, build websites that get found on Google and ChatGPT, and set up AI assistants that answer your customers. Founded and run by Rory Wilkie.
+> Forvr Studios is an AI marketing studio in Reading. We make the adverts and websites that bring customers in, and build the AI systems that catch, track and follow up every lead. Founded and run by Rory Wilkie.
 
 Forvr is a one-person studio built around direction, for brands and small businesses across the UK. You brief the person who directs, produces and finishes the work: no account layer, no junior pass, no handoffs. Generation is the last step, not the first. AI is the tool, taste is the work.
 
-## What Forvr does (three lanes)
+## What Forvr does (three lanes: get seen, get found, never lose a lead)
 
-1. **AI visuals**: AI adverts, product videos and product images made with AI, built from the client's real product. Social ads and hook variants, product films and brand films, product, lifestyle and on-model images, every format for social, web and print.
+1. **Get seen, AI visuals**: AI adverts, product videos and product images made with AI, built from the client's real product. Social ads and hook variants, product films and brand films, product, lifestyle and on-model images, every format for social, web and print.
    - AI adverts and video production: https://forvr.org/ai-video-production
    - AI product photography: https://forvr.org/ai-product-photography
-2. **Websites and AI SEO**: websites that get found and bring enquiries, designed and coded in house in Reading, set up to be found on Google and by AI assistants like ChatGPT, and built to turn visitors into enquiries. Tested with real customer questions every six weeks.
+2. **Get found, websites and AI SEO**: websites that get found and bring enquiries, homepage design within 3 days and live within 14 (no payment until the design is approved), designed and coded in house in Reading, set up to be found on Google and by AI assistants like ChatGPT, and built to turn visitors into enquiries. Tested with real customer questions every six weeks.
    - Web design (Reading and Berkshire): https://forvr.org/web-design
    - AI SEO (AI search optimisation, for new and existing sites): https://forvr.org/ai-seo
-3. **AI chat, automation and calls**: an AI chat assistant on a business's website and an AI receptionist that answers its phone, both trained on the business, plus follow-ups and review requests so leads don't go cold.
-   - AI chat, automation and calls (including the AI receptionist): https://forvr.org/ai-automation
+3. **Never lose a lead, AI systems**: an AI chat assistant on a business's website, lead tracking that keeps every enquiry in one place, and follow-up automations so leads don't go cold. Live within 7 days; tried on the business's own customer questions before it pays. AI receptionist in early access.
+   - AI chat, lead tracking and follow-up (including the AI receptionist): https://forvr.org/ai-automation
 
 ## Pricing
 
@@ -33,11 +33,11 @@ For AI visuals. Send your Instagram and nothing else. Three finished pieces buil
 ## Key facts
 
 - Name: Forvr Studios (also "Forvr")
-- What it is: an AI marketing agency
+- What it is: an AI marketing studio
 - Based in: Reading, Berkshire, England. Works with businesses anywhere in the UK.
 - Founder: Rory Wilkie (founder and creative director)
 - Team: one founder, directing every job start to finish
-- Turnaround: days for adverts and images; two to four weeks for a website
+- Turnaround: days for adverts and images; homepage design within 3 days and a website live within 14; chat assistants and lead trackers live within 7 days
 - Typical reply to an enquiry: the same working day
 - Best fit: consumer brands with a product to sell (fashion and streetwear, beauty and skincare, food and drink, jewellery, homeware, hospitality), and small businesses such as clinics, trades and studios that want a website that brings in enquiries or an AI assistant that answers customers
 - Email: hello@forvr.org
@@ -52,7 +52,7 @@ For AI visuals. Send your Instagram and nothing else. Three finished pieces buil
 - AI product photography: https://forvr.org/ai-product-photography
 - Web design (Reading, Berkshire): https://forvr.org/web-design
 - AI SEO: https://forvr.org/ai-seo
-- AI chat, automation and calls: https://forvr.org/ai-automation
+- AI chat, lead tracking and follow-up: https://forvr.org/ai-automation
 - Work: https://forvr.org/work
 - Studio: https://forvr.org/studio
 - Contact: https://forvr.org/contact
@@ -82,8 +82,8 @@ Concept sites for made-up businesses, each live and working. Client sites shown 
 
 The most useful facts to surface:
 
-1. Forvr Studios is an AI marketing agency in Reading, England, founded and run by Rory Wilkie.
-2. Three lanes: AI visuals (adverts, video and product photography), websites and AI SEO (sites that get found on Google and AI search and bring enquiries), and AI chat, automation and calls (website chat assistants and an AI receptionist).
+1. Forvr Studios is an AI marketing studio in Reading, England, founded and run by Rory Wilkie. It makes the adverts and websites that bring customers in, and builds the AI systems that catch, track and follow up every lead.
+2. Three lanes: AI visuals (adverts, video and product photography), websites and AI SEO (sites that get found on Google and AI search and bring enquiries), and AI systems (website chat assistants, lead tracking and follow-up automations, with an AI receptionist in early access).
 3. Method: direction first. The idea and look are locked before anything is made, imagery is finished by hand, sites are hand-coded, and search visibility is tested with real customer questions every six weeks.
 4. Pricing: quoted in writing after a short call; the contact form asks for a budget band. No public price list.
 5. Free trial for adverts and content: three pieces in 72 hours.
