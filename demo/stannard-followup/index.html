@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stannard &amp; Lowe follow-ups · Concept · Forvr Studios</title>
+<meta name="description" content="Concept demo: the follow-up automations Forvr builds, on a made-up design-and-build firm. Missed-call text-back, quote follow-up and review request.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#131412">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preload" href="/demo/_shared/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/demo/_shared/concept.css">
+<link rel="stylesheet" href="/demo/stannard-followup/style.css">
+</head>
+<body>
+<div class="concept-bar" role="note">
+  <span><b>Concept: made-up business, illustrative data.</b></span>
+  <span class="sep">/</span>
+  <span class="by">A Forvr Studios demo of follow-up automations. Every name and number is made up, nothing is sent.</span>
+  <a href="https://forvr.org/ai-automation">forvr.org</a>
+</div>
+
+<header class="top">
+  <a class="mark" href="/demo/stannard-lowe/b">Stannard <span class="amp">&amp;</span> Lowe</a>
+  <span class="top__app">Follow-ups</span>
+  <nav class="tabs" aria-label="Automations" id="tabs">
+    <button type="button" data-s="missed" aria-pressed="true"><span>01</span>Missed call</button>
+    <button type="button" data-s="quote" aria-pressed="false"><span>02</span>Quote follow-up</button>
+    <button type="button" data-s="review" aria-pressed="false"><span>03</span>Review request</button>
+  </nav>
+</header>
+
+<main class="stage">
+  <section class="phone-col" aria-label="What the customer sees">
+    <p class="col-label">What the customer sees</p>
+    <div class="phone" id="phone">
+      <div class="phone__status"><span id="clock">14:32</span><span class="phone__notch" aria-hidden="true"></span><span class="phone__icons" aria-hidden="true">5G <i></i></span></div>
+      <div class="phone__banner" id="banner" aria-hidden="true"><b>Stannard &amp; Lowe</b><span></span></div>
+      <div class="phone__head"><span class="avatar" aria-hidden="true">S&amp;L</span><b>Stannard &amp; Lowe</b><small>Text message</small></div>
+      <div class="phone__thread" id="thread" aria-live="polite"></div>
+      <div class="phone__compose"><span id="compose" class="phone__input">Text message</span><span class="phone__send" aria-hidden="true">↑</span></div>
+    </div>
+    <p class="now-step" id="now-step" aria-live="polite"></p>
+  </section>
+
+  <section class="flow-col" aria-labelledby="flow-title">
+    <p class="col-label">The automation behind it</p>
+    <h1 id="flow-title"></h1>
+    <p class="flow-lede" id="flow-lede"></p>
+    <div class="flow-bar">
+      <p class="sim-time"><span class="dot" aria-hidden="true"></span><span id="sim-day"></span></p>
+      <div class="controls">
+        <button type="button" class="btn" id="playpause">Pause</button>
+        <button type="button" class="btn btn--ghost" id="restart">Start again</button>
+      </div>
+    </div>
+    <ol class="flow" id="flow"></ol>
+  </section>
+</main>
+
+<script src="/demo/stannard-followup/app.js" defer></script>
+</body>
+</html>

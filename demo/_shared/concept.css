@@ -1,0 +1,13 @@
+/* Shared by the Forvr systems concept demos (/demo/patch-chat, /demo/patch-leads, /demo/stannard-followup).
+   Fonts are the same files the Patch and Stannard & Lowe concept sites ship. */
+@font-face{font-family:"Rethink Sans";font-style:normal;font-weight:400 800;font-display:swap;src:url(/demo/_shared/fonts/rethink-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Rethink Sans";font-style:normal;font-weight:400 800;font-display:swap;src:url(/demo/_shared/fonts/rethink-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/demo/_shared/fonts/archivo-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Archivo";font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/demo/_shared/fonts/archivo-latin-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+
+.concept-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 14px;padding:8px 16px;background:#0f1110;color:#e9eae4;font:500 13px/1.4 "Rethink Sans",system-ui,sans-serif;text-align:center;position:relative;z-index:50}
+.concept-bar b{font-weight:700}
+.concept-bar a{color:inherit;text-underline-offset:3px}
+.concept-bar a:hover{color:#fff}
+.concept-bar .sep{opacity:.45}
+@media (max-width:600px){.concept-bar{font-size:12px;padding:7px 12px}.concept-bar .sep,.concept-bar .by{display:none}}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Patch chat assistant · Concept · Forvr Studios</title>
+<meta name="description" content="Concept demo: the chat assistant Forvr builds, on a made-up skin clinic. Scripted answers, illustrative data.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F1F2ED">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preload" href="/demo/_shared/fonts/rethink-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/demo/_shared/concept.css">
+<link rel="stylesheet" href="/demo/patch-chat/style.css">
+</head>
+<body>
+<div class="concept-bar" role="note">
+  <span><b>Concept: made-up business, illustrative data.</b></span>
+  <span class="sep">/</span>
+  <span class="by">A Forvr Studios demo of the chat assistant. Answers are scripted, nothing is sent.</span>
+  <a href="https://forvr.org/ai-automation">forvr.org</a>
+</div>
+
+<header class="top">
+  <a class="mark" href="/demo/patch/b"><span class="mark__dot" aria-hidden="true"></span>Patch</a>
+  <span class="top__line">Nurse-led skin clinic, Reading</span>
+  <a class="btn" href="/demo/patch/b/book">Book a skin assessment</a>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">Open Mon to Fri till 8pm, Sat till 5pm</p>
+    <h1>Start with the patch that bothers you.</h1>
+    <p class="lede">Spots, dark marks, redness or texture. Tell us what it is and we'll tell you what usually helps, what it costs and how long it takes, before you book anything.</p>
+
+    <div class="try" aria-labelledby="try-h">
+      <h2 id="try-h">Ask the assistant</h2>
+      <p>It answers from the clinic's own notes, day or night. Try a normal question, or one it has to handle carefully.</p>
+      <div class="try__grid">
+        <button type="button" data-ask="What helps dark marks?">What helps dark marks?</button>
+        <button type="button" data-ask="Is microneedling painful?">Is microneedling painful?</button>
+        <button type="button" data-ask="Are you open after work?">Are you open after work?</button>
+        <button type="button" data-ask="Do you do Botox?" class="is-careful">Do you do Botox?</button>
+        <button type="button" data-ask="My face is swollen after my peel yesterday" class="is-careful">Swollen after a peel</button>
+        <button type="button" data-ask="Can someone call me instead?">Can someone call me?</button>
+      </div>
+    </div>
+  </section>
+
+  <aside class="how" aria-labelledby="how-h">
+    <h2 id="how-h">What this demo shows</h2>
+    <ol>
+      <li><b>Answers from the clinic's file.</b> Treatments, from prices, hours, who treats what. If it isn't in the file, it says so and offers a call.</li>
+      <li><b>Hard lines it won't cross.</b> No medical advice, no prescription medicines named, under 18s turned away, problems after treatment sent straight to the phone.</li>
+      <li><b>Every chat ends in a next step.</b> Book online, or leave a number for a call back, which lands in the <a href="/demo/patch-leads">lead tracker</a>.</li>
+    </ol>
+    <p class="how__note">The live version runs on Claude. This page uses written answers so anyone can try it safely.</p>
+  </aside>
+</main>
+
+<script>
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var play = q.get("play") === "1";
+    try { if (play || q.get("fresh") === "1") sessionStorage.removeItem("forvr-assistant:patch"); } catch (e) {}
+    var s1 = document.createElement("script"); s1.src = "/demo/patch-chat/scripted.js"; s1.async = false;
+    var s2 = document.createElement("script"); s2.src = "/demo/patch-chat/widget.js"; s2.async = false;
+    s2.dataset.clinic = "patch"; s2.dataset.mode = "scripted"; s2.dataset.label = "Ask Patch anything"; s2.dataset.offset = "20";
+    if (play || q.get("open") === "1" || (window.innerWidth > 900 && q.get("open") !== "0")) s2.dataset.open = "true";
+    document.body.append(s1, s2);
+  })();
+</script>
+<script src="/demo/patch-chat/page.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Patch lead tracker · Concept · Forvr Studios</title>
+<meta name="description" content="Concept demo: the lead tracker Forvr builds, on a made-up skin clinic. Every name and number is illustrative.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F1F2ED">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preload" href="/demo/_shared/fonts/rethink-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/demo/_shared/concept.css">
+<link rel="stylesheet" href="/demo/patch-leads/style.css">
+</head>
+<body>
+<div class="concept-bar" role="note">
+  <span><b>Concept: made-up business, illustrative data.</b></span>
+  <span class="sep">/</span>
+  <span class="by">A Forvr Studios demo of the lead tracker. Every name and number is made up, nothing is sent.</span>
+  <a href="https://forvr.org/ai-automation">forvr.org</a>
+</div>
+
+<header class="app-top">
+  <div class="brand"><span class="mark__dot" aria-hidden="true"></span><b>Patch</b><span class="brand__app">Leads</span></div>
+  <p class="today" id="today"></p>
+  <button type="button" class="btn btn--ghost" id="reset">Reset demo</button>
+</header>
+
+<section class="stats" aria-label="This week" id="stats"></section>
+
+<div class="filters" role="group" aria-label="Filter by where the enquiry came from" id="filters"></div>
+
+<div class="seg" role="tablist" aria-label="View">
+  <button type="button" role="tab" aria-selected="true" data-view="today">Reply today</button>
+  <button type="button" role="tab" aria-selected="false" data-view="board">Pipeline</button>
+</div>
+
+<main class="layout" data-view="today">
+  <section class="today-list" aria-labelledby="rt-h">
+    <div class="col-head"><h2 id="rt-h">Reply today</h2><span class="count" id="rt-count"></span></div>
+    <p class="hint">Everyone waiting on Patch, oldest first.</p>
+    <ol id="reply-today"></ol>
+  </section>
+  <section class="board" aria-label="Pipeline" id="board"></section>
+</main>
+
+<div class="drawer-scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="d-name" hidden></aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/demo/patch-leads/app.js" defer></script>
+</body>
+</html>
