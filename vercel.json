@@ -24,8 +24,33 @@
   },
   {
    "source": "/rorywilkieportfolio",
-   "destination": "/rorywilkie",
-   "permanent": true
+   "destination": "/work",
+   "permanent": false
+  },
+  {
+   "source": "/rorywilkie",
+   "destination": "/work",
+   "permanent": false
+  },
+  {
+   "source": "/rory-wilkie-cv.pdf",
+   "destination": "/work",
+   "permanent": false
+  },
+  {
+   "source": "/rory-wilkie-portfolio.pdf",
+   "destination": "/work",
+   "permanent": false
+  },
+  {
+   "source": "/demo/:old(marlow-hale|blip|pica)/:path*",
+   "destination": "/work",
+   "permanent": false
+  },
+  {
+   "source": "/demo/:old(marlow-hale|blip|pica)",
+   "destination": "/work",
+   "permanent": false
   },
   {
    "source": "/site-pyre",
