@@ -58,7 +58,8 @@ main.over{position:relative;z-index:2;background:var(--bg);box-shadow:0 -30px 60
 .hero h1 .row>span{display:inline-block;transform:translateY(112%)}
 #word{color:var(--blue);border-right:4px solid var(--blue);padding-right:6px}
 .hero .sub{font-size:clamp(var(--fs-lg),1.4vw,20px);max-width:46ch;color:#C9CFD4;margin-top:28px;opacity:0;transform:translateY(20px)}
-.cta-row{display:flex;gap:16px;align-items:center;margin-top:34px;flex-wrap:wrap;opacity:0;transform:translateY(20px)}
+.cta-row{display:flex;gap:16px;align-items:center;margin-top:34px;flex-wrap:wrap}
+.hero .cta-row{opacity:0;transform:translateY(20px)}
 .btn{font-size:var(--fs-sm);letter-spacing:.07em;text-transform:uppercase;padding:17px 32px;border:1.5px solid var(--ink);transition:all .25s}
 .btn.primary{background:var(--ink);color:var(--bg)}
 .btn.primary:hover{background:var(--blue-deep);border-color:var(--blue-deep)}
@@ -196,6 +197,8 @@ footer .big a:hover{color:var(--blue-deep)}
 .dark-band{background:var(--dark);color:var(--dark-ink)}
 .dark-band .lede,.dark-band .sec-head .mono{color:var(--dark-muted)}
 .dark-band .eyebrow{color:var(--dark-muted)}
+.dark-band .btn.ghost{color:var(--dark-ink);border-color:var(--dark-ink)}
+.dark-band .btn.ghost:hover{border-color:var(--blue);color:var(--blue)}
 .hero.page{min-height:74svh}
 .hero.page h1{font-size:clamp(44px,6.6vw,108px)}
 
