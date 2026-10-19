@@ -89,6 +89,7 @@
   }
   function due(l) {
     if (!l.nudge) return null;
+    if (l.fresh) return { cls: "today", label: "Just in" };
     const t = l.nudge.at;
     if (t > endOfToday) return { cls: "later", label: when(t) };
     if (t < NOW) {
@@ -146,7 +147,7 @@
         return `<button type="button" data-filter="${k}" aria-pressed="${filter === k}">${k === "all" ? "" : icon(k)}${label}<span>${n}</span></button>`;
       }).join("");
 
-    const list = visible().filter((l) => l.nudge && l.nudge.at <= endOfToday).sort((a, b) => a.nudge.at - b.nudge.at);
+    const list = visible().filter((l) => l.nudge && l.nudge.at <= endOfToday).sort((a, b) => (b.fresh ? 1 : 0) - (a.fresh ? 1 : 0) || a.nudge.at - b.nudge.at);
     $("#rt-count").textContent = list.length;
     $("#reply-today").innerHTML = list.length ? list.map((l) => {
       const d = due(l);
@@ -334,8 +335,8 @@
     (async () => {
       await wait(1600);
       const sam = addLead({ id: "sam", name: "Sam Carter", phone: "07700 900123", source: "chat", interest: "Dark marks", stage: 0, first: new Date(), last: new Date(),
-        message: "Chat at 21:14: dark marks from old spots, asked if it's ok on darker skin, then asked for a call back after 6pm.",
-        nudge: { at: new Date(), text: "Call back after 6pm" } });
+        message: "Chat just now: dark marks from old spots, asked if it's ok on darker skin, then asked for a call back after 6pm.",
+        nudge: { at: at(0, "18:00"), text: "Call back after 6pm" } });
       if (sam) sam.fresh = true;
       render();
       toast("New lead from chat: Sam, dark marks");
@@ -347,7 +348,7 @@
       closeDrawer();
       if (isPhone) { await wait(600); document.querySelector('.seg [data-view="board"]').click(); }
       await wait(1400);
-      openDrawer("ryan", document.querySelector('[data-open="ryan"]'));
+      openDrawer("olivia", document.querySelector('[data-open="olivia"]'));
       await wait(2400);
       document.querySelector('#drawer [data-act="next"]')?.click();
       await wait(2400);

@@ -61,15 +61,15 @@ button{font:inherit;color:inherit}
 .controls{display:flex;gap:10px}
 
 /* flow */
-.flow-col h1{font-size:clamp(34px,3.4vw,50px);line-height:.95;font-weight:800;text-transform:uppercase;font-stretch:72%;letter-spacing:-.005em;max-width:16ch}
+.flow-col h1{font-size:clamp(34px,3.4vw,50px);line-height:.95;font-weight:800;text-transform:uppercase;font-stretch:72%;letter-spacing:-.005em;max-width:24ch}
 .flow-lede{color:var(--soft);font-size:16.5px;max-width:38em;margin-top:12px}
 .sim-time{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:2px solid var(--line);font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;min-height:40px}
 .sim-time .dot{width:8px;height:8px;border-radius:50%;background:var(--vis);animation:blink 1.4s infinite}
 @keyframes blink{50%{opacity:.25}}
 .flow{list-style:none;margin-top:22px;display:grid;gap:0;position:relative;max-width:640px}
 .step{display:grid;grid-template-columns:96px minmax(0,1fr) 28px;gap:16px;align-items:center;padding:10px 16px;border:2px solid var(--line);background:var(--panel);position:relative;transition:border-color .35s,background-color .35s,opacity .35s;opacity:.55}
-.step + .step{margin-top:14px}
-.step + .step::before{content:"";position:absolute;left:62px;top:-16px;width:2px;height:14px;background:var(--line);transition:background-color .35s}
+.step + .step{margin-top:12px}
+.step + .step::before{content:"";position:absolute;left:62px;top:-14px;width:2px;height:12px;background:var(--line);transition:background-color .35s}
 .step__type{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--soft);font-stretch:72%;font-size:14px}
 .step__body b{display:block;font-size:17px;font-weight:700}
 .step__body span{display:block;font-size:14px;color:var(--soft);margin-top:2px}
@@ -102,7 +102,8 @@ button{font:inherit;color:inherit}
   .now-step{margin-top:14px}
 }
 @media (max-width:480px){
-  .tabs button{padding:0 11px;font-size:14px}
+  .tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tabs button{padding:6px 8px;font-size:14px;line-height:1.2;white-space:normal;justify-content:center;text-align:center}
   .tabs button span{display:none}
   .step{grid-template-columns:70px minmax(0,1fr) 24px;gap:10px;padding:12px}
   .step + .step::before{left:46px}

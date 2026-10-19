@@ -27,7 +27,7 @@
       ]
     },
     quote: {
-      title: "Quote follow-up, day 1, 3 and 7",
+      title: "Quote follow-up",
       lede: "Most quotes go quiet because nobody follows up, not because the price was wrong. Three texts, then it stops, and it stops the moment they reply.",
       steps: [
         { type: "Trigger", title: "Fixed quote sent", detail: "Emailed after the site visit." },
@@ -52,7 +52,7 @@
       ]
     },
     review: {
-      title: "Review request after the job",
+      title: "Review request",
       lede: "Every customer gets the same ask two days after handover. Anything that's not right goes to Steve to fix. Nobody is filtered out.",
       steps: [
         { type: "Trigger", title: "Handover signed", detail: "Job marked complete in the tracker." },

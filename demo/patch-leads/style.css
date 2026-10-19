@@ -128,7 +128,7 @@ button{font:inherit;color:inherit}
   .layout{grid-template-columns:1fr;border-top:0;min-height:0}
   .layout[data-view=today] .board,.layout[data-view=board] .today-list{display:none}
   .today-list{border-right:0}
-  .board{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;scroll-snap-type:x mandatory;padding:4px 16px 24px;gap:12px}
+  .board{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:82%;scroll-snap-type:x mandatory;scroll-padding-inline:16px;padding:4px 16px 24px;gap:12px}
   .col{scroll-snap-align:start;margin:0;padding:0}
   .d-hist li{grid-template-columns:100px 1fr}
 }
