@@ -54,42 +54,42 @@
   },
   {
    "source": "/site-pyre",
-   "destination": "/work#websites",
+   "destination": "/websites",
    "permanent": true
   },
   {
    "source": "/site-section",
-   "destination": "/work#websites",
+   "destination": "/websites",
    "permanent": true
   },
   {
    "source": "/site-halflight",
-   "destination": "/work#websites",
+   "destination": "/websites",
    "permanent": true
   },
   {
    "source": "/site-haldane",
-   "destination": "/work#websites",
+   "destination": "/websites",
    "permanent": true
   },
   {
    "source": "/site-blip",
-   "destination": "/work#websites",
+   "destination": "/websites",
    "permanent": true
   },
   {
    "source": "/site-nocturne",
-   "destination": "/work#websites",
+   "destination": "/websites",
    "permanent": true
   },
   {
    "source": "/site-pica",
-   "destination": "/work#websites",
+   "destination": "/websites",
    "permanent": true
   },
   {
    "source": "/site-puddle",
-   "destination": "/work#websites",
+   "destination": "/websites",
    "permanent": true
   },
   {
