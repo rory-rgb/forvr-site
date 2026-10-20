@@ -1,0 +1,321 @@
+<!DOCTYPE html><html lang="en-GB"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ad drop section · jelly · PROTO</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preload" href="/assets/BringBold-Nineties.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+.pnote{background:#141518;color:#F2F3F4;padding:22px 4vw}
+.pnote h4{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#5BC2E7}
+.pnote p{margin-top:8px;font-size:15px;color:#C9CFD4;max-width:76ch}
+.pnote p+p{margin-top:9px}
+.pnote b{color:#F2F3F4;font-weight:600}
+
+.jelly{background:var(--dark);color:var(--dark-ink);position:relative;overflow:hidden;
+  min-height:96vh;display:flex;align-items:center;padding:10vh 4vw;cursor:grab}
+.jelly:active{cursor:grabbing}
+.stage{position:absolute;inset:0;z-index:1}
+.b{position:absolute;top:0;left:0;will-change:transform;touch-action:none;
+  user-select:none;-webkit-user-drag:none;transform-origin:50% 50%}
+.b img{width:100%;height:auto;display:block;pointer-events:none}
+.b.mark{z-index:3}
+.b:not(.mark){opacity:.40}
+
+.wrap{position:relative;z-index:4;width:100%;display:grid;
+  grid-template-columns:1fr .62fr .92fr;gap:3vw;align-items:center;pointer-events:none}
+.wrap > *{pointer-events:auto}
+.markzone{pointer-events:none;align-self:stretch}
+.jelly .eyebrow{color:var(--dark-muted)}
+.jelly h2{font-size:clamp(28px,4.1vw,64px);line-height:.94;margin-top:14px}
+.jelly .lede{margin-top:16px;font-size:var(--fs-lg);color:var(--dark-muted);max-width:38ch}
+/* the words sit on their own scrim so a bright block drifting behind them
+   never costs legibility, without caging where the blocks can go */
+.scrim{position:absolute;z-index:3;left:0;top:0;width:42%;height:100%;pointer-events:none;
+  background:radial-gradient(120% 70% at 12% 50%, rgba(10,11,13,.94) 0%, rgba(10,11,13,.72) 48%, rgba(10,11,13,0) 85%)}
+
+.ocard{background:rgba(14,16,20,.96);border:1px solid var(--dark-line);padding:28px 26px 26px;
+  max-width:400px;margin-left:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.ocard .top{display:flex;justify-content:space-between;align-items:center;gap:14px;
+  font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--dark-muted)}
+.ocard .live{display:flex;align-items:center;gap:8px;color:#7FD39A}
+.ocard .live i{width:7px;height:7px;border-radius:50%;background:#7FD39A;display:block;animation:pulse 2.4s infinite}
+.ocard h3{font-family:'BringBold',sans-serif;font-weight:400;font-size:clamp(22px,2.4vw,30px);line-height:1.02;margin-top:18px}
+.ocard .agenda{margin-top:12px;font-size:var(--fs-sm);color:var(--dark-muted);max-width:36ch}
+.ocard .btn{display:block;width:100%;text-align:center;margin-top:22px}
+.ocard .sub{display:block;margin-top:14px;font:400 11px/1.4 'IBM Plex Mono',monospace;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--dark-muted)}
+.nudge{margin-top:26px;display:flex;align-items:center;gap:9px;
+  font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-muted)}
+.nudge i{width:7px;height:7px;border-radius:50%;background:var(--blue);display:block;animation:pulse 2.4s infinite}
+
+@media (max-width:900px){
+  .jelly{min-height:0;padding:11vh 4vw}
+  .wrap{grid-template-columns:1fr;gap:32px}
+  .markzone{display:none}
+  .ocard{max-width:none;margin-left:0}
+  .scrim{width:100%;background:linear-gradient(180deg,rgba(10,11,13,.86),rgba(10,11,13,.95))}
+}
+</style>
+</head><body>
+
+<div class="pnote">
+  <h4>Jelly · proto · not live</h4>
+  <p><b>The F sits in the middle and does not move.</b> Everything else floats. Shove a block into the mark
+  and the mark squashes where it was hit, then springs back to the exact lockup once the block drifts off.
+  Blocks squash each other too, throw when you fling them, and stay wherever they end up. No grid, no slots,
+  no settling into a tidy arrangement.</p>
+  <p>Soft bodies are faked the cheap way: every block carries a scale spring, and a hit squashes it along the
+  contact normal and stretches it across, then the spring recovers. That reads as jelly without a soft-body
+  engine, and it is still plain JS over transforms, no library.</p>
+  <p><b>This bends a brand rule on purpose.</b> HANDOFF_r27 says the mark is always straight on and never
+  distorted. It warps here because you asked for it, and it always recovers to the exact lockup, so the
+  resting state is still correct. Say if that is a step too far and I will make the blocks bounce off it
+  without deforming it.</p>
+</div>
+
+<section class="jelly" id="sec">
+  <div class="stage" id="stage" aria-hidden="true"></div>
+  <div class="scrim" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow"><span class="tick"></span>The 72-hour ad drop</p>
+      <h2>THREE ADVERTS<span class="dot">.</span><br>EVERY FORMAT<span class="dot">.</span></h2>
+      <p class="lede">You can read a portfolio or you can watch us do it to your own product. One of those
+        settles it.</p>
+      <p class="nudge"><i></i>Push the blocks about</p>
+    </div>
+    <div class="markzone" id="markzone" aria-hidden="true"></div>
+    <div class="ocard">
+      <div class="top"><span class="live"><i></i>3 slots a week</span><span>72 hours</span></div>
+      <h3>Three finished adverts, built from your brand<span class="dot">.</span></h3>
+      <p class="agenda">Send your Instagram and nothing else. We direct it, produce it and send it back. Yours
+        to post whether you hire us or not.</p>
+      <a class="btn blue" href="/trial">Claim a slot</a>
+      <span class="sub">No card &middot; no call &middot; miss the brief and we go again</span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const stage=document.getElementById('stage'), sec=document.getElementById('sec');
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarse=matchMedia('(pointer: coarse)').matches;
+
+  /* the F grid, straight out of layout() in r29_anim/_scripts/scene2.html */
+  const GW=176, g=8, sw=56, topH=GW*9/16, stemH=sw*16/9;
+  const sr=24, sx0=sw+g+56+g/2+sr, sy0=topH+g+stemH-sr;
+  const BW=GW, BH=topH+g+stemH;
+  const MARK=[
+    {k:'16x9', x:0,        y:0,        w:GW,   h:topH},
+    {k:'9x16', x:0,        y:topH+g,   w:sw,   h:stemH},
+    {k:'1x1',  x:sw+g,     y:topH+g,   w:56,   h:56},
+    {k:'dot',  x:sx0-sr,   y:sy0-sr,   w:sr*2, h:sr*2, round:true}
+  ];
+  const KINDS=['16x9','9x16','1x1','dot'];
+  const AR={'16x9':9/16,'9x16':16/9,'1x1':1,'dot':1};
+  const src=k=>'/assets/mark/house_'+k+'.png';
+
+  let W=0,H=0;
+  const bodies=[];
+
+  function make(kind,isMark){
+    const el=document.createElement('div');
+    el.className='b'+(isMark?' mark':'');
+    el.innerHTML='<img src="'+src(kind)+'" alt="">';
+    stage.appendChild(el);
+    return {kind,isMark,el,x:0,y:0,vx:0,vy:0,w:0,h:0,
+            sx:1,sy:1,vsx:0,vsy:0, rot:0,vrot:0, hx:0,hy:0, round:kind==='dot',
+            ph:Math.random()*6.283, ph2:Math.random()*6.283};
+  }
+
+  MARK.forEach(m=>{ const b=make(m.k,true); b.def=m; bodies.push(b); });
+  const LOOSE=14;
+  for(let i=0;i<LOOSE;i++){ bodies.push(make(KINDS[i%4],false)); }
+
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+
+  function layout(){
+    const r=stage.getBoundingClientRect(); W=r.width; H=r.height;
+    /* the mark sits in its own empty grid lane, measured from the DOM, so it
+       can never end up under the card the way a guessed fraction did */
+    const mz=document.getElementById('markzone');
+    const z=mz?mz.getBoundingClientRect():null;
+    const lane = z && z.width>40
+      ? {cx:z.left-r.left+z.width/2, cw:z.width}
+      : {cx:W*0.5, cw:W*0.3};
+    const scale=Math.min(lane.cw*0.92, H*0.52*(BW/BH))/BW;
+    const mx=lane.cx-BW*scale/2, my=H/2-BH*scale/2;
+    for(const b of bodies){
+      if(b.isMark){
+        b.w=b.def.w*scale; b.h=b.def.h*scale;
+        b.hx=mx+b.def.x*scale; b.hy=my+b.def.y*scale;
+        if(!b.started){ b.x=b.hx; b.y=b.hy; b.started=1; }
+      }else{
+        if(!b.started){
+          b.w=W*({'16x9':.085,'9x16':.034,'1x1':.047,'dot':.030})[b.kind];
+          b.h=b.w*AR[b.kind];
+          b.x=rnd(0,W-b.w); b.y=rnd(0,H-b.h);
+          b.vx=rnd(-.5,.5); b.vy=rnd(-.5,.5);
+          b.rot=b.round?0:rnd(-9,9);
+          b.started=1;
+        }
+      }
+      b.el.style.width=b.w+'px';
+    }
+  }
+
+  /* --- drag anywhere on the section, grab whatever is under the pointer --- */
+  let held=null, ox=0, oy=0, lx=0, ly=0;
+  function at(cx,cy){
+    const r=stage.getBoundingClientRect();
+    const px=cx-r.left, py=cy-r.top;
+    for(let i=bodies.length-1;i>=0;i--){
+      const b=bodies[i];
+      if(b.isMark) continue;                   // the mark stays put
+      if(px>=b.x && px<=b.x+b.w && py>=b.y && py<=b.y+b.h) return b;
+    }
+    return null;
+  }
+  sec.addEventListener('pointerdown',e=>{
+    if(reduced||coarse) return;
+    const b=at(e.clientX,e.clientY); if(!b) return;
+    held=b;
+    /* offsets before capture: capture can throw and would otherwise leave
+       these stale, which makes the block jump on the next move */
+    ox=e.clientX-b.x; oy=e.clientY-b.y; lx=e.clientX; ly=e.clientY;
+    try{ sec.setPointerCapture(e.pointerId); }catch(err){}
+    e.preventDefault();
+  });
+  sec.addEventListener('pointermove',e=>{
+    if(!held) return;
+    held.x=e.clientX-ox; held.y=e.clientY-oy;
+    held.vx=(e.clientX-lx)*0.5; held.vy=(e.clientY-ly)*0.5;
+    lx=e.clientX; ly=e.clientY;
+  });
+  const drop=()=>{ held=null; };
+  sec.addEventListener('pointerup',drop);
+  sec.addEventListener('pointercancel',drop);
+
+  /* --- squash helper: push the scale springs along a contact normal --- */
+  function squash(b,nx,ny,amt){
+    const a=Math.min(amt,0.40);
+    b.vsx += (-Math.abs(nx)+Math.abs(ny)*0.75)*a;
+    b.vsy += (-Math.abs(ny)+Math.abs(nx)*0.75)*a;
+  }
+
+  function collide(a,b){
+    const acx=a.x+a.w/2, acy=a.y+a.h/2, bcx=b.x+b.w/2, bcy=b.y+b.h/2;
+    let nx,ny,depth;
+    if(a.round&&b.round){
+      const ra=a.w/2, rb=b.w/2, dx=bcx-acx, dy=bcy-acy;
+      const d=Math.hypot(dx,dy)||1; depth=ra+rb-d;
+      if(depth<=0) return;
+      nx=dx/d; ny=dy/d;
+    }else{
+      const ox2=(a.w+b.w)/2-Math.abs(acx-bcx), oy2=(a.h+b.h)/2-Math.abs(acy-bcy);
+      if(ox2<=0||oy2<=0) return;
+      if(ox2<oy2){ nx=acx<bcx?1:-1; ny=0; depth=ox2; }
+      else       { nx=0; ny=acy<bcy?1:-1; depth=oy2; }
+    }
+    const rel=(b.vx-a.vx)*nx+(b.vy-a.vy)*ny;
+    const hit=Math.min(Math.abs(rel),22);
+    /* the mark never moves, so it absorbs the whole correction as a wobble */
+    const aFixed=a.isMark, bFixed=b.isMark;
+    if(!aFixed&&!bFixed){
+      a.x-=nx*depth/2; a.y-=ny*depth/2;
+      b.x+=nx*depth/2; b.y+=ny*depth/2;
+      const p=rel*0.5;
+      if(a!==held){ a.vx+=nx*p; a.vy+=ny*p; }
+      if(b!==held){ b.vx-=nx*p; b.vy-=ny*p; }
+    }else if(aFixed&&!bFixed){
+      b.x+=nx*depth; b.y+=ny*depth;
+      if(b!==held){ b.vx-=nx*rel*0.9; b.vy-=ny*rel*0.9; }
+    }else if(bFixed&&!aFixed){
+      a.x-=nx*depth; a.y-=ny*depth;
+      if(a!==held){ a.vx+=nx*rel*0.9; a.vy+=ny*rel*0.9; }
+    }
+    const amt=0.012*hit+depth*0.0016;
+    squash(a,nx,ny,amt); squash(b,nx,ny,amt);
+    /* a shove also shifts the mark a little, which is the warp */
+    if(aFixed) { a.x-=nx*depth*0.22; a.y-=ny*depth*0.22; }
+    if(bFixed) { b.x+=nx*depth*0.22; b.y+=ny*depth*0.22; }
+  }
+
+  const textBox=()=>{
+    const w=document.querySelector('.wrap > div:first-child').getBoundingClientRect();
+    const r=stage.getBoundingClientRect();
+    return {x:w.left-r.left,y:w.top-r.top,w:w.width,h:w.height};
+  };
+  let TB=null;
+
+  function frame(t){
+    for(const b of bodies){
+      if(b.isMark||b===held) continue;
+      /* a slow wander on each block's own clock, so the field keeps breathing
+         instead of damping to a dead stop */
+      b.vx += Math.cos(t*0.00026+b.ph)*0.013;
+      b.vy += Math.sin(t*0.00031+b.ph2)*0.013;
+      b.x+=b.vx; b.y+=b.vy;
+      b.vx*=0.985; b.vy*=0.985;                 // drift, no gravity
+      b.rot+=b.vrot; b.vrot*=0.96;
+      const sp=Math.hypot(b.vx,b.vy);
+      if(sp>7){ b.vx*=7/sp; b.vy*=7/sp; }
+      if(b.x<0){b.x=0;b.vx=Math.abs(b.vx)*.72;squash(b,1,0,.012*Math.abs(b.vx)+.05);}
+      if(b.y<0){b.y=0;b.vy=Math.abs(b.vy)*.72;squash(b,0,1,.012*Math.abs(b.vy)+.05);}
+      if(b.x+b.w>W){b.x=W-b.w;b.vx=-Math.abs(b.vx)*.72;squash(b,1,0,.012*Math.abs(b.vx)+.05);}
+      if(b.y+b.h>H){b.y=H-b.h;b.vy=-Math.abs(b.vy)*.72;squash(b,0,1,.012*Math.abs(b.vy)+.05);}
+    }
+    for(let i=0;i<bodies.length;i++)
+      for(let j=i+1;j<bodies.length;j++){
+        if(bodies[i].isMark&&bodies[j].isMark) continue;
+        collide(bodies[i],bodies[j]);
+      }
+    /* a soft shoulder round the mark: loose blocks bounce off and drift away
+       rather than settling on top of it and burying the F */
+    for(const b of bodies){
+      if(b.isMark||b===held) continue;
+      for(const m of bodies){
+        if(!m.isMark) continue;
+        const dx=(b.x+b.w/2)-(m.x+m.w/2), dy=(b.y+b.h/2)-(m.y+m.h/2);
+        const rx=(b.w+m.w)/2+14, ry=(b.h+m.h)/2+14;
+        if(Math.abs(dx)<rx && Math.abs(dy)<ry){
+          const px=(1-Math.abs(dx)/rx), py=(1-Math.abs(dy)/ry);
+          b.vx += Math.sign(dx||1)*px*0.14;
+          b.vy += Math.sign(dy||1)*py*0.14;
+        }
+      }
+    }
+    for(const b of bodies){
+      /* the mark springs back to the exact lockup */
+      if(b.isMark){ b.x+=(b.hx-b.x)*0.10; b.y+=(b.hy-b.y)*0.10; }
+      /* jelly: scale springs back to 1 */
+      b.vsx+=(1-b.sx)*0.16; b.vsx*=0.80; b.sx+=b.vsx;
+      b.vsy+=(1-b.sy)*0.16; b.vsy*=0.80; b.sy+=b.vsy;
+      b.sx=Math.max(.55,Math.min(1.45,b.sx)); b.sy=Math.max(.55,Math.min(1.45,b.sy));
+      let o=b.isMark?1:0.40;
+      if(!b.isMark&&TB){
+        const inx=b.x+b.w>TB.x&&b.x<TB.x+TB.w, iny=b.y+b.h>TB.y&&b.y<TB.y+TB.h;
+        if(inx&&iny) o=0.18;
+      }
+      b.el.style.opacity=o;
+      b.el.style.transform='translate3d('+b.x+'px,'+b.y+'px,0) rotate('+b.rot+'deg) scale('+b.sx+','+b.sy+')';
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function boot(){
+    layout(); TB=textBox();
+    if(reduced||coarse){
+      /* static decoration: no loop, no drag */
+      for(const b of bodies) b.el.style.transform='translate3d('+b.x+'px,'+b.y+'px,0)';
+      document.querySelector('.nudge').style.display='none';
+      return;
+    }
+    requestAnimationFrame(frame);
+  }
+  addEventListener('resize',()=>{ layout(); TB=textBox(); });
+  if(document.readyState==='complete') boot(); else addEventListener('load',boot);
+})();
+</script>
+</body></html>

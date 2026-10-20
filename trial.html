@@ -3,8 +3,8 @@
 <link rel="canonical" href="https://forvr.org/trial">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Free trial · three pieces in 72 hours · Forvr Studios">
-<meta property="og:description" content="Three finished pieces built from your brand, free, back within 72 hours. No card, no commitment.">
+<meta property="og:title" content="The 72-hour ad drop · three adverts, free · Forvr Studios">
+<meta property="og:description" content="Send your Instagram and nothing else. Three finished adverts built from your brand, free, back within 72 hours. Yours to post whether you hire us or not.">
 <meta property="og:url" content="https://forvr.org/trial">
 <meta property="og:image" content="https://forvr.org/assets/og/forvr-share-2026-10.jpg">
 <meta property="og:image:secure_url" content="https://forvr.org/assets/og/forvr-share-2026-10.jpg">
@@ -17,8 +17,8 @@
 <meta name="twitter:image:alt" content="Forvr Studios: your adverts, built to sell.">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" sizes="180x180" href="/static/icon-180.png"><title>Free trial · three pieces in 72 hours · Forvr Studios</title>
-<meta name="description" content="Three finished pieces built from your brand, free, back within 72 hours. No card, no commitment.">
+<link rel="apple-touch-icon" sizes="180x180" href="/static/icon-180.png"><title>The 72-hour ad drop · three adverts, free · Forvr Studios</title>
+<meta name="description" content="Send your Instagram and nothing else. Three finished adverts built from your brand, free, back within 72 hours. Yours to post whether you hire us or not.">
 <link rel="stylesheet" href="/assets/fonts.css">
 <style>
 @font-face{font-family:'BringBold';src:url('assets/BringBold-Nineties.woff2') format('woff2');font-display:swap}
@@ -29,20 +29,33 @@ body{font-family:'Archivo',sans-serif;background:var(--bg);color:var(--ink);font
 a{color:inherit;text-decoration:none}
 .mono{font-family:'IBM Plex Mono',monospace}
 .dot{color:var(--blue)}
-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* the film carries the background, the way it does on the homepage section.
+   The poster attribute covers the pre-play frame and the no-video case. */
+.bg{position:fixed;inset:0;z-index:0;background:var(--bg);pointer-events:none}
+.bg video{width:100%;height:100%;object-fit:cover;opacity:.30}
+.bg::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(10,11,13,.93) 0%,rgba(10,11,13,.80) 50%,rgba(10,11,13,.92) 100%)}
+
 nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:20px 4vw}
 .mark{font-family:'BringBold',sans-serif;font-size:23px}
 nav a.back{font-size:var(--fs-sm);color:var(--muted)}
 nav a.back:hover{color:var(--blue)}
 main{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:5vw;align-items:center;padding:6vh 4vw 10vh;max-width:1250px;margin:0 auto;width:100%}
-h1{font-family:'BringBold',sans-serif;font-weight:400;font-size:clamp(36px,4.6vw,72px);line-height:.96}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:var(--fs-xs);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;align-items:center;margin-bottom:18px}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:#7FD39A;display:block;flex:none}
+h1{font-family:'BringBold',sans-serif;font-weight:400;font-size:clamp(34px,4.2vw,66px);line-height:.96}
 .lede{color:var(--muted);margin-top:22px;max-width:44ch}
-.points{margin:30px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:var(--fs-md);color:var(--muted)}
-.points li{display:flex;gap:10px;align-items:baseline}
-.points .ok{color:var(--blue)}
-form{background:rgba(16,18,21,.85);border:1px solid var(--line);padding:34px 30px;backdrop-filter:blur(6px)}
+.points{margin:30px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.points li{padding:15px 0;border-bottom:1px solid var(--line);font-size:var(--fs-md);color:var(--muted)}
+.points b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+
+form{background:rgba(16,18,21,.88);border:1px solid var(--line);padding:34px 30px;backdrop-filter:blur(6px)}
+.ftop{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:6px;
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ftop .live{display:flex;align-items:center;gap:8px;color:#7FD39A}
+.ftop .live i{width:7px;height:7px;border-radius:50%;background:#7FD39A;display:block}
 label{display:block;font-size:var(--fs-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:18px 0 7px;font-family:'IBM Plex Mono',monospace}
-label:first-child{margin-top:0}
 input{width:100%;background:#0D0F12;border:1px solid var(--line);color:var(--ink);font-size:var(--fs-md);font-family:'Archivo',sans-serif;padding:14px}
 input:focus{outline:2px solid var(--blue);outline-offset:-1px}
 .ig-wrap{display:flex;align-items:center;background:#0D0F12;border:1px solid var(--line)}
@@ -51,6 +64,8 @@ input:focus{outline:2px solid var(--blue);outline-offset:-1px}
 button{margin-top:26px;width:100%;font-size:var(--fs-sm);letter-spacing:.07em;text-transform:uppercase;padding:17px;border:1.5px solid var(--blue);background:var(--blue);color:#070707;cursor:pointer;font-family:'Archivo',sans-serif;font-weight:600}
 button:hover{background:var(--ink);border-color:var(--ink)}
 .fine{font-size:var(--fs-xs);letter-spacing:.1em;color:var(--muted);margin-top:14px;text-align:center;font-family:'IBM Plex Mono',monospace}
+.fine-note{font-size:var(--fs-xs);color:var(--muted);margin-top:12px;text-align:center}
+.fine-note a{border-bottom:1px solid var(--muted)}
 .errline{display:none;margin-top:14px;font-size:var(--fs-sm);color:#E2603F}
 .errline a{border-bottom:1px solid currentColor}
 .hp{position:absolute;left:-9999px;opacity:0;width:1px;height:1px}
@@ -71,59 +86,28 @@ select:focus{outline:2px solid var(--blue);outline-offset:-1px}
 @media(max-width:860px){main{grid-template-columns:1fr;gap:40px;padding-top:2vh}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
-<script type="application/ld+json" id="ld-forvr">
-{
- "@context": "https://schema.org",
- "@graph": [
-  {
-   "@type": "Offer",
-   "name": "Free trial",
-   "description": "Send your Instagram. Three finished pieces built from your brand, back within 72 hours, yours whether you book or not. No card, no commitment.",
-   "price": "0",
-   "priceCurrency": "GBP",
-   "url": "https://forvr.org/trial",
-   "offeredBy": {
-    "@id": "https://forvr.org/#org"
-   }
-  },
-  {
-   "@type": "BreadcrumbList",
-   "itemListElement": [
-    {
-     "@type": "ListItem",
-     "position": 1,
-     "name": "Home",
-     "item": "https://forvr.org/"
-    },
-    {
-     "@type": "ListItem",
-     "position": 2,
-     "name": "Free trial",
-     "item": "https://forvr.org/trial"
-    }
-   ]
-  }
- ]
-}
-</script>
-<script src="/assets/consent.js" defer></script>
 </head><body>
-<canvas id="stars" aria-hidden="true"></canvas>
+<div class="bg" aria-hidden="true">
+  <video src="assets/clip-protect.mp4" poster="assets/poster-protect.jpg" muted loop playsinline autoplay preload="metadata"></video>
+</div>
 <nav><a class="mark" href="index.html">FORVR<span class="dot">.</span></a><a class="back" href="index.html">&larr; Back</a></nav>
 <main>
   <div>
-    <h1>THREE PIECES,<br>MADE FOR YOU<span class="dot">.</span></h1>
-    <p class="lede">Tell us who you are and where your brand lives. We direct and produce three finished pieces from your world and send them to your inbox within 72 hours.</p>
+    <p class="eyebrow"><i></i>The 72-hour ad drop</p>
+    <h1>SEND YOUR INSTAGRAM<span class="dot">.</span><br>THAT IS THE BRIEF<span class="dot">.</span></h1>
+    <p class="lede">We direct and produce three finished adverts from your brand and send them to your inbox within 72 hours.</p>
     <ul class="points">
-      <li><span class="ok">&#10003;</span>Yours to keep, whether you book us or not</li>
-      <li><span class="ok">&#10003;</span>No card, no call, no commitment</li>
-      <li><span class="ok">&#10003;</span>If it misses the brief you approved, we redo it free</li>
+      <li><b>Yours to post either way</b>Whether you hire us or not.</li>
+      <li><b>No card, no call, no commitment</b>Nothing to cancel, because there is nothing to start.</li>
+      <li><b>Miss the brief and we go again</b>If it misses the brief you approved, we redo it at our cost.</li>
     </ul>
   </div>
   <div>
     <form id="f" action="https://formspree.io/f/mdajrlge" method="POST" novalidate>
-      <input type="hidden" name="_subject" value="forvr.org FREE TRIAL request">
+      <input type="hidden" name="_subject" value="forvr.org 72-HOUR AD DROP request">
       <input type="text" name="website_hp" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
+
+      <div class="ftop"><span class="live"><i></i>3 slots a week</span><span>72 hours</span></div>
 
       <label for="sector">What does your brand sell?</label>
       <select id="sector" name="sector" required>
@@ -139,38 +123,21 @@ select:focus{outline:2px solid var(--blue);outline-offset:-1px}
       </select>
 
       <div id="svc" class="notice" hidden>
-        <strong>The free trial is built around a physical product.</strong>
+        <strong>The ad drop is built around a physical product.</strong>
         We shoot the thing you sell, so a service brand needs a different starting point.
         Tell us what you are working on and we will come back with what we would actually do for you.
-        <a class="btn blue small" href="contact.html">Talk to us directly</a>
+        <a class="btn" href="contact.html">Book a call instead</a>
       </div>
 
       <div id="prod">
-        <label for="name">Your name</label>
-        <input id="name" name="name" type="text" autocomplete="name" required>
-
-        <label for="email">Email, where the pieces land</label>
-        <input id="email" name="email" type="email" autocomplete="email" required>
-
-        <label for="brand">Brand name</label>
-        <input id="brand" name="brand" type="text" autocomplete="organization" required>
-
         <label for="ig">Brand Instagram</label>
         <div class="ig-wrap"><span>@</span><input id="ig" name="instagram" type="text" autocomplete="off" required></div>
 
-        <label for="product">Which product should we build it around?</label>
-        <input id="product" name="product" type="text" placeholder="One piece, or a drop">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
 
-        <label for="assets">Do you have product photos we can work from?</label>
-        <select id="assets" name="assets">
-          <option>Yes, clean product shots</option>
-          <option>Only phone photos</option>
-          <option>Only what is on our Instagram</option>
-          <option>Nothing yet</option>
-        </select>
-
-        <label for="when">Anything coming up?</label>
-        <input id="when" name="timing" type="text" placeholder="A drop, a launch, a date. Optional">
+        <label for="email">Email, where the adverts land</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
 
         <label for="heard">How did you hear about us?</label>
         <select id="heard" name="heard">
@@ -184,21 +151,19 @@ select:focus{outline:2px solid var(--blue);outline-offset:-1px}
           <option>Somewhere else</option>
         </select>
 
-        <button type="submit">Send it &middot; three pieces in 72h</button>
-        <p class="fine">NO CARD &middot; NO SPAM &middot; UNSUBSCRIBE ANY TIME</p>
-        <p class="fine-note">We use your details only to make and send your three pieces. <a href="privacy.html">How we handle them</a>.</p>
+        <button type="submit">Claim a slot</button>
+        <p class="fine">NO CARD &middot; NO CALL &middot; NO SPAM</p>
+        <p class="fine-note">We use your details only to make and send your three adverts. <a href="privacy.html">How we handle them</a>.</p>
       </div>
     </form>
     <p class="errline" id="err">Something went wrong sending that. Email <a href="mailto:hello@forvr.org">hello@forvr.org</a> and we will pick it up.</p>
     <div class="done" id="done">
       <h2>GOT IT<span class="dot">.</span></h2>
-      <p>We are on it. Three pieces, built from your world, in your inbox within 72 hours.</p>
+      <p>We are on it. Three adverts, built from your brand, in your inbox within 72 hours.</p>
     </div>
   </div>
 </main>
 <script>
-/* PROTO: no backend yet. Submission opens a prefilled email to hello@forvr.org
-   and shows the confirmation. Wire to a real endpoint before launch. */
 const form=document.getElementById('f');
 const sector=document.getElementById('sector'), svc=document.getElementById('svc'), prod=document.getElementById('prod');
 function syncSector(){
@@ -226,61 +191,14 @@ form.addEventListener('submit',async e=>{
     form.style.display='none';
     document.getElementById('done').style.display='block';
   }catch(err){
-    btn.disabled=false; btn.textContent='Send it · three pieces in 72h';
+    btn.disabled=false; btn.textContent='Claim a slot';
     document.getElementById('err').style.display='block';
   }
 });
-(function(){
-  const cv=document.getElementById('stars'); if(!cv) return;
-  const ctx=cv.getContext('2d'); let W,H,stars=[],DPR=1;
-  let mx=.5,my=.45,ox=.5,oy=.45,warm=0;
-  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function build(){
-    DPR=Math.min(devicePixelRatio||1,2);
-    W=cv.width=Math.round(innerWidth*DPR); H=cv.height=Math.round(innerHeight*DPR);
-    const n=Math.round(Math.min(130,Math.max(60,innerWidth/12)));
-    stars=Array.from({length:n},()=>{const z=Math.random();
-      return {x:Math.random()*W,y:Math.random()*H,z,r:(0.7+z*2.0)*DPR,
-        tw:Math.random()*6.28,sp:.25+Math.random()*.55,blue:Math.random()<.28,big:z>.78};});
-  }
-  build(); addEventListener('resize',build); addEventListener('load',build);
-  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(build);
-  addEventListener('pointermove',e=>{mx=e.clientX/innerWidth;my=e.clientY/innerHeight;warm=1;});
-  function orb(x,y,R,a){
-    const g=ctx.createRadialGradient(x,y,0,x,y,R);
-    g.addColorStop(0,'rgba(150,222,247,'+(0.42*a)+')');
-    g.addColorStop(0.18,'rgba(91,194,231,'+(0.26*a)+')');
-    g.addColorStop(0.45,'rgba(38,120,164,'+(0.12*a)+')');
-    g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,R,0,6.283);ctx.fill();
-  }
-  function drawStar(x,y,r,a,blue,big,t,tw){
-    const col=blue?'145,215,242':'236,242,246';
-    const g=ctx.createRadialGradient(x,y,0,x,y,r*9);
-    g.addColorStop(0,'rgba('+col+','+(a*0.7)+')');g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r*9,0,6.283);ctx.fill();
-    ctx.fillStyle='rgba('+col+','+Math.min(a*1.35,1)+')';
-    ctx.beginPath();ctx.arc(x,y,r,0,6.283);ctx.fill();
-    if(big){const L=r*(6+2.2*Math.sin(t/620+tw));
-      ctx.strokeStyle='rgba('+col+','+(a*0.55)+')';ctx.lineWidth=Math.max(1,r*0.34);
-      ctx.beginPath();ctx.moveTo(x-L,y);ctx.lineTo(x+L,y);
-      ctx.moveTo(x,y-L*0.8);ctx.lineTo(x,y+L*0.8);ctx.stroke();}
-  }
-  function frame(t){
-    ox+=(mx-ox)*.06; oy+=(my-oy)*.06;
-    const OX=ox*W,OY=oy*H,R=Math.max(W,H)*0.42;
-    ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation='lighter';
-    orb(OX,OY,R,0.85+0.25*warm); orb(OX,OY,R*0.26,1.1+0.4*warm);
-    for(const s of stars){
-      const px=s.x+(ox-.5)*s.z*70*DPR, py=s.y+(oy-.5)*s.z*46*DPR;
-      const d=Math.hypot(px-OX,py-OY)||1, near=Math.max(0,1-d/(R*0.95));
-      const base=still?0.42:0.24+0.22*(.5+.5*Math.sin(t/1600+s.tw))*s.sp;
-      drawStar(px,py,s.r,Math.min(base+near*0.62,1),s.blue,s.big,t,s.tw);
-    }
-    ctx.globalCompositeOperation='source-over';
-    if(!still) requestAnimationFrame(frame);
-  }
-  if(still) frame(0); else requestAnimationFrame(frame);
-})();
+
+/* the film is decoration, so it stops when the visitor asks for less motion */
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const v=document.querySelector('.bg video'); if(v){v.removeAttribute('autoplay'); v.pause();}
+}
 </script>
 </body></html>

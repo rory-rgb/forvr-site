@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="en-GB"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ad drop section · build the mark · PROTO</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preload" href="/assets/BringBold-Nineties.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<style>
+.pnote{background:#141518;color:#F2F3F4;padding:24px 4vw}
+.pnote h4{font:500 12px/1.4 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#5BC2E7}
+.pnote p{margin-top:8px;font-size:15px;color:#C9CFD4;max-width:76ch}
+.pnote p+p{margin-top:10px}
+.pnote b{color:#F2F3F4;font-weight:600}
+
+.tdrop2{background:var(--dark);color:var(--dark-ink);position:relative;overflow:hidden;
+  padding:12vh 4vw;min-height:90vh;display:flex;align-items:center}
+.tdrop2-in{position:relative;z-index:3;display:grid;grid-template-columns:1fr .52fr .95fr;
+  gap:3vw;align-items:center;width:100%;pointer-events:none}
+.tdrop2-in > *{pointer-events:auto}
+.tdrop2 .eyebrow{color:var(--dark-muted)}
+.tdrop2 h2{font-size:clamp(28px,4.1vw,64px);line-height:.94;margin-top:14px}
+.tdrop2 .lede{margin-top:16px;font-size:var(--fs-lg);color:var(--dark-muted);max-width:40ch}
+
+/* the loose pieces live on a stage behind everything */
+.stage{position:absolute;inset:0;z-index:1;overflow:hidden}
+.piece{position:absolute;top:0;left:0;will-change:transform;cursor:grab;touch-action:none;
+  user-select:none;-webkit-user-drag:none}
+.piece img{width:100%;height:auto;display:block;pointer-events:none}
+.piece.held{cursor:grabbing;z-index:5}
+.piece.set{cursor:default}
+.piece .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font:500 11px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#06202B;
+  opacity:0;transition:opacity .18s;white-space:nowrap;pointer-events:none}
+.piece.lit .tag{opacity:.85}
+
+/* the slot: four ghost outlines in the exact F arrangement, taken from
+   layout() in r29_anim/_scripts/scene2.html, not eyeballed */
+.slot{position:relative;z-index:2;pointer-events:none;width:100%;aspect-ratio:176/206.56;
+  justify-self:center;align-self:center}
+.hole{position:absolute;border:1.5px dashed rgba(91,194,231,.38);border-radius:10px;
+  transition:border-color .25s, background .25s}
+.hole.round{border-radius:50%}
+.hole.near{border-color:rgba(91,194,231,.95);background:rgba(91,194,231,.10)}
+.hole.done{border-color:transparent;background:transparent}
+.slot .cap{position:absolute;left:0;bottom:-34px;display:flex;align-items:center;gap:9px;
+  font:400 11px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dark-muted);transition:opacity .4s}
+.slot .cap i{width:7px;height:7px;border-radius:50%;background:var(--blue);display:block;animation:pulse 2.4s infinite}
+.slot.built .cap{opacity:0}
+
+.ocard2{background:rgba(16,18,22,.94);border:1px solid var(--dark-line);padding:28px 26px 26px;
+  max-width:400px;backdrop-filter:blur(6px);margin-left:auto}
+.ocard2 .top{display:flex;justify-content:space-between;align-items:center;gap:14px;
+  font:500 11.5px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--dark-muted)}
+.ocard2 .live{display:flex;align-items:center;gap:8px;color:#7FD39A}
+.ocard2 .live i{width:7px;height:7px;border-radius:50%;background:#7FD39A;display:block;animation:pulse 2.4s infinite}
+.ocard2 h3{font-family:'BringBold',sans-serif;font-weight:400;font-size:clamp(22px,2.4vw,30px);line-height:1.02;margin-top:18px}
+.ocard2 .agenda{margin-top:12px;font-size:var(--fs-sm);color:var(--dark-muted);max-width:36ch}
+.ocard2 .btn{display:block;width:100%;text-align:center;margin-top:22px}
+.ocard2 .sub{display:block;margin-top:14px;font:400 11px/1.4 'IBM Plex Mono',monospace;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--dark-muted)}
+
+.won{margin-top:26px;font-size:var(--fs-sm);color:var(--blue);opacity:0;transform:translateY(8px);
+  transition:opacity .5s, transform .5s}
+.won.on{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .tdrop2{min-height:0;padding:11vh 4vw}
+  .tdrop2-in{grid-template-columns:1fr;gap:34px}
+  .ocard2{max-width:none;margin-left:0}
+  .slot{display:none}
+}
+</style>
+</head><body>
+
+<div class="pnote">
+  <h4>Build the mark · proto · not live</h4>
+  <p>Your note, built. <b>Loads of pieces, they stay where you drop them, a slot to build the F in, and the
+  colour payoff when it is done.</b> Drag a shape near its matching hole and it snaps and locks. Fill all four
+  and the built mark goes house ice, then the loose pieces fan out into the other colourways, one by one.</p>
+  <p>The slot geometry is taken from <b>layout() in r29_anim/_scripts/scene2.html</b>, the real F grid
+  (W 176, gap 8, stem 56, top 9:16, stem 16:9), so the assembled mark is the actual lockup rather than
+  something that looks close. It is straight on and never rotates, per HANDOFF_r27.</p>
+  <p><b>One judgement call to overrule if you want.</b> Black is in the seven but its pieces are #17191B on a
+  #0A0B0D section, so it would be invisible. I left it out of the fan and used the six that read on dark:
+  house, tone, bone, midnight, chrome, cobalt.</p>
+</div>
+
+<section class="tdrop2" id="trial">
+  <div class="stage" id="stage" aria-hidden="true"></div>
+  <div class="tdrop2-in">
+    <div>
+      <p class="eyebrow"><span class="tick"></span>The 72-hour ad drop</p>
+      <h2>THREE ADVERTS<span class="dot">.</span><br>EVERY FORMAT<span class="dot">.</span></h2>
+      <p class="lede">You can read a portfolio or you can watch us do it to your own product. One of those
+        settles it.</p>
+      <p class="won" id="won">That is the mark. 16:9, 9:16, 1:1 and the full stop, which is every format your
+        advert comes back in.</p>
+    </div>
+    <div class="slot" id="slot" aria-hidden="true"><span class="cap"><i></i>Build the mark</span></div>
+    <div class="ocard2">
+      <div class="top"><span class="live"><i></i>3 slots a week</span><span>72 hours</span></div>
+      <h3>Three finished adverts, built from your brand<span class="dot">.</span></h3>
+      <p class="agenda">Send your Instagram and nothing else. We direct it, produce it and send it back. Yours
+        to post whether you hire us or not.</p>
+      <a class="btn blue" href="/trial">Claim a slot</a>
+      <span class="sub">No card &middot; no call &middot; miss the brief and we go again</span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const stage=document.getElementById('stage'), slotEl=document.getElementById('slot'),
+        wonEl=document.getElementById('won');
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const coarse=matchMedia('(pointer: coarse)').matches;
+
+  const KINDS=['16x9','9x16','1x1','dot'];
+  const TAGS={'16x9':'16:9','9x16':'9:16','1x1':'1:1','dot':'.'};
+  /* black is #17191B on a #0A0B0D section, so it is left out on purpose */
+  const FAN=['tone','bone','midnight','chrome','cobalt'];
+  const img=(cw,k)=>'/assets/mark/'+cw+'_'+k+'.png';
+
+  /* --- the F grid, straight out of layout() in scene2.html --- */
+  const W=176,g=8,sw=56,topH=W*9/16,stemH=sw*16/9, BW=W, BH=topH+g+stemH;
+  const sr=24, sx=sw+g+56+g/2+sr, sy=topH+g+stemH-sr;
+  const GRID={
+    '16x9':{x:0,y:0,w:W,h:topH},
+    '9x16':{x:0,y:topH+g,w:sw,h:stemH},
+    '1x1' :{x:sw+g,y:topH+g,w:56,h:56},
+    'dot' :{x:sx-sr,y:sy-sr,w:sr*2,h:sr*2}
+  };
+
+  /* the slot sits in the band between the text column and the card */
+  let SW=0,SH=0,SLOTW=0,SLOTX=0,SLOTY=0;
+  const holes={};
+  KINDS.forEach(k=>{
+    const h=document.createElement('div');
+    h.className='hole'+(k==='dot'?' round':'');
+    slotEl.appendChild(h); holes[k]=h;
+  });
+
+  const pieces=[];
+  function makePiece(kind,cw){
+    const el=document.createElement('div');
+    el.className='piece';
+    el.innerHTML='<img src="'+img(cw,kind)+'" alt=""><span class="tag">'+TAGS[kind]+'</span>';
+    stage.appendChild(el);
+    const p={kind,cw,el,x:0,y:0,w:0,set:false};
+    pieces.push(p); return p;
+  }
+
+  /* loads of them: every kind several times over, parked in the margins so the
+     headline and the card keep the centre */
+  /* the headline, the slot and the card own the middle band (y .26 to .76,
+     measured). Everything parks above or below it. */
+  const SCATTER=[
+    ['16x9',.030,.040],['1x1',.175,.030],['9x16',.270,.025],['dot',.360,.075],
+    ['16x9',.450,.030],['1x1',.610,.045],['dot',.730,.030],['9x16',.830,.035],
+    ['16x9',.040,.830],['dot',.185,.870],['1x1',.255,.820],['9x16',.390,.800],
+    ['16x9',.500,.850],['1x1',.660,.820],['dot',.790,.870],['9x16',.900,.800]
+  ];
+  SCATTER.forEach(([k])=>makePiece(k,'house'));
+
+  function layout(){
+    const r=stage.getBoundingClientRect(); SW=r.width; SH=r.height;
+    /* the slot is a real grid item now, so its box is measured, not guessed */
+    const sb=slotEl.getBoundingClientRect();
+    SLOTW=sb.width; SLOTX=sb.left-r.left; SLOTY=sb.top-r.top;
+    KINDS.forEach(k=>{
+      const G=GRID[k], h=holes[k];
+      h.style.left=(G.x/BW*100)+'%'; h.style.top=(G.y/BH*100)+'%';
+      h.style.width=(G.w/BW*100)+'%'; h.style.height=(G.h/BH*100)+'%';
+    });
+    pieces.forEach((p,i)=>{
+      const G=GRID[p.kind];
+      p.w = p.set ? G.w*s : SW*({'16x9':.088,'9x16':.035,'1x1':.049,'dot':.029})[p.kind];
+      p.el.style.width=p.w+'px';
+      if(p.set){ p.x=SLOTX+G.x*s; p.y=SLOTY+G.y*s; }
+      else if(!p.moved){ const d=SCATTER[i]; p.x=SW*d[1]; p.y=SH*d[2]; }
+      draw(p);
+    });
+  }
+  const draw=p=>{ p.el.style.transform='translate3d('+p.x+'px,'+p.y+'px,0)'; };
+
+  /* --- drag: pieces stay exactly where they are dropped --- */
+  let active=null, ox=0, oy=0;
+  function nearestHole(p){
+    if(holes[p.kind].classList.contains('done')) return null;
+    const s=SLOTW/BW, G=GRID[p.kind];
+    const tx=SLOTX+G.x*s, ty=SLOTY+G.y*s;
+    const d=Math.hypot(p.x-tx, p.y-ty);
+    return d < SLOTW*0.30 ? {tx,ty,d} : null;
+  }
+  function bind(p){
+    p.el.addEventListener('pointerdown',e=>{
+      if(reduced||coarse||p.set) return;
+      active=p; p.moved=true;
+      p.el.classList.add('held','lit');
+      /* offsets first: setPointerCapture can throw (no active pointer with
+         that id), and if it does, a later-assigned offset would stay stale
+         and the piece would jump on the next move */
+      ox=e.clientX-p.x; oy=e.clientY-p.y;
+      try{ p.el.setPointerCapture(e.pointerId); }catch(err){}
+      e.preventDefault();
+    });
+    p.el.addEventListener('pointermove',e=>{
+      if(active!==p) return;
+      p.x=e.clientX-ox; p.y=e.clientY-oy; draw(p);
+      const n=nearestHole(p);
+      holes[p.kind].classList.toggle('near', !!n);
+    });
+    const up=()=>{
+      if(active!==p) return;
+      active=null; p.el.classList.remove('held');
+      const n=nearestHole(p);
+      holes[p.kind].classList.remove('near');
+      if(n){ snap(p,n); } else { p.el.classList.remove('lit'); }
+    };
+    p.el.addEventListener('pointerup',up);
+    p.el.addEventListener('pointercancel',up);
+  }
+  pieces.forEach(bind);
+
+  let built=0;
+  function snap(p,n){
+    const s=SLOTW/BW, G=GRID[p.kind];
+    p.set=true; p.el.classList.add('set'); p.el.classList.remove('lit');
+    p.w=G.w*s; p.el.style.width=p.w+'px';
+    /* ease into the hole. No rotation, ever: the lockup is straight on. */
+    const sx=p.x, sy=p.y, t0=performance.now(), D=260;
+    (function ease(t){
+      const k=Math.min(1,(t-t0)/D), e=1-Math.pow(1-k,3);
+      p.x=sx+(n.tx-sx)*e; p.y=sy+(n.ty-sy)*e; draw(p);
+      if(k<1) requestAnimationFrame(ease);
+    })(t0);
+    holes[p.kind].classList.add('done');
+    built++;
+    if(built===KINDS.length) finish();
+  }
+
+  /* the payoff: the built mark stays house ice, the loose ones become the
+     other colourways, one at a time */
+  function finish(){
+    slotEl.classList.add('built');
+    wonEl.classList.add('on');
+    const loose=pieces.filter(p=>!p.set);
+    loose.forEach((p,i)=>{
+      const cw=FAN[i%FAN.length];
+      setTimeout(()=>{
+        const im=p.el.querySelector('img');
+        const next=new Image();
+        next.onload=()=>{ im.style.transition='opacity .25s'; im.style.opacity='0';
+          setTimeout(()=>{ im.src=next.src; im.style.opacity='1'; },120); };
+        next.src=img(cw,p.kind);
+        p.cw=cw;
+      }, 120*i);
+    });
+  }
+
+  function boot(){
+    layout();
+    if(reduced||coarse){ slotEl.style.display='none'; }
+  }
+  addEventListener('resize',layout);
+  if(document.readyState==='complete') boot(); else addEventListener('load',boot);
+})();
+</script>
+</body></html>

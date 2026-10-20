@@ -16,93 +16,178 @@ addEventListener('pointerdown',()=>document.querySelectorAll('video:not([data-no
   if(v.paused&&v.getBoundingClientRect().top<innerHeight)v.play().catch(()=>{});
 }),{once:true});
 
-/* Trial panel: the cursor carries a ball of light. The stars stay where they
-   are; only the ones the light reaches respond to it. */
+/* The 72-hour ad drop toy. The F mark is fixed in the middle; the loose format
+   blocks float, collide and squash, and a hit dents the mark, which springs
+   back to the exact lockup. Geometry is layout() from the brand scene file, so
+   the resting mark is the real lockup, not an approximation. */
 (function(){
-  const cv=document.getElementById('stars'); if(!cv) return;
-  const ctx=cv.getContext('2d'); let W,H,stars=[],DPR=1,rect=null;
-  let tx=.5,ty=.45,ox=.5,oy=.45,warm=0;
-  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage=document.getElementById('tdropStage'); if(!stage) return;
+  const sec=stage.closest('.tdrop'), lane=document.getElementById('tdropLane');
+  const coarse=matchMedia('(pointer: coarse)').matches;
 
-  function build(){
-    DPR=Math.min(devicePixelRatio||1,2);
-    rect=cv.getBoundingClientRect();
-    W=cv.width=Math.round(cv.offsetWidth*DPR);
-    H=cv.height=Math.round(cv.offsetHeight*DPR);
-    const n=Math.round(Math.min(46,Math.max(22,cv.offsetWidth/40)));
-    stars=Array.from({length:n},()=>{
-      const z=Math.random();
-      return {x:Math.random()*W,y:Math.random()*H,
-        r:(0.8+z*1.5)*DPR, tw:Math.random()*6.28,
-        blue:Math.random()<.22, big:z>.86, dx:0, dy:0};
-    });
+  const GW=176,g=8,sw=56,topH=GW*9/16,stemH=sw*16/9;
+  const sr=24,sx0=sw+g+56+g/2+sr,sy0=topH+g+stemH-sr,BW=GW,BH=topH+g+stemH;
+  const MARK=[{k:'16x9',x:0,y:0,w:GW,h:topH},{k:'9x16',x:0,y:topH+g,w:sw,h:stemH},
+              {k:'1x1',x:sw+g,y:topH+g,w:56,h:56},{k:'dot',x:sx0-sr,y:sy0-sr,w:sr*2,h:sr*2}];
+  const KINDS=['16x9','9x16','1x1','dot'], AR={'16x9':9/16,'9x16':16/9,'1x1':1,'dot':1};
+  const SZ={'16x9':.085,'9x16':.034,'1x1':.047,'dot':.030};
+
+  let W=0,H=0,TB=null,running=false;
+  const bodies=[], rnd=(a,b)=>a+Math.random()*(b-a);
+
+  function make(kind,isMark){
+    const el=document.createElement('div');
+    el.className='b'+(isMark?' mark':'');
+    el.innerHTML='<img src="assets/mark/house_'+kind+'.png" alt="" loading="lazy">';
+    stage.appendChild(el);
+    return {kind,isMark,el,x:0,y:0,vx:0,vy:0,w:0,h:0,sx:1,sy:1,vsx:0,vsy:0,rot:0,vrot:0,
+            hx:0,hy:0,round:kind==='dot',ph:Math.random()*6.283,ph2:Math.random()*6.283};
   }
-  build();
-  addEventListener('resize',build);
-  addEventListener('scroll',()=>{rect=cv.getBoundingClientRect()},{passive:true});
-  addEventListener('load',build);
-  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(build);
+  MARK.forEach(m=>{const b=make(m.k,true); b.def=m; bodies.push(b);});
+  for(let i=0;i<14;i++) bodies.push(make(KINDS[i%4],false));
 
-  /* listen on the window so nothing stacked above the canvas can swallow it */
-  addEventListener('pointermove',e=>{
-    if(!rect) rect=cv.getBoundingClientRect();
-    tx=(e.clientX-rect.left)/rect.width;
-    ty=(e.clientY-rect.top)/rect.height;
-    warm=1;
-  },{passive:true});
-
-  function orb(x,y,R,a){
-    const g=ctx.createRadialGradient(x,y,0,x,y,R);
-    g.addColorStop(0,   'rgba(158,226,249,'+(0.40*a)+')');
-    g.addColorStop(0.16,'rgba(91,194,231,' +(0.22*a)+')');
-    g.addColorStop(0.44,'rgba(34,110,152,' +(0.10*a)+')');
-    g.addColorStop(1,   'rgba(0,0,0,0)');
-    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,R,0,6.283); ctx.fill();
-  }
-
-  function drawStar(s,x,y,a,t){
-    const col=s.blue?'150,214,240':'226,234,240';
-    const g=ctx.createRadialGradient(x,y,0,x,y,s.r*7);
-    g.addColorStop(0,'rgba('+col+','+(a*0.45)+')');
-    g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,s.r*7,0,6.283); ctx.fill();
-    ctx.fillStyle='rgba('+col+','+a+')';
-    ctx.beginPath(); ctx.arc(x,y,s.r,0,6.283); ctx.fill();
-    if(s.big&&a>0.34){
-      const L=s.r*(5+1.6*Math.sin(t/700+s.tw));
-      ctx.strokeStyle='rgba('+col+','+(a*0.4)+')';
-      ctx.lineWidth=Math.max(0.8,s.r*0.3);
-      ctx.beginPath();
-      ctx.moveTo(x-L,y); ctx.lineTo(x+L,y);
-      ctx.moveTo(x,y-L*0.8); ctx.lineTo(x,y+L*0.8);
-      ctx.stroke();
+  function layout(){
+    const r=stage.getBoundingClientRect(); W=r.width; H=r.height;
+    const z=lane?lane.getBoundingClientRect():null;
+    const L=(z&&z.width>40)?{cx:z.left-r.left+z.width/2,cw:z.width}:{cx:W*0.5,cw:W*0.3};
+    const scale=Math.min(L.cw*0.92,H*0.52*(BW/BH))/BW;
+    const mx=L.cx-BW*scale/2, my=H/2-BH*scale/2;
+    for(const b of bodies){
+      if(b.isMark){
+        b.w=b.def.w*scale; b.h=b.def.h*scale;
+        b.hx=mx+b.def.x*scale; b.hy=my+b.def.y*scale;
+        if(!b.started){b.x=b.hx;b.y=b.hy;b.started=1;}
+      }else if(!b.started){
+        b.w=W*SZ[b.kind]; b.h=b.w*AR[b.kind];
+        b.x=rnd(0,Math.max(1,W-b.w)); b.y=rnd(0,Math.max(1,H-b.h));
+        b.vx=rnd(-.5,.5); b.vy=rnd(-.5,.5); b.rot=b.round?0:rnd(-9,9); b.started=1;
+      }
+      b.el.style.width=b.w+'px';
     }
+    const t=sec.querySelector('.tdrop-in > div:first-child');
+    if(t){const w=t.getBoundingClientRect(); TB={x:w.left-r.left,y:w.top-r.top,w:w.width,h:w.height};}
+  }
+
+  let held=null,ox=0,oy=0,lx=0,ly=0;
+  function at(cx,cy){
+    const r=stage.getBoundingClientRect(), px=cx-r.left, py=cy-r.top;
+    for(let i=bodies.length-1;i>=0;i--){const b=bodies[i];
+      if(b.isMark) continue;
+      if(px>=b.x&&px<=b.x+b.w&&py>=b.y&&py<=b.y+b.h) return b;}
+    return null;
+  }
+  sec.addEventListener('pointerdown',e=>{
+    if(reduced||coarse) return;
+    const b=at(e.clientX,e.clientY); if(!b) return;
+    held=b;
+    /* offsets before capture: capture can throw, and a later assignment would
+       leave them stale, which makes the block jump on the next move */
+    ox=e.clientX-b.x; oy=e.clientY-b.y; lx=e.clientX; ly=e.clientY;
+    try{sec.setPointerCapture(e.pointerId);}catch(err){}
+    e.preventDefault();
+  });
+  sec.addEventListener('pointermove',e=>{
+    if(!held) return;
+    held.x=e.clientX-ox; held.y=e.clientY-oy;
+    held.vx=(e.clientX-lx)*0.5; held.vy=(e.clientY-ly)*0.5;
+    lx=e.clientX; ly=e.clientY;
+  });
+  const drop=()=>{held=null;};
+  sec.addEventListener('pointerup',drop); sec.addEventListener('pointercancel',drop);
+
+  function squash(b,nx,ny,amt){
+    const a=Math.min(amt,0.40);
+    b.vsx+=(-Math.abs(nx)+Math.abs(ny)*0.75)*a;
+    b.vsy+=(-Math.abs(ny)+Math.abs(nx)*0.75)*a;
+  }
+  function collide(a,b){
+    const acx=a.x+a.w/2,acy=a.y+a.h/2,bcx=b.x+b.w/2,bcy=b.y+b.h/2;
+    let nx,ny,depth;
+    if(a.round&&b.round){
+      const dx=bcx-acx,dy=bcy-acy,d=Math.hypot(dx,dy)||1;
+      depth=a.w/2+b.w/2-d; if(depth<=0) return; nx=dx/d; ny=dy/d;
+    }else{
+      const px=(a.w+b.w)/2-Math.abs(acx-bcx), py=(a.h+b.h)/2-Math.abs(acy-bcy);
+      if(px<=0||py<=0) return;
+      if(px<py){nx=acx<bcx?1:-1;ny=0;depth=px;} else {nx=0;ny=acy<bcy?1:-1;depth=py;}
+    }
+    const rel=(b.vx-a.vx)*nx+(b.vy-a.vy)*ny, hit=Math.min(Math.abs(rel),22);
+    const af=a.isMark, bf=b.isMark;
+    if(!af&&!bf){
+      a.x-=nx*depth/2; a.y-=ny*depth/2; b.x+=nx*depth/2; b.y+=ny*depth/2;
+      const p=rel*0.5;
+      if(a!==held){a.vx+=nx*p;a.vy+=ny*p;}
+      if(b!==held){b.vx-=nx*p;b.vy-=ny*p;}
+    }else if(af){
+      b.x+=nx*depth; if(b!==held){b.vx-=nx*rel*0.9;b.vy-=ny*rel*0.9;}
+      b.y+=ny*depth; a.x-=nx*depth*0.22; a.y-=ny*depth*0.22;
+    }else{
+      a.x-=nx*depth; if(a!==held){a.vx+=nx*rel*0.9;a.vy+=ny*rel*0.9;}
+      a.y-=ny*depth; b.x+=nx*depth*0.22; b.y+=ny*depth*0.22;
+    }
+    const amt=0.012*hit+depth*0.0016;
+    squash(a,nx,ny,amt); squash(b,nx,ny,amt);
   }
 
   function frame(t){
-    ox+=(tx-ox)*.12; oy+=(ty-oy)*.12;          /* the light follows the cursor */
-    const OX=ox*W, OY=oy*H, R=Math.min(W,H)*0.62;
-    ctx.clearRect(0,0,W,H);
-    ctx.globalCompositeOperation='lighter';
-
-    orb(OX,OY,R,0.9+0.2*warm);
-    orb(OX,OY,R*0.22,1.0+0.3*warm);
-
-    for(const s of stars){
-      /* stars hold position; only the light's reach nudges and lifts them */
-      const vx=s.x-OX, vy=s.y-OY, d=Math.hypot(vx,vy)||1;
-      const reach=Math.max(0,1-d/(R*0.8));
-      const push=reach*reach*9*DPR;
-      s.dx+=((vx/d)*push-s.dx)*.1;
-      s.dy+=((vy/d)*push-s.dy)*.1;
-      const twinkle=still?0 : 0.05*(.5+.5*Math.sin(t/2200+s.tw));
-      const a=Math.min(0.17+twinkle+reach*0.5, 0.78);
-      drawStar(s,s.x+s.dx,s.y+s.dy,a,t);
+    if(!running) return;
+    for(const b of bodies){
+      if(b.isMark||b===held) continue;
+      b.vx+=Math.cos(t*0.00026+b.ph)*0.013;
+      b.vy+=Math.sin(t*0.00031+b.ph2)*0.013;
+      b.x+=b.vx; b.y+=b.vy; b.vx*=0.985; b.vy*=0.985;
+      b.rot+=b.vrot; b.vrot*=0.96;
+      const sp=Math.hypot(b.vx,b.vy); if(sp>7){b.vx*=7/sp;b.vy*=7/sp;}
+      if(b.x<0){b.x=0;b.vx=Math.abs(b.vx)*.72;squash(b,1,0,.012*Math.abs(b.vx)+.05);}
+      if(b.y<0){b.y=0;b.vy=Math.abs(b.vy)*.72;squash(b,0,1,.012*Math.abs(b.vy)+.05);}
+      if(b.x+b.w>W){b.x=W-b.w;b.vx=-Math.abs(b.vx)*.72;squash(b,1,0,.012*Math.abs(b.vx)+.05);}
+      if(b.y+b.h>H){b.y=H-b.h;b.vy=-Math.abs(b.vy)*.72;squash(b,0,1,.012*Math.abs(b.vy)+.05);}
     }
-    ctx.globalCompositeOperation='source-over';
-    if(!still) requestAnimationFrame(frame);
+    for(let i=0;i<bodies.length;i++)
+      for(let j=i+1;j<bodies.length;j++){
+        if(bodies[i].isMark&&bodies[j].isMark) continue;
+        collide(bodies[i],bodies[j]);
+      }
+    /* a soft shoulder round the mark, so blocks drift off it instead of
+       settling on top and burying the F */
+    for(const b of bodies){
+      if(b.isMark||b===held) continue;
+      for(const m of bodies){
+        if(!m.isMark) continue;
+        const dx=(b.x+b.w/2)-(m.x+m.w/2), dy=(b.y+b.h/2)-(m.y+m.h/2);
+        const rx=(b.w+m.w)/2+14, ry=(b.h+m.h)/2+14;
+        if(Math.abs(dx)<rx&&Math.abs(dy)<ry){
+          b.vx+=Math.sign(dx||1)*(1-Math.abs(dx)/rx)*0.14;
+          b.vy+=Math.sign(dy||1)*(1-Math.abs(dy)/ry)*0.14;
+        }
+      }
+    }
+    for(const b of bodies){
+      if(b.isMark){b.x+=(b.hx-b.x)*0.10; b.y+=(b.hy-b.y)*0.10;}
+      b.vsx+=(1-b.sx)*0.16; b.vsx*=0.80; b.sx+=b.vsx;
+      b.vsy+=(1-b.sy)*0.16; b.vsy*=0.80; b.sy+=b.vsy;
+      b.sx=Math.max(.55,Math.min(1.45,b.sx)); b.sy=Math.max(.55,Math.min(1.45,b.sy));
+      let o=b.isMark?1:0.40;
+      if(!b.isMark&&TB&&b.x+b.w>TB.x&&b.x<TB.x+TB.w&&b.y+b.h>TB.y&&b.y<TB.y+TB.h) o=0.18;
+      b.el.style.opacity=o;
+      b.el.style.transform='translate3d('+b.x+'px,'+b.y+'px,0) rotate('+b.rot+'deg) scale('+b.sx+','+b.sy+')';
+    }
+    requestAnimationFrame(frame);
   }
-  if(still) frame(0); else requestAnimationFrame(frame);
+
+  function start(){ if(running) return; running=true; requestAnimationFrame(frame); }
+  function stop(){ running=false; }
+
+  layout();
+  if(reduced||coarse){
+    for(const b of bodies) b.el.style.transform='translate3d('+b.x+'px,'+b.y+'px,0)';
+    const n=sec.querySelector('.nudge'); if(n) n.style.display='none';
+    return;
+  }
+  /* only run the loop while the section is actually on screen */
+  new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start():stop()),
+    {threshold:.01}).observe(sec);
+  addEventListener('resize',layout);
 })();
 
 

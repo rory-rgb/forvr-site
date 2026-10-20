@@ -166,6 +166,11 @@
    "source": "/ai-receptionist",
    "destination": "/ai-automation",
    "permanent": true
+  },
+  {
+   "source": "/calendar",
+   "destination": "/contact",
+   "permanent": true
   }
  ],
  "headers": [
