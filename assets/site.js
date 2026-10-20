@@ -56,13 +56,19 @@ addEventListener('pointerdown',()=>document.querySelectorAll('video:not([data-no
       if(b.isMark){
         b.w=b.def.w*scale; b.h=b.def.h*scale;
         b.hx=mx+b.def.x*scale; b.hy=my+b.def.y*scale;
-        if(!b.started){b.x=b.hx;b.y=b.hy;b.started=1;}
+        /* always snap, never once: the first layout() can run before the grid
+           has settled, and the spring only corrects that if the loop is
+           already running, which it is not until the section scrolls in */
+        b.x=b.hx; b.y=b.hy; b.started=1;
       }else if(!b.started){
         b.w=W*SZ[b.kind]; b.h=b.w*AR[b.kind];
         b.x=rnd(0,Math.max(1,W-b.w)); b.y=rnd(0,Math.max(1,H-b.h));
         b.vx=rnd(-.5,.5); b.vy=rnd(-.5,.5); b.rot=b.round?0:rnd(-9,9); b.started=1;
       }
       b.el.style.width=b.w+'px';
+      /* paint the position now. Only frame() wrote transforms before, so until
+         the loop's first frame every piece sat at x=0, in the corner. */
+      b.el.style.transform='translate3d('+b.x+'px,'+b.y+'px,0) rotate('+b.rot+'deg)';
     }
     const t=sec.querySelector('.tdrop-in > div:first-child');
     if(t){const w=t.getBoundingClientRect(); TB={x:w.left-r.left,y:w.top-r.top,w:w.width,h:w.height};}
@@ -188,6 +194,8 @@ addEventListener('pointerdown',()=>document.querySelectorAll('video:not([data-no
   new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start():stop()),
     {threshold:.01}).observe(sec);
   addEventListener('resize',layout);
+  addEventListener('load',layout);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(layout);
 })();
 
 

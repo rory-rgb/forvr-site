@@ -172,8 +172,9 @@ main.over{position:relative;z-index:2;background:var(--bg);box-shadow:0 -30px 60
 .tdrop .b:not(.mark){opacity:.40}
 /* the words get their own scrim so a block drifting behind them never costs
    legibility, without caging where the blocks can go */
-.tdrop-scrim{position:absolute;z-index:2;left:0;top:0;width:42%;height:100%;pointer-events:none;
-  background:radial-gradient(120% 70% at 12% 50%, rgba(10,11,13,.94) 0%, rgba(10,11,13,.72) 48%, rgba(10,11,13,0) 85%)}
+/* stops short of the mark lane, which starts at ~41.7% */
+.tdrop-scrim{position:absolute;z-index:2;left:0;top:0;width:34%;height:100%;pointer-events:none;
+  background:radial-gradient(120% 70% at 10% 50%, rgba(10,11,13,.92) 0%, rgba(10,11,13,.66) 52%, rgba(10,11,13,0) 92%)}
 .tdrop-in{position:relative;z-index:4;width:100%;display:grid;
   grid-template-columns:1fr .62fr .92fr;gap:3vw;align-items:center;pointer-events:none}
 .tdrop-in > *{pointer-events:auto}
@@ -185,8 +186,9 @@ main.over{position:relative;z-index:2;background:var(--bg);box-shadow:0 -30px 60
   font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;
   text-transform:uppercase;color:var(--dark-muted)}
 .tdrop .nudge i{width:7px;height:7px;border-radius:50%;background:var(--blue);display:block;animation:pulse 2.4s infinite}
-.ocard{background:rgba(14,16,20,.96);border:1px solid var(--dark-line);padding:28px 26px 26px;
-  max-width:400px;margin-left:auto;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+/* no box and no shadow: the card's 80px shadow spread was bleeding onto the
+   mark, which sits only ~43px to its left. Just the words on the dark. */
+.ocard{max-width:380px;margin-left:auto}
 .ocard .top{display:flex;justify-content:space-between;align-items:center;gap:14px;
   font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:.1em;
   text-transform:uppercase;color:var(--dark-muted)}
