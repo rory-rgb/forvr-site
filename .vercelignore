@@ -4,29 +4,9 @@ tools/
 # Kept off Vercel to stay under the 10 GB deployment storage limit (19 Oct 2026).
 # The files stay in the repo and on disk, run them locally.
 
-# Rory's job portfolio (/rorywilkie), local only now. Files any live page uses are not listed.
-/assets/meta/02.mp4
-/assets/meta/03.mp4
-/assets/meta/04.mp4
-/assets/meta/06.mp4
-/assets/meta/07.mp4
-/assets/meta/08.mp4
-/assets/meta/09.mp4
-/assets/films/6th-worlds.jpg
-/assets/films/6th-worlds.mp4
-/assets/films/coldculture.jpg
-/assets/films/coldculture.mp4
-/assets/films/nike-ledge.jpg
-/assets/films/nike-ledge.mp4
-/assets/films/sp5der-bull.jpg
-/assets/films/sp5der-bull.mp4
-/rorywilkie.html
+# Old job portfolio files, local only. /rorywilkie itself is live again (3 Nov 2026).
 /rorywilkieportfolio.html
 /rory-wilkie-portfolio.pdf
-/rory-wilkie-cv.pdf
-/demo/marlow-hale/
-/demo/blip/
-/demo/pica/
 
 # Site experiments. forvr.css and forvr.js stay deployed, four live pages load them.
 /_proto/.keep
